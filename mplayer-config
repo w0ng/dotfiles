@@ -1,0 +1,20 @@
+#
+# ~/.mplayer/config
+#
+
+# video settings
+vo = xv
+monitoraspect = 16:9
+
+# audio settings
+ao = alsa
+mixer-channel = Master
+
+# default language
+slang = en
+alang = en
+
+# osd settings
+use-filename-title = yes
+osdlevel = 3
+subfont-osd-scale = 2

@@ -1,0 +1,11 @@
+###
+# ~/.mutt/mq.muttrc
+###
+
+color status blue default
+
+set from = "andrew.wong@students.mq.edu.au"
+set sendmail = "/usr/bin/msmtp -a mq"
+set mbox = "+mq/all_mail"
+unset record
+set postponed = "+mq/drafts"

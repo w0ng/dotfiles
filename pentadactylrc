@@ -1,0 +1,99 @@
+" 
+" ~/.pentadactylrc
+"
+"1.0rc1
+
+loadplugins '\.(js|penta)$'
+group user
+" status line
+hi -a StatusLine font-weight: normal;
+hi -a StatusLineNormal color:#888888 !important; background:#292929 !important;
+
+" toggle global dark style
+noremap <F2> :styletoggle<Space>-name<Space>dark<CR>
+" toggle minimalistic tabs
+noremap <leader>t :styletoggle<Space>-name<Space>minitabs<CR>
+
+" appearance
+set hlfind
+set defsearch=g
+set guioptions=Csn
+
+" set font
+hi FontCode -a font-family: Terminus important; font-size: 9pt !important;
+hi FontFixed -a font-family: Terminus !important; font-size: 9pt !important;
+hi Normal -a font-family: Terminus !important; font-size: 9pt !important;
+
+
+" dark colors
+style -name dark http://*,https://*,file://*,about:blank <<EOM
+* {
+  color: #888888 !important;
+  background: #151515 !important;
+  border-color: #292929 !important;
+}
+
+a, a * {
+  color: #8197bf !important;
+  text-decoration: none !important;
+}
+
+a:hover, a:hover * {
+  color: #fad07a !important;
+}
+
+a:visited, a:visited * {
+  color: #B46799 !important;
+}
+
+a:visited:hover, a:visited:hover * {
+  color: #fad07a !important;
+}
+EOM
+
+" minimalistic tabs
+style -name minitabs chrome://* <<EOM
+#TabsToolbar toolbarbutton {
+  display: none !important;
+}
+ 
+.tabbrowser-tabs {
+  background: #292929 !important;
+}
+ 
+.tabbrowser-tab {
+  -moz-appearance: none !important;
+  background: #292929 !important;
+  border: none !important;
+  color: #888888 !important;
+  font-family: Terminus; 
+  font-size: 9pt !important;
+  height: 18px !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 0.5ex !important;
+  -moz-border-radius: 0 !important;
+}
+ 
+.tabbrowser-tab:not([pinned]) {
+  min-width: 100px !important;
+  max-width: 100px !important;
+}
+
+.tabbrowser-tab:not([fadein]) {
+  min-width: 1px !important;
+  max-width: 1px !important;
+}
+
+.tabbrowser-tab:hover {
+  background: #fad07a !important;
+  color: #151515 !important;
+}
+ 
+.tabbrowser-tab[selected] {
+  background: #292929 !important;
+  color: #fad07a !important;
+}
+EOM
+
+" vim: set ft=pentadactyl:

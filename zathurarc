@@ -1,0 +1,13 @@
+#
+# ~/.config/zathura/zathurarc
+#
+
+set default_bgcolor #151515
+set default_fgcolor #888888
+set font Terminus normal 9
+set inputbar_bgcolor #151515
+set inputbar_fgcolor #fad07a
+set statusbar_bgcolor #292929
+set statusbar_fgcolor #888888
+set recolor_lightcolor #151515
+set recolor_darkcolor #888888

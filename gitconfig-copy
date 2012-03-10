@@ -1,0 +1,15 @@
+#
+# ~/.gitconfig
+#
+
+[user]
+	name = Andrew Wong
+	email = akamchoiw@gmail.com
+[github]
+	token = XXXXXXXXXX
+  user = w0ng
+[color]
+	ui = true
+[core]
+	editor = vim
+	excludesfile = /home/w0ng/.gitignore_global

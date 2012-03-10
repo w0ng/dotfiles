@@ -1,0 +1,11 @@
+#
+# ~/.mutt/gmail.muttrc
+#
+
+color status green default
+
+set from = "akamchoiw@gmail.com"
+set sendmail = "/usr/bin/msmtp -a gmail"
+set mbox = "+gmail/all_mail"
+unset record
+set postponed = "+gmail/drafts"

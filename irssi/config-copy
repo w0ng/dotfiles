@@ -1,0 +1,380 @@
+#
+# ~/.irssi/config
+#
+
+servers = (
+  {
+    address = "irc.freenode.net";
+    chatnet = "freenode";
+    port = "6667";
+    autoconnect = "yes";
+  },
+  {
+    address = "client.oz.org";
+    chatnet = "oz";
+    port = "6667";
+    autoconnect = "yes";
+  },
+  {
+    address = "irc.x1n.org";
+    chatnet = "rizon";
+    port = "6667";
+    autoconnect = "yes";
+  },
+  { address = "localhost"; chatnet = "bitlbee"; autoconnect = "yes"; }
+);
+
+chatnets = {
+  freenode = {
+    type = "IRC";
+    autosendcmd = "/^msg nickserv identify XXXXXXXX; wait 5000";
+  };
+  oz = { type = "IRC"; };
+  rizon = {
+    type = "IRC";
+    autosendcmd = "/^msg nickserv identify XXXXXXXXX;";
+  };
+  bitlbee = {
+    type = "IRC";
+    autosendcmd = "/^msg &bitlbee identify XXXXXXXX;";
+  };
+};
+
+channels = (
+  { name = "#overclockers"; chatnet = "oz"; autojoin = "Yes"; },
+  { name = "#fsc"; chatnet = "rizon"; autojoin = "Yes"; },
+  { name = "#archlinux"; chatnet = "freenode"; autojoin = "Yes"; },
+  { name = "#bash"; chatnet = "freenode"; autojoin = "Yes"; },
+  { name = "#c++"; chatnet = "freenode"; autojoin = "Yes"; },
+  { name = "#opengl"; chatnet = "freenode"; autojoin = "Yes"; },
+  { name = "#reddit"; chatnet = "freenode"; autojoin = "Yes"; },
+  { name = "#vim"; chatnet = "freenode"; autojoin = "Yes"; }
+);
+
+aliases = {
+  J = "join";
+  WJOIN = "join -window";
+  WQUERY = "query -window";
+  LEAVE = "part";
+  BYE = "quit";
+  EXIT = "quit";
+  SIGNOFF = "quit";
+  DESCRIBE = "action";
+  DATE = "time";
+  HOST = "userhost";
+  LAST = "lastlog";
+  SAY = "msg *";
+  WI = "whois";
+  WII = "whois $0 $0";
+  WW = "whowas";
+  W = "window";
+  N = "names";
+  M = "msg";
+  T = "topic";
+  C = "clear";
+  CL = "clear";
+  K = "kick";
+  KB = "kickban";
+  KN = "knockout";
+  BANS = "ban";
+  B = "ban";
+  MUB = "unban *";
+  UB = "unban";
+  IG = "ignore";
+  UNIG = "unignore";
+  SB = "scrollback";
+  UMODE = "mode $N";
+  WC = "window close";
+  WN = "window new hide";
+  SV = "say Irssi $J ($V) - http://irssi.org/";
+  GOTO = "sb goto";
+  CHAT = "dcc chat";
+  RUN = "SCRIPT LOAD";
+  CALC = "exec - if command -v bc >/dev/null 2>&1\\; then printf '%s=' '$*'\\; echo '$*' | bc -l\\; else echo bc was not found\\; fi";
+  SBAR = "STATUSBAR";
+  INVITELIST = "mode $C +I";
+  Q = "QUERY";
+  "MANUAL-WINDOWS" = "set use_status_window off;set autocreate_windows off;set autocreate_query_level none;set autoclose_windows off;set reuse_unused_windows on;save";
+  EXEMPTLIST = "mode $C +e";
+  ATAG = "WINDOW SERVER";
+  UNSET = "set -clear";
+  RESET = "set -default";
+};
+
+statusbar = {
+  # formats:
+  # when using {templates}, the template is shown only if it's argument isn't
+  # empty unless no argument is given. for example {sb} is printed always,
+  # but {sb $T} is printed only if $T isn't empty.
+
+  items = {
+    # start/end text in statusbars
+    barstart = "{sbstart}";
+    barend = "{sbend}";
+
+    topicbarstart = "{topicsbstart}";
+    topicbarend = "{topicsbend}";
+
+    # treated "normally", you could change the time/user name to whatever
+    time = "{sb $Z}";
+    user = "{sb $N}";
+
+    # treated specially .. window is printed with non-empty windows,
+    # window_empty is printed with empty windows
+    window = "{sb $winref:$tag/$itemname{sbmode $M}}";
+    window_empty = "{sb $winref{sbservertag $tag}}";
+    prompt = "{prompt $[.15]itemname}";
+    prompt_empty = "{prompt $winname}";
+    topic = " $topic";
+    topic_empty = " Irssi v$J - http://irssi.org/help/";
+
+    # all of these treated specially, they're only displayed when needed
+    lag = "{sb Lag: $0-}";
+    act = "{sb Act: $0-}";
+    more = "-- more --";
+  };
+
+  # there's two type of statusbars. root statusbars are either at the top
+  # of the screen or at the bottom of the screen. window statusbars are at
+  # the top/bottom of each split window in screen.
+  default = {
+    # the "default statusbar" to be displayed at the bottom of the window.
+    # contains all the normal items.
+    window = {
+      disabled = "yes";
+
+      # window, root
+      type = "window";
+      # top, bottom
+      placement = "bottom";
+      # number
+      position = "0";
+      # active, inactive, always
+      visible = "active";
+
+      # list of items in statusbar in the display order
+      items = {
+        barstart = { priority = "100"; };
+        time = { };
+        user = { };
+        window_empty = { };
+        lag = { priority = "-1"; };
+        more = { priority = "-1"; alignment = "right"; };
+        barend = { priority = "100"; alignment = "right"; };
+        active = { };
+        act = { };
+        typing_notice = { };
+      };
+    };
+
+    # statusbar to use in inactive split windows
+    window_inact = {
+      type = "window";
+      placement = "bottom";
+      position = "1";
+      visible = "inactive";
+      items = {
+        barstart = { priority = "100"; };
+        window = { };
+        window_empty = { };
+        more = { priority = "-1"; alignment = "right"; };
+        barend = { priority = "100"; alignment = "right"; };
+      };
+    };
+
+    # we treat input line as yet another statusbar :) It's possible to
+    # add other items before or after the input line item.
+    prompt = {
+      type = "root";
+      placement = "bottom";
+      # we want to be at the bottom always
+      position = "100";
+      visible = "always";
+      items = {
+        barstart = { priority = "100"; };
+        time = { };
+        user = { };
+        prompt = { priority = "-1"; };
+        prompt_empty = { priority = "-1"; };
+        # treated specially, this is the real input line.
+        input = { priority = "10"; };
+      };
+    };
+
+    # topicbar
+    topic = {
+      type = "root";
+      placement = "bottom";
+      position = "1";
+      visible = "always";
+      items = {
+        topicbarstart = { priority = "100"; };
+        topic = { };
+        topic_empty = { };
+        topicbarend = { priority = "100"; alignment = "right"; };
+      };
+    };
+
+    awl_0 = {
+      items = {
+        barstart = { priority = "100"; };
+        awl_0 = { };
+        barend = { priority = "100"; alignment = "right"; };
+      };
+    };
+  };
+};
+
+settings = {
+  core = {
+    user_name = "w0ng";
+    nick = "w0ng";
+    awaylog_file = "/dev/null";
+    recode_autodetect_utf8 = "yes";
+    recode_fallback = "CP1252";
+    real_name = "Unknown";
+  };
+
+  "fe-text" = { actlist_sort = "refnum"; };
+
+  "fe-common/core" = {
+    emphasis = "OFF";
+    theme = "my";
+    beep_msg_level = "NOTICE MSGS HILIGHT";
+    bell_beeps = "no";
+    autolog_path = "~/.logs/irclogs/$tag/$0.log";
+    autolog = "yes";
+    print_active_channel = "no";
+    hilight_act_color = "%r";
+    hilight_color = "%y";
+    hilight_level = "PUBLIC DCCMSGS MSGS";
+    hilight_nick_matches = "no";
+    show_names_on_join = "no";
+  };
+
+  "perl/core/scripts" = {
+    neat_maxlength = "10";
+    awl_display_key = "%w$N.$H$C$S";
+    awl_position = "0";
+    awl_sbar_maxlength = "no";
+    awl_maxlines = "3";
+    screen_away_message = "away";
+    hilightwin_showprivmsg = "no";
+    bitlbee_send_typing = "yes";
+    lt_in_queries = "yes";
+    awl_display_key_active = "%y$N.$H$C$S";
+  };
+  "irc/core" = { alternate_nick = "w0ng_"; };
+};
+
+ignores = (
+  { level = "JOINS PARTS QUITS NICKS"; },
+  { level = "MODES"; channels = ( "&bitlbee" ); }
+);
+
+hilights = (
+  { text = "w0ng"; nick = "no"; word = "no"; fullword = "yes"; },
+  { text = "w0ng_"; nick = "no"; word = "no"; fullword = "yes"; },
+  { text = "wong"; nick = "no"; word = "no"; fullword = "yes"; },
+  { text = "wong_"; nick = "no"; word = "no"; fullword = "yes"; }
+);
+
+logs = { };
+windows = {
+  1 = { immortal = "yes"; name = "(status)"; level = "ALL"; };
+  2 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#fsc";
+        tag = "rizon";
+      }
+    );
+  };
+  3 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#overclockers";
+        tag = "oz";
+      }
+    );
+  };
+  4 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#reddit";
+        tag = "freenode";
+      }
+    );
+  };
+  5 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#archlinux";
+        tag = "freenode";
+      }
+    );
+  };
+  6 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#bash";
+        tag = "freenode";
+      }
+    );
+  };
+  7 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#c++";
+        tag = "freenode";
+      }
+    );
+  };
+  8 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#opengl";
+        tag = "freenode";
+      }
+    );
+  };
+  9 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#vim";
+        tag = "freenode";
+      }
+    );
+  };
+  10 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "&bitlbee";
+        tag = "bitlbee";
+      }
+    );
+  };
+  99 = { name = "hilight"; sticky = "yes"; };
+};
+mainwindows = {
+  1 = { first_line = "5"; lines = "72"; };
+  99 = { first_line = "1"; lines = "4"; };
+};

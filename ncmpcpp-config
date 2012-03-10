@@ -1,0 +1,18 @@
+#
+# ~/.ncmpcpp/config
+#
+
+# connection settings
+mpd_music_dir = "/home/w0ng/music"
+
+# song format
+song_list_format = "{$2%n▕ $9}{$7%a - $9}{$6%t$9}|{$8%f$9}$R{$4▕ %b$9}{$3▕ %l$9}"
+
+# various settings
+autocenter_mode = "yes"
+header_visibility = "no"
+statusbar_visibility = "no"
+
+# color definitions
+main_window_color = "white"
+main_window_highlight_color = "white"
