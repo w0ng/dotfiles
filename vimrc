@@ -52,4 +52,6 @@ colorscheme jellybeans
 " set gvim font
 if has('gui_running')
   set guifont=Terminus\ 9
+  set guioptions-=m
+  set guioptions-=T
 endif
