@@ -57,3 +57,4 @@ extract () {
 alias usbmount="sudo mount -o gid=users,fmask=113,dmask=002 /dev/sdd /mnt/usb"
 alias usbumount="sudo umount /mnt/usb"
 alias tm="tmux attach-session -d -t 0"
+alias c="gcc -lGL -lGLU -lglut"
