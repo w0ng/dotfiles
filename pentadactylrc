@@ -50,6 +50,7 @@ a:visited:hover, a:visited:hover * {
   color: #fad07a !important;
 }
 EOM
+styledisable -name=dark
 
 " minimalistic tabs
 style -name minitabs chrome://* <<EOM
