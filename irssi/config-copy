@@ -1,6 +1,4 @@
-#
-# ~/.irssi/config
-#
+###
 
 servers = (
   {
@@ -16,7 +14,7 @@ servers = (
     autoconnect = "yes";
   },
   {
-    address = "irc.x1n.org";
+    address = "irc.rizon.net";
     chatnet = "rizon";
     port = "6667";
     autoconnect = "yes";
@@ -32,7 +30,7 @@ chatnets = {
   oz = { type = "IRC"; };
   rizon = {
     type = "IRC";
-    autosendcmd = "/^msg nickserv identify XXXXXXXXX;";
+    autosendcmd = "/^msg nickserv identify XXXXXXXX;";
   };
   bitlbee = {
     type = "IRC";
@@ -45,9 +43,9 @@ channels = (
   { name = "#fsc"; chatnet = "rizon"; autojoin = "Yes"; },
   { name = "#archlinux"; chatnet = "freenode"; autojoin = "Yes"; },
   { name = "#bash"; chatnet = "freenode"; autojoin = "Yes"; },
-  { name = "#c++"; chatnet = "freenode"; autojoin = "Yes"; },
-  { name = "#opengl"; chatnet = "freenode"; autojoin = "Yes"; },
-  { name = "#reddit"; chatnet = "freenode"; autojoin = "Yes"; },
+  { name = "##c++"; chatnet = "freenode"; autojoin = "Yes"; },
+  { name = "#eclipse"; chatnet = "freenode"; autojoin = "Yes"; },
+  { name = "##OpenGL"; chatnet = "freenode"; autojoin = "Yes"; },
   { name = "#vim"; chatnet = "freenode"; autojoin = "Yes"; }
 );
 
@@ -307,7 +305,7 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#reddit";
+        name = "#archlinux";
         tag = "freenode";
       }
     );
@@ -317,7 +315,7 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#archlinux";
+        name = "#bash";
         tag = "freenode";
       }
     );
@@ -327,7 +325,7 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#bash";
+        name = "##c++";
         tag = "freenode";
       }
     );
@@ -337,7 +335,7 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#c++";
+        name = "#eclipse";
         tag = "freenode";
       }
     );
@@ -347,7 +345,7 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#opengl";
+        name = "##OpenGL";
         tag = "freenode";
       }
     );
@@ -375,6 +373,6 @@ windows = {
   99 = { name = "hilight"; sticky = "yes"; };
 };
 mainwindows = {
-  1 = { first_line = "5"; lines = "72"; };
-  99 = { first_line = "1"; lines = "4"; };
+  1 = { first_line = "6"; lines = "79"; };
+  99 = { first_line = "1"; lines = "5"; };
 };
