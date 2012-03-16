@@ -31,9 +31,14 @@ export LESS="-R"
 alias ls='ls -hF --color=auto'
 eval $(dircolors -b $HOME/.dircolors_fix)
 
+# aliases
+alias usbmount="sudo mount -o gid=users,fmask=113,dmask=002 /dev/sdd /mnt/usb"
+alias usbumount="sudo umount /mnt/usb"
+alias tm="tmux attach-session -d -t 0"
+
 # extract function
-extract () {
-  if [ -f $1 ] ; then
+extract() {
+  if [[ -f $1 ]]; then
     case $1 in
       *.7z) 7z x $1;;
       *.bz2) bunzip2 $1;;
@@ -53,8 +58,11 @@ extract () {
   fi
 }
 
-# aliases
-alias usbmount="sudo mount -o gid=users,fmask=113,dmask=002 /dev/sdd /mnt/usb"
-alias usbumount="sudo umount /mnt/usb"
-alias tm="tmux attach-session -d -t 0"
-alias c="gcc -lGL -lGLU -lglut"
+# glut compile function
+c() {
+  if [[ -f $1 && $1 = *.cpp ]]; then
+    g++ -lGL -lGLU -lglut $1 -o ${1%.*}
+  else
+    echo "'$1' is not a valid file!"
+  fi
+}
