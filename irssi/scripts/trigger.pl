@@ -586,7 +586,7 @@ TRIGGER:
 		$expands->{'$'} = '$';
 		$expands->{';'} = ';';
 		use POSIX qw(strftime);
-		$expands->{'Z'} = strftime "%H:%M:%S", localtime;
+		$expands->{'Z'} = strftime "%I:%M:%S %p", localtime;
 
 		if (defined($trigger->{'replace'})) { # it's a -replace
 			$message =~ s/$trigger->{'compregexp'}/do_expands($trigger->{'compreplace'},$expands,$message)/ge;
