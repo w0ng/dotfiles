@@ -17,7 +17,7 @@ noremap <leader>t :styletoggle<Space>-name<Space>minitabs<CR>
 " appearance
 set hlfind
 set defsearch=g
-set guioptions=Csn
+set guioptions+=n
 
 " set font
 hi FontCode -a font-family: Terminus important; font-size: 9pt !important;
