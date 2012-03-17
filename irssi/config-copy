@@ -44,7 +44,7 @@ channels = (
   { name = "#archlinux"; chatnet = "freenode"; autojoin = "Yes"; },
   { name = "#bash"; chatnet = "freenode"; autojoin = "Yes"; },
   { name = "##c++"; chatnet = "freenode"; autojoin = "Yes"; },
-  { name = "#eclipse"; chatnet = "freenode"; autojoin = "Yes"; },
+  { name = "##linux"; chatnet = "freenode"; autojoin = "Yes"; },
   { name = "##OpenGL"; chatnet = "freenode"; autojoin = "Yes"; },
   { name = "#vim"; chatnet = "freenode"; autojoin = "Yes"; }
 );
@@ -335,7 +335,7 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#eclipse";
+        name = "##linux";
         tag = "freenode";
       }
     );
