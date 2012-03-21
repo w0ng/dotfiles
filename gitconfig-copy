@@ -8,6 +8,7 @@
 [github]
 	token = XXXXXXXXXX
   user = w0ng
+  password = XXXXXXXXXX
 [color]
 	ui = true
 [core]
