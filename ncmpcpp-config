@@ -11,6 +11,7 @@ song_list_format = "{$2%n▕ $9}{$7%a - $9}{$6%t$9}|{$8%f$9}$R{$4▕ %b$9}{$3▕
 # various settings
 autocenter_mode = "yes"
 header_visibility = "no"
+progressbar_look = "─╼·"
 statusbar_visibility = "no"
 
 # color definitions
