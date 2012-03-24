@@ -1,4 +1,4 @@
-[MIME Cache]
+[Default Applications]
 application/eps=zathura.desktop;
 application/illustrator=inkscape.desktop;
 application/msexcel=libreoffice-calc.desktop;
