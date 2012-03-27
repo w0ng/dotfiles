@@ -15,6 +15,7 @@ URxvt.boldItalicFont: -*-terminus-medium-r-*-*-12-*-*-*-*-*-*-*
 URxvt.colorIT: #99ad6a
 URxvt.colorBD: #e8e8d3
 URxvt.colorUL: #8197bf
+URxvt.cursorColor: #fad07a
 URxvt.urgentOnBell: True
 URxvt.visualBell: True
 ! clickable links using urxvt-url-select
