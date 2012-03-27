@@ -42,11 +42,6 @@ channels = (
   { name = "#overclockers"; chatnet = "oz"; autojoin = "Yes"; },
   { name = "#fsc"; chatnet = "rizon"; autojoin = "Yes"; },
   { name = "#archlinux"; chatnet = "freenode"; autojoin = "Yes"; },
-  { name = "#bash"; chatnet = "freenode"; autojoin = "Yes"; },
-  { name = "##c++"; chatnet = "freenode"; autojoin = "Yes"; },
-  { name = "##linux"; chatnet = "freenode"; autojoin = "Yes"; },
-  { name = "##OpenGL"; chatnet = "freenode"; autojoin = "Yes"; },
-  { name = "#vim"; chatnet = "freenode"; autojoin = "Yes"; }
 );
 
 aliases = {
@@ -311,56 +306,6 @@ windows = {
     );
   };
   5 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#bash";
-        tag = "freenode";
-      }
-    );
-  };
-  6 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "##c++";
-        tag = "freenode";
-      }
-    );
-  };
-  7 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "##linux";
-        tag = "freenode";
-      }
-    );
-  };
-  8 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "##OpenGL";
-        tag = "freenode";
-      }
-    );
-  };
-  9 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#vim";
-        tag = "freenode";
-      }
-    );
-  };
-  10 = {
     items = (
       {
         type = "CHANNEL";
