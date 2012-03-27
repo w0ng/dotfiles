@@ -1,3 +1,7 @@
+#
+# ~/.msmtprc
+#
+
 # Accounts will inherit settings from this section
 defaults
 auth             on

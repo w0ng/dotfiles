@@ -1,3 +1,7 @@
+# 
+# ~/.zshrc
+#
+
 # dont let grml set RPROMPT
 export DONTSETRPROMPT=1
 
