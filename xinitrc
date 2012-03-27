@@ -15,6 +15,7 @@ fi
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 
 # add font paths
+xset fp default
 [[ -d /usr/share/fonts/local ]] && xset +fp /usr/share/fonts/local
 [[ -d ~/.fonts ]] && xset +fp ~/.fonts
 xset fp rehash
@@ -23,17 +24,25 @@ xset fp rehash
 xset s off
 xset dpms 3600 3600 3600
 
-# start daemons
-dropboxd &
-mpd
-urxvtd -q -o -f
-
 # enable numlock
 numlockx
-# start tmux session in background
-tmux &
+
 # set WM to a name with Java recognises
 wmname LG3D
+
+# start apps in background (only if not already running)
+list=(dropbox mpd tmux urxvtd)  
+for app in "${list[@]}"; do
+  check=$(ps -C "$app" -opid=)
+  if [[ -z "$check" ]]; then
+    case "$app" in
+      dropbox) dropboxd & ;;
+      mpd) mpd ;;
+      tmux) tmux & ;;
+      urxvtd) urxvtd -q -o -f ;;
+    esac
+  fi
+done
 
 # start WM
 exec ~/bin/dwm-start
