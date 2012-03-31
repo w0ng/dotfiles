@@ -1,0 +1,33 @@
+# 
+# ~/.backup.list
+#
+
+# Include
++ /dev/console
++ /dev/initctl
++ /dev/null
++ /dev/zero
+
+# Exclude
+- /dev/*
+- /proc/*
+- /sys/*
+- /tmp/*
+- lost+found/*
+
+- /var/lib/pacman/sync/*
+
+- /mnt/cdrom/*
+- /mnt/data0/*
+- /mnt/data1/*
+- /mnt/usb/*
+
+- /home/w0ng/downloads/*
+- /home/w0ng/music/*
+- /home/w0ng/videos/*
+- /home/w0ng/vm/*
+- /home/w0ng/.mozilla/firefox/kiw8v0el.default/Cache/*
+- /home/w0ng/.realDropbox/*
+
+# location of backup folder
+- /mnt/data0/backup/*
