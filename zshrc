@@ -40,6 +40,9 @@ bindkey "\eOF" end-of-line
 source ~/.git-completion.bash
 
 # aliases
+alias ls='ls -hF --color=auto' 
+alias grep='grep --color=auto'
+export LESS="-R"
 alias usbmount="sudo mount -o gid=users,fmask=113,dmask=002 /dev/sdd /mnt/usb"
 alias usbumount="sudo umount /mnt/usb"
 alias tm="tmux attach-session -d -t 0"
