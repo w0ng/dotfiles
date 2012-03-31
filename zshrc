@@ -40,11 +40,12 @@ bindkey "\eOF" end-of-line
 source ~/.git-completion.bash
 
 # aliases
-alias ls='ls -hF --color=auto' 
-alias grep='grep --color=auto'
+alias ls="ls -hF --color=auto"
+alias grep="grep --color=auto"
 export LESS="-R"
 alias usbmount="sudo mount -o gid=users,fmask=113,dmask=002 /dev/sdd /mnt/usb"
 alias usbumount="sudo umount /mnt/usb"
+alias vm="qemu-kvm -drive file=$HOME/vm/win7.img,if=virtio -m 2G -vga std"
 alias tm="tmux attach-session -d -t 0"
 
 # prompt
