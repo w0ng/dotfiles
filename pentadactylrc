@@ -47,7 +47,7 @@ a:visited, a:visited * {
 }
 
 a:visited:hover, a:visited:hover * {
-  color: #fdf6e3 !important;
+  color: #b58900 !important;
 }
 EOM
 styledisable -name=dark
@@ -87,13 +87,13 @@ style -name minitabs chrome://* <<EOM
 }
 
 .tabbrowser-tab:hover {
-  background: #fdf6e3 !important;
+  background: #b58900 !important;
   color: #002b36 !important;
 }
  
 .tabbrowser-tab[selected] {
   background: #073642 !important;
-  color: #fdf6e3 !important;
+  color: #b58900 !important;
 }
 EOM
 
