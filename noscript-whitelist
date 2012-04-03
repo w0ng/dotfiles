@@ -1,8 +1,10 @@
+127.0.01
 addons.mozilla.org
 akamai.net
 archlinux.me
 archlinux.org
 browserid.org
+dropbox.com
 firstdata.com
 firstdata.lv
 flashgot.net
@@ -24,6 +26,8 @@ passport.net
 passportimages.com
 paypal.com
 paypalobjects.com
+reddit.com
+redditstatic.com
 securecode.com
 securesuite.net
 westpac.com.au
@@ -40,6 +44,7 @@ http://akamai.net
 http://archlinux.me
 http://archlinux.org
 http://browserid.org
+http://dropbox.com
 http://firstdata.com
 http://firstdata.lv
 http://flashgot.net
@@ -59,6 +64,8 @@ http://passport.net
 http://passportimages.com
 http://paypal.com
 http://paypalobjects.com
+http://reddit.com
+http://redditstatic.com
 http://securecode.com
 http://securesuite.net
 http://wlxrs.com
@@ -71,6 +78,7 @@ https://akamai.net
 https://archlinux.me
 https://archlinux.org
 https://browserid.org
+https://dropbox.com
 https://firstdata.com
 https://firstdata.lv
 https://flashgot.net
@@ -90,6 +98,8 @@ https://passport.net
 https://passportimages.com
 https://paypal.com
 https://paypalobjects.com
+https://reddit.com
+https://redditstatic.com
 https://securecode.com
 https://securesuite.net
 https://wlxrs.com
