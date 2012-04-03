@@ -256,6 +256,7 @@ settings = {
     bitlbee_send_typing = "yes";
     lt_in_queries = "yes";
     awl_display_key_active = "%y$N.$H$C$S";
+    neat_colors = "rgybmMc";
   };
   "irc/core" = { alternate_nick = "w0ng_"; };
 };
