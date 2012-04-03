@@ -7,7 +7,7 @@ loadplugins '\.(js|penta)$'
 group user
 " status line
 hi -a StatusLine font-weight: normal;
-hi -a StatusLineNormal color:#888888 !important; background:#292929 !important;
+hi -a StatusLineNormal color:#657b83 !important; background:#073642 !important;
 
 " toggle global dark style
 noremap <F2> :styletoggle<Space>-name<Space>dark<CR>
@@ -28,26 +28,26 @@ hi Normal -a font-family: Terminus !important; font-size: 9pt !important;
 " dark colors
 style -name dark http://*,https://*,file://*,about:blank <<EOM
 * {
-  color: #888888 !important;
-  background: #151515 !important;
-  border-color: #292929 !important;
+  color: #657b83 !important;
+  background: #002b36 !important;
+  border-color: #073642 !important;
 }
 
 a, a * {
-  color: #8197bf !important;
+  color: #268bd2 !important;
   text-decoration: none !important;
 }
 
 a:hover, a:hover * {
-  color: #fad07a !important;
+  color: #b58900 !important;
 }
 
 a:visited, a:visited * {
-  color: #B46799 !important;
+  color: #6c71c4 !important;
 }
 
 a:visited:hover, a:visited:hover * {
-  color: #fad07a !important;
+  color: #fdf6e3 !important;
 }
 EOM
 styledisable -name=dark
@@ -59,14 +59,14 @@ style -name minitabs chrome://* <<EOM
 }
  
 .tabbrowser-tabs {
-  background: #292929 !important;
+  background: #073642 !important;
 }
  
 .tabbrowser-tab {
   -moz-appearance: none !important;
-  background: #292929 !important;
+  background: #073642 !important;
   border: none !important;
-  color: #888888 !important;
+  color: #657b83 !important;
   font-family: Terminus; 
   font-size: 9pt !important;
   height: 18px !important;
@@ -87,13 +87,13 @@ style -name minitabs chrome://* <<EOM
 }
 
 .tabbrowser-tab:hover {
-  background: #fad07a !important;
-  color: #151515 !important;
+  background: #fdf6e3 !important;
+  color: #002b36 !important;
 }
  
 .tabbrowser-tab[selected] {
-  background: #292929 !important;
-  color: #fad07a !important;
+  background: #073642 !important;
+  color: #fdf6e3 !important;
 }
 EOM
 
