@@ -1,9 +1,8 @@
-#
-# ~/.gtkrc-2.0
-#
+# DO NOT EDIT! This file will be overwritten by LXAppearance.
+# Any customization should be done in ~/.gtkrc-2.0.mine instead.
 
-gtk-theme-name="Equinox Evolution Midnight"
-gtk-icon-theme-name="Faenza-Darkest"
+gtk-theme-name="Equinox Evolution"
+gtk-icon-theme-name="Faenza"
 gtk-font-name="Ubuntu 9"
 gtk-cursor-theme-name="Vanilla-DMZ-AA"
 gtk-cursor-theme-size=0
@@ -18,8 +17,4 @@ gtk-xft-hinting=1
 gtk-xft-hintstyle="hintslight"
 gtk-xft-rgba="rgb"
 gtk-color-scheme="tooltip_fg_color:#EEEEEE\nlink_color:#0062dc\nbase_color:#FFFFFF\nselected_fg_color:#FFFFFF\ntext_color:#333333\nbg_color:#DDDDDD\ntooltip_bg_color:#222222\nselected_bg_color:#5188E7\nfg_color:#333333\n"
-style "vimfix" {
-  bg[NORMAL] = "#151515"
-}
-widget "vim-main-window.*GtkForm" style "vimfix"
-
+include "/home/w0ng/.gtkrc-2.0.mine"
