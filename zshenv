@@ -9,4 +9,5 @@
 export BROWSER="firefox"
 export EDITOR="vim"
 export LESS="-R"
+export  WORKON_HOME="$HOME/.virtualenvs"
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'

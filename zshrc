@@ -38,6 +38,7 @@ bindkey "\eOF" end-of-line
 
 # completion
 source ~/.git-completion.bash
+source /usr/bin/virtualenvwrapper.sh
 
 # aliases
 alias ls="ls -hF --color=auto"
@@ -52,7 +53,7 @@ GIT_PS1_SHOWSTASHSTATE=1
 GIT_PS1_SHOWUNTRACKEDFILES=1
 GIT_PS1_SHOWUPSTREAM="auto"
 setopt prompt_subst
-PROMPT='%{$fg[blue]%}%n%{$fg[cyan]%}@%{$fg[blue]%}%m %{$fg[yellow]%}%~ %{$fg[red]%}$(__git_ps1 " (%s)")
+PROMPT='%{$fg[blue]%}%n%{$fg[cyan]%}@%{$fg[blue]%}%m %{$fg[yellow]%}%~ %{$fg[red]%}$(__git_ps1 " %s")
 %{$fg[green]%}%#%{$reset_color%} '
 RPROMPT='[%{$fg[red]%}%?%{$reset_color%}]'
 
