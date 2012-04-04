@@ -44,4 +44,5 @@ Thumbs.db
 
 # Temp files #
 ##############
+*.pyc
 *.swp
