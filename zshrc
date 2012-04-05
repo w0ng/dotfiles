@@ -9,7 +9,8 @@ autoload -U colors && colors
 # options
 setopt correct
 setopt extended_glob
-setopt hist_find_no_dups hist_ignore_dups hist_verify share_history
+setopt extended_history share_history
+setopt hist_find_no_dups hist_ignore_dups hist_verify
 setopt prompt_subst
 
 # completion files
