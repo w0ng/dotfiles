@@ -19,9 +19,12 @@ source /usr/bin/virtualenvwrapper.sh
 
 # tab completion
 zstyle ':completion:*' menu select
+# autocorrect
 zstyle ':completion:*' completer _complete _match _approximate
 zstyle ':completion:*:approximate:*' max-errors 1 numeric
 zstyle ':completion:*:match:*' original only
+# kill
+zstyle ':completion:*:*:*:*:processes' command "ps -u $(whoami) -o pid,comm -w"
 
 # aliases
 alias ls="ls -hF --color=auto"
@@ -55,8 +58,8 @@ bindkey "^[[A" history-beginning-search-backward
 bindkey "^[[B" history-beginning-search-forward
 
 # history
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=10000
+SAVEHIST=10000
 HISTFILE=$HOME/.zhistory
 
 # prompt
