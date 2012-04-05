@@ -2,17 +2,33 @@
 # ~/.zshrc
 #
 
-# command completion
-autoload -U compinit 
-compinit
+# functions
+autoload -U compinit && compinit
+autoload -U colors && colors
 
-# prompt 
-autoload -U promptinit
-promptinit
+# options
+setopt correct
+setopt extended_glob
+setopt inc_append_history
+setopt prompt_subst
+setopt share_history
 
-# colours
-autoload -U colors
-colors
+# bash completion
+source $HOME/.git-completion.bash
+source /usr/bin/virtualenvwrapper.sh
+
+# tab completion
+zstyle ':completion:*' menu select
+zstyle ':completion:*' completer _complete _match _approximate
+zstyle ':completion:*:approximate:*' max-errors 1 numeric
+zstyle ':completion:*:match:*' original only
+
+# aliases
+alias ls="ls -hF --color=auto"
+alias grep="grep --color=auto"
+alias tm="tmux attach-session -d -t 0"
+alias usbmount="sudo mount -o gid=users,fmask=113,dmask=002 /dev/sdd /mnt/usb"
+alias usbumount="sudo umount /mnt/usb"
 
 # special keys
 bindkey "\e[1~" beginning-of-line # Home
@@ -28,36 +44,32 @@ bindkey "\eOd" emacs-backward-word
 bindkey "\e\e[C" forward-word
 bindkey "\e\e[D" backward-word
 bindkey "\e[Z" reverse-menu-complete # Shift+Tab
-# for rxvt
+# rxvt
 bindkey "\e[7~" beginning-of-line # Home
 bindkey "\e[8~" end-of-line # End
-# for non RH/Debian xterm, can't hurt for RH/Debian xterm
+# non Debian xterm
 bindkey "\eOH" beginning-of-line
 bindkey "\eOF" end-of-line
+# search based on current input
+bindkey "^[[A" history-beginning-search-backward
+bindkey "^[[B" history-beginning-search-forward
 
-
-# completion
-source ~/.git-completion.bash
-source /usr/bin/virtualenvwrapper.sh
-
-# aliases
-alias ls="ls -hF --color=auto"
-alias grep="grep --color=auto"
-alias tm="tmux attach-session -d -t 0"
-alias usbmount="sudo mount -o gid=users,fmask=113,dmask=002 /dev/sdd /mnt/usb"
-alias usbumount="sudo umount /mnt/usb"
+# history
+HISTSIZE=1000
+SAVEHIST=1000
+HISTFILE=$HOME/.zhistory
 
 # prompt
 GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWSTASHSTATE=1
 GIT_PS1_SHOWUNTRACKEDFILES=1
 GIT_PS1_SHOWUPSTREAM="auto"
-setopt prompt_subst
 PROMPT='%{$fg[blue]%}%n%{$fg[cyan]%}@%{$fg[blue]%}%m %{$fg[yellow]%}%~ %{$fg[red]%}$(__git_ps1 " %s")
 %{$fg[green]%}%#%{$reset_color%} '
 RPROMPT='[%{$fg[red]%}%?%{$reset_color%}]'
+SPROMPT="Correct $fg[red]%R$reset_color to $fg[green]%r?$reset_color (Yes, No, Abort, Edit) "
 
-# extract function (https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins/extract)
+# extract (https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins/extract)
 function extract() {
   local remove_archive
   local success
