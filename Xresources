@@ -14,6 +14,9 @@ URxvt.italicFont: xft:Cousine for Powerline:italic:pixelsize=15
 URxvt.boldItalicFont: xft:Cousine for Powerline:bold:italic:pixelsize=15
 URxvt.urgentOnBell: True
 URxvt.visualBell: True
+URxvt.colorIT: #6c71c4
+URxvt.colorBD: #859900
+URxvt.colorUL: #268bd2
 ! clickable links using urxvt-url-select
 URxvt.perl-ext-common: default,matcher,url-select
 URxvt.keysym.M-u: perl:url-select:select_next
