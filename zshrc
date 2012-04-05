@@ -89,8 +89,6 @@ bindkey -M vicmd "j" history-search-forward
 bindkey -M vicmd "/" history-incremental-search-backward
 bindkey -M vicmd "?" history-incremental-search-forward
 
-
-
 # history
 HISTSIZE=10000
 SAVEHIST=10000
@@ -101,7 +99,7 @@ GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWSTASHSTATE=1
 GIT_PS1_SHOWUNTRACKEDFILES=1
 GIT_PS1_SHOWUPSTREAM="auto"
-PROMPT='%{$fg[blue]%}%n%{$fg[cyan]%}@%{$fg[blue]%}%m %{$fg[yellow]%}%~%{$fg[red]%}$(__git_ps1 " %s")
+PROMPT='%{$fg[blue]%}%n%{$fg[cyan]%}@%{$fg[blue]%}%m%{$fg[yellow]%}:%~%{$fg[red]%}$(__git_ps1 ":%s")
 %{$fg[green]%}%#%{$reset_color%} '
 RPROMPT='[%{$fg[red]%}%?%{$reset_color%}]'
 SPROMPT="Correct $fg[red]%R$reset_color to $fg[green]%r?$reset_color (Yes, No, Abort, Edit) "
