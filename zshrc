@@ -9,9 +9,8 @@ autoload -U colors && colors
 # options
 setopt correct
 setopt extended_glob
-setopt inc_append_history
+setopt hist_find_no_dups hist_ignore_dups hist_verify share_history
 setopt prompt_subst
-setopt share_history
 
 # bash completion
 source $HOME/.git-completion.bash
@@ -25,6 +24,22 @@ zstyle ':completion:*:approximate:*' max-errors 1 numeric
 zstyle ':completion:*:match:*' original only
 # kill
 zstyle ':completion:*:*:*:*:processes' command "ps -u $(whoami) -o pid,comm -w"
+
+# change cursor colour depending on vi mode
+# TODO: make this work for tmux
+zle-keymap-select () {
+  if [ "$TERM" = "rxvt-unicode-256color" ]; then
+    if [ $KEYMAP = vicmd ]; then
+      echo -ne "\033]12;red\007"
+    else
+      echo -ne "\033]12;grey\007"
+    fi
+  fi
+}; zle -N zle-keymap-select
+zle-line-init () {
+  zle -K viins
+  echo -ne "\033]12;grey\007"
+}; zle -N zle-line-init
 
 # aliases
 alias ls="ls -hF --color=auto"
@@ -56,6 +71,25 @@ bindkey "\eOF" end-of-line
 # search based on current input
 bindkey "^[[A" history-beginning-search-backward
 bindkey "^[[B" history-beginning-search-forward
+
+# sane vi keys
+bindkey ' ' magic-space
+bindkey "^P" up-line-or-search
+bindkey "^N" down-line-or-search
+bindkey -M viins "^L" clear-screen
+bindkey -M viins "^W" backward-kill-word
+bindkey -M viins "^A" beginning-of-line
+bindkey -M viins "^E" end-of-line
+bindkey -M viins '^?' backward-delete-char
+bindkey -M viins "jj" vi-cmd-mode
+bindkey -M vicmd "gg" beginning-of-history
+bindkey -M vicmd "G" end-of-history
+bindkey -M vicmd "k" history-search-backward
+bindkey -M vicmd "j" history-search-forward
+bindkey -M vicmd "/" history-incremental-search-backward
+bindkey -M vicmd "?" history-incremental-search-forward
+
+
 
 # history
 HISTSIZE=10000
