@@ -12,9 +12,10 @@ setopt extended_glob
 setopt hist_find_no_dups hist_ignore_dups hist_verify share_history
 setopt prompt_subst
 
-# bash completion
+# completion files
 source $HOME/.git-completion.bash
 source /usr/bin/virtualenvwrapper.sh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # tab completion
 zstyle ':completion:*' menu select
