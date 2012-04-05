@@ -106,6 +106,16 @@ PROMPT='%{$fg[blue]%}%n%{$fg[cyan]%}@%{$fg[blue]%}%m%{$fg[yellow]%}:%~%{$fg[red]
 RPROMPT='[%{$fg[red]%}%?%{$reset_color%}]'
 SPROMPT="Correct $fg[red]%R$reset_color to $fg[green]%r?$reset_color (Yes, No, Abort, Edit) "
 
+# modify highlighters
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=red'
+ZSH_HIGHLIGHT_STYLES[bracket-error]='fg=red'
+ZSH_HIGHLIGHT_STYLES[bracket-level-1]='fg=blue'
+ZSH_HIGHLIGHT_STYLES[bracket-level-2]='fg=green'
+ZSH_HIGHLIGHT_STYLES[bracket-level-3]='fg=magenta'
+ZSH_HIGHLIGHT_STYLES[bracket-level-4]='fg=yellow'
+ZSH_HIGHLIGHT_STYLES[bracket-level-5]='fg=cyan'
+
 # extract (https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins/extract)
 function extract() {
   local remove_archive
