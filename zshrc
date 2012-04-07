@@ -24,7 +24,8 @@ zstyle ':completion:*' completer _complete _match _approximate
 zstyle ':completion:*:approximate:*' max-errors 1 numeric
 zstyle ':completion:*:match:*' original only
 # kill
-zstyle ':completion:*:*:*:*:processes' command "ps -u $(whoami) -o pid,comm -w -w"
+zstyle ':completion:*:*:*:*:processes' command "ps -u $(whoami) -o user,pid,comm -w -w"
+zstyle ':completion:*:*:kill:*' force-list always
 
 # change cursor colour depending on vi mode
 # TODO: make this work for tmux
@@ -41,13 +42,6 @@ zle-line-init () {
   zle -K viins
   echo -ne "\033]12;grey\007"
 }; zle -N zle-line-init
-
-# aliases
-alias ls="ls -hF --color=auto"
-alias grep="grep --color=auto"
-alias tm="tmux attach-session -d -t 0"
-alias usbmount="sudo mount -o gid=users,fmask=113,dmask=002 /dev/sdd /mnt/usb"
-alias usbumount="sudo umount /mnt/usb"
 
 # keybindings
 bindkey "\e[1~" beginning-of-line # Home (tmux)
@@ -83,6 +77,14 @@ PROMPT='%{$fg[blue]%}%n%{$fg[cyan]%}@%{$fg[blue]%}%m%{$fg[yellow]%}:%~%{$fg[red]
 %{$fg[green]%}%#%{$reset_color%} '
 RPROMPT='[%{$fg[red]%}%?%{$reset_color%}]'
 SPROMPT="Correct $fg[red]%R$reset_color to $fg[green]%r?$reset_color (Yes, No, Abort, Edit) "
+
+# aliases
+alias ls="ls -hF --color=auto"
+alias grep="grep --color=auto"
+alias tm="tmux attach-session -d -t 0"
+alias usbmount="sudo mount -o gid=users,fmask=113,dmask=002 /dev/sdd /mnt/usb"
+alias usbumount="sudo umount /mnt/usb"
+
 
 # extract (https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins/extract)
 function extract() {
