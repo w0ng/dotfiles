@@ -24,7 +24,7 @@ zstyle ':completion:*' completer _complete _match _approximate
 zstyle ':completion:*:approximate:*' max-errors 1 numeric
 zstyle ':completion:*:match:*' original only
 # kill
-zstyle ':completion:*:*:*:*:processes' command "ps -u $(whoami) -o pid,comm -w"
+zstyle ':completion:*:*:*:*:processes' command "ps -u $(whoami) -o pid,comm -w -w"
 
 # change cursor colour depending on vi mode
 # TODO: make this work for tmux
