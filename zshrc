@@ -49,44 +49,23 @@ alias tm="tmux attach-session -d -t 0"
 alias usbmount="sudo mount -o gid=users,fmask=113,dmask=002 /dev/sdd /mnt/usb"
 alias usbumount="sudo umount /mnt/usb"
 
-# special keys
-bindkey "\e[1~" beginning-of-line # Home
-bindkey "\e[4~" end-of-line # End
-bindkey "\e[5~" beginning-of-history # PageUp
-bindkey "\e[6~" end-of-history # PageDown
+# keybindings
+bindkey "\e[1~" beginning-of-line # Home (tmux)
 bindkey "\e[2~" quoted-insert # Ins
 bindkey "\e[3~" delete-char # Del
-bindkey "\e[5C" forward-word
-bindkey "\eOc" emacs-forward-word
-bindkey "\e[5D" backward-word
-bindkey "\eOd" emacs-backward-word
-bindkey "\e\e[C" forward-word
-bindkey "\e\e[D" backward-word
+bindkey "\e[4~" end-of-line # End (tmux)
+bindkey "\e[5~" beginning-of-history # PgUp
+bindkey "\e[6~" end-of-history # PgDn
+bindkey "\e[7~" beginning-of-line # Home (rxvt)
+bindkey "\e[8~" end-of-line # End (rxvt)
 bindkey "\e[Z" reverse-menu-complete # Shift+Tab
-# rxvt
-bindkey "\e[7~" beginning-of-line # Home
-bindkey "\e[8~" end-of-line # End
-# non Debian xterm
-bindkey "\eOH" beginning-of-line
-bindkey "\eOF" end-of-line
-# search based on current input
-bindkey "^[[A" history-beginning-search-backward
-bindkey "^[[B" history-beginning-search-forward
-
-# sane vi keys
+bindkey "^[[A" up-line-or-search # Up
+bindkey "^[[B" down-line-or-search # Down
 bindkey ' ' magic-space
-bindkey "^P" up-line-or-search
-bindkey "^N" down-line-or-search
-bindkey -M viins "^L" clear-screen
-bindkey -M viins "^W" backward-kill-word
-bindkey -M viins "^A" beginning-of-line
-bindkey -M viins "^E" end-of-line
-bindkey -M viins '^?' backward-delete-char
+bindkey "^?" backward-delete-char
+bindkey -M viins "^N" down-line-or-search
+bindkey -M viins "^P" up-line-or-search
 bindkey -M viins "jj" vi-cmd-mode
-bindkey -M vicmd "gg" beginning-of-history
-bindkey -M vicmd "G" end-of-history
-bindkey -M vicmd "k" history-search-backward
-bindkey -M vicmd "j" history-search-forward
 bindkey -M vicmd "/" history-incremental-search-backward
 bindkey -M vicmd "?" history-incremental-search-forward
 
