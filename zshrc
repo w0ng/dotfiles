@@ -2,6 +2,9 @@
 # ~/.zshrc
 #
 
+# disable xon/xoff (ctrl+s/q)
+stty -ixon
+
 # functions
 autoload -U compinit && compinit
 autoload -U colors && colors
