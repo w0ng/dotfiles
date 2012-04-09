@@ -58,6 +58,8 @@ bindkey "\e[8~" end-of-line # End (rxvt)
 bindkey "\e[Z" reverse-menu-complete # Shift+Tab
 bindkey "^[[A" up-line-or-search # Up
 bindkey "^[[B" down-line-or-search # Down
+bindkey "^A" beginning-of-line
+bindkey "^E" end-of-line
 bindkey ' ' magic-space
 bindkey "^?" backward-delete-char
 bindkey -M viins "^N" down-line-or-search
