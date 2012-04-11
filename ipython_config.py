@@ -46,7 +46,7 @@ c.InteractiveShellApp.exec_files = ['ipython_virtualenv.py']
 # c.TerminalIPythonApp.code_to_run = ''
 
 # The IPython profile to use.
-# c.TerminalIPythonApp.profile = u'default'
+# c.TerminalIPythonApp.profile = 'default'
 
 # Set the log level by value or name.
 # c.TerminalIPythonApp.log_level = 30
@@ -78,7 +78,7 @@ c.InteractiveShellApp.exec_files = ['ipython_virtualenv.py']
 # configuration (through profiles), history storage, etc. The default is usually
 # $HOME/.ipython. This options can also be specified through the environment
 # variable IPYTHON_DIR.
-# c.TerminalIPythonApp.ipython_dir = u'/home/w0ng/.config/ipython'
+# c.TerminalIPythonApp.ipython_dir = '/home/w0ng/.config/ipython'
 
 # Whether to display a banner upon starting IPython.
 # c.TerminalIPythonApp.display_banner = True
@@ -181,7 +181,7 @@ c.InteractiveShellApp.exec_files = ['ipython_virtualenv.py']
 # c.TerminalInteractiveShell.prompts_pad_left = True
 
 # The part of the banner to be printed before the profile
-# c.TerminalInteractiveShell.banner1 = 'Python 2.7.2 (default, Jan 31 2012, 13:19:49) \nType "copyright", "credits" or "license" for more information.\n\nIPython 0.12 -- An enhanced Interactive Python.\n?         -> Introduction and overview of IPython\'s features.\n%quickref -> Quick reference.\nhelp      -> Python\'s own help system.\nobject?   -> Details about \'object\', use \'object??\' for extra details.\n'
+# c.TerminalInteractiveShell.banner1 = 'Python 3.2.2 (default, Nov 21 2011, 16:50:59) \nType "copyright", "credits" or "license" for more information.\n\nIPython 0.12 -- An enhanced Interactive Python.\n?         -> Introduction and overview of IPython\'s features.\n%quickref -> Quick reference.\nhelp      -> Python\'s own help system.\nobject?   -> Details about \'object\', use \'object??\' for extra details.\n'
 
 # 
 # c.TerminalInteractiveShell.readline_parse_and_bind = ['tab: complete', '"\\C-l": clear-screen', 'set show-all-if-ambiguous on', '"\\C-o": tab-insert', '"\\C-r": reverse-search-history', '"\\C-s": forward-search-history', '"\\C-p": history-search-backward', '"\\C-n": history-search-forward', '"\\e[A": history-search-backward', '"\\e[B": history-search-forward', '"\\C-k": kill-line', '"\\C-u": unix-line-discard']
@@ -291,7 +291,7 @@ c.InteractiveShellApp.exec_files = ['ipython_virtualenv.py']
 
 # Set the profile location directly. This overrides the logic used by the
 # `profile` option.
-# c.ProfileDir.location = u''
+# c.ProfileDir.location = ''
 
 #------------------------------------------------------------------------------
 # PlainTextFormatter configuration

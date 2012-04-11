@@ -1,15 +1,13 @@
-# http://blog.ufsoft.org/2009/1/29/ipython-and-virtualenv
-import site
+# Make IPython recognise virtualenv, Python 3 (https://gist.github.com/1759781)
 from os import environ
-from os.path import join
-from sys import version_info
+from os.path import join, sep
 
 if 'VIRTUAL_ENV' in environ:
-    virtual_env = join(environ.get('VIRTUAL_ENV'),
-                       'lib',
-                       'python%d.%d' % version_info[:2],
-                       'site-packages')
-    site.addsitedir(virtual_env)
-    print 'VIRTUAL_ENV ->', virtual_env
-    del virtual_env
-del site, environ, join, version_info
+    virtual_env_dir = environ['VIRTUAL_ENV']
+    activate_this = join(virtual_env_dir, "bin", "activate_this.py")
+    exec(compile(open(activate_this).read(), activate_this, 'exec'),
+         dict(__file__=activate_this))
+    virtual_env_name = virtual_env_dir.split(sep)[-1]
+    print('{0:9} {1} {2}'.format('VIRT_ENV', '->', virtual_env_name))
+    del activate_this, virtual_env_dir, virtual_env_name
+del environ, join, sep
