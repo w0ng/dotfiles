@@ -30,7 +30,9 @@ c = get_config()
 # c.InteractiveShellApp.extra_extension = ''
 
 # List of files to run at IPython startup.
-c.InteractiveShellApp.exec_files = ['ipython_virtualenv.py']
+c.InteractiveShellApp.exec_files = [
+        '/home/w0ng/.config/ipython/profile_default/ipython_virtualenv.py'
+]
 
 # A file to be run
 # c.InteractiveShellApp.file_to_run = ''
