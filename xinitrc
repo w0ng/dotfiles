@@ -31,12 +31,13 @@ numlockx
 wmname LG3D
 
 # start apps in background (only if not already running)
-list=(dropbox mpd tmux urxvtd)  
+list=(dropbox eggdrop mpd tmux urxvtd)  
 for app in "${list[@]}"; do
   check=$(ps -C "$app" -opid=)
   if [[ -z "$check" ]]; then
     case "$app" in
       dropbox) dropboxd & ;;
+      eggdrop) cd ~/.eggdrop && eggdrop eggdrop.conf & ;;
       mpd) mpd ;;
       tmux) tmux & ;;
       urxvtd) urxvtd -q -o -f ;;
