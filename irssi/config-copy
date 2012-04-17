@@ -46,7 +46,7 @@ channels = (
   { name = "#git"; chatnet = "freenode"; autojoin = "Yes"; },
   { name = "#python"; chatnet = "freenode"; autojoin = "Yes"; },
   { name = "#vim"; chatnet = "freenode"; autojoin = "Yes"; },
-  { name = "#zsh"; chatnet = "freenode"; autojoin = "Yes"; },
+  { name = "#zsh"; chatnet = "freenode"; autojoin = "Yes"; }
 );
 
 aliases = {
@@ -374,6 +374,6 @@ windows = {
   99 = { name = "hilight"; sticky = "yes"; };
 };
 mainwindows = {
-  1 = { first_line = "6"; lines = "79"; };
-  99 = { first_line = "1"; lines = "5"; };
+  2 = { first_line = "4"; lines = "55"; };
+  99 = { first_line = "1"; lines = "3"; };
 };
