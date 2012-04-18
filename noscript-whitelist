@@ -2,6 +2,7 @@
 192.168.1.254
 addons.mozilla.org
 akamai.net
+archlinux.me
 archlinux.org
 browserid.org
 firstdata.com
@@ -26,6 +27,7 @@ ytimg.com
 about:blank
 about:credits
 http://akamai.net
+http://archlinux.me
 http://archlinux.org
 http://browserid.org
 http://firstdata.com
@@ -44,6 +46,7 @@ http://securesuite.net
 http://youtube.com
 http://ytimg.com
 https://akamai.net
+https://archlinux.me
 https://archlinux.org
 https://browserid.org
 https://firstdata.com
