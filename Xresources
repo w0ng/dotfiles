@@ -8,10 +8,10 @@ Xcursor.theme: Vanilla-DMZ-AA
 !! urxvt options
 URxvt.scrollstyle: rxvt
 URxvt.scrollBar: off
-URxvt.font: xft:Cousine for Powerline:pixelsize=15
-URxvt.boldFont: xft:Cousine for Powerline:bold:pixelsize=15
-URxvt.italicFont: xft:Cousine for Powerline:italic:pixelsize=15
-URxvt.boldItalicFont: xft:Cousine for Powerline:bold:italic:pixelsize=15
+URxvt.font: xft:Cousine Regen for Powerline:pixelsize=12
+URxvt.boldFont: xft:Cousine Regen for Powerline:bold:pixelsize=12
+URxvt.italicFont: xft:Cousine Regen for Powerline:italic:pixelsize=12
+URxvt.boldItalicFont: xft:Cousine Regen for Powerline:bold:italic:pixelsize=12
 URxvt.urgentOnBell: True
 URxvt.visualBell: True
 ! clickable links using urxvt-url-select
