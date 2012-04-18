@@ -2,6 +2,9 @@
 ! ~/.Xresources
 !
 
+!! set dpi
+Xft.dpi: 96
+
 !! cursor theme
 Xcursor.theme: Vanilla-DMZ-AA
 
