@@ -1,4 +1,4 @@
-# Make IPython recognise virtualenv, Python 3 (https://gist.github.com/1759781)
+# Make IPython recognise virtualenv, Python 2 (https://gist.github.com/1759781)
 from os import environ
 from os.path import join, sep
 
@@ -8,6 +8,6 @@ if 'VIRTUAL_ENV' in environ:
     exec(compile(open(activate_this).read(), activate_this, 'exec'),
          dict(__file__=activate_this))
     virtual_env_name = virtual_env_dir.split(sep)[-1]
-    print('{0:9} {1} {2}'.format('VIRT_ENV', '->', virtual_env_name))
+    print '{0:9} {1} {2}'.format('VIRT_ENV', '->', virtual_env_name)
     del activate_this, virtual_env_dir, virtual_env_name
 del environ, join, sep
