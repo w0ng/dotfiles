@@ -2,6 +2,12 @@
 
 servers = (
   {
+    address = "irc.cccp-project.net";
+    chatnet = "rizon";
+    port = "6667";
+    autoconnect = "yes";
+  },
+  {
     address = "irc.freenode.net";
     chatnet = "freenode";
     port = "6667";
@@ -10,12 +16,6 @@ servers = (
   {
     address = "client.oz.org";
     chatnet = "oz";
-    port = "6667";
-    autoconnect = "yes";
-  },
-  {
-    address = "irc.rizon.net";
-    chatnet = "rizon";
     port = "6667";
     autoconnect = "yes";
   },
@@ -42,11 +42,7 @@ channels = (
   { name = "#overclockers"; chatnet = "oz"; autojoin = "Yes"; },
   { name = "#fsc"; chatnet = "rizon"; autojoin = "Yes"; },
   { name = "#archlinux"; chatnet = "freenode"; autojoin = "Yes"; },
-  { name = "#django"; chatnet = "freenode"; autojoin = "Yes"; },
-  { name = "#git"; chatnet = "freenode"; autojoin = "Yes"; },
-  { name = "#python"; chatnet = "freenode"; autojoin = "Yes"; },
-  { name = "#vim"; chatnet = "freenode"; autojoin = "Yes"; },
-  { name = "#zsh"; chatnet = "freenode"; autojoin = "Yes"; }
+  { name = "#reddit"; chatnet = "freenode"; autojoin = "Yes"; }
 );
 
 aliases = {
@@ -316,47 +312,7 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#django";
-        tag = "freenode";
-      }
-    );
-  };
-  6 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#git";
-        tag = "freenode";
-      }
-    );
-  };
-  7 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#python";
-        tag = "freenode";
-      }
-    );
-  };
-  8 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#vim";
-        tag = "freenode";
-      }
-    );
-  };
-  9 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#zsh";
+        name = "#reddit";
         tag = "freenode";
       }
     );
