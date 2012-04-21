@@ -30,6 +30,9 @@ numlockx
 # set WM to a name with Java recognises
 wmname LG3D
 
+# set background
+sh ~/.fehbg &
+
 # start apps in background (only if not already running)
 list=(dropbox eggdrop mpd tmux urxvtd)  
 for app in "${list[@]}"; do
