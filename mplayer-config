@@ -18,3 +18,7 @@ alang = en
 use-filename-title = yes
 osdlevel = 3
 subfont-osd-scale = 2
+
+# misc settings
+msgmodule = 1
+msgcolor = 1
