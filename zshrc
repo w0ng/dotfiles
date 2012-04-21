@@ -97,6 +97,23 @@ alias tm="tmux attach-session -d -t 0"
 alias usbmount="sudo mount -o gid=users,fmask=113,dmask=002 /dev/sdd /mnt/usb"
 alias usbumount="sudo umount /mnt/usb"
 
+# dynamic window title
+case $TERM in
+  xterm*|rxvt*)
+    precmd () { print -Pn "\e]0;%n@%M:%~\a" }
+    preexec () { print -Pn "\e]0;%n@%M:%~ ($1)\a" }
+    ;;
+  screen*)
+    precmd () {
+      print -Pn "\e]83;title - \"$1\"\a"
+      print -Pn "\e]0;%n@%M:%~\a"
+    }
+    preexec () {
+      print -Pn "\e]83;title - \"$1\"\a"
+      print -Pn "\e]0;%n@%M:%~ ($1)\a"
+    }
+    ;;
+esac
 
 # extract (https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins/extract)
 function extract() {
