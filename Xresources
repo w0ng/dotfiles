@@ -12,9 +12,9 @@ Xcursor.theme: Vanilla-DMZ-AA
 URxvt.scrollstyle: rxvt
 URxvt.scrollBar: off
 URxvt.font: xft:Cousine Regen for Powerline:pixelsize=15
-URxvt.boldFont: xft:Cousine Regen for Powerline:bold:pixelsize=15
-URxvt.italicFont: xft:Cousine Regen for Powerline:italic:pixelsize=15
-URxvt.boldItalicFont: xft:Cousine Regen for Powerline:bold:italic:pixelsize=15
+URxvt.boldFont: xft:Cousine Regen for Powerline:pixelsize=15
+URxvt.italicFont: xft:Cousine Regen for Powerline:pixelsize=15
+URxvt.boldItalicFont: xft:Cousine Regen for Powerline:pixelsize=15
 URxvt.urgentOnBell: True
 URxvt.visualBell: True
 ! clickable links using urxvt-url-select
@@ -23,6 +23,10 @@ URxvt.keysym.M-u: perl:url-select:select_next
 URxvt.urlLauncher: /usr/bin/firefox
 URxvt.underlineURLs: true
 URxvt.matcher.button: 1
+! colours for bold underline italic
+URxvt.colorBD: #cb4b16
+URxvt.colorIT: #859900
+URxvt.colorUL: #268bd2
 
 !!SOLARIZED HEX 16/8 TERMCOL XTERM/HEX L*A*B RGB HSB
 !!--------- ------- ---- ------- ----------- ---------- ----------- -----------
