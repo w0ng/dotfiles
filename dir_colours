@@ -68,8 +68,8 @@ TERM xterm-debian
 #NORMAL 00 # no color code at all
 #FILE 00 # regular file: use no color at all
 RESET 0 # reset to "normal" color
-DIR 01;34 # directory
-LINK 01;36 # symbolic link. (If you set this to 'target' instead of a
+DIR 00;34 # directory
+LINK 00;36 # symbolic link. (If you set this to 'target' instead of a
  # numerical value, the color is as for the file pointed to.)
 MULTIHARDLINK 00 # regular file with more than one link
 FIFO 40;33 # pipe
@@ -85,7 +85,7 @@ STICKY_OTHER_WRITABLE 30;42 # dir that is sticky and other-writable (+t,o+w)
 OTHER_WRITABLE 34;42 # dir that is other-writable (o+w) and not sticky
 STICKY 37;44 # dir with the sticky bit set (+t) and not other-writable
 # This is for files with execute permission:
-EXEC 01;32
+EXEC 00;32
 # List any file extensions like '.gz' or '.tar' that you would like ls
 # to colorize below. Put the extension, a space, and the color init string.
 # (and any comments you want to add after a '#')
@@ -184,19 +184,19 @@ EXEC 01;32
 .ogv 01;35
 .ogx 01;35
 # audio formats
-.aac 00;36
-.au 00;36
-.flac 00;36
-.mid 00;36
-.midi 00;36
-.mka 00;36
-.mp3 00;36
-.mpc 00;36
-.ogg 00;36
-.ra 00;36
-.wav 00;36
+.aac 00;33
+.au 00;33
+.flac 00;33
+.mid 00;33
+.midi 00;33
+.mka 00;33
+.mp3 00;33
+.mpc 00;33
+.ogg 00;33
+.ra 00;33
+.wav 00;33
 # http://wiki.xiph.org/index.php/MIME_Types_and_File_Extensions
-.axa 00;36
-.oga 00;36
-.spx 00;36
-.xspf 00;36
+.axa 00;33
+.oga 00;33
+.spx 00;33
+.xspf 00;33

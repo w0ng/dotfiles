@@ -20,6 +20,9 @@ setopt prompt_subst
 source $HOME/.git-completion.bash
 source /usr/bin/virtualenvwrapper.sh
 
+# ls colours
+eval $(dircolors ~/.dir_colours)
+
 # tab completion
 zstyle ':completion:*' menu select
 # autocorrect
