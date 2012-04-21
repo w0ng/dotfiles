@@ -1,4 +1,4 @@
 #!/bin/zsh
 # This hook is run after every virtualenv is activated.
-PS1='%{$fg[blue]%}%n%{$fg[cyan]%}@%{$fg[blue]%}%m%{$fg[yellow]%}:%~%{$fg[red]%}$(__git_ps1 ":%s")
-%{$fg[green]%}$(basename "$VIRTUAL_ENV"):%#%{$reset_color%} '
+PROMPT='%{$fg[black]%}┌─[%{$fg[yellow]%}%~%{$fg[black]%}]$(__git_ps1 "\e[0;30m[\e[0;31m%s\e[0;30m]")%{$fg[black]%}[%{$fg[green]%}$(basename "$VIRTUAL_ENV")%{$fg[black]%}]
+└─>%{$reset_color%} '

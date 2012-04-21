@@ -81,9 +81,9 @@ GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWSTASHSTATE=1
 GIT_PS1_SHOWUNTRACKEDFILES=1
 GIT_PS1_SHOWUPSTREAM="auto"
-PROMPT='%{$fg[blue]%}%n%{$fg[cyan]%}@%{$fg[blue]%}%m%{$fg[yellow]%}:%~%{$fg[red]%}$(__git_ps1 ":%s")
-%{$fg[green]%}%#%{$reset_color%} '
-RPROMPT='[%{$fg[red]%}%?%{$reset_color%}]'
+PROMPT='%{$fg[black]%}┌─[%{$fg[yellow]%}%~%{$fg[black]%}]$(__git_ps1 "\e[0;30m[\e[0;31m%s\e[0;30m]")
+└─>%{$reset_color%} '
+RPROMPT='%{$fg[black]%}[%{$fg[red]%}%?%{$fg[black]%}]%{$reset_color%}'
 SPROMPT="Correct $fg[red]%R$reset_color to $fg[green]%r?$reset_color (Yes, No, Abort, Edit) "
 
 # aliases
