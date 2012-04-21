@@ -25,6 +25,7 @@ eval $(dircolors ~/.dir_colours)
 
 # tab completion
 zstyle ':completion:*' menu select
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 # autocorrect
 zstyle ':completion:*' completer _complete _match _approximate
 zstyle ':completion:*:approximate:*' max-errors 1 numeric
@@ -32,7 +33,8 @@ zstyle ':completion:*:match:*' original only
 # increase max-errors based on length of word
 zstyle -e ':completion:*:approximate:*' max-errors 'reply=($((($#PREFIX+$#SUFFIX)/3))numeric)'
 # kill
-zstyle ':completion:*:*:*:*:processes' command "ps -u $(whoami) -o user,pid,comm -w -w"
+zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
+zstyle ':completion:*:*:kill:*:processes' list-colors "=(#b) #([0-9]#) ([0-9a-z-]#)*=$color[green]=0=$color[black]"
 zstyle ':completion:*:*:kill:*' force-list always
 
 # change cursor colour depending on vi mode
