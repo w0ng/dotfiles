@@ -58,7 +58,7 @@ collapse_preview = True
 save_console_history = True
 
 # Draw borders around columns?
-draw_borders = False
+draw_borders = True
 draw_bookmark_borders = True
 
 # Display the directory name in tabs?
