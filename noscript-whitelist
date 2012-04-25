@@ -1,4 +1,4 @@
-127.0.01
+127.0.0.1
 192.168.1.254
 addons.mozilla.org
 akamai.net
@@ -16,6 +16,7 @@ mozilla.net
 mq.edu.au
 paypal.com
 paypalobjects.com
+pserve.se
 reddit.com
 redditstatic.com
 securecode.com
@@ -26,6 +27,7 @@ youtube.com
 ytimg.com
 about:blank
 about:credits
+dactyl:
 http://akamai.net
 http://archlinux.me
 http://archlinux.org
@@ -39,6 +41,7 @@ http://gstatic.com
 http://mozilla.net
 http://paypal.com
 http://paypalobjects.com
+http://pserve.se
 http://reddit.com
 http://redditstatic.com
 http://securecode.com
@@ -58,6 +61,7 @@ https://gstatic.com
 https://mozilla.net
 https://paypal.com
 https://paypalobjects.com
+https://pserve.se
 https://reddit.com
 https://redditstatic.com
 https://securecode.com
