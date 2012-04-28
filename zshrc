@@ -17,11 +17,11 @@ setopt hist_find_no_dups hist_ignore_dups hist_verify
 setopt prompt_subst
 
 # completion files
-source $HOME/.git-completion.bash
+source $HOME/.config/git-completion.bash
 source /usr/bin/virtualenvwrapper.sh
 
 # ls colours
-eval $(dircolors ~/.dir_colours)
+eval $(dircolors $HOME/.config/dir_colours)
 
 # tab completion
 zstyle ':completion:*' menu select

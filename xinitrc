@@ -12,12 +12,12 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
 fi
 
 # load .Xresources
-[[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
+[[ -f $HOME/.Xresources ]] && xrdb -merge $HOME/.Xresources
 
 # add font paths
 xset fp default
 [[ -d /usr/share/fonts/local ]] && xset +fp /usr/share/fonts/local
-[[ -d ~/.fonts ]] && xset +fp ~/.fonts
+[[ -d $HOME/.fonts ]] && xset +fp $HOME/.fonts
 xset fp rehash
 
 # turn monitor off after 60min
@@ -31,7 +31,7 @@ numlockx
 wmname LG3D
 
 # set background
-sh ~/.fehbg &
+sh $HOME/.fehbg &
 
 # start apps in background (only if not already running)
 list=(dropbox eggdrop mpd tmux urxvtd)  
@@ -40,7 +40,7 @@ for app in "${list[@]}"; do
   if [[ -z "$check" ]]; then
     case "$app" in
       dropbox) dropboxd & ;;
-      eggdrop) cd ~/.eggdrop && eggdrop eggdrop.conf & ;;
+      eggdrop) cd $HOME/.eggdrop && eggdrop eggdrop.conf & ;;
       mpd) mpd ;;
       tmux) tmux & ;;
       urxvtd) urxvtd -q -o -f ;;
@@ -49,4 +49,4 @@ for app in "${list[@]}"; do
 done
 
 # start WM
-exec ~/bin/dwm-start
+exec $HOME/bin/dwm-start
