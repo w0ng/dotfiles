@@ -10,7 +10,8 @@ hi -a StatusLine font-weight: normal;
 hi -a StatusLineNormal color:#657b83 !important; background:#073642 !important;
 
 " toggle global dark style
-noremap <F2> :styletoggle<Space>-name<Space>dark<CR>
+noremap <F3> :styletoggle<Space>-name<Space>solarizeddark<CR>
+noremap <F4> :styletoggle<Space>-name<Space>solarizedlight<CR>
 " toggle minimalistic tabs
 noremap <leader>t :styletoggle<Space>-name<Space>minitabs<CR>
 
@@ -26,7 +27,7 @@ hi Normal -a font-family: Terminus !important; font-size: 9pt !important;
 
 
 " dark colors
-style -name dark http://*,https://*,file://*,about:blank <<EOM
+style -name solarizeddark http://*,https://*,file://*,about:blank <<EOM
 * {
   color: #657b83 !important;
   background: #002b36 !important;
@@ -50,7 +51,35 @@ a:visited:hover, a:visited:hover * {
   color: #b58900 !important;
 }
 EOM
-styledisable -name=dark
+styledisable -name=solarizeddark
+
+" light colors
+style -name solarizedlight http://*,https://*,file://*,about:blank <<EOM
+* {
+  color: #839496 !important;
+  background: #fdf6e3 !important;
+  border-color: #eee8d5 !important;
+}
+
+a, a * {
+  color: #268bd2 !important;
+  text-decoration: none !important;
+}
+
+a:hover, a:hover * {
+  color: #b58900 !important;
+}
+
+a:visited, a:visited * {
+  color: #6c71c4 !important;
+}
+
+a:visited:hover, a:visited:hover * {
+  color: #b58900 !important;
+}
+
+EOM
+styledisable -name=solarizedlight
 
 " minimalistic tabs
 style -name minitabs chrome://* <<EOM
