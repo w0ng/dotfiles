@@ -16,9 +16,9 @@ URxvt.scrollBar: off
 !URxvt.italicFont: -*-terminuspowerline-medium-r-normal-*
 !URxvt.boldItalicFont: -*-terminuspowerline-medium-r-normal-*
 URxvt.font: xft:Cousine Regen for Powerline:pixelsize=15
-URxvt.boldFont:xft:Cousine Regen for Powerline:pixelsize=15
-URxvt.italicFont: -xft:Cousine Regen for Powerline:pixelsize=15
-URxvt.boldItalicFont: -xft:Cousine Regen for Powerline:pixelsize=15
+URxvt.boldFont: xft:Cousine Regen for Powerline:pixelsize=15
+URxvt.italicFont: xft:Cousine Regen for Powerline:pixelsize=15
+URxvt.boldItalicFont: xft:Cousine Regen for Powerline:pixelsize=15
 URxvt.urgentOnBell: True
 URxvt.visualBell: True
 ! clickable links using urxvt-url-select
