@@ -2,47 +2,46 @@
 
 servers = (
   {
-    address = "irc.cccp-project.net";
-    chatnet = "rizon";
-    port = "6667";
-    autoconnect = "yes";
-  },
-  {
-    address = "irc.freenode.net";
+    address = "roddenberry.freenode.net";
     chatnet = "freenode";
-    port = "6667";
+    port = "6697";
+    use_ssl = "yes";
+    ssl_verify = "yes";
+    ssl_capath = "/etc/ssl/certs";
     autoconnect = "yes";
   },
   {
-    address = "client.oz.org";
-    chatnet = "oz";
+    address = "irc.pantsuland.net";
+    chatnet = "Rizon";
+    port = "6697";
+    use_ssl = "yes";
+    ssl_cert = "~/.irssi/Rizon.pem";
+    ssl_verify = "no";
+    autoconnect = "yes";
+  },
+  {
+    address = "rockhampton.oz.org";
+    chatnet = "ozorg";
     port = "6667";
+    use_ssl = "no";
+    ssl_verify = "no";
     autoconnect = "yes";
   },
   { address = "localhost"; chatnet = "bitlbee"; autoconnect = "yes"; }
 );
 
 chatnets = {
-  freenode = {
-    type = "IRC";
-    autosendcmd = "/^msg nickserv identify XXXXXXXX; wait 5000";
-  };
-  oz = { type = "IRC"; };
-  rizon = {
-    type = "IRC";
-    autosendcmd = "/^msg nickserv identify XXXXXXXX;";
-  };
-  bitlbee = {
-    type = "IRC";
-    autosendcmd = "/^msg &bitlbee identify XXXXXXXX;";
+  freenode = { type = "IRC"; };
+  Rizon = { type = "IRC"; };
+  ozorg = { type = "IRC"; };
+  bitlbee = { type = "IRC"; autosendcmd = "/^msg &bitlbee identify XXXXXXXX;";
   };
 };
 
 channels = (
-  { name = "#overclockers"; chatnet = "oz"; autojoin = "Yes"; },
-  { name = "#fsc"; chatnet = "rizon"; autojoin = "Yes"; },
-  { name = "#archlinux"; chatnet = "freenode"; autojoin = "Yes"; },
-  { name = "#reddit"; chatnet = "freenode"; autojoin = "Yes"; }
+  { name = "#archlinux"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#fsc"; chatnet = "Rizon"; autojoin = "yes"; },
+  { name = "#overclockers"; chatnet = "ozorg"; autojoin = "yes"; }
 );
 
 aliases = {
@@ -293,7 +292,7 @@ windows = {
         type = "CHANNEL";
         chat_type = "IRC";
         name = "#overclockers";
-        tag = "oz";
+        tag = "ozorg";
       }
     );
   };
@@ -303,16 +302,6 @@ windows = {
         type = "CHANNEL";
         chat_type = "IRC";
         name = "#archlinux";
-        tag = "freenode";
-      }
-    );
-  };
-  5 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#reddit";
         tag = "freenode";
       }
     );
