@@ -45,7 +45,6 @@ alternative_order text/plain text/enriched text/html              # but save it 
   set index_format        = "%3C %Z %[!%d/%m] %-17.17F %s"
   set quote_regexp        = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
   set reply_regexp        = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
-  set status_format       = "-%r- %v ───────────/ %f %m%?n? [+%n]?%?d? [-%d]?%?t? [*%t]? /%?p?───/ %p waiting to send /?─%>─(%P)───"
 
 # composing mail
   set askcc                                                       # always ask for CC:
@@ -71,9 +70,6 @@ mailboxes +mq/all_mail +mq/bin +mq/drafts +mq/important +mq/inbox +mq/sent_mail 
 source $alias_file                                                # required for functionality
 source ~/.mutt/gmail.muttrc
 source ~/.mutt/colors.muttrc
-
-# source sidebar options if mutt -v says that patch is present
-source `FILE=$HOME/.mutt/sidebar; mutt -v | grep -Fq sidebar || FILE=/dev/null; echo $FILE`
 
 # override with account specific folder-hooks
 folder-hook gmail/*      source ~/.mutt/gmail.muttrc
