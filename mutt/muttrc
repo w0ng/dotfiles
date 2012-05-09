@@ -14,7 +14,7 @@ set editor = "/usr/bin/vim +/^$" # use vim and skip to first blank line
 
 # main options
 set mbox_type = Maildir # mailbox type
-set folder = ~/.maildir # mailbox location
+set folder = ~/.mutt/maildir # mailbox location
 set spoolfile = "+gmail/inbox" # GMail is default inbox
 set timeout = 3 # idle time before scanning
 set mail_check = 0 # minimum time between scans
