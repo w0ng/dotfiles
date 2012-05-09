@@ -1,66 +1,44 @@
 #
 # ~/.offlineimaprc
-#
-
+###
 [general]
-metadata = ~/.offlineimap
-accounts = mq,gmail
-maxsyncaccounts = 1
 ui = ttyui
-ignore-readonly = no
-
-[mbnames]
-enabled = no
-filename = ~/.mutt/mailboxes
-header = "mailboxes "
-peritem = "+%(accountname)s/%(foldername)s"
-sep = " "
-footer = "\n"
-
-[ui.Curses.Blinkenlights]
-statuschar = .
-
-[Account mq]
-localrepository = mq-local
-remoterepository = mq-remote
-autorefresh = 5
-quick = 10
-maxage = 14
-
-[Repository mq-local]
-type = Maildir
-localfolders = ~/.maildir/mq
-sep = .
-restoreatime = no
-
-[Repository mq-remote]
-type = Gmail
-remoteuser = andrew.wong@students.mq.edu.au
-remotepass = XXXXXXXXXX
-realdelete = no
-readonly = False
-nametrans = lambda foldername: re.sub ('^\[gmail\].', '',
-                               re.sub ('bin', 'trash',
-                               re.sub (' ', '_', foldername.lower())))
+accounts = gmail,mq
+maxsyncaccounts = 2
+pythonfile = ~/.mutt/nametrans.py
 
 [Account gmail]
 localrepository = gmail-local
 remoterepository = gmail-remote
-autorefresh = 5
-quick = 10
-maxage = 14
 
 [Repository gmail-local]
 type = Maildir
-localfolders = ~/.maildir/gmail
-sep = .
-restoreatime = no
+localfolders = ~/.mutt/maildir/gmail
+nametrans = nt_local
 
 [Repository gmail-remote]
 type = Gmail
 remoteuser = akamchoiw@gmail.com
-remotepass = XXXXXXXX
+remotepass = XXXXXXXXXXX
 realdelete = no
-readonly = False
-nametrans = lambda foldername: re.sub ('^\[gmail\].', '',
-                               re.sub (' ', '_', foldername.lower()))
+postsynchook = notmuch new
+maxconnections = 3
+nametrans = nt_remote
+
+[Account mq]
+localrepository = mq-local
+remoterepository = mq-remote
+
+[Repository mq-local]
+type = Maildir
+localfolders = ~/.mutt/maildir/mq
+nametrans = nt_local
+
+[Repository mq-remote]
+type = Gmail
+remoteuser = andrew.wong@students.mq.edu.au
+remotepass = XXXXXXXXXXX
+realdelete = no
+postsynchook = notmuch new
+maxconnections = 3
+nametrans = nt_remote

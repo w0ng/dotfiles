@@ -11,14 +11,10 @@ Xcursor.theme: Vanilla-DMZ-AA
 !! urxvt options
 URxvt.scrollstyle: rxvt
 URxvt.scrollBar: off
-URxvt.font: -*-dinapowerline-medium-r-normal-*
-URxvt.boldFont: -*-dinapowerline-medium-r-normal-*
-URxvt.italicFont: -*-dinapowerline-medium-r-normal-*
-URxvt.boldItalicFont: -*-dinapowerline-medium-r-normal-*
-!URxvt.font: xft:Cousine Regen for Powerline:pixelsize=15
-!URxvt.boldFont: xft:Cousine Regen for Powerline:pixelsize=15
-!URxvt.italicFont: xft:Cousine Regen for Powerline:pixelsize=15
-!URxvt.boldItalicFont: xft:Cousine Regen for Powerline:pixelsize=15
+URxvt.font: -*-terminuspowerline-medium-r-normal-*
+URxvt.boldFont: -*-terminuspowerline-medium-r-normal-*
+URxvt.italicFont: -*-terminuspowerline-medium-r-normal-*
+URxvt.boldItalicFont: -*-terminuspowerline-medium-r-normal-*
 URxvt.urgentOnBell: True
 URxvt.visualBell: True
 ! clickable links using urxvt-url-select
