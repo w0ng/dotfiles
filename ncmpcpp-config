@@ -6,14 +6,17 @@
 mpd_music_dir = "/home/w0ng/music"
 
 # song format
-song_list_format = "{$2%n▕ $9}{$7%a - $9}{$5%t$9}|{$8%f$9}$R{$4▕ %b$9}{$3▕ %l$9}"
+song_list_format = "{$3%n▕ $9}{$7%a - $9}{$5%t$9}|{$8%f$9}$R{$4▕ %b$9}{$3▕ %l$9}"
 
 # various settings
 autocenter_mode = "yes"
-header_visibility = "no"
 progressbar_look = "─╼·"
-statusbar_visibility = "no"
+user_interface = "alternative"
+alternative_header_first_line_format = "$0$aqqu$/a {$7%a - $9}$5{%t}|{%f} $0$atqq$/a$9"
+alternative_header_second_line_format = "{{$4%b$9}{ [$4%y$9]}}|{%D}"
 
 # color definitions
 main_window_color = "white"
 main_window_highlight_color = "white"
+alternative_ui_separator_color = "yellow"
+progressbar_color = "yellow"
