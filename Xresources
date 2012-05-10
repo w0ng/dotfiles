@@ -17,12 +17,22 @@ URxvt.italicFont: -*-terminuspowerline-medium-r-normal-*
 URxvt.boldItalicFont: -*-terminuspowerline-medium-r-normal-*
 URxvt.urgentOnBell: True
 URxvt.visualBell: True
-! clickable links using urxvt-url-select
-URxvt.perl-ext-common: default,matcher,url-select
+! perl extensions
+URxvt.perl-ext-common: default,clipboard,keyboard-select,url-select
+!clipboard
+URxvt.keysym.M-c: perl:clipboard:copy
+URxvt.keysym.M-v: perl:clipboard:paste
+URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
+URxvt.copyCommand:  xsel -ib
+URxvt.pasteCommand: xsel -ob
+! keyboard-select
+URxvt.keysym.M-Escape: perl:keyboard-select:activate
+URxvt.keysym.M-s: perl:keyboard-select:search
+! url-select
 URxvt.keysym.M-u: perl:url-select:select_next
+URxvt.urlButton: 1
 URxvt.urlLauncher: /usr/bin/firefox
 URxvt.underlineURLs: true
-URxvt.matcher.button: 1
 ! colours for bold underline italic
 URxvt.colorBD: #cb4b16
 URxvt.colorIT: #859900
