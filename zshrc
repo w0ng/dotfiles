@@ -94,7 +94,8 @@ SPROMPT="Correct $fg[red]%R$reset_color to $fg[green]%r?$reset_color (Yes, No, A
 alias ls="ls -hFG --color=always --group-directories-first --time-style=+'$fg_bold[blue]%d-%m-%y %H:%M$reset_color'"
 alias grep="grep --color=auto"
 alias tm="tmux attach-session -d -t 0"
-alias usbmount="sudo mount -o gid=users,fmask=113,dmask=002 /dev/sdd /mnt/usb"
+alias usbmount="sudo mount -o gid=100,fmask=113,dmask=002 /dev/sdd /mnt/usb"
+alias usbmountntfs="sudo ntfs-3g -o gid=100,fmask=113,dmask=002 /dev/sdd1 /mnt/usb"
 alias usbumount="sudo umount /mnt/usb"
 
 # dynamic window title
