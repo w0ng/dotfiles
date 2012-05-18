@@ -34,7 +34,7 @@ wmname LG3D
 sh $HOME/.fehbg &
 
 # start apps in background (only if not already running)
-list=(dropbox eggdrop mpd tmux urxvtd)  
+list=(dropbox eggdrop mpd tmux transmission-daemon urxvtd)
 for app in "${list[@]}"; do
   check=$(ps -C "$app" -opid=)
   if [[ -z "$check" ]]; then
@@ -43,6 +43,7 @@ for app in "${list[@]}"; do
       eggdrop) cd $HOME/.eggdrop && eggdrop eggdrop.conf & ;;
       mpd) mpd ;;
       tmux) tmux & ;;
+      transmission-daemon) transmission-daemon ;;
       urxvtd) urxvtd -q -o -f ;;
     esac
   fi
