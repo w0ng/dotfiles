@@ -186,12 +186,3 @@ function extract() {
     shift
   done
 }
-
-# compile program.cpp and run ./program
-c() {
-  if [[ -f $1 && $1 = *.cpp ]]; then
-    g++ -lGL -lGLU -lglut $1 -o ${1%.*} && ./${1%.*} &
-  else
-    echo "'$1' is not a valid file!"
-  fi
-}
