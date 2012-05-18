@@ -24,6 +24,9 @@ xset fp rehash
 xset s off
 xset dpms 3600 3600 3600
 
+# increase mouse acceleration
+xset m 4
+
 # enable numlock
 numlockx
 
