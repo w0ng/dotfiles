@@ -8,7 +8,7 @@ monitoraspect = 16:9
 
 # audio settings
 ao = alsa
-mixer-channel = Master
+mixer-channel = PCM
 
 # default language
 slang = en
