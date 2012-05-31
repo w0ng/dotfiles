@@ -135,7 +135,7 @@ namespace eval incith {
     #  w0 - location, w1 - updated,  w2 - conditions, w3 - temperature, w4 - windchill
     #  w5 - high/low, w6 - humidity, w7 - dew point,  w8 - UV index,    w9 - pressure
     # w10 - wind, nick - nickname of user triggering
-    variable weather_format "%w0% %w3% %w5% %w2% %w1%"
+    variable weather_format "%w0% %w3% %w5% %w6% %w2% %w1%"
 
     # some control over the forecast format, too
     # f0 - location,  f1 - updated,    f2 - first day high/low, f3 - second day high/low
