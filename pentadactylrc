@@ -10,10 +10,10 @@ hi -a StatusLine font-weight: normal;
 hi -a StatusLineNormal color:#657b83 !important; background:#073642 !important;
 
 " toggle global dark style
-map builtin <F3> :styletoggle<Space>-name<Space>solarizeddark<CR>
-map builtin <F4> :styletoggle<Space>-name<Space>solarizedlight<CR>
+map -builtin <F3> :styletoggle<Space>-name<Space>solarizeddark<CR>
+map -builtin <F4> :styletoggle<Space>-name<Space>solarizedlight<CR>
 " toggle minimalistic tabs
-map builtin <leader>t :styletoggle<Space>-name<Space>minitabs<CR>
+map -builtin <leader>t :styletoggle<Space>-name<Space>minitabs<CR>
 
 " appearance
 set hlfind
