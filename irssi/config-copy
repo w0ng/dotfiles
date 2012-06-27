@@ -27,31 +27,11 @@ servers = (
     ssl_verify = "no";
     autoconnect = "yes";
   },
-  {
-    address = "gameservers.tx.us.quakenet.org";
-    chatnet = "QuakeNet";
-    port = "6667";
-    use_ssl = "no";
-    ssl_verify = "no";
-    autoconnect = "yes";
-  },
-  {
-    address = "oceanicdota2league.com";
-    chatnet = "OD2L";
-    port = "12321";
-    use_ssl = "no";
-    ssl_verify = "no";
-    autoconnect = "yes";
-  },
   { address = "localhost"; chatnet = "bitlbee"; autoconnect = "yes"; }
 );
 
 chatnets = {
   freenode = { type = "IRC"; };
-  OD2L = { 
-    type = "IRC";
-    autosendcmd = "/^msg nickserv identify XXXXXXXXXXXX";
-  };
   QuakeNet = { type = "IRC"; };
   Rizon = { type = "IRC"; };
   ozorg = { type = "IRC"; };
@@ -65,13 +45,7 @@ channels = (
   { name = "#archlinux"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#fsc"; chatnet = "Rizon"; autojoin = "yes"; },
   { name = "#overclockers"; chatnet = "ozorg"; autojoin = "yes"; },
-  {
-    name = "#Oceanic_Dota_2_League";
-    chatnet = "OD2L";
-    autojoin = "yes";
-  },
   { name = "#reddit"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#reddit.dota2"; chatnet = "QuakeNet"; autojoin = "yes"; }
 );
 
 aliases = {
@@ -287,7 +261,6 @@ settings = {
     lt_in_queries = "yes";
     awl_display_key_active = "%y$N.$H$C$S";
     neat_colors = "rgybmMc";
-    quakenet_account = "quakenet:w0ng:XXXXXXXXXXXX";
   };
   "irc/core" = { alternate_nick = "w0ng_"; };
 };
@@ -332,8 +305,8 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#Oceanic_Dota_2_League";
-        tag = "OD2L";
+        name = "#archlinux";
+        tag = "freenode";
       }
     );
   };
@@ -342,28 +315,8 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#archlinux";
-        tag = "freenode";
-      }
-    );
-  };
-  6 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
         name = "#reddit";
         tag = "freenode";
-      }
-    );
-  };
-  7 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#reddit.dota2";
-        tag = "QuakeNet";
       }
     );
   };
