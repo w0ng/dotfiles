@@ -25,7 +25,7 @@ xset s off
 xset dpms 3600 3600 3600
 
 # increase mouse acceleration
-xset m 4
+xset m 3
 
 # enable numlock
 numlockx
