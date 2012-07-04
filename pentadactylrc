@@ -7,11 +7,10 @@ loadplugins '\.(js|penta)$'
 group user
 " status line
 hi -a StatusLine font-weight: normal;
-hi -a StatusLineNormal color:#657b83 !important; background:#073642 !important;
+hi -a StatusLineNormal color:#888888 !important; background:#292929 !important;
 
 " toggle global dark style
-map -builtin <F3> :styletoggle<Space>-name<Space>solarizeddark<CR>
-map -builtin <F4> :styletoggle<Space>-name<Space>solarizedlight<CR>
+map -builtin <F3> :styletoggle<Space>-name<Space>jellybeans<CR>
 " toggle minimalistic tabs
 map -builtin <leader>t :styletoggle<Space>-name<Space>minitabs<CR>
 
@@ -27,59 +26,32 @@ hi Normal -a font-family: Terminus !important; font-size: 9pt !important;
 
 
 " dark colors
-style -name solarizeddark http://*,https://*,file://*,about:blank <<EOM
+style -name jellybeans http://*,https://*,file://*,about:blank <<EOM
 * {
-  color: #657b83 !important;
-  background: #002b36 !important;
-  border-color: #073642 !important;
+  color: #888888 !important;
+  background: #151515 !important;
+  border-color: #292929 !important;
 }
 
 a, a * {
-  color: #268bd2 !important;
+  color: #8197bf !important;
   text-decoration: none !important;
 }
 
 a:hover, a:hover * {
-  color: #b58900 !important;
+  color: #fad07a !important;
 }
 
 a:visited, a:visited * {
-  color: #6c71c4 !important;
+  color: #b47699 !important;
 }
 
 a:visited:hover, a:visited:hover * {
-  color: #b58900 !important;
+  color: #fad07a !important;
 }
 EOM
-styledisable -name=solarizeddark
+styledisable -name=jellybeans
 
-" light colors
-style -name solarizedlight http://*,https://*,file://*,about:blank <<EOM
-* {
-  color: #839496 !important;
-  background: #fdf6e3 !important;
-  border-color: #eee8d5 !important;
-}
-
-a, a * {
-  color: #268bd2 !important;
-  text-decoration: none !important;
-}
-
-a:hover, a:hover * {
-  color: #b58900 !important;
-}
-
-a:visited, a:visited * {
-  color: #6c71c4 !important;
-}
-
-a:visited:hover, a:visited:hover * {
-  color: #b58900 !important;
-}
-
-EOM
-styledisable -name=solarizedlight
 
 " minimalistic tabs
 style -name minitabs chrome://* <<EOM
@@ -88,14 +60,14 @@ style -name minitabs chrome://* <<EOM
 }
  
 .tabbrowser-tabs {
-  background: #073642 !important;
+  background: #292929 !important;
 }
  
 .tabbrowser-tab {
   -moz-appearance: none !important;
-  background: #073642 !important;
+  background: #292929 !important;
   border: none !important;
-  color: #657b83 !important;
+  color: #888888 !important;
   font-family: Terminus; 
   font-size: 9pt !important;
   height: 18px !important;
@@ -116,13 +88,13 @@ style -name minitabs chrome://* <<EOM
 }
 
 .tabbrowser-tab:hover {
-  background: #b58900 !important;
-  color: #002b36 !important;
+  background: #fad07a !important;
+  color: #292929 !important;
 }
  
 .tabbrowser-tab[selected] {
-  background: #073642 !important;
-  color: #b58900 !important;
+  background: #292929 !important;
+  color: #fad07a !important;
 }
 EOM
 

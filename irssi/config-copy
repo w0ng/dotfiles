@@ -45,7 +45,7 @@ channels = (
   { name = "#archlinux"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#fsc"; chatnet = "Rizon"; autojoin = "yes"; },
   { name = "#overclockers"; chatnet = "ozorg"; autojoin = "yes"; },
-  { name = "#reddit"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#reddit"; chatnet = "freenode"; autojoin = "yes"; }
 );
 
 aliases = {
@@ -251,7 +251,7 @@ settings = {
 
   "perl/core/scripts" = {
     neat_maxlength = "10";
-    awl_display_key = "%Y$N.$H$C$S";
+    awl_display_key = "%w$N.$H$C$S";
     awl_position = "0";
     awl_sbar_maxlength = "no";
     awl_maxlines = "3";
@@ -260,7 +260,7 @@ settings = {
     bitlbee_send_typing = "yes";
     lt_in_queries = "yes";
     awl_display_key_active = "%y$N.$H$C$S";
-    neat_colors = "rgybmMc";
+    neat_colors = "rRgGyYbBmMcC";
   };
   "irc/core" = { alternate_nick = "w0ng_"; };
 };
@@ -333,6 +333,6 @@ windows = {
   99 = { name = "hilight"; sticky = "yes"; };
 };
 mainwindows = {
-  3 = { first_line = "5"; lines = "80"; };
+  2 = { first_line = "5"; lines = "80"; };
   99 = { first_line = "1"; lines = "4"; };
 };

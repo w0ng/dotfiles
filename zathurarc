@@ -2,13 +2,13 @@
 # ~/.config/zathura/zathurarc
 #
 
-set default-bg "#002b36"
-set default-fg "#657b83"
+set default-bg "#151515"
+set default-fg "#888888"
 set font "Terminus normal 9"
-set inputbar-bg "#002b36"
-set inputbar-fg "#b58900"
-set statusbar-bg "#073642"
-set statusbar-fg "#657b83"
-set recolor-lightcolor "#002b36"
-set recolor-darkcolor "#657b83"
+set inputbar-bg "#151515"
+set inputbar-fg "#fad07a"
+set statusbar-bg "#292929"
+set statusbar-fg "#888888"
+set recolor-lightcolor "#151515"
+set recolor-darkcolor "#888888"
 set show-scrollbars "true"

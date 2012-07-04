@@ -21,7 +21,7 @@ source $HOME/.config/git-completion.bash
 source /usr/bin/virtualenvwrapper.sh
 
 # ls colours
-eval $(dircolors $HOME/.config/dir_colours)
+eval $(dircolors -b)
 
 # tab completion
 zstyle ':completion:*' menu select
@@ -91,7 +91,7 @@ RPROMPT='%{$fg[black]%}[%{$fg[red]%}%?%{$fg[black]%}]%{$reset_color%}'
 SPROMPT="Correct $fg[red]%R$reset_color to $fg[green]%r?$reset_color (Yes, No, Abort, Edit) "
 
 # aliases
-alias ls="ls -hFG --color=always --group-directories-first --time-style=+'$fg_bold[blue]%d-%m-%y %H:%M$reset_color'"
+alias ls="ls -hFG --color=always --group-directories-first --time-style=+'$fg_bold[white]%d-%m-%y %H:%M$reset_color'"
 alias grep="grep --color=auto"
 alias tm="tmux attach-session -d -t 0"
 alias usbmount="sudo mount -o gid=100,fmask=113,dmask=002 /dev/sdd /mnt/usb"

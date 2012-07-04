@@ -11,7 +11,7 @@
 
 default_color = "-1";
 info_eol = "false";
-replaces = { "[]=" = "%G$*%n"; };
+replaces = { "[]=" = "%K$*%n"; };
 abstracts = {
 
   ##
@@ -23,7 +23,7 @@ abstracts = {
   line_start = "%c>>%n ";
 
   # timestamp styling, nothing by default
-  timestamp = "%G$0-%n";
+  timestamp = "%K$0-%n";
 
   # any kind of text that needs hilighting, default is to bold
   hilight = "%W$*%W";
@@ -75,7 +75,7 @@ abstracts = {
   ##
 
   # the basic styling of how to print message, $0 = nick mode, $1 = nick
-  msgnick = "%G%n$0$1-%G%n: %|";
+  msgnick = "%K%n$0$1-%K%n: %|";
 
   # message from you is printed. "msgownnick" specifies the styling of the
   # nick ($0 part in msgnick) and "ownmsgnick" specifies the styling of the
@@ -94,8 +94,8 @@ abstracts = {
   #  privmsgnick = "%K{msgnick  %R$*%K}%n";
 
   # $0 = nick mode, $1 = nick
-  ownmsgnick = "{msgnick $0 $1-}%C";
-  ownnick = "%C$*%n";
+  ownmsgnick = "{msgnick $0 $1-}%W";
+  ownnick = "%W$*%n";
 
   # public message in channel, $0 = nick mode, $1 = nick
   pubmsgnick = "{msgnick $0 $1-}";
@@ -110,17 +110,17 @@ abstracts = {
   pubmsghinick = "{msgnick $1 $0$2-%n}";
 
   # channel name is printed with message
-  msgchannel = "%G:%c$*%n";
+  msgchannel = "%K:%c$*%n";
 
   # private message, $0 = nick, $1 = host
-  privmsg = "[%R$0%G(%r$1-%G)%n] ";
+  privmsg = "[%R$0%K(%r$1-%K)%n] ";
 
   # private message from you, $0 = "msg", $1 = target nick
-  ownprivmsg = "[%r$0%G(%R$1-%G)%n] ";
+  ownprivmsg = "[%r$0%K(%R$1-%K)%n] ";
 
   # own private message in query
   ownprivmsgnick = "{msgnick $*}";
-  ownprivnick = "%C$*%n";
+  ownprivnick = "%W$*%n";
 
   # private message in query
   privmsgnick = "{msgnick %R$*%n}";
@@ -156,20 +156,20 @@ abstracts = {
   whois = "%# $[8]0 : $1-";
 
   # notices
-  ownnotice = "[%r$0%G(%R$1-%G)]%n ";
-  notice = "%G-%M$*%G-%n ";
-  pubnotice_channel = "%G:%m$*";
-  pvtnotice_host = "%G(%m$*%G)";
+  ownnotice = "[%r$0%K(%R$1-%K)]%n ";
+  notice = "%K-%M$*%K-%n ";
+  pubnotice_channel = "%K:%m$*";
+  pvtnotice_host = "%K(%m$*%K)";
   servernotice = "%g!$*%n ";
 
   # CTCPs
-  ownctcp = "[%r$0%G(%R$1-%G)] ";
+  ownctcp = "[%r$0%K(%R$1-%K)] ";
   ctcp = "%g$*%n";
 
   # wallops
-  wallop = "%C$*%n: ";
+  wallop = "%W$*%n: ";
   wallop_nick = "%n$*";
-  wallop_action = "%C * $*%n ";
+  wallop_action = "%W * $*%n ";
 
   # netsplits
   netsplit = "%R$*%n";
@@ -189,16 +189,16 @@ abstracts = {
   dccfile = "%_$*%_";
 
   # DCC chat, own msg/action
-  dccownmsg = "[%r$0%G($1-%G)%n] ";
+  dccownmsg = "[%r$0%K($1-%K)%n] ";
   dccownnick = "%R$*%n";
-  dccownquerynick = "%C$*%n";
+  dccownquerynick = "%W$*%n";
   dccownaction = "{action $*}";
-  dccownaction_target = "{action_core $0}%G:%c$1%n ";
+  dccownaction_target = "{action_core $0}%K:%c$1%n ";
 
   # DCC chat, others
-  dccmsg = "[%G$1-%G(%g$0%G)%n] ";
+  dccmsg = "[%G$1-%K(%g$0%K)%n] ";
   dccquerynick = "%G$*%n";
-  dccaction = "%C (*dcc*) $*%n %|";
+  dccaction = "%W (*dcc*) $*%n %|";
 
   ##
   ## statusbar
@@ -249,7 +249,7 @@ abstracts = {
 };
 formats = {
   "fe-common/core" = {
-    pubmsg = "{pubmsgnick {pubnick %g$[-10]0}$2}$1";
+    pubmsg = "{pubmsgnick {pubnick %m$[-10]0}$2}$1";
     own_msg = "{ownmsgnick {ownnick $[-10]0$2}}$1";
     own_msg_channel = "{ownmsgnick {ownnick $[-10]0$3}{msgchannel $1}}$2";
     own_msg_private_query = "{ownprivmsgnick {ownprivnick $[-10]2}}$1";
@@ -257,7 +257,7 @@ formats = {
     pubmsg_me_channel = "{pubmsgmenick {menick $[-10]0$3}{msgchannel $1}}$2";
     pubmsg_hilight = "{pubmsghinick $0 $0 $[-10]1$3%n}$2";
     pubmsg_hilight_channel = "{pubmsghinick $0 $[-10]1$4{msgchannel $2}}$3";
-    pubmsg_channel = "{pubmsgnick {pubnick %g$[-10]0}$2}$1";
+    pubmsg_channel = "{pubmsgnick {pubnick %m$[-10]0}$2}$1";
     msg_private_query = "{privmsgnick $[-10]0}$2";
   };
   "fe-common/irc" = {
