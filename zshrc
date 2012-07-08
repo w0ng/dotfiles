@@ -78,7 +78,7 @@ bindkey -M vicmd "?" history-incremental-search-forward
 # history
 HISTSIZE=10000
 SAVEHIST=10000
-HISTFILE=$HOME/.zhistory
+HISTFILE=$HOME/.logs/zhistory
 
 # prompt
 GIT_PS1_SHOWDIRTYSTATE=1
@@ -93,6 +93,8 @@ SPROMPT="Correct $fg[red]%R$reset_color to $fg[green]%r?$reset_color (Yes, No, A
 # aliases
 alias ls="ls -hFG --color=always --group-directories-first --time-style=+'$fg_bold[white]%d-%m-%y %H:%M$reset_color'"
 alias grep="grep --color=auto"
+alias packer="packer-color"
+alias pacman="pacman-color"
 alias tm="tmux attach-session -d -t 0"
 alias usbmount="sudo mount -o gid=100,fmask=113,dmask=002 /dev/sdd /mnt/usb"
 alias usbmountntfs="sudo ntfs-3g -o gid=100,fmask=113,dmask=002 /dev/sdd1 /mnt/usb"
