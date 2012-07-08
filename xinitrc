@@ -27,9 +27,6 @@ xset dpms 3600 3600 3600
 # increase mouse acceleration
 xset m 3
 
-# enable numlock
-numlockx
-
 # set WM to a name with Java recognises
 wmname LG3D
 
@@ -37,13 +34,12 @@ wmname LG3D
 sh $HOME/.fehbg &
 
 # start apps in background (only if not already running)
-list=(dropbox eggdrop mpd tmux transmission-daemon urxvtd)
+list=(dropbox mpd tmux transmission-daemon urxvtd)
 for app in "${list[@]}"; do
   check=$(ps -C "$app" -opid=)
   if [[ -z "$check" ]]; then
     case "$app" in
       dropbox) dropboxd & ;;
-      eggdrop) cd $HOME/.eggdrop && eggdrop eggdrop.conf & ;;
       mpd) mpd ;;
       tmux) tmux & ;;
       transmission-daemon) transmission-daemon ;;
