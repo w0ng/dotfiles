@@ -91,7 +91,7 @@ RPROMPT='%{$fg[black]%}[%{$fg[red]%}%?%{$fg[black]%}]%{$reset_color%}'
 SPROMPT="Correct $fg[red]%R$reset_color to $fg[green]%r?$reset_color (Yes, No, Abort, Edit) "
 
 # aliases
-alias ls="ls -hFG --color=always --group-directories-first --time-style=+'$fg_bold[white]%d-%m-%y %H:%M$reset_color'"
+alias ls="ls -hF --color=always --group-directories-first --time-style=+'$fg_bold[white]%d-%m-%y %H:%M$reset_color'"
 alias grep="grep --color=auto"
 alias packer="packer-color"
 alias pacman="pacman-color"
