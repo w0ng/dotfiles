@@ -22,12 +22,14 @@
 - /mnt/data1/*
 - /mnt/usb/*
 
+- /home/w0ng/data0/*
+- /home/w0ng/data1/*
 - /home/w0ng/downloads/*
+- /home/w0ng/dropbox/*
 - /home/w0ng/music/*
+- /home/w0ng/pictures/*
 - /home/w0ng/videos/*
-- /home/w0ng/vm/*
-- /home/w0ng/.mozilla/firefox/a2t6oyk7.default/Cache/*
-- /home/w0ng/.realDropbox/*
+- /home/w0ng/.db-container/*
 
 # location of backup folder
 - /mnt/data0/backup/*

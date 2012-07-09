@@ -95,6 +95,7 @@ alias ls="ls -hF --color=always --group-directories-first --time-style=+'$fg_bol
 alias grep="grep --color=auto"
 alias packer="packer-color"
 alias pacman="pacman-color"
+alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
 alias tm="tmux attach-session -d -t 0"
 alias usbmount="sudo mount -o gid=100,fmask=113,dmask=002 /dev/sdd /mnt/usb"
 alias usbmountntfs="sudo ntfs-3g -o gid=100,fmask=113,dmask=002 /dev/sdd1 /mnt/usb"
