@@ -16,7 +16,7 @@
 <!-- 7. WordPress will then import each of the posts, pages, comments, categories, etc. -->
 <!--    contained in this file into your site. -->
 
-<!-- generator="WordPress/3.3.2" created="2012-05-02 14:30" -->
+<!-- generator="WordPress/3.3.2" created="2012-07-09 20:49" -->
 <rss version="2.0"
 	xmlns:excerpt="http://wordpress.org/export/1.1/excerpt/"
 	xmlns:content="http://purl.org/rss/1.0/modules/content/"
@@ -29,7 +29,7 @@
 	<title>w0ng&#039;s Arch Linux Blog</title>
 	<link>http://archlinux.me/w0ng</link>
 	<description>Just another Arch Linux Blog site</description>
-	<pubDate>Wed, 02 May 2012 14:30:45 +0000</pubDate>
+	<pubDate>Mon, 09 Jul 2012 20:49:22 +0000</pubDate>
 	<language>en</language>
 	<wp:wxr_version>1.1</wp:wxr_version>
 	<wp:base_site_url>http://archlinux.me/</wp:base_site_url>
@@ -38,32 +38,46 @@
 	<wp:author><wp:author_id>57</wp:author_id><wp:author_login>w0ng</wp:author_login><wp:author_email>akamchoiw@gmail.com</wp:author_email><wp:author_display_name><![CDATA[w0ng]]></wp:author_display_name><wp:author_first_name><![CDATA[Andrew]]></wp:author_first_name><wp:author_last_name><![CDATA[Wong]]></wp:author_last_name></wp:author>
 
 	<wp:category><wp:term_id>1</wp:term_id><wp:category_nicename>linux</wp:category_nicename><wp:category_parent></wp:category_parent><wp:cat_name><![CDATA[Linux]]></wp:cat_name></wp:category>
+	<wp:tag><wp:term_id>38</wp:term_id><wp:tag_slug>alsa</wp:tag_slug><wp:tag_name><![CDATA[alsa]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>44</wp:term_id><wp:tag_slug>audio</wp:tag_slug><wp:tag_name><![CDATA[audio]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>41</wp:term_id><wp:tag_slug>automatic</wp:tag_slug><wp:tag_name><![CDATA[automatic]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>32</wp:term_id><wp:tag_slug>bot</wp:tag_slug><wp:tag_name><![CDATA[bot]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>51</wp:term_id><wp:tag_slug>cfq</wp:tag_slug><wp:tag_name><![CDATA[cfq]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>18</wp:term_id><wp:tag_slug>colour</wp:tag_slug><wp:tag_name><![CDATA[colour]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>25</wp:term_id><wp:tag_slug>cousine</wp:tag_slug><wp:tag_name><![CDATA[cousine]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>17</wp:term_id><wp:tag_slug>cursor</wp:tag_slug><wp:tag_name><![CDATA[cursor]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>49</wp:term_id><wp:tag_slug>deadline</wp:tag_slug><wp:tag_name><![CDATA[deadline]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>42</wp:term_id><wp:tag_slug>default</wp:tag_slug><wp:tag_name><![CDATA[default]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>34</wp:term_id><wp:tag_slug>dircolors</wp:tag_slug><wp:tag_name><![CDATA[dircolors]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>35</wp:term_id><wp:tag_slug>dwm</wp:tag_slug><wp:tag_name><![CDATA[dwm]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>29</wp:term_id><wp:tag_slug>eggdrop</wp:tag_slug><wp:tag_name><![CDATA[eggdrop]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>8</wp:term_id><wp:tag_slug>git</wp:tag_slug><wp:tag_name><![CDATA[git]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>40</wp:term_id><wp:tag_slug>headset</wp:tag_slug><wp:tag_name><![CDATA[headset]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>24</wp:term_id><wp:tag_slug>ipython</wp:tag_slug><wp:tag_name><![CDATA[ipython]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>31</wp:term_id><wp:tag_slug>irc</wp:tag_slug><wp:tag_name><![CDATA[irc]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>14</wp:term_id><wp:tag_slug>lines</wp:tag_slug><wp:tag_name><![CDATA[lines]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>13</wp:term_id><wp:tag_slug>long</wp:tag_slug><wp:tag_name><![CDATA[long]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>50</wp:term_id><wp:tag_slug>noop</wp:tag_slug><wp:tag_name><![CDATA[noop]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>36</wp:term_id><wp:tag_slug>pretty</wp:tag_slug><wp:tag_name><![CDATA[pretty]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>10</wp:term_id><wp:tag_slug>prompt</wp:tag_slug><wp:tag_name><![CDATA[prompt]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>22</wp:term_id><wp:tag_slug>python2</wp:tag_slug><wp:tag_name><![CDATA[python2]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>47</wp:term_id><wp:tag_slug>scheduler</wp:tag_slug><wp:tag_name><![CDATA[scheduler]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>27</wp:term_id><wp:tag_slug>semicolon</wp:tag_slug><wp:tag_name><![CDATA[semicolon]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>30</wp:term_id><wp:tag_slug>setup</wp:tag_slug><wp:tag_name><![CDATA[setup]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>12</wp:term_id><wp:tag_slug>slow</wp:tag_slug><wp:tag_name><![CDATA[slow]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>33</wp:term_id><wp:tag_slug>solarized</wp:tag_slug><wp:tag_name><![CDATA[solarized]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>45</wp:term_id><wp:tag_slug>sound</wp:tag_slug><wp:tag_name><![CDATA[sound]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>46</wp:term_id><wp:tag_slug>ssd</wp:tag_slug><wp:tag_name><![CDATA[ssd]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>9</wp:term_id><wp:tag_slug>status</wp:tag_slug><wp:tag_name><![CDATA[status]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>37</wp:term_id><wp:tag_slug>statusbar</wp:tag_slug><wp:tag_name><![CDATA[statusbar]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>43</wp:term_id><wp:tag_slug>switch</wp:tag_slug><wp:tag_name><![CDATA[switch]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>15</wp:term_id><wp:tag_slug>syntax</wp:tag_slug><wp:tag_name><![CDATA[syntax]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>28</wp:term_id><wp:tag_slug>tilde</wp:tag_slug><wp:tag_name><![CDATA[tilde]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>20</wp:term_id><wp:tag_slug>tmux</wp:tag_slug><wp:tag_name><![CDATA[tmux]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>26</wp:term_id><wp:tag_slug>ttf-google-webfonts</wp:tag_slug><wp:tag_name><![CDATA[ttf-google-webfonts]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>48</wp:term_id><wp:tag_slug>udev</wp:tag_slug><wp:tag_name><![CDATA[udev]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>21</wp:term_id><wp:tag_slug>urxvt</wp:tag_slug><wp:tag_name><![CDATA[urxvt]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>39</wp:term_id><wp:tag_slug>usb</wp:tag_slug><wp:tag_name><![CDATA[usb]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>19</wp:term_id><wp:tag_slug>vicmd</wp:tag_slug><wp:tag_name><![CDATA[vicmd]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>11</wp:term_id><wp:tag_slug>vim</wp:tag_slug><wp:tag_name><![CDATA[vim]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>23</wp:term_id><wp:tag_slug>virtualenv</wp:tag_slug><wp:tag_name><![CDATA[virtualenv]]></wp:tag_name></wp:tag>
@@ -166,16 +180,6 @@ Juan]]></wp:comment_content>
 			<wp:commentmeta>
 				<wp:meta_key>akismet_history</wp:meta_key>
 				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1335297576.6955";s:7:"message";s:28:"Akismet cleared this comment";s:5:"event";s:9:"check-ham";s:4:"user";s:0:"";}]]></wp:meta_value>
-			</wp:commentmeta>
-			<wp:commentmeta>
-				<wp:meta_key>akismet_as_submitted</wp:meta_key>
-				<wp:meta_value><![CDATA[a:57:{s:15:"comment_post_ID";s:1:"6";s:14:"comment_author";s:4:"Juan";s:20:"comment_author_email";s:16:"cpfiro@gmail.com";s:18:"comment_author_url";s:0:"";s:15:"comment_content";s:157:"Hi, im new to arch and the arch forum as well. I saw you had a really cool wallpaper, is there anyway you could email it to me? 
-
-Thank you very much
-Juan";s:12:"comment_type";s:0:"";s:14:"comment_parent";s:1:"0";s:7:"user_ID";s:1:"0";s:7:"user_ip";s:13:"24.130.78.238";s:10:"user_agent";s:68:"Mozilla/5.0 (X11; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0";s:8:"referrer";s:74:"http://archlinux.me/w0ng/2012/03/27/git-status-in-zsh-prompt-the-easy-way/";s:4:"blog";s:24:"http://archlinux.me/w0ng";s:9:"blog_lang";s:5:"en_US";s:12:"blog_charset";s:5:"UTF-8";s:9:"permalink";s:74:"http://archlinux.me/w0ng/2012/03/27/git-status-in-zsh-prompt-the-easy-way/";s:9:"user_role";s:0:"";s:21:"akismet_comment_nonce";s:6:"passed";s:11:"POST_author";s:4:"Juan";s:10:"POST_email";s:16:"cpfiro@gmail.com";s:8:"POST_url";s:0:"";s:12:"POST_comment";s:157:"Hi, im new to arch and the arch forum as well. I saw you had a really cool wallpaper, is there anyway you could email it to me? 
-
-Thank you very much
-Juan";s:11:"POST_submit";s:14:"Submit Comment";s:20:"POST_comment_post_ID";s:1:"6";s:19:"POST_comment_parent";s:1:"0";s:26:"POST_akismet_comment_nonce";s:10:"32c8b12b03";s:15:"SERVER_SOFTWARE";s:6:"Apache";s:11:"REQUEST_URI";s:26:"/w0ng/wp-comments-post.php";s:18:"REDIRECT_UNIQUE_ID";s:24:"T5cGKH8AAAEAAG9MLtYAAAAP";s:15:"REDIRECT_STATUS";s:3:"200";s:9:"UNIQUE_ID";s:24:"T5cGKH8AAAEAAG9MLtYAAAAP";s:9:"HTTP_HOST";s:12:"archlinux.me";s:15:"HTTP_USER_AGENT";s:68:"Mozilla/5.0 (X11; Linux x86_64; rv:11.0) Gecko/20100101 Firefox/11.0";s:11:"HTTP_ACCEPT";s:63:"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";s:20:"HTTP_ACCEPT_LANGUAGE";s:14:"en-us,en;q=0.5";s:20:"HTTP_ACCEPT_ENCODING";s:13:"gzip, deflate";s:15:"HTTP_CONNECTION";s:10:"keep-alive";s:12:"HTTP_REFERER";s:74:"http://archlinux.me/w0ng/2012/03/27/git-status-in-zsh-prompt-the-easy-way/";s:12:"CONTENT_TYPE";s:33:"application/x-www-form-urlencoded";s:14:"CONTENT_LENGTH";s:3:"315";s:4:"PATH";s:60:"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin";s:16:"SERVER_SIGNATURE";s:0:"";s:11:"SERVER_NAME";s:12:"archlinux.me";s:11:"SERVER_ADDR";s:15:"167.142.225.168";s:11:"SERVER_PORT";s:2:"80";s:11:"REMOTE_ADDR";s:13:"24.130.78.238";s:13:"DOCUMENT_ROOT";s:23:"/home/http/archlinux.me";s:12:"SERVER_ADMIN";s:19:"crouse@archlinux.us";s:15:"SCRIPT_FILENAME";s:44:"/home/http/archlinux.me/wp-comments-post.php";s:11:"REMOTE_PORT";s:5:"37561";s:12:"REDIRECT_URL";s:26:"/w0ng/wp-comments-post.php";s:17:"GATEWAY_INTERFACE";s:7:"CGI/1.1";s:15:"SERVER_PROTOCOL";s:8:"HTTP/1.1";s:14:"REQUEST_METHOD";s:4:"POST";s:12:"QUERY_STRING";s:0:"";s:11:"SCRIPT_NAME";s:21:"/wp-comments-post.php";s:8:"PHP_SELF";s:21:"/wp-comments-post.php";s:12:"REQUEST_TIME";s:10:"1335297576";}]]></wp:meta_value>
 			</wp:commentmeta>
 			<wp:commentmeta>
 				<wp:meta_key>akismet_history</wp:meta_key>
@@ -665,7 +669,7 @@ static const char colors[NUMCOLORS][ColLast][8] = {
 <li>Restart X</li>
 </ol>
 
-
+<strong>Edit: This appears to be a better solution (I haven't tried it yet, though): <a href="https://bbs.archlinux.org/viewtopic.php?pid=1096029#p1096029" target="_blank">https://bbs.archlinux.org/viewtopic.php?pid=1096029#p1096029</a></strong>
 ]]></content:encoded>
 		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
 		<wp:post_id>189</wp:post_id>
@@ -690,16 +694,60 @@ static const char colors[NUMCOLORS][ColLast][8] = {
 		</wp:postmeta>
 	</item>
 	<item>
-		<title>Irssi </title>
-		<link>http://archlinux.me/w0ng/?p=249</link>
+		<title>Irssi: Hiding your passwords with SSL + SASL</title>
+		<link>http://archlinux.me/w0ng/2012/05/04/irssi-hiding-your-passwords-with-ssl-sasl/</link>
+		<pubDate>Thu, 03 May 2012 19:42:47 +0000</pubDate>
+		<dc:creator>w0ng</dc:creator>
+		<guid isPermaLink="false">http://archlinux.me/w0ng/?p=252</guid>
+		<description></description>
+		<content:encoded><![CDATA[Add an extra layer of security by encrypting your passwords and storing them outside of Irssi's config.
+
+<strong>freenode</strong>
+<ol>
+<li>Save freenode's sasl script:
+<pre line="">$ wget http://www.freenode.net/sasl/cap_sasl.pl -O ~/.irssi/scripts/cap_sasl.pl</pre></li>
+<li>Install the required perl encryption modules:
+<pre line="">$ yaourt -S perl-crypt-blowfish perl-crypt-dh perl-crypt-openssl-bignum</pre></li>
+</ol>]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>252</wp:post_id>
+		<wp:post_date>2012-05-04 06:42:47</wp:post_date>
+		<wp:post_date_gmt>2012-05-03 19:42:47</wp:post_date_gmt>
+		<wp:comment_status>open</wp:comment_status>
+		<wp:ping_status>open</wp:ping_status>
+		<wp:post_name>irssi-hiding-your-passwords-with-ssl-sasl</wp:post_name>
+		<wp:status>trash</wp:status>
+		<wp:post_parent>0</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type>post</wp:post_type>
+		<wp:post_password></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+		<category domain="category" nicename="linux"><![CDATA[Linux]]></category>
+		<wp:postmeta>
+			<wp:meta_key>_edit_last</wp:meta_key>
+			<wp:meta_value><![CDATA[57]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>_wp_trash_meta_status</wp:meta_key>
+			<wp:meta_value><![CDATA[draft]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>_wp_trash_meta_time</wp:meta_key>
+			<wp:meta_value><![CDATA[1341391303]]></wp:meta_value>
+		</wp:postmeta>
+	</item>
+	<item>
+		<title></title>
+		<link>http://archlinux.me/w0ng/?p=262</link>
 		<pubDate>Thu, 01 Jan 1970 00:00:00 +0000</pubDate>
 		<dc:creator>w0ng</dc:creator>
-		<guid isPermaLink="false">http://archlinux.me/w0ng/?p=249</guid>
+		<guid isPermaLink="false">http://archlinux.me/w0ng/?p=262</guid>
 		<description></description>
-		<content:encoded><![CDATA[]]></content:encoded>
+		<content:encoded><![CDATA[Felt like a change. 
+Time to part ways with Solarized and revert back to Jellybeans inspired colours.]]></content:encoded>
 		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>249</wp:post_id>
-		<wp:post_date>2012-05-02 22:56:55</wp:post_date>
+		<wp:post_id>262</wp:post_id>
+		<wp:post_date>2012-07-04 22:56:28</wp:post_date>
 		<wp:post_date_gmt>0000-00-00 00:00:00</wp:post_date_gmt>
 		<wp:comment_status>open</wp:comment_status>
 		<wp:ping_status>open</wp:ping_status>
@@ -714,6 +762,196 @@ static const char colors[NUMCOLORS][ColLast][8] = {
 		<wp:postmeta>
 			<wp:meta_key>_edit_last</wp:meta_key>
 			<wp:meta_value><![CDATA[57]]></wp:meta_value>
+		</wp:postmeta>
+	</item>
+	<item>
+		<title>systemd</title>
+		<link>http://archlinux.me/w0ng/?p=265</link>
+		<pubDate>Thu, 01 Jan 1970 00:00:00 +0000</pubDate>
+		<dc:creator>w0ng</dc:creator>
+		<guid isPermaLink="false">http://archlinux.me/w0ng/?p=265</guid>
+		<description></description>
+		<content:encoded><![CDATA[]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>265</wp:post_id>
+		<wp:post_date>2012-07-04 22:59:07</wp:post_date>
+		<wp:post_date_gmt>0000-00-00 00:00:00</wp:post_date_gmt>
+		<wp:comment_status>open</wp:comment_status>
+		<wp:ping_status>open</wp:ping_status>
+		<wp:post_name></wp:post_name>
+		<wp:status>draft</wp:status>
+		<wp:post_parent>0</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type>post</wp:post_type>
+		<wp:post_password></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+		<category domain="category" nicename="linux"><![CDATA[Linux]]></category>
+		<wp:postmeta>
+			<wp:meta_key>_edit_last</wp:meta_key>
+			<wp:meta_value><![CDATA[57]]></wp:meta_value>
+		</wp:postmeta>
+	</item>
+	<item>
+		<title>ALSA: Switch audio output to USB Headset</title>
+		<link>http://archlinux.me/w0ng/2012/07/06/alsa-switch-audio-usb-headset/</link>
+		<pubDate>Thu, 05 Jul 2012 13:11:36 +0000</pubDate>
+		<dc:creator>w0ng</dc:creator>
+		<guid isPermaLink="false">http://archlinux.me/w0ng/?p=267</guid>
+		<description></description>
+		<content:encoded><![CDATA[I recently purchased a USB headset. 
+Here's how to get it working with ALSA, manually and automatically.
+
+<strong>Manually:</strong>
+
+(From <a href="https://wiki.archlinux.org/index.php/Advanced_Linux_Sound_Architecture" target="_blank">ALSA ArchWiki</a>)
+
+Load module:
+<pre line=""># modprobe snd_usb_audio</pre>
+
+Verify that module is loaded:
+<pre line="">$ lsmod | grep snd_usb_audio
+snd_usb_audio          93519  3 
+...</pre>
+
+Find corresponding card ID:
+<pre line="">$ aplay -l
+**** List of PLAYBACK Hardware Devices ****
+...
+card 2: P780 [Plantronics GameCom 780], device 0: USB Audio [USB Audio]
+  Subdevices: 0/1
+  Subdevice #0: subdevice #0</pre>
+
+Set card ID as default audio device in <code>~/.asoundrc</code>:
+<pre line="1" lang="ini">defaults.ctl.card 2
+defaults.pcm.card 2</pre>
+
+The manual method works fine if the headset is always plugged in.
+
+<strong>Automatically:</strong>
+
+It would be better if we could automatically change the default audio device based on whether the USB headset is plugged in or not. This can be achieved by using <a href="https://bbs.archlinux.org/viewtopic.php?pid=763244#p763244" target="_blank">udev rules</a>.
+
+Add the following to <code>/etc/udev/rules.d/00-local.rules</code>:
+<pre># Set USB headset as default sound card when plugged in
+KERNEL=="pcmC[D0-9cp]*", ACTION=="add", PROGRAM="/bin/sh -c 'K=%k; K=$${K#pcmC}; K=$${K%%D*}; echo defaults.ctl.card $$K &gt; /etc/asound.conf; echo defaults.pcm.card $$K &gt;&gt;/etc/asound.conf'"
+
+# Restore default sound card when USB headset unplugged
+KERNEL=="pcmC[D0-9cp]*", ACTION=="remove", PROGRAM="/bin/sh -c 'echo defaults.ctl.card 0 &gt; /etc/asound.conf; echo defaults.pcm.card 0 &gt;&gt;/etc/asound.conf'"</pre>
+
+udev automatically detects changes to rules. However, you will need to unplug and replug the headset for changes to be be triggered.
+
+Audio applications need to be restarted whenever default card changes. If anyone knows a way of switching audio devices without restarting applications (using ALSA, not Pulseaudio), please let me know.]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>267</wp:post_id>
+		<wp:post_date>2012-07-06 00:11:36</wp:post_date>
+		<wp:post_date_gmt>2012-07-05 13:11:36</wp:post_date_gmt>
+		<wp:comment_status>open</wp:comment_status>
+		<wp:ping_status>open</wp:ping_status>
+		<wp:post_name>alsa-switch-audio-usb-headset</wp:post_name>
+		<wp:status>publish</wp:status>
+		<wp:post_parent>0</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type>post</wp:post_type>
+		<wp:post_password></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+		<category domain="post_tag" nicename="alsa"><![CDATA[alsa]]></category>
+		<category domain="post_tag" nicename="audio"><![CDATA[audio]]></category>
+		<category domain="post_tag" nicename="automatic"><![CDATA[automatic]]></category>
+		<category domain="post_tag" nicename="default"><![CDATA[default]]></category>
+		<category domain="post_tag" nicename="headset"><![CDATA[headset]]></category>
+		<category domain="category" nicename="linux"><![CDATA[Linux]]></category>
+		<category domain="post_tag" nicename="sound"><![CDATA[sound]]></category>
+		<category domain="post_tag" nicename="switch"><![CDATA[switch]]></category>
+		<category domain="post_tag" nicename="usb"><![CDATA[usb]]></category>
+		<wp:postmeta>
+			<wp:meta_key>_edit_last</wp:meta_key>
+			<wp:meta_value><![CDATA[57]]></wp:meta_value>
+		</wp:postmeta>
+	</item>
+	<item>
+		<title>SSD + GPT + grub2 + systemd</title>
+		<link>http://archlinux.me/w0ng/?p=287</link>
+		<pubDate>Thu, 01 Jan 1970 00:00:00 +0000</pubDate>
+		<dc:creator>w0ng</dc:creator>
+		<guid isPermaLink="false">http://archlinux.me/w0ng/?p=287</guid>
+		<description></description>
+		<content:encoded><![CDATA[<strong>Background</strong>
+<ul>
+	<li>Current specs: GA-EP45DS3L, E8500, 4GB DDR2, 1x 640GB WD Black, 2x 1TB WD Green</li>
+	<li>Wanted cheap upgrade for ageing system. Purchased 120GB Intel 330 SSD. </li>
+	<li>Posting this as self-reference to installation process.</li>
+</ul>
+
+<strong>Why GPT/grub2/systemd?</strong>
+<ul>
+	<li>GPT: Replaces MBR. Allows &gt;4 primary partitions, allows &gt;2TB partition sizes, less collisions/corruption.</li>
+	<li>grub2: Replaces grub. grub is deprecated in other distros and doesn't support GPT.</li>
+	<li>systemd: </li>
+</ul>]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>287</wp:post_id>
+		<wp:post_date>2012-07-09 02:58:14</wp:post_date>
+		<wp:post_date_gmt>0000-00-00 00:00:00</wp:post_date_gmt>
+		<wp:comment_status>open</wp:comment_status>
+		<wp:ping_status>open</wp:ping_status>
+		<wp:post_name></wp:post_name>
+		<wp:status>draft</wp:status>
+		<wp:post_parent>0</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type>post</wp:post_type>
+		<wp:post_password></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+		<category domain="category" nicename="linux"><![CDATA[Linux]]></category>
+		<wp:postmeta>
+			<wp:meta_key>_edit_last</wp:meta_key>
+			<wp:meta_value><![CDATA[57]]></wp:meta_value>
+		</wp:postmeta>
+	</item>
+	<item>
+		<title>Udev: Changing SSD&#039;s default (CFQ) I/O Scheduler</title>
+		<link>http://archlinux.me/w0ng/2012/07/09/udev-changing-ss-default-cfq-io-scheduler/</link>
+		<pubDate>Mon, 09 Jul 2012 06:16:17 +0000</pubDate>
+		<dc:creator>w0ng</dc:creator>
+		<guid isPermaLink="false">http://archlinux.me/w0ng/?p=296</guid>
+		<description></description>
+		<content:encoded><![CDATA[Courtesy of falconindy @ #archlinux
+
+<pre line="1" lang="bash"># set a larger readahead size
+ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/read_ahead_kb}="1024"
+ 
+# set deadline scheduler for non-rotating disks
+ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="deadline"</pre>
+
+To verify:
+<pre line="">$ cat /sys/block/sda/queue/scheduler
+noop [deadline] cfq</pre>]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>296</wp:post_id>
+		<wp:post_date>2012-07-09 17:16:17</wp:post_date>
+		<wp:post_date_gmt>2012-07-09 06:16:17</wp:post_date_gmt>
+		<wp:comment_status>open</wp:comment_status>
+		<wp:ping_status>open</wp:ping_status>
+		<wp:post_name>udev-changing-ss-default-cfq-io-scheduler</wp:post_name>
+		<wp:status>publish</wp:status>
+		<wp:post_parent>0</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type>post</wp:post_type>
+		<wp:post_password></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+		<category domain="post_tag" nicename="cfq"><![CDATA[cfq]]></category>
+		<category domain="post_tag" nicename="deadline"><![CDATA[deadline]]></category>
+		<category domain="category" nicename="linux"><![CDATA[Linux]]></category>
+		<category domain="post_tag" nicename="noop"><![CDATA[noop]]></category>
+		<category domain="post_tag" nicename="scheduler"><![CDATA[scheduler]]></category>
+		<category domain="post_tag" nicename="ssd"><![CDATA[ssd]]></category>
+		<category domain="post_tag" nicename="udev"><![CDATA[udev]]></category>
+		<wp:postmeta>
+			<wp:meta_key>_edit_last</wp:meta_key>
+			<wp:meta_value><![CDATA[57]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>_wp_old_slug</wp:meta_key>
+			<wp:meta_value><![CDATA[udev-changing-a-drives-default-cfq-io-scheduler]]></wp:meta_value>
 		</wp:postmeta>
 	</item>
 </channel>
