@@ -99,7 +99,7 @@ my %config;
 Irssi::settings_add_str('trackbar', 'trackbar_string' => '-');
 $config{'trackbar_string'} = Irssi::settings_get_str('trackbar_string');
 
-Irssi::settings_add_str('trackbar', 'trackbar_style' => '%G');
+Irssi::settings_add_str('trackbar', 'trackbar_style' => '%K');
 $config{'trackbar_style'} = Irssi::settings_get_str('trackbar_style');
 
 Irssi::signal_add(
