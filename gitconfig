@@ -5,10 +5,6 @@
 [user]
 	name = Andrew Wong
 	email = akamchoiw@gmail.com
-[github]
-	token = XXXXXXXXXX
-  user = w0ng
-  password = XXXXXXXXXX
 [color]
 	ui = true
 [core]
