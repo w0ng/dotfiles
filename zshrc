@@ -94,7 +94,6 @@ SPROMPT="Correct $fg[red]%R$reset_color to $fg[green]%r?$reset_color (Yes, No, A
 alias ls="ls -hF --color=always --group-directories-first --time-style=+'$fg_bold[white]%d-%m-%y %H:%M$reset_color'"
 alias ll="ls++"
 alias grep="grep --color=auto"
-alias packer="packer-color"
 alias pacman="pacman-color"
 alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
 alias tm="tmux attach-session -d -t 0"
