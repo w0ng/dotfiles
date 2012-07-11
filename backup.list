@@ -10,26 +10,18 @@
 
 # Exclude
 - /dev/*
+- /run/*
 - /proc/*
 - /sys/*
 - /tmp/*
 - lost+found/*
-
+- /media/*
+- /mnt/*
 - /var/lib/pacman/sync/*
 
-- /mnt/cdrom/*
-- /mnt/data0/*
-- /mnt/data1/*
-- /mnt/usb/*
-
-- /home/w0ng/data0/*
-- /home/w0ng/data1/*
-- /home/w0ng/downloads/*
-- /home/w0ng/dropbox/*
-- /home/w0ng/music/*
-- /home/w0ng/pictures/*
-- /home/w0ng/videos/*
 - /home/w0ng/.db-container/*
+- /home/w0ng/.mozilla/firefox/*.default/Cache/*
+- /home/w0ng/.mozilla/firefox/*.default/OfflineCache/*
 
 # location of backup folder
 - /mnt/data0/backup/*
