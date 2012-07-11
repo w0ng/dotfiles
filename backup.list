@@ -10,14 +10,15 @@
 
 # Exclude
 - /dev/*
-- /run/*
-- /proc/*
-- /sys/*
-- /tmp/*
-- lost+found/*
 - /media/*
 - /mnt/*
+- /proc/*
+- /run/*
+- /sys/*
+- /tmp/*
+- /var/cache/pacman/pkg/*
 - /var/lib/pacman/sync/*
+- lost+found/*
 
 - /home/w0ng/.db-container/*
 - /home/w0ng/.mozilla/firefox/*.default/Cache/*
