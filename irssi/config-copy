@@ -32,7 +32,6 @@ servers = (
 
 chatnets = {
   freenode = { type = "IRC"; };
-  QuakeNet = { type = "IRC"; };
   Rizon = { type = "IRC"; };
   ozorg = { type = "IRC"; };
   bitlbee = {
@@ -316,6 +315,46 @@ windows = {
         type = "CHANNEL";
         chat_type = "IRC";
         name = "#reddit";
+        tag = "freenode";
+      }
+    );
+  };
+  6 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#bash";
+        tag = "freenode";
+      }
+    );
+  };
+  7 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#python";
+        tag = "freenode";
+      }
+    );
+  };
+  8 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#vim";
+        tag = "freenode";
+      }
+    );
+  };
+  9 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#zsh";
         tag = "freenode";
       }
     );
