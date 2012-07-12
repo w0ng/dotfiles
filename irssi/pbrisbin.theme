@@ -160,14 +160,14 @@ formats = {
     pubmsg_me_channel = "{pubmsgmenick {menick $[-10]0$3}{msgchannel $1}}$2";
     pubmsg_hilight = "{pubmsghinick $0 $0 $[-10]1$3%n}$2";
     pubmsg_hilight_channel = "{pubmsghinick $0 $[-10]1$4{msgchannel $2}}$3";
-    pubmsg = "{pubmsgnick {pubnick %w$[-10]0}$2}$1";
-    pubmsg_channel = "{pubmsgnick {pubnick %w$[-10]0}$2}$1";
+    pubmsg = "{pubmsgnick {pubnick %r$[-10]0}$2}$1";
+    pubmsg_channel = "{pubmsgnick {pubnick %r$[-10]0}$2}$1";
     msg_private_query = "{privmsgnick $[-10]0}$2";
   };
   "fe-common/irc" = {
-    own_action = "{ownaction $[-8]0} $1";
-    action_private = "{pvtaction $[-8]0}$1";
-    action_private_query = "{pvtaction_query $[-8]0} $2";
-    action_public = "{pubaction $[-8]0}$1";
+    own_action = "{ownaction $[8]0} $1";
+    action_private = "{pvtaction $[8]0}$1";
+    action_private_query = "{pvtaction_query $[8]0} $2";
+    action_public = "{pubaction $[8]0}$1";
   };
 };

@@ -30,6 +30,7 @@ servers = (
   { address = "localhost"; chatnet = "bitlbee"; autoconnect = "yes"; }
 );
 
+
 chatnets = {
   freenode = { type = "IRC"; };
   Rizon = { type = "IRC"; };
@@ -53,166 +54,54 @@ channels = (
 
 aliases = {
   J = "join";
-  WJOIN = "join -window";
-  WQUERY = "query -window";
   LEAVE = "part";
-  BYE = "quit";
+  E = "exec - runz";
+  EO = "exec - -o runz";
   EXIT = "quit";
-  SIGNOFF = "quit";
-  DESCRIBE = "action";
-  DATE = "time";
-  HOST = "userhost";
-  LAST = "lastlog";
-  SAY = "msg *";
-  WI = "whois";
-  WII = "whois $0 $0";
-  WW = "whowas";
+  LL = "lastlog";
   W = "window";
-  N = "names";
-  M = "msg";
-  T = "topic";
-  C = "clear";
-  CL = "clear";
-  K = "kick";
-  KB = "kickban";
-  KN = "knockout";
-  BANS = "ban";
-  B = "ban";
-  MUB = "unban *";
-  UB = "unban";
-  IG = "ignore";
-  UNIG = "unignore";
-  SB = "scrollback";
-  UMODE = "mode $N";
+  M = "mark";
   WC = "window close";
+  WK = "window kill";
   WN = "window new hide";
-  SV = "say Irssi $J ($V) - http://irssi.org/";
-  GOTO = "sb goto";
-  CHAT = "dcc chat";
+  WA = "window goto active";
   RUN = "SCRIPT LOAD";
-  CALC = "exec - if command -v bc >/dev/null 2>&1\\; then printf '%s=' '$*'\\; echo '$*' | bc -l\\; else echo bc was not found\\; fi";
-  SBAR = "STATUSBAR";
-  INVITELIST = "mode $C +I";
   Q = "QUERY";
-  "MANUAL-WINDOWS" = "set use_status_window off;set autocreate_windows off;set autocreate_query_level none;set autoclose_windows off;set reuse_unused_windows on;save";
-  EXEMPTLIST = "mode $C +e";
-  ATAG = "WINDOW SERVER";
-  UNSET = "set -clear";
-  RESET = "set -default";
 };
 
 statusbar = {
-  # formats:
-  # when using {templates}, the template is shown only if it's argument isn't
-  # empty unless no argument is given. for example {sb} is printed always,
-  # but {sb $T} is printed only if $T isn't empty.
-
   items = {
-    # start/end text in statusbars
-    barstart = "{sbstart}";
-    barend = "{sbend}";
+    time = "{sb $Z}       ";
+    window = ":: {sb [$winref] $tag $itemname} ";
+    window_empty = ":: {sb [$winref] $tag $itemname} ";
 
-    topicbarstart = "{topicsbstart}";
-    topicbarend = "{topicsbend}";
-
-    # treated "normally", you could change the time/user name to whatever
-    time = "{sb $Z}";
-    user = "{sb $N}";
-
-    # treated specially .. window is printed with non-empty windows,
-    # window_empty is printed with empty windows
-    window = "{sb $winref:$tag/$itemname{sbmode $M}}";
-    window_empty = "{sb $winref{sbservertag $tag}}";
-    prompt = "{prompt $[.15]itemname}";
-    prompt_empty = "{prompt $winname}";
-    topic = " $topic";
-    topic_empty = " Irssi v$J - http://irssi.org/help/";
-
-    # all of these treated specially, they're only displayed when needed
-    lag = "{sb Lag: $0-}";
-    act = "{sb Act: $0-}";
-    more = "-- more --";
+    prompt = "{prompt}";
+    prompt_empty = "{prompt}";
   };
 
-  # there's two type of statusbars. root statusbars are either at the top
-  # of the screen or at the bottom of the screen. window statusbars are at
-  # the top/bottom of each split window in screen.
   default = {
-    # the "default statusbar" to be displayed at the bottom of the window.
-    # contains all the normal items.
     window = {
-      disabled = "yes";
-
-      # window, root
       type = "window";
-      # top, bottom
-      placement = "bottom";
-      # number
-      position = "0";
-      # active, inactive, always
+      placement = "top";
       visible = "active";
-
-      # list of items in statusbar in the display order
-      items = {
-        barstart = { priority = "100"; };
-        time = { };
-        user = { };
-        window_empty = { };
-        lag = { priority = "-1"; };
-        more = { priority = "-1"; alignment = "right"; };
-        barend = { priority = "100"; alignment = "right"; };
-        active = { };
-        act = { };
-        typing_notice = { };
-      };
+      items = { window = { }; window_empty = { }; typing_notice = { }; };
     };
 
-    # statusbar to use in inactive split windows
     window_inact = {
       type = "window";
-      placement = "bottom";
-      position = "1";
+      disabled = "yes";
+      placement = "top";
       visible = "inactive";
-      items = {
-        barstart = { priority = "100"; };
-        window = { };
-        window_empty = { };
-        more = { priority = "-1"; alignment = "right"; };
-        barend = { priority = "100"; alignment = "right"; };
-      };
+      items = { window = { }; window_empty = { }; };
     };
 
-    # we treat input line as yet another statusbar :) It's possible to
-    # add other items before or after the input line item.
-    #prompt = {
-      #type = "root";
-      #placement = "bottom";
-      ## we want to be at the bottom always
-      #position = "100";
-      #visible = "always";
-      #items = {
-        #barstart = { priority = "100"; };
-        #time = { };
-        #user = { };
-        #prompt = { priority = "-1"; };
-        #prompt_empty = { priority = "-1"; };
-        ## treated specially, this is the real input line.
-        #input = { priority = "10"; };
-      #};
-    #};
 
-    # topicbar
     topic = {
       type = "root";
       placement = "bottom";
       position = "1";
       visible = "always";
-      items = {
-        topicbarstart = { priority = "100"; };
-        topic = { };
-        topic_empty = { };
-        topicbarend = { priority = "100"; alignment = "right"; };
-      };
+      items = { topic = { }; topic_empty = { }; };
     };
 
     prompt = {
@@ -234,12 +123,12 @@ statusbar = {
 
 settings = {
   core = {
+    real_name = "Andrew Wong";
     user_name = "w0ng";
     nick = "w0ng";
     awaylog_file = "/dev/null";
     recode_autodetect_utf8 = "yes";
     recode_fallback = "CP1252";
-    real_name = "Unknown";
   };
 
   "fe-text" = { actlist_sort = "refnum"; };
@@ -249,19 +138,18 @@ settings = {
     theme = "pbrisbin";
     beep_msg_level = "NOTICE MSGS HILIGHT";
     bell_beeps = "no";
-    autolog_path = "~/.logs/irclogs/$tag/$0.log";
-    autolog = "yes";
-    print_active_channel = "no";
+    hilight_nick_matches = "no";
     hilight_act_color = "%r";
     hilight_color = "%y";
-    hilight_level = "PUBLIC DCCMSGS MSGS";
-    hilight_nick_matches = "no";
+    autolog_path = "~/.logs/irclogs/$tag/$0.log";
+    autolog = "yes";
     show_names_on_join = "no";
   };
 
   "perl/core/scripts" = {
     neat_maxlength = "10";
-    awl_display_key = "%w$N.$H$C$S";
+    awl_display_key = "%w$N.$H$C$S ";
+    awl_display_key_active = "%y$N.$H$C$S ";
     awl_position = "0";
     awl_sbar_maxlength = "no";
     awl_maxlines = "3";
@@ -269,11 +157,11 @@ settings = {
     hilightwin_showprivmsg = "no";
     bitlbee_send_typing = "yes";
     lt_in_queries = "yes";
-    awl_display_key_active = "%y$N.$H$C$S";
-    neat_colors = "rRgGyYbBmMcC";
-    uberprompt_format = "%K$Z%n $vim_cmd_mode$uber%c :: %n";
+    neat_left_actions = "yes";
+    uberprompt_format = "$vim_cmd_mode$uber%c :: %n";
     vim_mode_cmd_seq = "j";
   };
+
   "irc/core" = { alternate_nick = "w0ng_"; };
 };
 
@@ -385,6 +273,6 @@ windows = {
   99 = { name = "hilight"; sticky = "yes"; };
 };
 mainwindows = {
-  1 = { first_line = "5"; lines = "80"; };
+  2 = { first_line = "5"; lines = "80"; };
   99 = { first_line = "1"; lines = "4"; };
 };
