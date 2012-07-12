@@ -153,7 +153,7 @@ class CustomApplications(Applications):
 		if f.container:
 			return self.either(c, 'aunpack', 'file_roller')
 
-		if f.video or f.audio:
+		if f.video or f.audio or f.extension == 'rmvb':
 			if f.video:
 				c.flags += 'd'
 			return self.either(c, 'smplayer', 'gmplayer', 'mplayer2',
