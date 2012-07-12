@@ -42,12 +42,12 @@ chatnets = {
 
 channels = (
   { name = "#archlinux"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#bash"; chatnet = "freenode"; autojoin = "yes"; }
+  { name = "#bash"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#fsc"; chatnet = "Rizon"; autojoin = "yes"; },
   { name = "#overclockers"; chatnet = "ozorg"; autojoin = "yes"; },
-  { name = "#python"; chatnet = "freenode"; autojoin = "yes"; }
-  { name = "#reddit"; chatnet = "freenode"; autojoin = "yes"; }
-  { name = "#vim"; chatnet = "freenode"; autojoin = "yes"; }
+  { name = "#python"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#reddit"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#vim"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#zsh"; chatnet = "freenode"; autojoin = "yes"; }
 );
 
@@ -184,22 +184,22 @@ statusbar = {
 
     # we treat input line as yet another statusbar :) It's possible to
     # add other items before or after the input line item.
-    prompt = {
-      type = "root";
-      placement = "bottom";
-      # we want to be at the bottom always
-      position = "100";
-      visible = "always";
-      items = {
-        barstart = { priority = "100"; };
-        time = { };
-        user = { };
-        prompt = { priority = "-1"; };
-        prompt_empty = { priority = "-1"; };
-        # treated specially, this is the real input line.
-        input = { priority = "10"; };
-      };
-    };
+    #prompt = {
+      #type = "root";
+      #placement = "bottom";
+      ## we want to be at the bottom always
+      #position = "100";
+      #visible = "always";
+      #items = {
+        #barstart = { priority = "100"; };
+        #time = { };
+        #user = { };
+        #prompt = { priority = "-1"; };
+        #prompt_empty = { priority = "-1"; };
+        ## treated specially, this is the real input line.
+        #input = { priority = "10"; };
+      #};
+    #};
 
     # topicbar
     topic = {
@@ -215,6 +215,13 @@ statusbar = {
       };
     };
 
+    prompt = {
+      items = {
+        uberprompt = { priority = "-1"; };
+        input = { priority = "10"; };
+      };
+      position = "100";
+    };
     awl_0 = {
       items = {
         barstart = { priority = "100"; };
@@ -239,7 +246,7 @@ settings = {
 
   "fe-common/core" = {
     emphasis = "OFF";
-    theme = "my";
+    theme = "pbrisbin";
     beep_msg_level = "NOTICE MSGS HILIGHT";
     bell_beeps = "no";
     autolog_path = "~/.logs/irclogs/$tag/$0.log";
@@ -264,6 +271,8 @@ settings = {
     lt_in_queries = "yes";
     awl_display_key_active = "%y$N.$H$C$S";
     neat_colors = "rRgGyYbBmMcC";
+    uberprompt_format = "%K$Z%n $vim_cmd_mode$uber%c :: %n";
+    vim_mode_cmd_seq = "j";
   };
   "irc/core" = { alternate_nick = "w0ng_"; };
 };
@@ -376,6 +385,6 @@ windows = {
   99 = { name = "hilight"; sticky = "yes"; };
 };
 mainwindows = {
-  2 = { first_line = "5"; lines = "80"; };
+  1 = { first_line = "5"; lines = "80"; };
   99 = { first_line = "1"; lines = "4"; };
 };
