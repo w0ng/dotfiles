@@ -16,7 +16,7 @@
 <!-- 7. WordPress will then import each of the posts, pages, comments, categories, etc. -->
 <!--    contained in this file into your site. -->
 
-<!-- generator="WordPress/3.3.2" created="2012-07-09 20:49" -->
+<!-- generator="WordPress/3.3.2" created="2012-07-13 22:22" -->
 <rss version="2.0"
 	xmlns:excerpt="http://wordpress.org/export/1.1/excerpt/"
 	xmlns:content="http://purl.org/rss/1.0/modules/content/"
@@ -29,7 +29,7 @@
 	<title>w0ng&#039;s Arch Linux Blog</title>
 	<link>http://archlinux.me/w0ng</link>
 	<description>Just another Arch Linux Blog site</description>
-	<pubDate>Mon, 09 Jul 2012 20:49:22 +0000</pubDate>
+	<pubDate>Fri, 13 Jul 2012 22:22:07 +0000</pubDate>
 	<language>en</language>
 	<wp:wxr_version>1.1</wp:wxr_version>
 	<wp:base_site_url>http://archlinux.me/</wp:base_site_url>
@@ -52,16 +52,21 @@
 	<wp:tag><wp:term_id>35</wp:term_id><wp:tag_slug>dwm</wp:tag_slug><wp:tag_name><![CDATA[dwm]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>29</wp:term_id><wp:tag_slug>eggdrop</wp:tag_slug><wp:tag_name><![CDATA[eggdrop]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>8</wp:term_id><wp:tag_slug>git</wp:tag_slug><wp:tag_name><![CDATA[git]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>52</wp:term_id><wp:tag_slug>gpt</wp:tag_slug><wp:tag_name><![CDATA[gpt]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>53</wp:term_id><wp:tag_slug>grub2</wp:tag_slug><wp:tag_name><![CDATA[grub2]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>40</wp:term_id><wp:tag_slug>headset</wp:tag_slug><wp:tag_name><![CDATA[headset]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>24</wp:term_id><wp:tag_slug>ipython</wp:tag_slug><wp:tag_name><![CDATA[ipython]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>31</wp:term_id><wp:tag_slug>irc</wp:tag_slug><wp:tag_name><![CDATA[irc]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>55</wp:term_id><wp:tag_slug>irssi</wp:tag_slug><wp:tag_name><![CDATA[irssi]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>14</wp:term_id><wp:tag_slug>lines</wp:tag_slug><wp:tag_name><![CDATA[lines]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>13</wp:term_id><wp:tag_slug>long</wp:tag_slug><wp:tag_name><![CDATA[long]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>57</wp:term_id><wp:tag_slug>mode</wp:tag_slug><wp:tag_name><![CDATA[mode]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>50</wp:term_id><wp:tag_slug>noop</wp:tag_slug><wp:tag_name><![CDATA[noop]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>36</wp:term_id><wp:tag_slug>pretty</wp:tag_slug><wp:tag_name><![CDATA[pretty]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>10</wp:term_id><wp:tag_slug>prompt</wp:tag_slug><wp:tag_name><![CDATA[prompt]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>22</wp:term_id><wp:tag_slug>python2</wp:tag_slug><wp:tag_name><![CDATA[python2]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>47</wp:term_id><wp:tag_slug>scheduler</wp:tag_slug><wp:tag_name><![CDATA[scheduler]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>56</wp:term_id><wp:tag_slug>script</wp:tag_slug><wp:tag_name><![CDATA[script]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>27</wp:term_id><wp:tag_slug>semicolon</wp:tag_slug><wp:tag_name><![CDATA[semicolon]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>30</wp:term_id><wp:tag_slug>setup</wp:tag_slug><wp:tag_name><![CDATA[setup]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>12</wp:term_id><wp:tag_slug>slow</wp:tag_slug><wp:tag_name><![CDATA[slow]]></wp:tag_name></wp:tag>
@@ -72,12 +77,14 @@
 	<wp:tag><wp:term_id>37</wp:term_id><wp:tag_slug>statusbar</wp:tag_slug><wp:tag_name><![CDATA[statusbar]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>43</wp:term_id><wp:tag_slug>switch</wp:tag_slug><wp:tag_name><![CDATA[switch]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>15</wp:term_id><wp:tag_slug>syntax</wp:tag_slug><wp:tag_name><![CDATA[syntax]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>54</wp:term_id><wp:tag_slug>systemd</wp:tag_slug><wp:tag_name><![CDATA[systemd]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>28</wp:term_id><wp:tag_slug>tilde</wp:tag_slug><wp:tag_name><![CDATA[tilde]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>20</wp:term_id><wp:tag_slug>tmux</wp:tag_slug><wp:tag_name><![CDATA[tmux]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>26</wp:term_id><wp:tag_slug>ttf-google-webfonts</wp:tag_slug><wp:tag_name><![CDATA[ttf-google-webfonts]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>48</wp:term_id><wp:tag_slug>udev</wp:tag_slug><wp:tag_name><![CDATA[udev]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>21</wp:term_id><wp:tag_slug>urxvt</wp:tag_slug><wp:tag_name><![CDATA[urxvt]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>39</wp:term_id><wp:tag_slug>usb</wp:tag_slug><wp:tag_name><![CDATA[usb]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>58</wp:term_id><wp:tag_slug>vi</wp:tag_slug><wp:tag_name><![CDATA[vi]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>19</wp:term_id><wp:tag_slug>vicmd</wp:tag_slug><wp:tag_name><![CDATA[vicmd]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>11</wp:term_id><wp:tag_slug>vim</wp:tag_slug><wp:tag_name><![CDATA[vim]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>23</wp:term_id><wp:tag_slug>virtualenv</wp:tag_slug><wp:tag_name><![CDATA[virtualenv]]></wp:tag_name></wp:tag>
@@ -227,43 +234,6 @@ To compensate for loss of the visual aid in the cursorline, in my vim theme and 
 		<wp:postmeta>
 			<wp:meta_key>_edit_last</wp:meta_key>
 			<wp:meta_value><![CDATA[57]]></wp:meta_value>
-		</wp:postmeta>
-	</item>
-	<item>
-		<title>1hr audio podcast with the author of Solarized vim theme</title>
-		<link>http://archlinux.me/w0ng/2012/03/31/1hr-audio-podcast-with-the-author-of-solarized-vim-theme/</link>
-		<pubDate>Sat, 31 Mar 2012 10:29:19 +0000</pubDate>
-		<dc:creator>w0ng</dc:creator>
-		<guid isPermaLink="false">http://archlinux.me/w0ng/?p=27</guid>
-		<description></description>
-		<content:encoded><![CDATA[http://thechangelog.com/post/20168759748/episode-0-7-7-solarized-and-linux-on-the-desktop-with-et
-
-Solarized colour scheme author talks about his scheme, Arch Linux, xmonad, Haskell terminal fonts, and more.]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>27</wp:post_id>
-		<wp:post_date>2012-03-31 21:29:19</wp:post_date>
-		<wp:post_date_gmt>2012-03-31 10:29:19</wp:post_date_gmt>
-		<wp:comment_status>open</wp:comment_status>
-		<wp:ping_status>open</wp:ping_status>
-		<wp:post_name>1hr-audio-podcast-with-the-author-of-solarized-vim-theme</wp:post_name>
-		<wp:status>publish</wp:status>
-		<wp:post_parent>0</wp:post_parent>
-		<wp:menu_order>0</wp:menu_order>
-		<wp:post_type>post</wp:post_type>
-		<wp:post_password></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="category" nicename="linux"><![CDATA[Linux]]></category>
-		<wp:postmeta>
-			<wp:meta_key>_edit_last</wp:meta_key>
-			<wp:meta_value><![CDATA[57]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key>_oembed_b38fe483800647d9d13e53497f812051</wp:meta_key>
-			<wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key>_oembed_b15f11204ac87797f5c800b2451a0b48</wp:meta_key>
-			<wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
 		</wp:postmeta>
 	</item>
 	<item>
@@ -694,104 +664,6 @@ static const char colors[NUMCOLORS][ColLast][8] = {
 		</wp:postmeta>
 	</item>
 	<item>
-		<title>Irssi: Hiding your passwords with SSL + SASL</title>
-		<link>http://archlinux.me/w0ng/2012/05/04/irssi-hiding-your-passwords-with-ssl-sasl/</link>
-		<pubDate>Thu, 03 May 2012 19:42:47 +0000</pubDate>
-		<dc:creator>w0ng</dc:creator>
-		<guid isPermaLink="false">http://archlinux.me/w0ng/?p=252</guid>
-		<description></description>
-		<content:encoded><![CDATA[Add an extra layer of security by encrypting your passwords and storing them outside of Irssi's config.
-
-<strong>freenode</strong>
-<ol>
-<li>Save freenode's sasl script:
-<pre line="">$ wget http://www.freenode.net/sasl/cap_sasl.pl -O ~/.irssi/scripts/cap_sasl.pl</pre></li>
-<li>Install the required perl encryption modules:
-<pre line="">$ yaourt -S perl-crypt-blowfish perl-crypt-dh perl-crypt-openssl-bignum</pre></li>
-</ol>]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>252</wp:post_id>
-		<wp:post_date>2012-05-04 06:42:47</wp:post_date>
-		<wp:post_date_gmt>2012-05-03 19:42:47</wp:post_date_gmt>
-		<wp:comment_status>open</wp:comment_status>
-		<wp:ping_status>open</wp:ping_status>
-		<wp:post_name>irssi-hiding-your-passwords-with-ssl-sasl</wp:post_name>
-		<wp:status>trash</wp:status>
-		<wp:post_parent>0</wp:post_parent>
-		<wp:menu_order>0</wp:menu_order>
-		<wp:post_type>post</wp:post_type>
-		<wp:post_password></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="category" nicename="linux"><![CDATA[Linux]]></category>
-		<wp:postmeta>
-			<wp:meta_key>_edit_last</wp:meta_key>
-			<wp:meta_value><![CDATA[57]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key>_wp_trash_meta_status</wp:meta_key>
-			<wp:meta_value><![CDATA[draft]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key>_wp_trash_meta_time</wp:meta_key>
-			<wp:meta_value><![CDATA[1341391303]]></wp:meta_value>
-		</wp:postmeta>
-	</item>
-	<item>
-		<title></title>
-		<link>http://archlinux.me/w0ng/?p=262</link>
-		<pubDate>Thu, 01 Jan 1970 00:00:00 +0000</pubDate>
-		<dc:creator>w0ng</dc:creator>
-		<guid isPermaLink="false">http://archlinux.me/w0ng/?p=262</guid>
-		<description></description>
-		<content:encoded><![CDATA[Felt like a change. 
-Time to part ways with Solarized and revert back to Jellybeans inspired colours.]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>262</wp:post_id>
-		<wp:post_date>2012-07-04 22:56:28</wp:post_date>
-		<wp:post_date_gmt>0000-00-00 00:00:00</wp:post_date_gmt>
-		<wp:comment_status>open</wp:comment_status>
-		<wp:ping_status>open</wp:ping_status>
-		<wp:post_name></wp:post_name>
-		<wp:status>draft</wp:status>
-		<wp:post_parent>0</wp:post_parent>
-		<wp:menu_order>0</wp:menu_order>
-		<wp:post_type>post</wp:post_type>
-		<wp:post_password></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="category" nicename="linux"><![CDATA[Linux]]></category>
-		<wp:postmeta>
-			<wp:meta_key>_edit_last</wp:meta_key>
-			<wp:meta_value><![CDATA[57]]></wp:meta_value>
-		</wp:postmeta>
-	</item>
-	<item>
-		<title>systemd</title>
-		<link>http://archlinux.me/w0ng/?p=265</link>
-		<pubDate>Thu, 01 Jan 1970 00:00:00 +0000</pubDate>
-		<dc:creator>w0ng</dc:creator>
-		<guid isPermaLink="false">http://archlinux.me/w0ng/?p=265</guid>
-		<description></description>
-		<content:encoded><![CDATA[]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>265</wp:post_id>
-		<wp:post_date>2012-07-04 22:59:07</wp:post_date>
-		<wp:post_date_gmt>0000-00-00 00:00:00</wp:post_date_gmt>
-		<wp:comment_status>open</wp:comment_status>
-		<wp:ping_status>open</wp:ping_status>
-		<wp:post_name></wp:post_name>
-		<wp:status>draft</wp:status>
-		<wp:post_parent>0</wp:post_parent>
-		<wp:menu_order>0</wp:menu_order>
-		<wp:post_type>post</wp:post_type>
-		<wp:post_password></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="category" nicename="linux"><![CDATA[Linux]]></category>
-		<wp:postmeta>
-			<wp:meta_key>_edit_last</wp:meta_key>
-			<wp:meta_value><![CDATA[57]]></wp:meta_value>
-		</wp:postmeta>
-	</item>
-	<item>
 		<title>ALSA: Switch audio output to USB Headset</title>
 		<link>http://archlinux.me/w0ng/2012/07/06/alsa-switch-audio-usb-headset/</link>
 		<pubDate>Thu, 05 Jul 2012 13:11:36 +0000</pubDate>
@@ -869,45 +741,6 @@ Audio applications need to be restarted whenever default card changes. If anyone
 		</wp:postmeta>
 	</item>
 	<item>
-		<title>SSD + GPT + grub2 + systemd</title>
-		<link>http://archlinux.me/w0ng/?p=287</link>
-		<pubDate>Thu, 01 Jan 1970 00:00:00 +0000</pubDate>
-		<dc:creator>w0ng</dc:creator>
-		<guid isPermaLink="false">http://archlinux.me/w0ng/?p=287</guid>
-		<description></description>
-		<content:encoded><![CDATA[<strong>Background</strong>
-<ul>
-	<li>Current specs: GA-EP45DS3L, E8500, 4GB DDR2, 1x 640GB WD Black, 2x 1TB WD Green</li>
-	<li>Wanted cheap upgrade for ageing system. Purchased 120GB Intel 330 SSD. </li>
-	<li>Posting this as self-reference to installation process.</li>
-</ul>
-
-<strong>Why GPT/grub2/systemd?</strong>
-<ul>
-	<li>GPT: Replaces MBR. Allows &gt;4 primary partitions, allows &gt;2TB partition sizes, less collisions/corruption.</li>
-	<li>grub2: Replaces grub. grub is deprecated in other distros and doesn't support GPT.</li>
-	<li>systemd: </li>
-</ul>]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>287</wp:post_id>
-		<wp:post_date>2012-07-09 02:58:14</wp:post_date>
-		<wp:post_date_gmt>0000-00-00 00:00:00</wp:post_date_gmt>
-		<wp:comment_status>open</wp:comment_status>
-		<wp:ping_status>open</wp:ping_status>
-		<wp:post_name></wp:post_name>
-		<wp:status>draft</wp:status>
-		<wp:post_parent>0</wp:post_parent>
-		<wp:menu_order>0</wp:menu_order>
-		<wp:post_type>post</wp:post_type>
-		<wp:post_password></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="category" nicename="linux"><![CDATA[Linux]]></category>
-		<wp:postmeta>
-			<wp:meta_key>_edit_last</wp:meta_key>
-			<wp:meta_value><![CDATA[57]]></wp:meta_value>
-		</wp:postmeta>
-	</item>
-	<item>
 		<title>Udev: Changing SSD&#039;s default (CFQ) I/O Scheduler</title>
 		<link>http://archlinux.me/w0ng/2012/07/09/udev-changing-ss-default-cfq-io-scheduler/</link>
 		<pubDate>Mon, 09 Jul 2012 06:16:17 +0000</pubDate>
@@ -952,6 +785,229 @@ noop [deadline] cfq</pre>]]></content:encoded>
 		<wp:postmeta>
 			<wp:meta_key>_wp_old_slug</wp:meta_key>
 			<wp:meta_value><![CDATA[udev-changing-a-drives-default-cfq-io-scheduler]]></wp:meta_value>
+		</wp:postmeta>
+	</item>
+	<item>
+		<title>SSD + GPT + grub2 + systemd</title>
+		<link>http://archlinux.me/w0ng/2012/07/12/ssd-gpt-grub2-systemd/</link>
+		<pubDate>Wed, 11 Jul 2012 15:36:05 +0000</pubDate>
+		<dc:creator>w0ng</dc:creator>
+		<guid isPermaLink="false">http://archlinux.me/w0ng/?p=306</guid>
+		<description></description>
+		<content:encoded><![CDATA[Summary of my new Arch setup optimised for SSD. See <a href="https://wiki.archlinux.org/index.php/Solid_State_Drives" target="_blank">ArchWiki</a> for more tweaks.
+
+<strong>Background</strong>
+
+<ul>
+	<li>Specs: GA-EP45-DS3L, C2D E8400, 4GB DDR2, 512MB HD4850, 1x 640GB WD Black, 2x 1TB WD Green</li>
+	<li>Purchased: <a href="http://www.intel.com/content/www/us/en/solid-state-drives/solid-state-drives-330-series.html" target="_blank">120GB Intel 330 SSD</a></li>
+</ul>
+
+
+
+<strong>BIOS/UEFI settings</strong>
+
+<ul>
+	<li>Firmware: EFI/UEFI instead of BIOS</li>
+	<li>SATA Mode: AHCI instead of IDE</li>
+</ul>
+
+<strong>Pre Installation</strong>
+
+<ul>
+	<li>Partition: <a href="https://wiki.archlinux.org/index.php/Solid_State_Drives#Gdisk_Usage_Summary" target="_blank">GPT</a> instead of MBR</li>
+</ul>
+
+<strong>Arch Installation</strong>
+
+<ul>
+	<li>Filesystem: ext2 for /boot; ext4 for the rest</li>
+	<li>fstab options: noatime, discard</li>
+	<li>Bootloader: <a href="https://wiki.archlinux.org/index.php/GRUB2" target="_blank">GRUB2</a> instead of GRUB1/GRUB Legacy</li>
+</ul>
+
+
+<strong>Post Installation</strong>
+
+<ul>
+	<li>Init: <a href="https://wiki.archlinux.org/index.php/Systemd" target="_blank">systemd</a> instead of sysvinit</li>
+	<li>I/O scheduler: <a href="http://archlinux.me/w0ng/2012/07/09/udev-changing-ss-default-cfq-io-scheduler" target="_blank">noop</a> instead of cfq</li>
+	<li>Firefox profile: <a href="https://wiki.archlinux.org/index.php/Profile-sync-daemon" target="_blank">RAM</a> instead of disk</li>
+</ul>
+
+<strong>Misc Output</strong>
+
+systemd-analyze, gdisk, df, fstab, ls: https://gist.github.com/3107896]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>306</wp:post_id>
+		<wp:post_date>2012-07-12 02:36:05</wp:post_date>
+		<wp:post_date_gmt>2012-07-11 15:36:05</wp:post_date_gmt>
+		<wp:comment_status>open</wp:comment_status>
+		<wp:ping_status>open</wp:ping_status>
+		<wp:post_name>ssd-gpt-grub2-systemd</wp:post_name>
+		<wp:status>publish</wp:status>
+		<wp:post_parent>0</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type>post</wp:post_type>
+		<wp:post_password></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+		<category domain="post_tag" nicename="gpt"><![CDATA[gpt]]></category>
+		<category domain="post_tag" nicename="grub2"><![CDATA[grub2]]></category>
+		<category domain="category" nicename="linux"><![CDATA[Linux]]></category>
+		<category domain="post_tag" nicename="ssd"><![CDATA[ssd]]></category>
+		<category domain="post_tag" nicename="systemd"><![CDATA[systemd]]></category>
+		<wp:postmeta>
+			<wp:meta_key>_edit_last</wp:meta_key>
+			<wp:meta_value><![CDATA[57]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:comment>
+			<wp:comment_id>210</wp:comment_id>
+			<wp:comment_author><![CDATA[Mooshie]]></wp:comment_author>
+			<wp:comment_author_email>poo@poo.com</wp:comment_author_email>
+			<wp:comment_author_url></wp:comment_author_url>
+			<wp:comment_author_IP>99.244.126.65</wp:comment_author_IP>
+			<wp:comment_date>2012-07-12 05:56:49</wp:comment_date>
+			<wp:comment_date_gmt>2012-07-11 18:56:49</wp:comment_date_gmt>
+			<wp:comment_content><![CDATA[such a noob]]></wp:comment_content>
+			<wp:comment_approved>trash</wp:comment_approved>
+			<wp:comment_type></wp:comment_type>
+			<wp:comment_parent>0</wp:comment_parent>
+			<wp:comment_user_id>0</wp:comment_user_id>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_result</wp:meta_key>
+				<wp:meta_value><![CDATA[false]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_history</wp:meta_key>
+				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1342033009.0302";s:7:"message";s:28:"Akismet cleared this comment";s:5:"event";s:9:"check-ham";s:4:"user";s:0:"";}]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_as_submitted</wp:meta_key>
+				<wp:meta_value><![CDATA[a:57:{s:15:"comment_post_ID";s:3:"306";s:14:"comment_author";s:7:"Mooshie";s:20:"comment_author_email";s:11:"poo@poo.com";s:18:"comment_author_url";s:0:"";s:15:"comment_content";s:11:"such a noob";s:12:"comment_type";s:0:"";s:14:"comment_parent";s:1:"0";s:7:"user_ID";s:1:"0";s:7:"user_ip";s:13:"99.244.126.65";s:10:"user_agent";s:71:"Opera/9.80 (Windows NT 6.1; WOW64; U; en) Presto/2.10.289 Version/12.00";s:8:"referrer";s:58:"http://archlinux.me/w0ng/2012/07/12/ssd-gpt-grub2-systemd/";s:4:"blog";s:24:"http://archlinux.me/w0ng";s:9:"blog_lang";s:5:"en_US";s:12:"blog_charset";s:5:"UTF-8";s:9:"permalink";s:58:"http://archlinux.me/w0ng/2012/07/12/ssd-gpt-grub2-systemd/";s:21:"akismet_comment_nonce";s:6:"passed";s:11:"POST_author";s:7:"Mooshie";s:10:"POST_email";s:11:"poo@poo.com";s:8:"POST_url";s:0:"";s:12:"POST_comment";s:11:"such a noob";s:11:"POST_submit";s:14:"Submit Comment";s:20:"POST_comment_post_ID";s:3:"306";s:19:"POST_comment_parent";s:1:"0";s:26:"POST_akismet_comment_nonce";s:10:"deb79bbbaf";s:15:"SERVER_SOFTWARE";s:6:"Apache";s:11:"REQUEST_URI";s:26:"/w0ng/wp-comments-post.php";s:18:"REDIRECT_UNIQUE_ID";s:24:"T-3McH8AAAEAAGd0TrQAAAAF";s:15:"REDIRECT_STATUS";s:3:"200";s:9:"UNIQUE_ID";s:24:"T-3McH8AAAEAAGd0TrQAAAAF";s:15:"HTTP_USER_AGENT";s:71:"Opera/9.80 (Windows NT 6.1; WOW64; U; en) Presto/2.10.289 Version/12.00";s:9:"HTTP_HOST";s:12:"archlinux.me";s:11:"HTTP_ACCEPT";s:129:"text/html, application/xml;q=0.9, application/xhtml+xml, image/png, image/webp, image/jpeg, image/gif, image/x-xbitmap, */*;q=0.1";s:20:"HTTP_ACCEPT_LANGUAGE";s:14:"en-US,en;q=0.9";s:20:"HTTP_ACCEPT_ENCODING";s:13:"gzip, deflate";s:12:"HTTP_REFERER";s:58:"http://archlinux.me/w0ng/2012/07/12/ssd-gpt-grub2-systemd/";s:15:"HTTP_CONNECTION";s:10:"Keep-Alive";s:14:"CONTENT_LENGTH";s:3:"151";s:12:"CONTENT_TYPE";s:33:"application/x-www-form-urlencoded";s:4:"PATH";s:60:"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin";s:16:"SERVER_SIGNATURE";s:0:"";s:11:"SERVER_NAME";s:12:"archlinux.me";s:11:"SERVER_ADDR";s:15:"167.142.225.168";s:11:"SERVER_PORT";s:2:"80";s:11:"REMOTE_ADDR";s:13:"99.244.126.65";s:13:"DOCUMENT_ROOT";s:23:"/home/http/archlinux.me";s:12:"SERVER_ADMIN";s:19:"crouse@archlinux.us";s:15:"SCRIPT_FILENAME";s:44:"/home/http/archlinux.me/wp-comments-post.php";s:11:"REMOTE_PORT";s:5:"55928";s:12:"REDIRECT_URL";s:26:"/w0ng/wp-comments-post.php";s:17:"GATEWAY_INTERFACE";s:7:"CGI/1.1";s:15:"SERVER_PROTOCOL";s:8:"HTTP/1.1";s:14:"REQUEST_METHOD";s:4:"POST";s:12:"QUERY_STRING";s:0:"";s:11:"SCRIPT_NAME";s:21:"/wp-comments-post.php";s:8:"PHP_SELF";s:21:"/wp-comments-post.php";s:12:"REQUEST_TIME";s:10:"1342033008";s:25:"comment_post_modified_gmt";s:19:"2012-07-11 15:36:05";}]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_history</wp:meta_key>
+				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1342040659.5458";s:7:"message";s:43:"w0ng changed the comment status to approved";s:5:"event";s:15:"status-approved";s:4:"user";s:4:"w0ng";}]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_history</wp:meta_key>
+				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1342040708.4637";s:7:"message";s:40:"w0ng changed the comment status to trash";s:5:"event";s:12:"status-trash";s:4:"user";s:4:"w0ng";}]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>_wp_trash_meta_status</wp:meta_key>
+				<wp:meta_value><![CDATA[1]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>_wp_trash_meta_time</wp:meta_key>
+				<wp:meta_value><![CDATA[1342040708]]></wp:meta_value>
+			</wp:commentmeta>
+		</wp:comment>
+		<wp:comment>
+			<wp:comment_id>212</wp:comment_id>
+			<wp:comment_author><![CDATA[Mooshie]]></wp:comment_author>
+			<wp:comment_author_email>poo@poo.com</wp:comment_author_email>
+			<wp:comment_author_url></wp:comment_author_url>
+			<wp:comment_author_IP>99.244.126.65</wp:comment_author_IP>
+			<wp:comment_date>2012-07-12 12:29:30</wp:comment_date>
+			<wp:comment_date_gmt>2012-07-12 01:29:30</wp:comment_date_gmt>
+			<wp:comment_content><![CDATA[LOL w0ng is noob]]></wp:comment_content>
+			<wp:comment_approved>trash</wp:comment_approved>
+			<wp:comment_type></wp:comment_type>
+			<wp:comment_parent>0</wp:comment_parent>
+			<wp:comment_user_id>0</wp:comment_user_id>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_result</wp:meta_key>
+				<wp:meta_value><![CDATA[false]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_history</wp:meta_key>
+				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1342056570.7705";s:7:"message";s:28:"Akismet cleared this comment";s:5:"event";s:9:"check-ham";s:4:"user";s:0:"";}]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_as_submitted</wp:meta_key>
+				<wp:meta_value><![CDATA[a:58:{s:15:"comment_post_ID";s:3:"306";s:14:"comment_author";s:7:"Mooshie";s:20:"comment_author_email";s:11:"poo@poo.com";s:18:"comment_author_url";s:0:"";s:15:"comment_content";s:16:"LOL w0ng is noob";s:12:"comment_type";s:0:"";s:14:"comment_parent";s:1:"0";s:7:"user_ID";s:1:"0";s:7:"user_ip";s:13:"99.244.126.65";s:10:"user_agent";s:71:"Opera/9.80 (Windows NT 6.1; WOW64; U; en) Presto/2.10.289 Version/12.00";s:8:"referrer";s:58:"http://archlinux.me/w0ng/2012/07/12/ssd-gpt-grub2-systemd/";s:4:"blog";s:24:"http://archlinux.me/w0ng";s:9:"blog_lang";s:5:"en_US";s:12:"blog_charset";s:5:"UTF-8";s:9:"permalink";s:58:"http://archlinux.me/w0ng/2012/07/12/ssd-gpt-grub2-systemd/";s:21:"akismet_comment_nonce";s:6:"passed";s:11:"POST_author";s:7:"Mooshie";s:10:"POST_email";s:11:"poo@poo.com";s:8:"POST_url";s:0:"";s:12:"POST_comment";s:16:"LOL w0ng is noob";s:11:"POST_submit";s:14:"Submit Comment";s:20:"POST_comment_post_ID";s:3:"306";s:19:"POST_comment_parent";s:1:"0";s:26:"POST_akismet_comment_nonce";s:10:"8419824328";s:15:"SERVER_SOFTWARE";s:6:"Apache";s:11:"REQUEST_URI";s:26:"/w0ng/wp-comments-post.php";s:18:"REDIRECT_UNIQUE_ID";s:24:"T-4oen8AAAEAADR6-BIAAAAG";s:15:"REDIRECT_STATUS";s:3:"200";s:9:"UNIQUE_ID";s:24:"T-4oen8AAAEAADR6-BIAAAAG";s:15:"HTTP_USER_AGENT";s:71:"Opera/9.80 (Windows NT 6.1; WOW64; U; en) Presto/2.10.289 Version/12.00";s:9:"HTTP_HOST";s:12:"archlinux.me";s:11:"HTTP_ACCEPT";s:129:"text/html, application/xml;q=0.9, application/xhtml+xml, image/png, image/webp, image/jpeg, image/gif, image/x-xbitmap, */*;q=0.1";s:20:"HTTP_ACCEPT_LANGUAGE";s:14:"en-US,en;q=0.9";s:20:"HTTP_ACCEPT_ENCODING";s:13:"gzip, deflate";s:12:"HTTP_REFERER";s:58:"http://archlinux.me/w0ng/2012/07/12/ssd-gpt-grub2-systemd/";s:11:"HTTP_COOKIE";s:0:"";s:15:"HTTP_CONNECTION";s:10:"Keep-Alive";s:14:"CONTENT_LENGTH";s:3:"156";s:12:"CONTENT_TYPE";s:33:"application/x-www-form-urlencoded";s:4:"PATH";s:60:"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin";s:16:"SERVER_SIGNATURE";s:0:"";s:11:"SERVER_NAME";s:12:"archlinux.me";s:11:"SERVER_ADDR";s:15:"167.142.225.168";s:11:"SERVER_PORT";s:2:"80";s:11:"REMOTE_ADDR";s:13:"99.244.126.65";s:13:"DOCUMENT_ROOT";s:23:"/home/http/archlinux.me";s:12:"SERVER_ADMIN";s:19:"crouse@archlinux.us";s:15:"SCRIPT_FILENAME";s:44:"/home/http/archlinux.me/wp-comments-post.php";s:11:"REMOTE_PORT";s:5:"63735";s:12:"REDIRECT_URL";s:26:"/w0ng/wp-comments-post.php";s:17:"GATEWAY_INTERFACE";s:7:"CGI/1.1";s:15:"SERVER_PROTOCOL";s:8:"HTTP/1.1";s:14:"REQUEST_METHOD";s:4:"POST";s:12:"QUERY_STRING";s:0:"";s:11:"SCRIPT_NAME";s:21:"/wp-comments-post.php";s:8:"PHP_SELF";s:21:"/wp-comments-post.php";s:12:"REQUEST_TIME";s:10:"1342056570";s:25:"comment_post_modified_gmt";s:19:"2012-07-11 15:36:05";}]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_history</wp:meta_key>
+				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1342056774.4885";s:7:"message";s:40:"w0ng changed the comment status to trash";s:5:"event";s:12:"status-trash";s:4:"user";s:4:"w0ng";}]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>_wp_trash_meta_status</wp:meta_key>
+				<wp:meta_value><![CDATA[0]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>_wp_trash_meta_time</wp:meta_key>
+				<wp:meta_value><![CDATA[1342056774]]></wp:meta_value>
+			</wp:commentmeta>
+		</wp:comment>
+	</item>
+	<item>
+		<title>Vim mode in Irssi</title>
+		<link>http://archlinux.me/w0ng/2012/07/14/vim-mode-in-irssi/</link>
+		<pubDate>Fri, 13 Jul 2012 22:07:18 +0000</pubDate>
+		<dc:creator>w0ng</dc:creator>
+		<guid isPermaLink="false">http://archlinux.me/w0ng/?p=360</guid>
+		<description></description>
+		<content:encoded><![CDATA[I came across an Irssi script that provides vim-like keybindings for the input line.
+
+The script allows you to toggle between <code>INSERT</code>, <code>COMMAND</code> and <code>EX</code> modes.
+
+In my <a href="https://github.com/w0ng/vim/blob/master/vimrc" target="_blank">vimrc</a> and <a href="https://github.com/w0ng/dotfiles/blob/master/zshrc" target="_blank">zshrc</a>, I've already got <code>jj</code> mapped to <code>Esc</code> when in <code>INSERT</code> mode. The Irssi script provides this mapping by setting:
+<pre line="">/set vim_mode_cmd_seq j</pre>
+
+Another useful feature is the mode indicator, best used in conjunction with <a href="https://github.com/shabble/irssi-scripts/tree/master/prompt_info" target="_blank">uberprompt</a>.
+
+<img src="http://ompldr.org/vZXFpMw" alt="" />
+
+<img src="http://ompldr.org/vZXFpMg" alt="" />
+
+From the <a href="https://github.com/shabble/irssi-scripts/blob/master/vim-mode/README.pod" target="_blank">README</a>, the following common keybindings are supported:
+<ul>	
+	<li>Command mode: <code>Esc &lt;Ctrl-C&gt;</code></li>
+	<li>Cursor motion: <code>h l 0 ^ $ &lt;Space&gt; &lt;BS&gt; f t F T</code></li>
+    	<li>History motion: <code>j k gg G gg</code></li>
+    	<li>Cursor word motion: <code>w b ge e W gE B E</code></li>
+    	<li>Word objects: <code>aw aW</code></li>
+    	<li>Yank and paste: <code>C&lt;y p P&gt;</code></li>
+    	<li>Change and delete: <code>c d</code></li>
+    	<li>Delete at cursor: <code>x X</code></li>
+    	<li>Replace at cursor: <code>r</code></li>
+    	<li>Insert mode: <code>i a I A</code></li>
+    	<li>Switch case: <code>~</code></li>
+    	<li>Repeat change: <code>.</code></li>
+    	<li>Repeat: <code>ftFT: ; ,</code></li>
+    	<li>Registers: <code>"a-"z "" "0 "* "+ "_</code></li>
+    	<li>Line-wise shortcuts: <code>dd cc yy</code></li>
+    	<li>Shortcuts: <code>s S C D</code></li>
+    	<li>Scroll the scrollback buffer: <code>Ctrl-E Ctrl-D Ctrl-Y Ctrl-U Ctrl-F Ctrl-B</code></li>
+    	<li>Switch to last active window: <code>Ctrl-6/Ctrl-^</code></li>
+    	<li>Switch split windows: <code>&lt;Ctrl-W j Ctrl-W k&gt;</code></li>
+    	<li>Undo/Redo: <code>u Ctrl-R</code></li>
+</ul>
+
+Get the script at: <a href="https://github.com/shabble/irssi-scripts/tree/master/vim-mode" target="_blank">https://github.com/shabble/irssi-scripts/tree/master/vim-mode</a>]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>360</wp:post_id>
+		<wp:post_date>2012-07-14 09:07:18</wp:post_date>
+		<wp:post_date_gmt>2012-07-13 22:07:18</wp:post_date_gmt>
+		<wp:comment_status>open</wp:comment_status>
+		<wp:ping_status>open</wp:ping_status>
+		<wp:post_name>vim-mode-in-irssi</wp:post_name>
+		<wp:status>publish</wp:status>
+		<wp:post_parent>0</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type>post</wp:post_type>
+		<wp:post_password></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+		<category domain="post_tag" nicename="irssi"><![CDATA[irssi]]></category>
+		<category domain="category" nicename="linux"><![CDATA[Linux]]></category>
+		<category domain="post_tag" nicename="mode"><![CDATA[mode]]></category>
+		<category domain="post_tag" nicename="script"><![CDATA[script]]></category>
+		<category domain="post_tag" nicename="vi"><![CDATA[vi]]></category>
+		<category domain="post_tag" nicename="vim"><![CDATA[vim]]></category>
+		<wp:postmeta>
+			<wp:meta_key>_edit_last</wp:meta_key>
+			<wp:meta_value><![CDATA[57]]></wp:meta_value>
 		</wp:postmeta>
 	</item>
 </channel>
