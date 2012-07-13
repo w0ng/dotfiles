@@ -157,7 +157,6 @@ settings = {
     hilightwin_showprivmsg = "no";
     bitlbee_send_typing = "yes";
     lt_in_queries = "yes";
-    neat_left_actions = "yes";
     uberprompt_format = "$vim_cmd_mode$uber%c :: %n";
     vim_mode_cmd_seq = "j";
   };
@@ -273,6 +272,6 @@ windows = {
   99 = { name = "hilight"; sticky = "yes"; };
 };
 mainwindows = {
-  2 = { first_line = "5"; lines = "80"; };
-  99 = { first_line = "1"; lines = "4"; };
+  1 = { first_line = "4"; lines = "80"; };
+  99 = { first_line = "1"; lines = "3"; };
 };
