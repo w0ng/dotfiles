@@ -5,27 +5,25 @@
 loadplugins '\.(js|penta)$'
 group user
 
-" status line
+" options """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set defsearch=g
+set guioptions+=n
+set hlfind
+
+" status line """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 hi -a StatusLine font-weight: normal;
 hi -a StatusLineNormal color:#888888 !important; background:#292929 !important;
 
-" toggle global dark style
-map -builtin <F3> :styletoggle<Space>-name<Space>jellybeans<CR>
-" toggle minimalistic tabs
-map -builtin <leader>t :styletoggle<Space>-name<Space>minitabs<CR>
-
-" appearance
-set hlfind
-set defsearch=g
-set guioptions+=n
-
-" set font
+" font options """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 hi FontCode -a font-family: Terminus important; font-size: 9pt !important;
 hi FontFixed -a font-family: Terminus !important; font-size: 9pt !important;
 hi Normal -a font-family: Terminus !important; font-size: 9pt !important;
 
+" toggle styles """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map -builtin <F3> :styletoggle<Space>-name<Space>jellybeans<CR>
+map -builtin <leader>t :styletoggle<Space>-name<Space>minitabs<CR>
 
-" dark colors
+" dark colorscheme """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 style -name jellybeans http://*,https://*,file://*,about:blank <<EOM
 * {
   color: #888888 !important;
@@ -52,8 +50,7 @@ a:visited:hover, a:visited:hover * {
 EOM
 styledisable -name=jellybeans
 
-
-" minimalistic tabs
+" minimalistic tabs """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 style -name minitabs chrome://* <<EOM
 #TabsToolbar toolbarbutton {
   display: none !important;
