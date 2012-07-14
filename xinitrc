@@ -1,5 +1,4 @@
-#!/bin/sh
-#
+#!/bin/sh #
 # ~/.xinitrc
 #
 
@@ -13,6 +12,9 @@ fi
 
 # load .Xresources
 [[ -f $HOME/.Xresources ]] && xrdb -merge $HOME/.Xresources
+
+# remap caps lock to escape
+setxkbmap -option caps:escape
 
 # add font paths
 xset fp default
