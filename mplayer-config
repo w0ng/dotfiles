@@ -11,8 +11,8 @@ ao = alsa
 mixer-channel = PCM
 
 # default language
-slang = en
-alang = en
+slang = en,eng
+alang = en,eng
 
 # osd settings
 use-filename-title = yes
