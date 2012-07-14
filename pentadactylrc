@@ -1,10 +1,10 @@
 " 
 " ~/.pentadactylrc
 "
-"1.0rc1
 
 loadplugins '\.(js|penta)$'
 group user
+
 " status line
 hi -a StatusLine font-weight: normal;
 hi -a StatusLineNormal color:#888888 !important; background:#292929 !important;
@@ -65,26 +65,26 @@ style -name minitabs chrome://* <<EOM
  
 .tabbrowser-tab {
   -moz-appearance: none !important;
+  -moz-border-radius: 0 !important;
   background: #292929 !important;
   border: none !important;
   color: #888888 !important;
   font-family: Terminus; 
   font-size: 9pt !important;
   height: 18px !important;
-  min-height: 0 !important;
   margin: 0 !important;
+  min-height: 0 !important;
   padding: 0 0.5ex !important;
-  -moz-border-radius: 0 !important;
 }
  
 .tabbrowser-tab:not([pinned]) {
-  min-width: 100px !important;
   max-width: 100px !important;
+  min-width: 100px !important;
 }
 
 .tabbrowser-tab:not([fadein]) {
-  min-width: 1px !important;
   max-width: 1px !important;
+  min-width: 1px !important;
 }
 
 .tabbrowser-tab:hover {
@@ -97,5 +97,3 @@ style -name minitabs chrome://* <<EOM
   color: #fad07a !important;
 }
 EOM
-
-" vim: set ft=pentadactyl:
