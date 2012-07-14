@@ -67,7 +67,7 @@ case "$mimetype" in
     #	img2txt --gamma=0.6 --width="$width" "$path" && exit 4 || exit 1;;
     exiftool "$path" && exit 4 || exit 1;;
 	# Display information about media files:
-	video/* | audio/*)
+	video/* | audio/* | application/vnd.rn-realmedia)
 		have exiftool && exiftool "$path" && exit 5
 		# Use sed to remove spaces so the output fits into the narrow window
 		if have mediainfo; then
