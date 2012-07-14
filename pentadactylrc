@@ -19,9 +19,13 @@ hi FontCode -a font-family: Terminus important; font-size: 9pt !important;
 hi FontFixed -a font-family: Terminus !important; font-size: 9pt !important;
 hi Normal -a font-family: Terminus !important; font-size: 9pt !important;
 
+" custom mappings """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map , <Leader>
+map <Leader>, :noh<CR>
+
 " toggle styles """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map -builtin <F3> :styletoggle<Space>-name<Space>jellybeans<CR>
-map -builtin <leader>t :styletoggle<Space>-name<Space>minitabs<CR>
+map -builtin <Leader>t :styletoggle<Space>-name<Space>minitabs<CR>
 
 " dark colorscheme """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 style -name jellybeans http://*,https://*,file://*,about:blank <<EOM
