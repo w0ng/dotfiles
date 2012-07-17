@@ -13,8 +13,10 @@ fi
 # load .Xresources
 [[ -f $HOME/.Xresources ]] && xrdb -merge $HOME/.Xresources
 
-# remap caps lock to escape
+# remap caps lock to escape, remap right alt to window key
 setxkbmap -option caps:escape
+xmodmap -e "keycode 108 = Super_L"
+xmodmap -e "remove mod1 = Super_L"
 
 # add font paths
 xset fp default
