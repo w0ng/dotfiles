@@ -96,7 +96,7 @@ alias ll="ls++"
 alias grep="grep --color=auto"
 alias pacman="pacman-color"
 alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
-alias tm="tmux attach-session -d -t 0"
+alias tm="urxvtc -name chatmail -e tmux attach-session -d -t 0"
 alias usbmount="sudo ntfs-3g -o gid=100,fmask=113,dmask=002 /dev/sde1 /mnt/usb"
 alias usbumount="sudo umount /mnt/usb"
 
