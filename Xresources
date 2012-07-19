@@ -37,7 +37,8 @@ URxvt.underlineURLs: true
 URxvt.colorIT: #99ad6a
 URxvt.colorBD: #e8e8d3
 URxvt.colorUL: #8197bf
-
+! fix letter space for xft fonts
+URxvt.letterSpace: -2
 
 ! terminal colours
 *background: #151515
