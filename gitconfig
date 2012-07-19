@@ -10,3 +10,5 @@
 [core]
 	editor = vim
 	excludesfile = /home/w0ng/.gitignore_global
+[github]
+	user = w0ng
