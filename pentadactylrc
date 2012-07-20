@@ -7,6 +7,7 @@ group user
 
 " options """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set defsearch=g
+set guioptions-=br
 set guioptions+=n
 set hlfind
 
