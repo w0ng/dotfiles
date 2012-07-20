@@ -1,0 +1,14 @@
+$include /etc/inputrc
+set editing-mode vi
+set completion-ignore-case On
+
+$if mode=vi
+  set keymap vi-command
+  #
+  set keymap vi-insert
+  "\C-a": beginning-of-line
+  "\C-e": end-of-line
+  "\C-n": history-search-forward
+  "\C-p": history-search-backward
+  "jj": vi-movement-mode
+$endif
