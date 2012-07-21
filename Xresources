@@ -11,10 +11,10 @@ Xcursor.theme: Vanilla-DMZ-AA
 !! urxvt options
 URxvt.scrollstyle: rxvt
 URxvt.scrollBar: off
-URxvt.font: xft:Cousine Regen for Powerline:size=15
-URxvt.boldFont: xft:Cousine Regen for Powerline:size=15
-URxvt.italicFont: xft:Cousine Regen for Powerline:size=15
-URxvt.boldItalicFont: xft:Cousine Regen for Powerline:size=15
+URxvt.font: xft:M+ 1m Medium:size=13
+URxvt.boldFont: xft:M+ 1m Medium:size=13
+URxvt.italicFont: xft:M+ 1m Medium:size=13
+URxvt.boldItalicFont: xft:M+ 1m Medium:size=13
 URxvt.urgentOnBell: True
 URxvt.visualBell: True
 ! perl extensions
@@ -38,7 +38,7 @@ URxvt.colorIT: #99ad6a
 URxvt.colorBD: #e8e8d3
 URxvt.colorUL: #8197bf
 ! fix letter space for xft fonts
-URxvt.letterSpace: -2
+URxvt.letterSpace: -1
 
 ! terminal colours
 *background: #151515
