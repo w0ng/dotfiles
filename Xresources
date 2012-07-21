@@ -11,10 +11,11 @@ Xcursor.theme: Vanilla-DMZ-AA
 !! urxvt options
 URxvt.scrollstyle: rxvt
 URxvt.scrollBar: off
-URxvt.font: xft:M+ 1m Medium:size=13
-URxvt.boldFont: xft:M+ 1m Medium:size=13
-URxvt.italicFont: xft:M+ 1m Medium:size=13
-URxvt.boldItalicFont: xft:M+ 1m Medium:size=13
+
+URxvt.font: xft:M+ 1m for Powerline:size=13
+URxvt.boldFont: xft:M+ 1m for Powerline:size=13
+URxvt.italicFont: xft:M+ 1m for Powerline:size=13
+URxvt.boldItalicFont: xft:M+ 1m for Powerline:size=13
 URxvt.urgentOnBell: True
 URxvt.visualBell: True
 ! perl extensions
