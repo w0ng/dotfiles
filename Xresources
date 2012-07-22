@@ -34,37 +34,52 @@ URxvt.keysym.M-u: perl:url-select:select_next
 URxvt.urlButton: 1
 URxvt.urlLauncher: /usr/bin/firefox
 URxvt.underlineURLs: true
-! colours for bold, underline, italic
-URxvt.colorIT: #99ad6a
-URxvt.colorBD: #e8e8d3
-URxvt.colorUL: #8197bf
 ! fix letter space for xft fonts
 URxvt.letterSpace: -1
 
+!TomorrowNight
+#define t_background #1d1f21
+#define t_current_line #282a2e
+#define t_selection #373b41
+#define t_foreground #c5c8c6
+#define t_comment #969896
+#define t_red #cc6666
+#define t_orange #de935f
+#define t_yellow #f0c674
+#define t_green #b5bd68
+#define t_aqua #8abeb7
+#define t_blue #81a2be
+#define t_purple #b294bb
+
+! colours for bold, underline, italic
+!URxvt.colorIT: #99ad6a
+!URxvt.colorBD: #e8e8d3
+!URxvt.colorUL: #8197bf
+
 ! terminal colours
-*background: #151515
-*foreground: #888888
+*background: t_background
+*foreground: t_foreground
 ! black
-*color0: #292929
-*color8: #525252
+*color0: t_current_line
+*color8: t_selection
 ! red
-*color1: #cf6a4c
-*color9: #ff9d80
+*color1: t_red
+*color9: #FF3334
 ! green
-*color2: #99ad6a
-*color10: #c3e6ad
+*color2: t_green
+*color10: #9ec400
 ! yellow
-*color3: #fad07a
-*color11: #ffefbf
+*color3: t_yellow
+*color11: t_orange
 ! blue
-*color4: #8197bf
-*color12: #accaff
+*color4: t_blue
+*color12: #5B95C6
 ! magenta
-*color5: #8787af
-*color13: #c4c4ff
+*color5: t_purple
+*color13: #b777e0
 ! cyan
-*color6: #668799
-*color14: #80bfaf
+*color6: t_aqua
+*color14: #54ced6
 ! white
-*color7: #888888
-*color15: #e8e8d3
+*color7: t_comment
+*color15: t_foreground
