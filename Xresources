@@ -53,7 +53,7 @@ URxvt.letterSpace: -1
 
 ! colours for bold, underline, italic
 URxvt.colorIT: t_green
-URxvt.colorBD: t_foreground
+URxvt.colorBD: t_red
 URxvt.colorUL: t_blue
 
 ! terminal colours
