@@ -12,3 +12,7 @@
 	excludesfile = /home/w0ng/.gitignore_global
 [github]
 	user = w0ng
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
