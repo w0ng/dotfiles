@@ -23,7 +23,7 @@ source $HOME/.config/git-completion.bash
 source /usr/bin/virtualenvwrapper.sh
 
 # ls colours
-eval $(dircolors -b $HOME/.dir_colours)
+eval $(dircolors -b $HOME/.config/dir_colours)
 
 # tab completion
 zstyle ':completion:*' menu select

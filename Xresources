@@ -52,13 +52,13 @@ URxvt.letterSpace: -1
 #define t_purple #b294bb
 
 ! colours for bold, underline, italic
-!URxvt.colorIT: #99ad6a
-!URxvt.colorBD: #e8e8d3
-!URxvt.colorUL: #8197bf
+URxvt.colorIT: t_green
+URxvt.colorBD: t_foreground
+URxvt.colorUL: t_blue
 
 ! terminal colours
 *background: t_background
-*foreground: t_foreground
+*foreground: t_comment
 ! black
 *color0: t_current_line
 *color8: t_selection

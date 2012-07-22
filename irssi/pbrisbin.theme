@@ -38,7 +38,7 @@ abstracts = {
   msgnick = "$0$1-%c:%n %|";
 
   #ownmsgnick = "{msgnick $0 $1-}";
-  #ownnick = "%W$*%n";
+  ownnick = "%w$*%n";
   #pubmsgnick = "{msgnick $0 $1-}";
   #pubnick = "%N$*%n";
   #pubmsgmenick = "{msgnick $0 $1-}";
@@ -147,7 +147,7 @@ abstracts = {
   #sb_act_sep = "%c$*";
   #sb_act_text = "%c$*";
   #sb_act_msg = "%W$*";
-  sb_act_hilight = "%r$*";
+  #sb_act_hilight = "%M$*";
   #sb_act_hilight_color = "$0$1-%n";
 };
 

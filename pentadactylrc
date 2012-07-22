@@ -13,7 +13,7 @@ set hlfind
 
 " status line """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 hi -a StatusLine font-weight: normal;
-hi -a StatusLineNormal color:#888888 !important; background:#292929 !important;
+hi -a StatusLineNormal color:#969896 !important; background:#282A2E !important;
 
 " font options """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 hi FontCode -a font-family: Terminus important; font-size: 9pt !important;
@@ -25,35 +25,35 @@ map , <Leader>
 map <Leader>, :noh<CR>
 
 " toggle styles """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map -builtin <F3> :styletoggle<Space>-name<Space>jellybeans<CR>
+map -builtin <F3> :styletoggle<Space>-name<Space>tomorrownight<CR>
 map -builtin <Leader>t :styletoggle<Space>-name<Space>minitabs<CR>
 
 " dark colorscheme """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-style -name jellybeans http://*,https://*,file://*,about:blank <<EOM
+style -name tomorrownight http://*,https://*,file://*,about:blank <<EOM
 * {
-  color: #888888 !important;
-  background: #151515 !important;
-  border-color: #292929 !important;
+  color: #969896 !important;
+  background: #1d1f21 !important;
+  border-color: #282a2e !important;
 }
 
 a, a * {
-  color: #8197bf !important;
+  color: #81a2be !important;
   text-decoration: none !important;
 }
 
 a:hover, a:hover * {
-  color: #fad07a !important;
+  color: #f0c674 !important;
 }
 
 a:visited, a:visited * {
-  color: #b47699 !important;
+  color: #b294bb !important;
 }
 
 a:visited:hover, a:visited:hover * {
-  color: #fad07a !important;
+  color: #de935f !important;
 }
 EOM
-styledisable -name=jellybeans
+styledisable -name=tomorrownight
 
 " minimalistic tabs """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 style -name minitabs chrome://* <<EOM
@@ -62,15 +62,15 @@ style -name minitabs chrome://* <<EOM
 }
  
 .tabbrowser-tabs {
-  background: #292929 !important;
+  background: #282a2e !important;
 }
  
 .tabbrowser-tab {
   -moz-appearance: none !important;
   -moz-border-radius: 0 !important;
-  background: #292929 !important;
+  background: #282a2e !important;
   border: none !important;
-  color: #888888 !important;
+  color: #969896 !important;
   font-family: Terminus; 
   font-size: 9pt !important;
   height: 18px !important;
@@ -90,12 +90,12 @@ style -name minitabs chrome://* <<EOM
 }
 
 .tabbrowser-tab:hover {
-  background: #fad07a !important;
-  color: #292929 !important;
+  background: #f0c674 !important;
+  color: #282a2e !important;
 }
  
 .tabbrowser-tab[selected] {
-  background: #292929 !important;
-  color: #fad07a !important;
+  background: #282a2e !important;
+  color: #f0c674 !important;
 }
 EOM
