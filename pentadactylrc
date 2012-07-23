@@ -22,7 +22,11 @@ hi Normal -a font-family: Terminus !important; font-size: 9pt !important;
 
 " custom mappings """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map , <Leader>
-map <Leader>, :noh<CR>
+nmap -builtin <Leader>, :noh<CR>
+nmap -builtin ; :
+nmap -builtin : ;
+vmap -builtin ; :
+vmap -builtin : ;
 
 " toggle styles """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map -builtin <F3> :styletoggle<Space>-name<Space>tomorrownight<CR>
