@@ -11,3 +11,5 @@ set statusbar-bg "#282a2e"
 set statusbar-fg "#969896"
 set recolor-lightcolor "#1d1f21"
 set recolor-darkcolor "#969896"
+
+map ; focus_inputbar ":"
