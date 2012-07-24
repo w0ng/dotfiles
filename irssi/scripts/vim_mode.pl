@@ -2631,9 +2631,9 @@ sub vim_mode_cmd {
     if ($mode == M_INS) {
         $mode_str = '%WINSERT%n';
     } elsif ($mode == M_EX) {
-        $mode_str = '%rEX%n';
+        $mode_str = '%REX%n';
     } else {
-        $mode_str = '%rCOMMAND%n';
+        $mode_str = '%RCOMMAND%n';
         if ($register ne '"' or $numeric_prefix or $operator or $movement or
             $pending_map) {
             my $partial = '';
