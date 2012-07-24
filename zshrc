@@ -42,17 +42,19 @@ zstyle ':completion:*:*:kill:*' force-list always
 # change cursor colour depending on vi mode
 # TODO: make this work for tmux
 zle-keymap-select () {
-  if [ "$TERM" = "rxvt-unicode-256color" ]; then
-    if [ $KEYMAP = vicmd ]; then
+  if [[ $TERM != "linux" ]]; then
+    if [[ $KEYMAP = vicmd ]]; then
       echo -ne "\033]12;red\007"
     else
-      echo -ne "\033]12;grey\007"
+      echo -ne "\033]12;7\007"
     fi
   fi
 }; zle -N zle-keymap-select
 zle-line-init () {
   zle -K viins
-  echo -ne "\033]12;grey\007"
+  if [[ $TERM != "linux" ]]; then
+    echo -ne "\033]12;7\007"
+  fi
 }; zle -N zle-line-init
 
 # keybindings
