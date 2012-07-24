@@ -7,6 +7,18 @@
 	email = akamchoiw@gmail.com
 [color]
 	ui = true
+[color "branch"]
+  current = green bold
+  remote = red bold
+[color "diff"]
+  meta = yellow
+  frag = cyan bold
+  old = red bold
+  new = green bold
+[color "status"]
+  added = green bold
+  changed = red bold
+  untracked = red bold
 [core]
 	editor = vim
 	excludesfile = /home/w0ng/.gitignore_global

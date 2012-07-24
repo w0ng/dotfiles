@@ -118,6 +118,13 @@ statusbar = {
         barend = { priority = "100"; alignment = "right"; };
       };
     };
+    awl_1 = {
+      items = {
+        barstart = { priority = "100"; };
+        awl_1 = { };
+        barend = { priority = "100"; alignment = "right"; };
+      };
+    };
   };
 };
 
@@ -139,8 +146,8 @@ settings = {
     beep_msg_level = "NOTICE MSGS HILIGHT";
     bell_beeps = "no";
     hilight_nick_matches = "no";
-    hilight_act_color = "%r";
-    hilight_color = "%y";
+    hilight_act_color = "%R";
+    hilight_color = "%Y";
     autolog_path = "~/.logs/irclogs/$tag/$0.log";
     autolog = "yes";
     show_names_on_join = "no";
@@ -149,7 +156,7 @@ settings = {
   "perl/core/scripts" = {
     neat_maxlength = "10";
     awl_display_key = "%w$N.$H$C$S ";
-    awl_display_key_active = "%y$N.$H$C$S ";
+    awl_display_key_active = "%Y$N.$H$C$S ";
     awl_position = "0";
     awl_sbar_maxlength = "no";
     awl_maxlines = "3";
