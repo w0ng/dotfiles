@@ -12,10 +12,10 @@ Xcursor.theme: Vanilla-DMZ-AA
 URxvt.scrollstyle: rxvt
 URxvt.scrollBar: off
 
-URxvt.font: xft:Cousine Regen for Powerline:size=14
-URxvt.boldFont: xft:Cousine Regen for Powerline:size=14
-URxvt.italicFont: xft:Cousine Regen for Powerline:size=14
-URxvt.boldItalicFont: xft:Cousine Regen for Powerline:size=14
+URxvt.font: xft:Cousine Regen for Powerline:size=15
+URxvt.boldFont: xft:Cousine Regen for Powerline:size=15
+URxvt.italicFont: xft:Cousine Regen for Powerline:size=15
+URxvt.boldItalicFont: xft:Cousine Regen for Powerline:size=15
 URxvt.urgentOnBell: True
 URxvt.visualBell: True
 ! perl extensions
@@ -34,8 +34,6 @@ URxvt.keysym.M-u: perl:url-select:select_next
 URxvt.urlButton: 1
 URxvt.urlLauncher: /usr/bin/firefox
 URxvt.underlineURLs: true
-! fix letter space for xft fonts
-URxvt.letterSpace: -1
 
 !TomorrowNight
 #define t_background #1d1f21
