@@ -28,3 +28,6 @@
 	tool = vimdiff
 [difftool]
 	prompt = false
+[alias]
+	l = log --pretty=format:'%C(yellow)%h%C(magenta)%d%Creset %s %C(cyan)%cr%Creset' --graph
+	s = status -sb
