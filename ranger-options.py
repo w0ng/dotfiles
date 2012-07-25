@@ -46,7 +46,7 @@ show_hidden_bookmarks = True
 # Which colorscheme to use?  These colorschemes are available by default:
 # default, default88, jungle, snow
 # Snow is monochrome and default88 uses 88 colors.
-colorscheme = 'default'
+colorscheme = 'default-nobold'
 
 # Preview files on the rightmost column?
 # And collapse (shrink) the last column if there is nothing to preview?

@@ -40,36 +40,34 @@ class Default(ColorScheme):
 			if context.container:
 				fg = red
 			if context.directory:
-				#attr |= bold
+				attr |= bold
 				fg = blue
 			elif context.executable and not \
 					any((context.media, context.container,
 						context.fifo, context.socket)):
-				#attr |= bold
+				attr |= bold
 				fg = green
 			if context.socket:
 				fg = magenta
-				#attr |= bold
+				attr |= bold
 			if context.fifo or context.device:
 				fg = yellow
-				#if context.device:
-					#attr |= bold
+				if context.device:
+					attr |= bold
 			if context.link:
 				fg = context.good and cyan or magenta
 			if context.tag_marker and not context.selected:
-				#attr |= bold
 				if fg in (red, magenta):
 					fg = white
 				else:
 					fg = red
+					attr |= bold
 			if not context.selected and (context.cut or context.copied):
 				fg = black
-				#attr |= bold
+				attr |= bold
 			if context.main_column:
-				#if context.selected:
-					#attr |= bold
 				if context.marked:
-					#attr |= bold
+					attr |= bold
 					fg = yellow
 			if context.badinfo:
 				if attr & reverse:
@@ -78,16 +76,19 @@ class Default(ColorScheme):
 					fg = magenta
 
 		elif context.in_titlebar:
-			#attr |= bold
 			if context.hostname:
 				fg = context.bad and red or green
+				attr |= bold
 			elif context.directory:
 				fg = blue
+				attr |= bold
 			elif context.tab:
 				if context.good:
 					bg = green
+					attr |= bold
 			elif context.link:
 				fg = cyan
+				attr |= bold
 
 		elif context.in_statusbar:
 			if context.permissions:
@@ -96,12 +97,11 @@ class Default(ColorScheme):
 				elif context.bad:
 					fg = magenta
 			if context.marked:
-				#attr |= bold | reverse
-				attr |= reverse
+				attr |= bold | reverse
 				fg = yellow
 			if context.message:
 				if context.bad:
-					#attr |= bold
+					attr |= bold
 					fg = red
 
 		if context.text:
