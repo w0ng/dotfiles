@@ -6,7 +6,7 @@
 Xft.dpi: 96
 
 !! cursor theme
-Xcursor.theme: Vanilla-DMZ-AA
+Xcursor.theme: Vanilla-DMZ
 
 !! urxvt options
 URxvt.scrollstyle: rxvt
