@@ -16,22 +16,22 @@
 <!-- 7. WordPress will then import each of the posts, pages, comments, categories, etc. -->
 <!--    contained in this file into your site. -->
 
-<!-- generator="WordPress/3.3.2" created="2012-07-13 22:22" -->
+<!-- generator="WordPress/3.4.1" created="2012-07-26 08:31" -->
 <rss version="2.0"
-	xmlns:excerpt="http://wordpress.org/export/1.1/excerpt/"
+	xmlns:excerpt="http://wordpress.org/export/1.2/excerpt/"
 	xmlns:content="http://purl.org/rss/1.0/modules/content/"
 	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
-	xmlns:wp="http://wordpress.org/export/1.1/"
+	xmlns:wp="http://wordpress.org/export/1.2/"
 >
 
 <channel>
 	<title>w0ng&#039;s Arch Linux Blog</title>
 	<link>http://archlinux.me/w0ng</link>
 	<description>Just another Arch Linux Blog site</description>
-	<pubDate>Fri, 13 Jul 2012 22:22:07 +0000</pubDate>
-	<language>en</language>
-	<wp:wxr_version>1.1</wp:wxr_version>
+	<pubDate>Thu, 26 Jul 2012 08:31:52 +0000</pubDate>
+	<language>en-US</language>
+	<wp:wxr_version>1.2</wp:wxr_version>
 	<wp:base_site_url>http://archlinux.me/</wp:base_site_url>
 	<wp:base_blog_url>http://archlinux.me/w0ng</wp:base_blog_url>
 
@@ -78,6 +78,7 @@
 	<wp:tag><wp:term_id>43</wp:term_id><wp:tag_slug>switch</wp:tag_slug><wp:tag_name><![CDATA[switch]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>15</wp:term_id><wp:tag_slug>syntax</wp:tag_slug><wp:tag_name><![CDATA[syntax]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>54</wp:term_id><wp:tag_slug>systemd</wp:tag_slug><wp:tag_name><![CDATA[systemd]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>59</wp:term_id><wp:tag_slug>tags</wp:tag_slug><wp:tag_name><![CDATA[tags]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>28</wp:term_id><wp:tag_slug>tilde</wp:tag_slug><wp:tag_name><![CDATA[tilde]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>20</wp:term_id><wp:tag_slug>tmux</wp:tag_slug><wp:tag_name><![CDATA[tmux]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>26</wp:term_id><wp:tag_slug>ttf-google-webfonts</wp:tag_slug><wp:tag_name><![CDATA[ttf-google-webfonts]]></wp:tag_name></wp:tag>
@@ -88,9 +89,11 @@
 	<wp:tag><wp:term_id>19</wp:term_id><wp:tag_slug>vicmd</wp:tag_slug><wp:tag_name><![CDATA[vicmd]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>11</wp:term_id><wp:tag_slug>vim</wp:tag_slug><wp:tag_name><![CDATA[vim]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>23</wp:term_id><wp:tag_slug>virtualenv</wp:tag_slug><wp:tag_name><![CDATA[virtualenv]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>61</wp:term_id><wp:tag_slug>workflow</wp:tag_slug><wp:tag_name><![CDATA[workflow]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>60</wp:term_id><wp:tag_slug>workspaces</wp:tag_slug><wp:tag_name><![CDATA[workspaces]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>7</wp:term_id><wp:tag_slug>zsh</wp:tag_slug><wp:tag_name><![CDATA[zsh]]></wp:tag_name></wp:tag>
 
-	<generator>http://wordpress.org/?v=3.3.2</generator>
+	<generator>http://wordpress.org/?v=3.4.1</generator>
 
 	<item>
 		<title>Git status in zsh prompt - the easy way</title>
@@ -290,6 +293,115 @@ Zsh auto-detects and sets the editing mode (default: emacs) to vi if <code>$EDIT
 			<wp:meta_key>_edit_last</wp:meta_key>
 			<wp:meta_value><![CDATA[57]]></wp:meta_value>
 		</wp:postmeta>
+		<wp:comment>
+			<wp:comment_id>321</wp:comment_id>
+			<wp:comment_author><![CDATA[ben]]></wp:comment_author>
+			<wp:comment_author_email>ben@benbergman.ca</wp:comment_author_email>
+			<wp:comment_author_url></wp:comment_author_url>
+			<wp:comment_author_IP>50.71.163.232</wp:comment_author_IP>
+			<wp:comment_date>2012-07-24 05:35:34</wp:comment_date>
+			<wp:comment_date_gmt>2012-07-23 18:35:34</wp:comment_date_gmt>
+			<wp:comment_content><![CDATA[This works for me, but when used in tmux, it prints a weird charater to the screen and on some computers produces a beep. Any idea why this might be?]]></wp:comment_content>
+			<wp:comment_approved>1</wp:comment_approved>
+			<wp:comment_type></wp:comment_type>
+			<wp:comment_parent>0</wp:comment_parent>
+			<wp:comment_user_id>0</wp:comment_user_id>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_result</wp:meta_key>
+				<wp:meta_value><![CDATA[false]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_history</wp:meta_key>
+				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1343068534.5504";s:7:"message";s:28:"Akismet cleared this comment";s:5:"event";s:9:"check-ham";s:4:"user";s:0:"";}]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_as_submitted</wp:meta_key>
+				<wp:meta_value><![CDATA[a:60:{s:15:"comment_post_ID";s:2:"29";s:14:"comment_author";s:3:"ben";s:20:"comment_author_email";s:17:"ben@benbergman.ca";s:18:"comment_author_url";s:0:"";s:15:"comment_content";s:149:"This works for me, but when used in tmux, it prints a weird charater to the screen and on some computers produces a beep. Any idea why this might be?";s:12:"comment_type";s:0:"";s:14:"comment_parent";s:1:"0";s:7:"user_ID";s:1:"0";s:7:"user_ip";s:13:"50.71.163.232";s:10:"user_agent";s:104:"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11";s:8:"referrer";s:81:"http://archlinux.me/w0ng/2012/04/06/zsh-change-cursor-colour-to-indicate-vi-mode/";s:4:"blog";s:24:"http://archlinux.me/w0ng";s:9:"blog_lang";s:5:"en_US";s:12:"blog_charset";s:5:"UTF-8";s:9:"permalink";s:81:"http://archlinux.me/w0ng/2012/04/06/zsh-change-cursor-colour-to-indicate-vi-mode/";s:21:"akismet_comment_nonce";s:6:"passed";s:11:"POST_author";s:3:"ben";s:10:"POST_email";s:17:"ben@benbergman.ca";s:8:"POST_url";s:0:"";s:12:"POST_comment";s:149:"This works for me, but when used in tmux, it prints a weird charater to the screen and on some computers produces a beep. Any idea why this might be?";s:11:"POST_submit";s:14:"Submit Comment";s:20:"POST_comment_post_ID";s:2:"29";s:19:"POST_comment_parent";s:1:"0";s:26:"POST_akismet_comment_nonce";s:10:"2df0c7de3b";s:15:"SERVER_SOFTWARE";s:6:"Apache";s:11:"REQUEST_URI";s:26:"/w0ng/wp-comments-post.php";s:18:"REDIRECT_UNIQUE_ID";s:24:"UA2Zdn8AAAEAACilkcMAAAAH";s:15:"REDIRECT_STATUS";s:3:"200";s:9:"UNIQUE_ID";s:24:"UA2Zdn8AAAEAACilkcMAAAAH";s:9:"HTTP_HOST";s:12:"archlinux.me";s:15:"HTTP_CONNECTION";s:10:"keep-alive";s:14:"CONTENT_LENGTH";s:3:"296";s:18:"HTTP_CACHE_CONTROL";s:9:"max-age=0";s:11:"HTTP_ORIGIN";s:19:"http://archlinux.me";s:15:"HTTP_USER_AGENT";s:104:"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11";s:12:"CONTENT_TYPE";s:33:"application/x-www-form-urlencoded";s:11:"HTTP_ACCEPT";s:63:"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";s:12:"HTTP_REFERER";s:81:"http://archlinux.me/w0ng/2012/04/06/zsh-change-cursor-colour-to-indicate-vi-mode/";s:20:"HTTP_ACCEPT_ENCODING";s:17:"gzip,deflate,sdch";s:20:"HTTP_ACCEPT_LANGUAGE";s:14:"en-US,en;q=0.8";s:19:"HTTP_ACCEPT_CHARSET";s:30:"ISO-8859-1,utf-8;q=0.7,*;q=0.3";s:4:"PATH";s:60:"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin";s:16:"SERVER_SIGNATURE";s:0:"";s:11:"SERVER_NAME";s:12:"archlinux.me";s:11:"SERVER_ADDR";s:15:"167.142.225.168";s:11:"SERVER_PORT";s:2:"80";s:11:"REMOTE_ADDR";s:13:"50.71.163.232";s:13:"DOCUMENT_ROOT";s:23:"/home/http/archlinux.me";s:12:"SERVER_ADMIN";s:19:"crouse@archlinux.us";s:15:"SCRIPT_FILENAME";s:44:"/home/http/archlinux.me/wp-comments-post.php";s:11:"REMOTE_PORT";s:5:"58064";s:12:"REDIRECT_URL";s:26:"/w0ng/wp-comments-post.php";s:17:"GATEWAY_INTERFACE";s:7:"CGI/1.1";s:15:"SERVER_PROTOCOL";s:8:"HTTP/1.1";s:14:"REQUEST_METHOD";s:4:"POST";s:12:"QUERY_STRING";s:0:"";s:11:"SCRIPT_NAME";s:21:"/wp-comments-post.php";s:8:"PHP_SELF";s:21:"/wp-comments-post.php";s:12:"REQUEST_TIME";s:10:"1343068534";s:25:"comment_post_modified_gmt";s:19:"2012-05-01 09:35:56";}]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_history</wp:meta_key>
+				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1343068785.8084";s:7:"message";s:43:"w0ng changed the comment status to approved";s:5:"event";s:15:"status-approved";s:4:"user";s:4:"w0ng";}]]></wp:meta_value>
+			</wp:commentmeta>
+		</wp:comment>
+		<wp:comment>
+			<wp:comment_id>325</wp:comment_id>
+			<wp:comment_author><![CDATA[w0ng]]></wp:comment_author>
+			<wp:comment_author_email>akamchoiw@gmail.com</wp:comment_author_email>
+			<wp:comment_author_url></wp:comment_author_url>
+			<wp:comment_author_IP>60.240.59.78</wp:comment_author_IP>
+			<wp:comment_date>2012-07-24 16:49:36</wp:comment_date>
+			<wp:comment_date_gmt>2012-07-24 05:49:36</wp:comment_date_gmt>
+			<wp:comment_content><![CDATA[Changing 
+$TERM = "rxvt-unicode-256color"
+to
+$TERM != "linux"
+
+should work for running tmux inside of xterm (I couldn't get it to work in rvxt)]]></wp:comment_content>
+			<wp:comment_approved>1</wp:comment_approved>
+			<wp:comment_type></wp:comment_type>
+			<wp:comment_parent>321</wp:comment_parent>
+			<wp:comment_user_id>57</wp:comment_user_id>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_result</wp:meta_key>
+				<wp:meta_value><![CDATA[false]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_history</wp:meta_key>
+				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1343108976.8563";s:7:"message";s:28:"Akismet cleared this comment";s:5:"event";s:9:"check-ham";s:4:"user";s:4:"w0ng";}]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_as_submitted</wp:meta_key>
+				<wp:meta_value><![CDATA[a:57:{s:15:"comment_post_ID";s:2:"29";s:14:"comment_author";s:4:"w0ng";s:20:"comment_author_email";s:19:"akamchoiw@gmail.com";s:18:"comment_author_url";s:0:"";s:15:"comment_content";s:696:"I can't get it to work when using tmux and urxvt, but this works if you use xterm:
+
+zle-keymap-select () {
+  if [[ $TERM = "screen-256color" ]]; then
+    if [[ $KEYMAP = vicmd ]]; then
+      echo -ne "\033]12;red\033\\"
+    else 
+      echo -ne "\033]12;grey\033\\"
+    fi
+  elif [[ $TERM != "linux"  ]]; then
+    if [[ $KEYMAP = vicmd ]]; then
+      echo -ne "\033]12;red\007"
+    else
+      echo -ne "\033]12;grey\007"
+    fi
+  fi
+}; zle -N zle-keymap-select
+zle-line-init () {
+  zle -K viins
+  if [[ $TERM = "screen-256color"  ]]; then
+    echo -ne "\033]12;grey\033\\"
+  elif [[ $TERM != "linux" ]]; then
+    echo -ne "\033]12;#c5c8c6\007"
+  fi
+}; zle -N zle-line-init";s:12:"comment_type";s:0:"";s:14:"comment_parent";s:3:"321";s:7:"user_ID";s:2:"57";s:7:"user_ip";s:12:"60.240.59.78";s:10:"user_agent";s:70:"Mozilla/5.0 (X11; Linux x86_64; rv:14.0) Gecko/20100101 Firefox/14.0.1";s:8:"referrer";s:81:"http://archlinux.me/w0ng/2012/04/06/zsh-change-cursor-colour-to-indicate-vi-mode/";s:4:"blog";s:24:"http://archlinux.me/w0ng";s:9:"blog_lang";s:5:"en_US";s:12:"blog_charset";s:5:"UTF-8";s:9:"permalink";s:81:"http://archlinux.me/w0ng/2012/04/06/zsh-change-cursor-colour-to-indicate-vi-mode/";s:9:"user_role";s:13:"administrator";s:21:"akismet_comment_nonce";s:6:"passed";s:12:"POST_comment";s:696:"I can't get it to work when using tmux and urxvt, but this works if you use xterm:
+
+zle-keymap-select () {
+  if [[ $TERM = "screen-256color" ]]; then
+    if [[ $KEYMAP = vicmd ]]; then
+      echo -ne "\033]12;red\033\\"
+    else 
+      echo -ne "\033]12;grey\033\\"
+    fi
+  elif [[ $TERM != "linux"  ]]; then
+    if [[ $KEYMAP = vicmd ]]; then
+      echo -ne "\033]12;red\007"
+    else
+      echo -ne "\033]12;grey\007"
+    fi
+  fi
+}; zle -N zle-keymap-select
+zle-line-init () {
+  zle -K viins
+  if [[ $TERM = "screen-256color"  ]]; then
+    echo -ne "\033]12;grey\033\\"
+  elif [[ $TERM != "linux" ]]; then
+    echo -ne "\033]12;#c5c8c6\007"
+  fi
+}; zle -N zle-line-init";s:11:"POST_submit";s:14:"Submit Comment";s:20:"POST_comment_post_ID";s:2:"29";s:19:"POST_comment_parent";s:3:"321";s:32:"POST__wp_unfiltered_html_comment";s:10:"9ca5ecd41c";s:26:"POST_akismet_comment_nonce";s:10:"1c31e282a1";s:15:"SERVER_SOFTWARE";s:6:"Apache";s:11:"REQUEST_URI";s:26:"/w0ng/wp-comments-post.php";s:18:"REDIRECT_UNIQUE_ID";s:24:"UA43cH8AAAEAAC56u4kAAAAE";s:15:"REDIRECT_STATUS";s:3:"200";s:9:"UNIQUE_ID";s:24:"UA43cH8AAAEAAC56u4kAAAAE";s:9:"HTTP_HOST";s:12:"archlinux.me";s:15:"HTTP_USER_AGENT";s:70:"Mozilla/5.0 (X11; Linux x86_64; rv:14.0) Gecko/20100101 Firefox/14.0.1";s:11:"HTTP_ACCEPT";s:63:"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";s:20:"HTTP_ACCEPT_LANGUAGE";s:14:"en-us,en;q=0.5";s:20:"HTTP_ACCEPT_ENCODING";s:13:"gzip, deflate";s:15:"HTTP_CONNECTION";s:10:"keep-alive";s:12:"HTTP_REFERER";s:81:"http://archlinux.me/w0ng/2012/04/06/zsh-change-cursor-colour-to-indicate-vi-mode/";s:11:"HTTP_COOKIE";s:0:"";s:12:"CONTENT_TYPE";s:33:"application/x-www-form-urlencoded";s:14:"CONTENT_LENGTH";s:4:"1148";s:4:"PATH";s:60:"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin";s:16:"SERVER_SIGNATURE";s:0:"";s:11:"SERVER_NAME";s:12:"archlinux.me";s:11:"SERVER_ADDR";s:15:"167.142.225.168";s:11:"SERVER_PORT";s:2:"80";s:11:"REMOTE_ADDR";s:12:"60.240.59.78";s:13:"DOCUMENT_ROOT";s:23:"/home/http/archlinux.me";s:12:"SERVER_ADMIN";s:19:"crouse@archlinux.us";s:15:"SCRIPT_FILENAME";s:44:"/home/http/archlinux.me/wp-comments-post.php";s:11:"REMOTE_PORT";s:5:"56114";s:12:"REDIRECT_URL";s:26:"/w0ng/wp-comments-post.php";s:17:"GATEWAY_INTERFACE";s:7:"CGI/1.1";s:15:"SERVER_PROTOCOL";s:8:"HTTP/1.1";s:14:"REQUEST_METHOD";s:4:"POST";s:12:"QUERY_STRING";s:0:"";s:11:"SCRIPT_NAME";s:21:"/wp-comments-post.php";s:8:"PHP_SELF";s:21:"/wp-comments-post.php";s:12:"REQUEST_TIME";s:10:"1343108976";s:25:"comment_post_modified_gmt";s:19:"2012-05-01 09:35:56";}]]></wp:meta_value>
+			</wp:commentmeta>
+		</wp:comment>
 	</item>
 	<item>
 		<title>Make IPython recognise virtualenv</title>
@@ -662,6 +774,104 @@ static const char colors[NUMCOLORS][ColLast][8] = {
 			<wp:meta_key>_edit_last</wp:meta_key>
 			<wp:meta_value><![CDATA[57]]></wp:meta_value>
 		</wp:postmeta>
+		<wp:comment>
+			<wp:comment_id>323</wp:comment_id>
+			<wp:comment_author><![CDATA[eldamar]]></wp:comment_author>
+			<wp:comment_author_email>samuel@eldamar.se</wp:comment_author_email>
+			<wp:comment_author_url>http://eldamar.se</wp:comment_author_url>
+			<wp:comment_author_IP>85.226.119.128</wp:comment_author_IP>
+			<wp:comment_date>2012-07-24 11:39:58</wp:comment_date>
+			<wp:comment_date_gmt>2012-07-24 00:39:58</wp:comment_date_gmt>
+			<wp:comment_content><![CDATA[I must be doing something wrong because i only get a empty statusbar after trying to use this icon solution, something about the output breaks my bar and everything after an icon or the icon character is not showing up for some reason, even if ii change to a font previosly working i still get nothing. i even tried to build from your PKGBUILD with every patch and the exact same config.h file, still didn't work for me.]]></wp:comment_content>
+			<wp:comment_approved>1</wp:comment_approved>
+			<wp:comment_type></wp:comment_type>
+			<wp:comment_parent>0</wp:comment_parent>
+			<wp:comment_user_id>0</wp:comment_user_id>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_result</wp:meta_key>
+				<wp:meta_value><![CDATA[false]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_history</wp:meta_key>
+				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:14:"1343090398.804";s:7:"message";s:28:"Akismet cleared this comment";s:5:"event";s:9:"check-ham";s:4:"user";s:0:"";}]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_as_submitted</wp:meta_key>
+				<wp:meta_value><![CDATA[a:60:{s:15:"comment_post_ID";s:3:"189";s:14:"comment_author";s:7:"eldamar";s:20:"comment_author_email";s:17:"samuel@eldamar.se";s:18:"comment_author_url";s:17:"http://eldamar.se";s:15:"comment_content";s:420:"I must be doing something wrong because i only get a empty statusbar after trying to use this icon solution, something about the output breaks my bar and everything after an icon or the icon character is not showing up for some reason, even if ii change to a font previosly working i still get nothing. i even tried to build from your PKGBUILD with every patch and the exact same config.h file, still didn't work for me.";s:12:"comment_type";s:0:"";s:14:"comment_parent";s:1:"0";s:7:"user_ID";s:1:"0";s:7:"user_ip";s:14:"85.226.119.128";s:10:"user_agent";s:104:"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11";s:8:"referrer";s:59:"http://archlinux.me/w0ng/2012/05/01/dwm-a-pretty-statusbar/";s:4:"blog";s:24:"http://archlinux.me/w0ng";s:9:"blog_lang";s:5:"en_US";s:12:"blog_charset";s:5:"UTF-8";s:9:"permalink";s:59:"http://archlinux.me/w0ng/2012/05/01/dwm-a-pretty-statusbar/";s:21:"akismet_comment_nonce";s:6:"passed";s:11:"POST_author";s:7:"eldamar";s:10:"POST_email";s:17:"samuel@eldamar.se";s:8:"POST_url";s:17:"http://eldamar.se";s:12:"POST_comment";s:420:"I must be doing something wrong because i only get a empty statusbar after trying to use this icon solution, something about the output breaks my bar and everything after an icon or the icon character is not showing up for some reason, even if ii change to a font previosly working i still get nothing. i even tried to build from your PKGBUILD with every patch and the exact same config.h file, still didn't work for me.";s:11:"POST_submit";s:14:"Submit Comment";s:20:"POST_comment_post_ID";s:3:"189";s:19:"POST_comment_parent";s:1:"0";s:26:"POST_akismet_comment_nonce";s:10:"65f01e01c6";s:15:"SERVER_SOFTWARE";s:6:"Apache";s:11:"REQUEST_URI";s:26:"/w0ng/wp-comments-post.php";s:18:"REDIRECT_UNIQUE_ID";s:24:"UA3u3n8AAAEAAG7fMZcAAAAA";s:15:"REDIRECT_STATUS";s:3:"200";s:9:"UNIQUE_ID";s:24:"UA3u3n8AAAEAAG7fMZcAAAAA";s:9:"HTTP_HOST";s:12:"archlinux.me";s:15:"HTTP_CONNECTION";s:10:"keep-alive";s:14:"CONTENT_LENGTH";s:3:"597";s:18:"HTTP_CACHE_CONTROL";s:9:"max-age=0";s:11:"HTTP_ORIGIN";s:19:"http://archlinux.me";s:15:"HTTP_USER_AGENT";s:104:"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11";s:12:"CONTENT_TYPE";s:33:"application/x-www-form-urlencoded";s:11:"HTTP_ACCEPT";s:63:"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";s:12:"HTTP_REFERER";s:59:"http://archlinux.me/w0ng/2012/05/01/dwm-a-pretty-statusbar/";s:20:"HTTP_ACCEPT_ENCODING";s:17:"gzip,deflate,sdch";s:20:"HTTP_ACCEPT_LANGUAGE";s:23:"en-US,en;q=0.8,sv;q=0.6";s:19:"HTTP_ACCEPT_CHARSET";s:30:"ISO-8859-1,utf-8;q=0.7,*;q=0.3";s:4:"PATH";s:60:"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin";s:16:"SERVER_SIGNATURE";s:0:"";s:11:"SERVER_NAME";s:12:"archlinux.me";s:11:"SERVER_ADDR";s:15:"167.142.225.168";s:11:"SERVER_PORT";s:2:"80";s:11:"REMOTE_ADDR";s:14:"85.226.119.128";s:13:"DOCUMENT_ROOT";s:23:"/home/http/archlinux.me";s:12:"SERVER_ADMIN";s:19:"crouse@archlinux.us";s:15:"SCRIPT_FILENAME";s:44:"/home/http/archlinux.me/wp-comments-post.php";s:11:"REMOTE_PORT";s:5:"54420";s:12:"REDIRECT_URL";s:26:"/w0ng/wp-comments-post.php";s:17:"GATEWAY_INTERFACE";s:7:"CGI/1.1";s:15:"SERVER_PROTOCOL";s:8:"HTTP/1.1";s:14:"REQUEST_METHOD";s:4:"POST";s:12:"QUERY_STRING";s:0:"";s:11:"SCRIPT_NAME";s:21:"/wp-comments-post.php";s:8:"PHP_SELF";s:21:"/wp-comments-post.php";s:12:"REQUEST_TIME";s:10:"1343090398";s:25:"comment_post_modified_gmt";s:19:"2012-05-06 15:33:45";}]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_history</wp:meta_key>
+				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1343104682.2572";s:7:"message";s:43:"w0ng changed the comment status to approved";s:5:"event";s:15:"status-approved";s:4:"user";s:4:"w0ng";}]]></wp:meta_value>
+			</wp:commentmeta>
+		</wp:comment>
+		<wp:comment>
+			<wp:comment_id>324</wp:comment_id>
+			<wp:comment_author><![CDATA[w0ng]]></wp:comment_author>
+			<wp:comment_author_email>akamchoiw@gmail.com</wp:comment_author_email>
+			<wp:comment_author_url></wp:comment_author_url>
+			<wp:comment_author_IP>60.240.59.78</wp:comment_author_IP>
+			<wp:comment_date>2012-07-24 15:38:02</wp:comment_date>
+			<wp:comment_date_gmt>2012-07-24 04:38:02</wp:comment_date_gmt>
+			<wp:comment_content><![CDATA[I'm guessing it's because the statusbar script contains some files/variables that are only installed on my comp.
+
+You shouldn't need any patches for this to work. All you need is to have terminus2 in ~/.fonts.
+
+To test whether the icon glyphs work, test if the statusbar displays fine after changing terminus to terminus2 in config.h.
+
+Next try to display some of the normal chars: e.g.
+$ xsetroot -name "abc"
+
+Then try to display some of the icon letters: e.g.
+$ xsetroot -name "ÜÜÝ"
+
+Then test each part of dwm-statusbar.bash (e.g. try getting print_datetime() to work and delete everything else).
+
+Note that a much easier alternative could be using conky to display system stats]]></wp:comment_content>
+			<wp:comment_approved>1</wp:comment_approved>
+			<wp:comment_type></wp:comment_type>
+			<wp:comment_parent>323</wp:comment_parent>
+			<wp:comment_user_id>57</wp:comment_user_id>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_result</wp:meta_key>
+				<wp:meta_value><![CDATA[false]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_history</wp:meta_key>
+				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1343104682.2077";s:7:"message";s:28:"Akismet cleared this comment";s:5:"event";s:9:"check-ham";s:4:"user";s:4:"w0ng";}]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_as_submitted</wp:meta_key>
+				<wp:meta_value><![CDATA[a:70:{s:15:"comment_post_ID";s:3:"189";s:14:"comment_author";s:4:"w0ng";s:20:"comment_author_email";s:19:"akamchoiw@gmail.com";s:18:"comment_author_url";s:0:"";s:15:"comment_content";s:684:"I'm guessing it's because the statusbar script contains some files/variables that are only installed on my comp.
+
+You shouldn't need any patches for this to work. All you need is to have terminus2 in ~/.fonts.
+
+To test whether the icon glyphs work, test if the statusbar displays fine after changing terminus to terminus2 in config.h.
+
+Next try to display some of the normal chars: e.g.
+$ xsetroot -name "abc"
+
+Then try to display some of the icon letters: e.g.
+$ xsetroot -name "ÜÜÝ"
+
+Then test each part of dwm-statusbar.bash (e.g. try getting print_datetime() to work and delete everything else).
+
+Note that a much easier alternative could be using conky to display system stats";s:14:"comment_parent";s:3:"323";s:7:"user_ID";s:2:"57";s:7:"user_ip";s:12:"60.240.59.78";s:10:"user_agent";s:70:"Mozilla/5.0 (X11; Linux x86_64; rv:14.0) Gecko/20100101 Firefox/14.0.1";s:8:"referrer";s:51:"http://archlinux.me/w0ng/wp-admin/edit-comments.php";s:4:"blog";s:24:"http://archlinux.me/w0ng";s:9:"blog_lang";s:5:"en_US";s:12:"blog_charset";s:5:"UTF-8";s:9:"permalink";s:59:"http://archlinux.me/w0ng/2012/05/01/dwm-a-pretty-statusbar/";s:9:"user_role";s:13:"administrator";s:21:"akismet_comment_nonce";s:6:"passed";s:22:"POST_newcomment_author";s:0:"";s:28:"POST_newcomment_author_email";s:0:"";s:26:"POST_newcomment_author_url";s:0:"";s:12:"POST_user_ID";s:2:"57";s:11:"POST_action";s:15:"replyto-comment";s:15:"POST_comment_ID";s:3:"323";s:20:"POST_comment_post_ID";s:3:"189";s:11:"POST_status";s:0:"";s:13:"POST_position";s:2:"-1";s:13:"POST_checkbox";s:1:"1";s:9:"POST_mode";s:6:"detail";s:32:"POST__ajax_nonce-replyto-comment";s:10:"e93c6857f3";s:32:"POST__wp_unfiltered_html_comment";s:10:"49e676bce5";s:12:"POST_content";s:684:"I'm guessing it's because the statusbar script contains some files/variables that are only installed on my comp.
+
+You shouldn't need any patches for this to work. All you need is to have terminus2 in ~/.fonts.
+
+To test whether the icon glyphs work, test if the statusbar displays fine after changing terminus to terminus2 in config.h.
+
+Next try to display some of the normal chars: e.g.
+$ xsetroot -name "abc"
+
+Then try to display some of the icon letters: e.g.
+$ xsetroot -name "ÜÜÝ"
+
+Then test each part of dwm-statusbar.bash (e.g. try getting print_datetime() to work and delete everything else).
+
+Note that a much easier alternative could be using conky to display system stats";s:7:"POST_id";s:3:"189";s:21:"POST_comments_listing";s:3:"all";s:19:"POST_approve_parent";s:1:"1";s:15:"SERVER_SOFTWARE";s:6:"Apache";s:11:"REQUEST_URI";s:29:"/w0ng/wp-admin/admin-ajax.php";s:18:"REDIRECT_UNIQUE_ID";s:24:"UA4mqX8AAAEAACbQKK0AAAAJ";s:15:"REDIRECT_STATUS";s:3:"200";s:9:"UNIQUE_ID";s:24:"UA4mqX8AAAEAACbQKK0AAAAJ";s:9:"HTTP_HOST";s:12:"archlinux.me";s:15:"HTTP_USER_AGENT";s:70:"Mozilla/5.0 (X11; Linux x86_64; rv:14.0) Gecko/20100101 Firefox/14.0.1";s:11:"HTTP_ACCEPT";s:3:"*/*";s:20:"HTTP_ACCEPT_LANGUAGE";s:14:"en-us,en;q=0.5";s:20:"HTTP_ACCEPT_ENCODING";s:13:"gzip, deflate";s:15:"HTTP_CONNECTION";s:10:"keep-alive";s:12:"CONTENT_TYPE";s:48:"application/x-www-form-urlencoded; charset=UTF-8";s:21:"HTTP_X_REQUESTED_WITH";s:14:"XMLHttpRequest";s:12:"HTTP_REFERER";s:51:"http://archlinux.me/w0ng/wp-admin/edit-comments.php";s:14:"CONTENT_LENGTH";s:4:"1056";s:11:"HTTP_COOKIE";s:0:"";s:11:"HTTP_PRAGMA";s:8:"no-cache";s:18:"HTTP_CACHE_CONTROL";s:8:"no-cache";s:4:"PATH";s:60:"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin";s:16:"SERVER_SIGNATURE";s:0:"";s:11:"SERVER_NAME";s:12:"archlinux.me";s:11:"SERVER_ADDR";s:15:"167.142.225.168";s:11:"SERVER_PORT";s:2:"80";s:11:"REMOTE_ADDR";s:12:"60.240.59.78";s:13:"DOCUMENT_ROOT";s:23:"/home/http/archlinux.me";s:12:"SERVER_ADMIN";s:19:"crouse@archlinux.us";s:15:"SCRIPT_FILENAME";s:47:"/home/http/archlinux.me/wp-admin/admin-ajax.php";s:11:"REMOTE_PORT";s:5:"47439";s:12:"REDIRECT_URL";s:29:"/w0ng/wp-admin/admin-ajax.php";s:17:"GATEWAY_INTERFACE";s:7:"CGI/1.1";s:15:"SERVER_PROTOCOL";s:8:"HTTP/1.1";s:14:"REQUEST_METHOD";s:4:"POST";s:12:"QUERY_STRING";s:0:"";s:11:"SCRIPT_NAME";s:24:"/wp-admin/admin-ajax.php";s:8:"PHP_SELF";s:24:"/wp-admin/admin-ajax.php";s:12:"REQUEST_TIME";s:10:"1343104681";s:25:"comment_post_modified_gmt";s:19:"2012-05-06 15:33:45";}]]></wp:meta_value>
+			</wp:commentmeta>
+		</wp:comment>
 	</item>
 	<item>
 		<title>ALSA: Switch audio output to USB Headset</title>
@@ -1005,6 +1215,190 @@ Get the script at: <a href="https://github.com/shabble/irssi-scripts/tree/master
 		<category domain="post_tag" nicename="script"><![CDATA[script]]></category>
 		<category domain="post_tag" nicename="vi"><![CDATA[vi]]></category>
 		<category domain="post_tag" nicename="vim"><![CDATA[vim]]></category>
+		<wp:postmeta>
+			<wp:meta_key>_edit_last</wp:meta_key>
+			<wp:meta_value><![CDATA[57]]></wp:meta_value>
+		</wp:postmeta>
+	</item>
+	<item>
+		<title>dw</title>
+		<link>http://archlinux.me/w0ng/2012/07/18/dwm-im-doing-it-wrong/</link>
+		<pubDate>Tue, 17 Jul 2012 23:37:58 +0000</pubDate>
+		<dc:creator>w0ng</dc:creator>
+		<guid isPermaLink="false">http://archlinux.me/w0ng/?p=402</guid>
+		<description></description>
+		<content:encoded><![CDATA[dasas]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>402</wp:post_id>
+		<wp:post_date>2012-07-18 10:37:58</wp:post_date>
+		<wp:post_date_gmt>2012-07-17 23:37:58</wp:post_date_gmt>
+		<wp:comment_status>open</wp:comment_status>
+		<wp:ping_status>open</wp:ping_status>
+		<wp:post_name>dwm-im-doing-it-wrong</wp:post_name>
+		<wp:status>trash</wp:status>
+		<wp:post_parent>0</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type>post</wp:post_type>
+		<wp:post_password></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+		<category domain="category" nicename="linux"><![CDATA[Linux]]></category>
+		<wp:postmeta>
+			<wp:meta_key>_edit_last</wp:meta_key>
+			<wp:meta_value><![CDATA[57]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>_wp_trash_meta_status</wp:meta_key>
+			<wp:meta_value><![CDATA[draft]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>_wp_trash_meta_time</wp:meta_key>
+			<wp:meta_value><![CDATA[1342568315]]></wp:meta_value>
+		</wp:postmeta>
+	</item>
+	<item>
+		<title>My dwm Workflow</title>
+		<link>http://archlinux.me/w0ng/?p=404</link>
+		<pubDate>Thu, 01 Jan 1970 00:00:00 +0000</pubDate>
+		<dc:creator>w0ng</dc:creator>
+		<guid isPermaLink="false">http://archlinux.me/w0ng/?p=404</guid>
+		<description></description>
+		<content:encoded><![CDATA[<b>I'm doing it wrong</b>
+
+It's been about a year since I started using dwm. At first, I didn't understand it. I made the mistake of heavily patching my setup in order to provide features that were found on other popular tiling window managers right from the get go. 
+
+The feature list of dwm out of the box seemed rather dull and unusable. Even before actually installing it, I was browsing to see what extra functionality was available from the <a href="http://dwm.suckless.org/patches/" target="_blank">official website</a> and from a great thread worth subscribing to,  <a href="https://bbs.archlinux.org/viewtopic.php?id=92895" target="_blank">"DWM Hackers Unite! Share (or request) dwm patches"</a>.
+
+A comparison can be made for anyone that uses vim: don't fuck with scripts until you hone your vimrc and don't fuck with vimrc until you learn how to use vim. This should hold true for anyone using dwm. 
+
+<b>Windows, tags and workspaces</b>
+
+Whilst keypresses as an alternative to mouseclicks for window management should be intuitive to Arch users, one key concept of dwm wasn't initially apparent to me: <b>tags are not workspaces</b>. Judging from a bunch of <a href="https://bbs.archlinux.org/viewtopic.php?id=144310" target="_blank">screenshots</a> and <a href="https://bbs.archlinux.org/viewtopic.php?id=74599" target="_blank">dwm configs</a>, I'm not alone.
+
+Tl;dr of <a href="http://lubutu.com/rant/dwm-faq" target="_blank">dwm FAQ</a>:
+
+A <em>tag</em> is just a <em>label</em> for which each window may be assigned to. A window may be assigned to one or more tags. Tags provide no other functionality.
+A <em>workspace</em> is just a <em>view</em> of one or more tags that are pulled into it. A workspace can be in one of three (default) layouts: tiled, monocle, floating.
+
+Think of tags and workspaces as just being containers for the entire list of all active windows. They are used to show, hide and arrange windows. Changing the window arrangement in one workspace will hold in every other workspace, giving dwm its dynamic nature.
+
+<b>Changing default bindings</b>
+
+<code>MODKEY</code> by default is mapped to <code>Alt</code>. I like to map my <code>Win</code> key to it instead, since I use several <code>Alt + *</code> hotkeys in my default terminal, urxvt.
+
+<code>MODKEY + [1-9]</code> switches the workspace to the tag number and <code>MODKEY + Ctrl + [1-9]</code> toggles that tag to be shown/hidden from the current workspace. 
+Similarly, <code>MOUSE1</code> click on the tagbar switches the workspace to that tag and <code>MOUSE3</code> toggles it. 
+It makes more sense to switch these around since toggling tags should be used more often than switching workspaces.
+
+I've also remapped my tagkeys from <code>[1-9]</code> to <code>[1,2,3,q,w,e,a,s,d]</code> for easier finger access.
+
+<b>Tags Setup</b>
+
+I use each tag for a specific purpose and committed them to finger muscle memory. There are two <em>main</em> tags that are usually empty or have temporary windows in them. This is so that I can have two workspaces and easily <code>Alt + Tab</code> between them or move windows into them when I have too many windows in another tag.
+
+I've also set up rules for the common apps I use:
+<ul>	
+	<li>1: main1 (n/a)</li>
+	<li>2: web (firefox)</li>
+	<li>3: communication (irssi, mutt)</li>
+	<li>q: terminal (urxvt, gvim)</li>
+	<li>w: media (mplayer2)</li>
+	<li>e: documents (libreoffice, zathura)</li>
+	<li>a: graphics (gimp, inkscape, fontforge)</li>
+	<li>s: file manager (ranger)</li>
+	<li>d: main2 (n/a)</li>
+</ul>
+
+<b>Patches used</b>
+
+<ul>
+<li>bottom stack: additional layout</li>
+<li>centred floating: windows that start up in floating mode can be centred on the screen</li>
+<li>gapless grid: additional layout</li>
+<li>monocle count: shows [current/total] instead of [total] in monocle mode</li>
+<li>no border: removes border in monocle mode or whenever there's only one window in the workspace</li>
+<li>push: allows windows to be moved up and down the list in a workspace</li>
+<li>scratchpad: Floating terminal which is shown/hidden with the same keybinding</li>
+<li>status colours: enables coloured text in the status bar</li>
+</ul>
+
+]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>404</wp:post_id>
+		<wp:post_date>2012-07-18 14:08:25</wp:post_date>
+		<wp:post_date_gmt>0000-00-00 00:00:00</wp:post_date_gmt>
+		<wp:comment_status>open</wp:comment_status>
+		<wp:ping_status>open</wp:ping_status>
+		<wp:post_name>my-dwm-workflow</wp:post_name>
+		<wp:status>draft</wp:status>
+		<wp:post_parent>0</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type>post</wp:post_type>
+		<wp:post_password></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+		<category domain="post_tag" nicename="dwm"><![CDATA[dwm]]></category>
+		<category domain="category" nicename="linux"><![CDATA[Linux]]></category>
+		<category domain="post_tag" nicename="setup"><![CDATA[setup]]></category>
+		<category domain="post_tag" nicename="tags"><![CDATA[tags]]></category>
+		<category domain="post_tag" nicename="workflow"><![CDATA[workflow]]></category>
+		<category domain="post_tag" nicename="workspaces"><![CDATA[workspaces]]></category>
+		<wp:postmeta>
+			<wp:meta_key>_edit_last</wp:meta_key>
+			<wp:meta_value><![CDATA[57]]></wp:meta_value>
+		</wp:postmeta>
+	</item>
+	<item>
+		<title>Zsh: Better history searching</title>
+		<link>http://archlinux.me/w0ng/?p=490</link>
+		<pubDate>Thu, 01 Jan 1970 00:00:00 +0000</pubDate>
+		<dc:creator>w0ng</dc:creator>
+		<guid isPermaLink="false">http://archlinux.me/w0ng/?p=490</guid>
+		<description></description>
+		<content:encoded><![CDATA[The default history searching options kind of suck. 
+
+]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>490</wp:post_id>
+		<wp:post_date>2012-07-20 16:46:01</wp:post_date>
+		<wp:post_date_gmt>0000-00-00 00:00:00</wp:post_date_gmt>
+		<wp:comment_status>open</wp:comment_status>
+		<wp:ping_status>open</wp:ping_status>
+		<wp:post_name></wp:post_name>
+		<wp:status>draft</wp:status>
+		<wp:post_parent>0</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type>post</wp:post_type>
+		<wp:post_password></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+		<category domain="category" nicename="linux"><![CDATA[Linux]]></category>
+		<wp:postmeta>
+			<wp:meta_key>_edit_last</wp:meta_key>
+			<wp:meta_value><![CDATA[57]]></wp:meta_value>
+		</wp:postmeta>
+	</item>
+	<item>
+		<title></title>
+		<link>http://archlinux.me/w0ng/?p=492</link>
+		<pubDate>Thu, 01 Jan 1970 00:00:00 +0000</pubDate>
+		<dc:creator>w0ng</dc:creator>
+		<guid isPermaLink="false">http://archlinux.me/w0ng/?p=492</guid>
+		<description></description>
+		<content:encoded><![CDATA[fdsfsdfdse 'tpope/v
+
+e 'tpope/vt]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>492</wp:post_id>
+		<wp:post_date>2012-07-25 05:28:10</wp:post_date>
+		<wp:post_date_gmt>0000-00-00 00:00:00</wp:post_date_gmt>
+		<wp:comment_status>open</wp:comment_status>
+		<wp:ping_status>open</wp:ping_status>
+		<wp:post_name></wp:post_name>
+		<wp:status>draft</wp:status>
+		<wp:post_parent>0</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type>post</wp:post_type>
+		<wp:post_password></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+		<category domain="category" nicename="linux"><![CDATA[Linux]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_edit_last</wp:meta_key>
 			<wp:meta_value><![CDATA[57]]></wp:meta_value>
