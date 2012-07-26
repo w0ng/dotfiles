@@ -24,6 +24,7 @@ realdelete = no
 postsynchook = notmuch new
 maxconnections = 3
 nametrans = nt_remote
+cert_fingerprint=f3043dd689a2e7dddfbef82703a6c65ea9b634c1
 
 [Account mq]
 localrepository = mq-local
@@ -42,3 +43,4 @@ realdelete = no
 postsynchook = notmuch new
 maxconnections = 3
 nametrans = nt_remote
+cert_fingerprint=f3043dd689a2e7dddfbef82703a6c65ea9b634c1

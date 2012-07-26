@@ -14,16 +14,13 @@ port           587
 from           akamchoiw@gmail.com
 user           akamchoiw@gmail.com
 password       XXXXXXXXXXXXx
+tls_trust_file /usr/share/ca-certificates/mozilla/Equifax_Secure_CA.crt
 
 # A second gmail address
 account    mq : gmail
 from       andrew.wong@students.mq.edu.au
 user       andrew.wong@students.mq.edu.au
 password   XXXXXXXXXXXXXXx
-
-# It looks like Google's in the process of becoming its own certificate
-# authority. For some users, they seem to have switched to a "Google
-# Certificate Authority" certificate, which is rooted in Equifax.
 tls_trust_file /usr/share/ca-certificates/mozilla/Equifax_Secure_CA.crt
 
 # Set a default account
