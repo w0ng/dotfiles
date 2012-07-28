@@ -46,8 +46,8 @@ channels = (
   { name = "#bash"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#fsc"; chatnet = "Rizon"; autojoin = "yes"; },
   { name = "#overclockers"; chatnet = "ozorg"; autojoin = "yes"; },
+  { name = "#django"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#python"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#reddit"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#vim"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#zsh"; chatnet = "freenode"; autojoin = "yes"; }
 );
