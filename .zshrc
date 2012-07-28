@@ -103,7 +103,6 @@ alias ls="ls -hF --color=always --group-directories-first --time-style=+'$fg_bol
 alias ll="ls++"
 alias grep="grep --color=auto"
 alias gist="jist -p"
-alias pacman="pacman-color"
 alias range="urxvtc -name ranger -e ranger"
 alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
 alias tm="urxvtc -name chatmail -e tmux attach-session -d -t 0"
