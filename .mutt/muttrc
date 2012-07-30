@@ -63,8 +63,8 @@ unignore from: to: cc: date: subject:                             # show only th
 hdr_order from: to: cc: date: subject:                            # and in this order
 
 # lists and boxes
-mailboxes +gmail/all_mail +gmail/drafts +gmail/important +gmail/inbox +gmail/sent_mail +gmail/spam +gmail/starred +gmail/trash
-mailboxes +mq/all_mail +mq/bin +mq/drafts +mq/important +mq/inbox +mq/sent_mail +mq/spam +mq/starred
+mailboxes +gmail/inbox
+mailboxes +mq/inbox
 
 # always sourced
 source $alias_file                                                # required for functionality
@@ -77,3 +77,8 @@ folder-hook mq/*         source ~/.mutt/mq.muttrc
 
 # quick send
 macro index ,z "<shell-escape>offlineimap -q -o<return>" "sync IMAP"
+
+# gpg signature
+source ~/.mutt/gpg.rc
+set crypt_autosign=yes
+set pgp_mime_signature_filename="signature.asc"
