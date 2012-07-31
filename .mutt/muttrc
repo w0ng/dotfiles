@@ -62,7 +62,11 @@ ignore *                                                          # ignore all h
 unignore from: to: cc: date: subject:                             # show only these
 hdr_order from: to: cc: date: subject:                            # and in this order
 
-# lists and boxes
+# mailing lists
+subscribe arch-announce@archlinux.org arch-dev-public@archlinux.org arch-general@archlinux.org 
+subscribe dev@suckless.org hackers@suckless.org
+
+# folders to notify of new mail
 mailboxes +gmail/inbox
 mailboxes +mq/inbox
 
@@ -75,10 +79,36 @@ source ~/.mutt/colors.muttrc
 folder-hook gmail/*      source ~/.mutt/gmail.muttrc
 folder-hook mq/*         source ~/.mutt/mq.muttrc
 
-# quick send
-macro index ,z "<shell-escape>offlineimap -q -o<return>" "sync IMAP"
+
+# collapse threads in subscribed mailing lists
+folder-hook gmail/(arch|suckless)_* "exec collapse-all"
 
 # gpg signature
 source ~/.mutt/gpg.rc
 set crypt_autosign=yes
 set pgp_mime_signature_filename="signature.asc"
+
+# vim-ish keybinds
+bind   pager         <Space>   toggle-quoted
+bind   index         <Space>   collapse-thread
+bind   pager         k         previous-line
+bind   pager         j         next-line
+bind   pager         gg        top
+bind   pager         G         bottom
+bind   index         gg        first-entry
+bind   index         G         last-entry
+bind   pager         K         previous-undeleted
+bind   pager         J         next-undeleted
+bind   index         K         previous-unread
+bind   index         J         next-unread
+bind   index,pager   R         group-reply
+
+# macros
+macro index ,g  "<change-folder> =gmail/inbox<enter>"            "go to Gmail Inbox"
+macro index ,m  "<change-folder> =mq/inbox<enter>"               "go to MQ Inbox"
+macro index ,aa "<change-folder> =gmail/arch_announce<enter>"    "go to Arch Announce"
+macro index ,ad "<change-folder> =gmail/arch_dev<enter>"         "go to Arch Dev"
+macro index ,ag "<change-folder> =gmail/arch_general<enter>"     "go to Arch General"
+macro index ,sd "<change-folder> =gmail/suckless_dev<enter>"     "go to Suckless Dev"
+macro index ,sh "<change-folder> =gmail/suckless_hackers<enter>" "go to Suckless Dev"
+macro index ,z  "<shell-escape>offlineimap -q -o<return>"        "sync IMAP"
