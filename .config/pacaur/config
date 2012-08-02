@@ -1,0 +1,16 @@
+#!/bin/bash
+
+#
+# /etc/xdg/pacaur/pacaur.conf
+#
+
+# The following options are commented out with their default values listed.
+# If you wish to use different values, uncomment and update the values.
+#builddir="${BUILDDIR:-$tmpdir}"	# build directory
+#editor="${EDITOR:-vi}"          	# PKGBUILD editor
+#editpkgbuild=true               	# edit PKGBUILD script
+#editinstall=true                	# edit install script
+#fallback=true                   	# pacman fallback to the AUR
+#clean=true                      	# clean up after package install
+#cleandevel=true                 	# clean up devel package
+color=true                     	  # color support via pacman-color
