@@ -26,6 +26,7 @@
 *.tar
 *.tbz2
 *.tgz
+*.xz
 *.zip
 *.Z
 
