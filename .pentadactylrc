@@ -106,72 +106,69 @@ EOM
 
 " overwrite github.com's css """"""""""""""""""""""""""""""""""""""""""""""""""
 style -name github-font https://github.com/* <<EOM
-button.classy,
-button.classy:disabled,
-button.classy.disabled,
-a.button.classy:disabled,
-a.button.classy.disabled,
-button.classy:disabled:hover,
-button.classy.disabled:disabled:hover,
-a.button.classy.disabled:hover:disabled,
-a.button.classy.disabled:hover,
-a.button.classy,
-button.classy:disabled:hover,
-button.classy.disabled:disabled:hover,
-a.button.classy:disabled:hover,
-a.button.classy.disabled:disabled:hover,
-a.button.classy.disabled:hover,
-.minibutton,
-body,
-dl.keyboard-mappings dt em,
-.bubble#files .file .meta .info,
-.line-comments,
-.line_numbers.comment-count .counter,
-.file-comments,
-span.diffstat,
+
 #dashboard .filter-bar .filter_input,
+#missing-readme,
+.boxed-group.flush ul.boxed-group-list.settings-repos>li h3 small,
+.bubble#files .file .meta .info,
+.connected,
+.file-comments,
 .forgot_password_form form input[type=submit],
 .homehead input.search,
+.line-comments,
+.line_numbers.comment-count .counter,
 .login_form form input[type=submit],
+.minibutton,
 .pagehead>ul.tabs li a .counter,
-body.page-profile-next .profilecols .filter-bar .filter_input,
 .profilecols .filter-bar .filter_input,
-#missing-readme,
-.connected,
-.boxed-group.flush ul.boxed-group-list.settings-repos>li h3 small {
+a.button.classy,
+a.button.classy.disabled,
+a.button.classy.disabled:disabled:hover,
+a.button.classy.disabled:hover,
+a.button.classy.disabled:hover:disabled,
+a.button.classy:disabled,
+a.button.classy:disabled:hover,
+body,
+body.page-profile-next .profilecols .filter-bar .filter_input,
+button.classy,
+button.classy.disabled,
+button.classy.disabled:disabled:hover,
+button.classy:disabled,
+button.classy:disabled:hover,
+dl.keyboard-mappings dt em,
+span.diffstat {
   font-family: "sans-serif" !important;
 }
 EOM
 
 style -name gist-font https://gist.github.com/* <<EOM
+
+#missing-readme,
+#readme,
+.forgot_password_form form input[type=submit],
+.login_form form input[type=submit],
+a.button.classy,
+a.button.classy.disabled:hover,
 body,
 button.classy,
-a.button.classy,
 button.classy:disabled:hover,
-a.button.classy.disabled:hover,
-ul.usernav li button,
-#readme,
-#missing-readme,
-.login_form form input[type=submit],
-
-.forgot_password_form form input[type=submit] {
+ul.usernav li button {
   font-family: "sans-serif" !important;
 }
 
-tt,
-.gist .gist-file,
-.gist .gist-file .gist-data pre,
-#readme div.plain pre,
-.file .meta input.gist-name-textbox,
-.file .input textarea,
-.windows .file .input textarea,
-.linux .file .input textarea,
-.file .data pre,
-.windows .file .data pre,
-.linux .file .data pre,
 #files>.description input,
-#revisions a.id {
+#readme div.plain pre,
+#revisions a.id,
+.file .data pre,
+.file .input textarea,
+.file .meta input.gist-name-textbox,
+.gist .gist-file .gist-data pre,
+.gist .gist-file,
+.linux .file .data pre,
+.linux .file .input textarea,
+.windows .file .data pre,
+.windows .file .input textarea,
+tt {
   font-family: "monospace" !important;
 }
-
 EOM
