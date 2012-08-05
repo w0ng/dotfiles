@@ -1,4 +1,4 @@
-" 
+"
 " ~/.pentadactylrc
 "
 
@@ -64,25 +64,25 @@ style -name minitabs chrome://* <<EOM
 #TabsToolbar toolbarbutton {
   display: none !important;
 }
- 
+
 .tabbrowser-tabs {
   background: #282a2e !important;
 }
- 
+
 .tabbrowser-tab {
   -moz-appearance: none !important;
   -moz-border-radius: 0 !important;
   background: #282a2e !important;
   border: none !important;
   color: #969896 !important;
-  font-family: Terminus; 
+  font-family: Terminus;
   font-size: 9pt !important;
   height: 18px !important;
   margin: 0 !important;
   min-height: 0 !important;
   padding: 0 0.5ex !important;
 }
- 
+
 .tabbrowser-tab:not([pinned]) {
   max-width: 100px !important;
   min-width: 100px !important;
@@ -97,9 +97,81 @@ style -name minitabs chrome://* <<EOM
   background: #f0c674 !important;
   color: #282a2e !important;
 }
- 
+
 .tabbrowser-tab[selected] {
   background: #282a2e !important;
   color: #f0c674 !important;
 }
+EOM
+
+" overwrite github.com's css """"""""""""""""""""""""""""""""""""""""""""""""""
+style -name github-font https://github.com/* <<EOM
+button.classy,
+button.classy:disabled,
+button.classy.disabled,
+a.button.classy:disabled,
+a.button.classy.disabled,
+button.classy:disabled:hover,
+button.classy.disabled:disabled:hover,
+a.button.classy.disabled:hover:disabled,
+a.button.classy.disabled:hover,
+a.button.classy,
+button.classy:disabled:hover,
+button.classy.disabled:disabled:hover,
+a.button.classy:disabled:hover,
+a.button.classy.disabled:disabled:hover,
+a.button.classy.disabled:hover,
+.minibutton,
+body,
+dl.keyboard-mappings dt em,
+.bubble#files .file .meta .info,
+.line-comments,
+.line_numbers.comment-count .counter,
+.file-comments,
+span.diffstat,
+#dashboard .filter-bar .filter_input,
+.forgot_password_form form input[type=submit],
+.homehead input.search,
+.login_form form input[type=submit],
+.pagehead>ul.tabs li a .counter,
+body.page-profile-next .profilecols .filter-bar .filter_input,
+.profilecols .filter-bar .filter_input,
+#missing-readme,
+.connected,
+.boxed-group.flush ul.boxed-group-list.settings-repos>li h3 small {
+  font-family: "sans-serif" !important;
+}
+EOM
+
+style -name gist-font https://gist.github.com/* <<EOM
+body,
+button.classy,
+a.button.classy,
+button.classy:disabled:hover,
+a.button.classy.disabled:hover,
+ul.usernav li button,
+#readme,
+#missing-readme,
+.login_form form input[type=submit],
+
+.forgot_password_form form input[type=submit] {
+  font-family: "sans-serif" !important;
+}
+
+tt,
+.gist .gist-file,
+.gist .gist-file .gist-data pre,
+#readme div.plain pre,
+.file .meta input.gist-name-textbox,
+.file .input textarea,
+.windows .file .input textarea,
+.linux .file .input textarea,
+.file .data pre,
+.windows .file .data pre,
+.linux .file .data pre,
+#files>.description input,
+#revisions a.id {
+  font-family: "monospace" !important;
+}
+
 EOM
