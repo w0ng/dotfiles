@@ -186,6 +186,7 @@ function extract() {
         cd ..; rm *.tar.gz debian-binary
         cd ..
         ;;
+      (*.chm) extract_chmLib "$1" $extract_dir ;;
       (*)
         echo "extract: '$1' cannot be extracted" 1>&2
         success=1
