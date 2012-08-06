@@ -12,10 +12,10 @@ servers = (
   },
   {
     address = "irc.cccp-project.net";
-    chatnet = "Rizon";
+    chatnet = "rizon";
     port = "6697";
     use_ssl = "yes";
-    ssl_cert = "~/.irssi/certs/Rizon.pem";
+    ssl_cert = "~/.irssi/certs/rizon.pem";
     ssl_verify = "no";
     autoconnect = "yes";
   },
@@ -33,7 +33,7 @@ servers = (
 
 chatnets = {
   freenode = { type = "IRC"; };
-  Rizon = { type = "IRC"; };
+  rizon = { type = "IRC"; };
   ozorg = { type = "IRC"; };
   bitlbee = {
     type = "IRC";
@@ -44,7 +44,7 @@ chatnets = {
 channels = (
   { name = "#archlinux"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#bash"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#fsc"; chatnet = "Rizon"; autojoin = "yes"; },
+  { name = "#fsc"; chatnet = "rizon"; autojoin = "yes"; },
   { name = "#overclockers"; chatnet = "ozorg"; autojoin = "yes"; },
   { name = "#django"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#python"; chatnet = "freenode"; autojoin = "yes"; },
@@ -141,7 +141,7 @@ settings = {
     hilight_nick_matches = "no";
     hilight_act_color = "%R";
     hilight_color = "%Y";
-    autolog_path = "~/.logs/irclogs/$tag/$0.log";
+    autolog_path = "~/.logs/irc/$tag/${0}-%y%m%d.log";
     autolog = "yes";
     show_names_on_join = "no";
   };
@@ -185,7 +185,7 @@ windows = {
         type = "CHANNEL";
         chat_type = "IRC";
         name = "#fsc";
-        tag = "Rizon";
+        tag = "rizon";
       }
     );
   };
