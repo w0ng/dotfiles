@@ -1,31 +1,50 @@
-# 
+#
 # ~/.zshrc
 #
 
-# disable xon/xoff (ctrl+s/q)
+# Disable Flow Control {{{
+# -----------------------------------------------------------------------------
+
 stty -ixon
 
-# functions
+# }}}
+# Autoload zsh Functions {{{
+# -----------------------------------------------------------------------------
+
 autoload -U compinit && compinit
 autoload -U colors && colors
-autoload -U up-line-or-beginning-search 
+autoload -U up-line-or-beginning-search
 autoload -U down-line-or-beginning-search
 
-# options
+# }}}
+# Set zsh Options {{{
+# -----------------------------------------------------------------------------
+
 setopt correct
 setopt extended_glob
 setopt extended_history share_history
 setopt hist_find_no_dups hist_ignore_dups hist_verify
 setopt prompt_subst
 
-# completion files
+# }}}
+# Source Completion Files {{{
+# -----------------------------------------------------------------------------
+
 source $HOME/.config/git-completion.bash
 source /usr/bin/virtualenvwrapper.sh
 
-# ls colours
-eval $(dircolors -b $HOME/.config/dir_colours)
+# }}}
+# History Settings {{{
+# -----------------------------------------------------------------------------
 
-# tab completion
+HISTSIZE=10000
+SAVEHIST=10000
+HISTFILE=$HOME/.logs/zhistory
+
+# }}}
+# Enhanced Tab Completion {{{
+# -----------------------------------------------------------------------------
+
 zstyle ':completion:*' menu select
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 # autocorrect
@@ -39,8 +58,11 @@ zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w 
 zstyle ':completion:*:*:kill:*:processes' list-colors "=(#b) #([0-9]#) ([0-9a-z-]#)*=$color[green]=0=$color[black]"
 zstyle ':completion:*:*:kill:*' force-list always
 
-# change cursor colour depending on vi mode
-# TODO: make this work for tmux
+# }}}
+# vi Mode Indicator {{{
+# using different cursor colours
+# -----------------------------------------------------------------------------
+
 zle-keymap-select () {
   if [[ $TERM != "linux" ]]; then
     if [[ $KEYMAP = vicmd ]]; then
@@ -57,8 +79,50 @@ zle-line-init () {
   fi
 }; zle -N zle-line-init
 
-# keybindings
-zle -N up-line-or-beginning-search 
+# }}}
+# Prompt Settings {{{
+# -----------------------------------------------------------------------------
+
+GIT_PS1_SHOWDIRTYSTATE=1
+GIT_PS1_SHOWSTASHSTATE=1
+GIT_PS1_SHOWUNTRACKEDFILES=1
+GIT_PS1_SHOWUPSTREAM="auto"
+PROMPT='%{$fg[black]%}┌─[%{$fg_bold[yellow]%}%~%{$reset_color$fg[black]%}]$(__git_ps1 "\e[0;30m[\e[1;31m%s\e[0;30m]")
+└─╼%{$reset_color%} '
+SPROMPT="Correct $fg[red]%R$reset_color to $fg[green]%r?$reset_color (Yes, No, Abort, Edit) "
+
+# }}}
+# Dynamic Window Title {{{
+# -----------------------------------------------------------------------------
+
+case $TERM in
+  xterm*|rxvt*)
+    precmd () { print -Pn "\e]0;%n@%M:%~\a" }
+    preexec () { print -Pn "\e]0;%n@%M:%~ ($1)\a" }
+    ;;
+  screen*)
+    precmd () {
+      print -Pn "\e]83;title - \"$1\"\a"
+      print -Pn "\e]0;%n@%M:%~\a"
+    }
+    preexec () {
+      print -Pn "\e]83;title - \"$1\"\a"
+      print -Pn "\e]0;%n@%M:%~ ($1)\a"
+    }
+    ;;
+esac
+
+# }}}
+# Custom dircolors {{{
+# -----------------------------------------------------------------------------
+
+eval $(dircolors -b $HOME/.config/dir_colours)
+
+# }}}
+# Custom Keybindings {{{
+# -----------------------------------------------------------------------------
+
+zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 bindkey "\e[1~" beginning-of-line # Home (tmux)
 bindkey "\e[2~" quoted-insert # Ins
@@ -83,22 +147,10 @@ bindkey -M vicmd "u" undo
 bindkey -M vicmd "/" history-incremental-search-forward
 bindkey -M vicmd "?" history-incremental-search-backward
 
-# history
-HISTSIZE=10000
-SAVEHIST=10000
-HISTFILE=$HOME/.logs/zhistory
+# }}}
+# Custom Aliases {{{
+# -----------------------------------------------------------------------------
 
-# prompt
-GIT_PS1_SHOWDIRTYSTATE=1
-GIT_PS1_SHOWSTASHSTATE=1
-GIT_PS1_SHOWUNTRACKEDFILES=1
-GIT_PS1_SHOWUPSTREAM="auto"
-PROMPT='%{$fg[black]%}┌─[%{$fg_bold[yellow]%}%~%{$reset_color$fg[black]%}]$(__git_ps1 "\e[0;30m[\e[1;31m%s\e[0;30m]")
-└─╼%{$reset_color%} '
-#RPROMPT='%{$fg[black]%}[%{$fg[red]%}%?%{$fg[black]%}]%{$reset_color%}'
-SPROMPT="Correct $fg[red]%R$reset_color to $fg[green]%r?$reset_color (Yes, No, Abort, Edit) "
-
-# aliases
 alias ls="ls -hF --color=always --group-directories-first"
 alias ll="ls++"
 alias grep="grep --color=auto"
@@ -109,25 +161,10 @@ alias tm="urxvtc -name chatmail -e tmux attach-session -d -t 0"
 alias usbmount="sudo ntfs-3g -o gid=100,fmask=113,dmask=002 /dev/sde1 /mnt/usb"
 alias usbumount="sudo umount /mnt/usb"
 
-# dynamic window title
-case $TERM in
-  xterm*|rxvt*)
-    precmd () { print -Pn "\e]0;%n@%M:%~\a" }
-    preexec () { print -Pn "\e]0;%n@%M:%~ ($1)\a" }
-    ;;
-  screen*)
-    precmd () {
-      print -Pn "\e]83;title - \"$1\"\a"
-      print -Pn "\e]0;%n@%M:%~\a"
-    }
-    preexec () {
-      print -Pn "\e]83;title - \"$1\"\a"
-      print -Pn "\e]0;%n@%M:%~ ($1)\a"
-    }
-    ;;
-esac
+# }}}
+# Function: Extract {{{
+# from: https://github.com/sorin-ionescu/prezto/blob/master/modules/archive/functions/extract)
 
-# extract (https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins/extract)
 function extract() {
   local remove_archive
   local success
@@ -198,3 +235,5 @@ function extract() {
     shift
   done
 }
+
+# }}}
