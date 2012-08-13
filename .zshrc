@@ -99,7 +99,7 @@ PROMPT='%{$fg[black]%}┌─[%{$fg_bold[yellow]%}%~%{$reset_color$fg[black]%}]$(
 SPROMPT="Correct $fg[red]%R$reset_color to $fg[green]%r?$reset_color (Yes, No, Abort, Edit) "
 
 # aliases
-alias ls="ls -hF --color=always --group-directories-first --time-style=+'$fg_bold[white]%d-%m-%y %H:%M$reset_color'"
+alias ls="ls -hF --color=always --group-directories-first"
 alias ll="ls++"
 alias grep="grep --color=auto"
 alias gist="jist -p"
