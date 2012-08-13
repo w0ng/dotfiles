@@ -6,6 +6,8 @@ loadplugins '\.(js|penta)$'
 group user
 
 " Options {{{
+" -----------------------------------------------------------------------------
+
 set defsearch=g
 set guioptions-=br
 set guioptions+=n
@@ -13,17 +15,23 @@ set hlfind
 
 "}}}
 " Status line {{{
+" -----------------------------------------------------------------------------
+
 hi -a StatusLine font-weight: normal;
 hi -a StatusLineNormal color:#969896 !important; background:#282A2E !important;
 
 "}}}
 " Font {{{
+" -----------------------------------------------------------------------------
+
 hi FontCode -a font-family: Terminus important; font-size: 9pt !important;
 hi FontFixed -a font-family: Terminus !important; font-size: 9pt !important;
 hi Normal -a font-family: Terminus !important; font-size: 9pt !important;
 
 "}}}
 " Mappings {{{
+" -----------------------------------------------------------------------------
+
 map , <Leader>
 nmap -builtin <Leader>, :noh<CR>
 nmap -builtin ; :
@@ -33,11 +41,15 @@ vmap -builtin : ;
 
 "}}}
 " Toggle Styles {{{
+" -----------------------------------------------------------------------------
+
 map -builtin <F3> :styletoggle<Space>-name<Space>tomorrownight<CR>
 map -builtin <Leader>t :styletoggle<Space>-name<Space>minitabs<CR>
 
 "}}}
 " Style: Hybrid Colourscheme {{{
+" -----------------------------------------------------------------------------
+
 style -name tomorrownight http://*,https://*,file://*,about:blank <<EOM
   \* {
   \  color: #969896 !important;
@@ -62,6 +74,8 @@ styledisable -name=tomorrownight
 
 "}}}
 " Style: Minimalistic Tabs {{{
+" -----------------------------------------------------------------------------
+
 style -name minitabs chrome://* <<EOM
   \#TabsToolbar toolbarbutton {
   \  display: none !important;
@@ -102,6 +116,8 @@ EOM
 
 "}}}
 " Style: Github and Gist fonts {{{
+" -----------------------------------------------------------------------------
+
 style -name github-font https://github.com/* <<EOM
   \#dashboard .filter-bar .filter_input,
   \#missing-readme,

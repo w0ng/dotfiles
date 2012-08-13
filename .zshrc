@@ -164,6 +164,7 @@ alias usbumount="sudo umount /mnt/usb"
 # }}}
 # Function: Extract {{{
 # from: https://github.com/sorin-ionescu/prezto/blob/master/modules/archive/functions/extract)
+# -----------------------------------------------------------------------------
 
 function extract() {
   local remove_archive
