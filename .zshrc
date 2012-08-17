@@ -59,27 +59,6 @@ zstyle ':completion:*:*:kill:*:processes' list-colors "=(#b) #([0-9]#) ([0-9a-z-
 zstyle ':completion:*:*:kill:*' force-list always
 
 # }}}
-# vi Mode Indicator {{{
-# using different cursor colours
-# -----------------------------------------------------------------------------
-
-zle-keymap-select () {
-  if [[ $TERM != "linux" ]]; then
-    if [[ $KEYMAP = vicmd ]]; then
-      echo -ne "\033]12;red\007"
-    else
-      echo -ne "\033]12;grey\007"
-    fi
-  fi
-}; zle -N zle-keymap-select
-zle-line-init () {
-  zle -K viins
-  if [[ $TERM != "linux" ]]; then
-    echo -ne "\033]12;grey\007"
-  fi
-}; zle -N zle-line-init
-
-# }}}
 # Prompt Settings {{{
 # -----------------------------------------------------------------------------
 
