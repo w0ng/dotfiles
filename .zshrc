@@ -30,8 +30,13 @@ setopt prompt_subst
 # Source Completion Files {{{
 # -----------------------------------------------------------------------------
 
-source $HOME/.config/git-completion.bash
-source /usr/bin/virtualenvwrapper.sh
+if [[ -n "$WORKON_HOME" ]] && (( $+commands[virtualenvwrapper.sh] )); then
+  source "$commands[virtualenvwrapper.sh]"
+fi
+
+if [[ -s "$HOME/.config/git-completion.bash" ]]; then
+  source "$HOME/.config/git-completion.bash"
+fi
 
 # }}}
 # History Settings {{{
@@ -39,7 +44,7 @@ source /usr/bin/virtualenvwrapper.sh
 
 HISTSIZE=10000
 SAVEHIST=10000
-HISTFILE=$HOME/.logs/zhistory
+HISTFILE="$HOME/.logs/zhistory"
 
 # }}}
 # Enhanced Tab Completion {{{
@@ -68,14 +73,15 @@ GIT_PS1_SHOWUNTRACKEDFILES=1
 GIT_PS1_SHOWUPSTREAM="auto"
 PROMPT='%{$fg[black]%}┌─[%{$fg_bold[yellow]%}%~%{$reset_color$fg[black]%}]$(__git_ps1 "\e[0;30m[\e[1;31m%s\e[0;30m]")
 └─╼%{$reset_color%} '
-SPROMPT="Correct $fg[red]%R$reset_color to $fg[green]%r?$reset_color (Yes, No, Abort, Edit) "
+SPROMPT="Correct $fg_bold[red]%R$reset_color to $fg_bold[green]%r$reset_color [nyae]? "
+
 
 # }}}
 # Dynamic Window Title {{{
 # -----------------------------------------------------------------------------
 
 case $TERM in
-  xterm*|rxvt*)
+  (x|a|ml|dt|E)term*|(u|)rxvt*)
     precmd () { print -Pn "\e]0;%n@%M:%~\a" }
     preexec () { print -Pn "\e]0;%n@%M:%~ ($1)\a" }
     ;;
@@ -95,7 +101,9 @@ esac
 # Custom dircolors {{{
 # -----------------------------------------------------------------------------
 
-eval $(dircolors -b $HOME/.config/dir_colours)
+if [[ -s "$HOME/.config/dir_colours" ]]; then
+  eval $(dircolors -b "$HOME/.config/dir_colours")
+fi
 
 # }}}
 # Custom Keybindings {{{
@@ -130,7 +138,7 @@ bindkey -M vicmd "?" history-incremental-search-backward
 # Custom Aliases {{{
 # -----------------------------------------------------------------------------
 
-alias ls="ls -hF --color=always --group-directories-first"
+alias ls="ls -hF --color=auto --group-directories-first"
 alias ll="ls++"
 alias grep="grep --color=auto"
 alias gist="jist -p"
