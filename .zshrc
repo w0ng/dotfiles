@@ -34,8 +34,8 @@ if [[ -n "$WORKON_HOME" ]] && (( $+commands[virtualenvwrapper.sh] )); then
   source "$commands[virtualenvwrapper.sh]"
 fi
 
-if [[ -s "$HOME/.config/git-completion.bash" ]]; then
-  source "$HOME/.config/git-completion.bash"
+if [[ -s "$HOME/.config/git-prompt.sh" ]]; then
+  source "$HOME/.config/git-prompt.sh"
 fi
 
 # }}}
