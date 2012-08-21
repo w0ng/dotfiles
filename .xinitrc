@@ -14,8 +14,8 @@ fi
 # load .Xresources
 [[ -f $HOME/.Xresources ]] && xrdb -merge $HOME/.Xresources
 
-# remap caps lock to escape, remap right alt to window key
-setxkbmap -option caps:escape
+# remap caps lock to control, remap right alt to window key
+setxkbmap -option ctrl:nocaps
 xmodmap -e "keycode 108 = Super_L"
 xmodmap -e "remove mod1 = Super_L"
 
