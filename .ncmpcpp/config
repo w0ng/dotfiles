@@ -6,7 +6,7 @@
 mpd_music_dir = "/home/w0ng/music"
 
 # song format
-song_list_format = "{$3%n▕ $9}{$7%a - $9}{$5%t$9}|{$8%f$9}$R{$6▕ %b$9}{$3▕ %l$9}"
+song_list_format = "{$3%n │ $9}{$7%a - $9}{$5%t$9}|{$8%f$9}$R{$6 │ %b$9}{$3 │ %l$9}"
 
 # various settings
 autocenter_mode = "yes"
