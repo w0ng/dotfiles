@@ -22,6 +22,7 @@ xmodmap -e "remove mod1 = Super_L"
 # add font paths
 xset fp default
 [[ -d /usr/share/fonts/local ]] && xset +fp /usr/share/fonts/local
+[[ -d /usr/share/fonts/artwiz-fonts ]] && xset +fp /usr/share/fonts/artwiz-fonts
 [[ -d $HOME/.fonts ]] && xset +fp $HOME/.fonts
 xset fp rehash
 
