@@ -11,21 +11,29 @@ set noscrollbars
 set tabnumbers
 
 "}}}
-"" Status line {{{
-"" -----------------------------------------------------------------------------
-"
-"hi -a StatusLine font-weight: normal;
-"hi -a StatusLineNormal color:#969896 !important; background:#282A2E !important;
-"
-""}}}
-"" Font {{{
-"" -----------------------------------------------------------------------------
-"
-"hi FontCode -a font-family: Terminus important; font-size: 9pt !important;
-"hi FontFixed -a font-family: Terminus !important; font-size: 9pt !important;
-"hi Normal -a font-family: Terminus !important; font-size: 9pt !important;
-"
-""}}}
+" Custom colours {{{
+" -----------------------------------------------------------------------------
+
+hi Filter -a color: #282A2E !important;
+hi Normal -a color:#969896 !important; background:#282A2E !important;
+
+"}}}
+" Custom Font {{{
+" -----------------------------------------------------------------------------
+
+hi CmdLine>* -a font-family: Terminus !important; font-size: 9pt !important;
+hi Normal -a font-family: Terminus !important; font-size: 9pt !important;
+hi StatusLine -a font-family: Terminus !important; font-size: 9pt !important;
+
+hi CompMsg -a font-family: Terminus !important; font-size: 9pt !important;
+hi ErrorMsg -a font-family: Terminus !important; font-size: 9pt !important;
+hi InfoMsg -a font-family: Terminus !important; font-size: 9pt !important;
+hi ModeMsg -a font-family: Terminus !important; font-size: 9pt !important;
+hi MoreMsg -a font-family: Terminus !important; font-size: 9pt !important;
+hi WarningMsg -a font-family: Terminus !important; font-size: 9pt !important;
+hi TabNumber -a font-family: Terminus !important; font-size: 9pt !important;
+
+"}}}
 " Mappings {{{
 " -----------------------------------------------------------------------------
 
