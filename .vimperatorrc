@@ -39,11 +39,13 @@ hi WarningMsg -a font-family: Terminus !important; font-size: 9pt !important;
 " -----------------------------------------------------------------------------
 
 let mapleader = ","
+cnoremap <C-n> <Down>
+cnoremap <C-p> <Up>
 nnoremap <Leader>, :nohlsearch<CR>
-nnoremap ; :
 nnoremap : ;
-vnoremap ; :
+nnoremap ; :
 vnoremap : ;
+vnoremap ; :
 
 "}}}
 " Toggle Styles {{{
