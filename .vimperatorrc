@@ -14,8 +14,9 @@ set tabnumbers
 " Custom colours {{{
 " -----------------------------------------------------------------------------
 
-hi Filter -a color: #282A2E !important;
 hi Normal -a color:#969896 !important; background:#282A2E !important;
+hi Filter -a color: #282A2E !important;
+hi CompItem[selected] -a color:#282A2E !important; !important;
 
 "}}}
 " Custom Font {{{
