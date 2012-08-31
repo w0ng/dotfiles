@@ -31,7 +31,6 @@ hi InfoMsg -a font-family: Terminus !important; font-size: 9pt !important;
 hi ModeMsg -a font-family: Terminus !important; font-size: 9pt !important;
 hi MoreMsg -a font-family: Terminus !important; font-size: 9pt !important;
 hi WarningMsg -a font-family: Terminus !important; font-size: 9pt !important;
-hi TabNumber -a font-family: Terminus !important; font-size: 9pt !important;
 
 "}}}
 " Mappings {{{
