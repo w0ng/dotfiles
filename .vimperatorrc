@@ -96,7 +96,7 @@ style -name minitabs chrome://* <<EOM
   background: #282a2e !important;
   border: none !important;
   color: #969896 !important;
-  font-family: Terminus;
+  font-family: Terminus !important;
   font-size: 9pt !important;
   height: 18px !important;
   margin: 0 !important;
@@ -190,5 +190,3 @@ style -name gist-font https://gist.github.com/* <<EOM
   }
 EOM
 "}}}
-
-" vim: set ft=vimperator:
