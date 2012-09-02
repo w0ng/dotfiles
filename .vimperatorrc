@@ -42,6 +42,7 @@ let mapleader = ","
 cnoremap <C-n> <Down>
 cnoremap <C-p> <Up>
 nnoremap <Leader>, :nohlsearch<CR>
+nnoremap <Leader>p :set private!<CR>
 nnoremap : ;
 nnoremap ; :
 vnoremap : ;
