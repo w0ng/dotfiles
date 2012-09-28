@@ -1,4 +1,4 @@
-147
+211
 CousineRegen-Bold.ttf -misc-cousine regen-bold-r-normal--0-0-0-0-p-0-adobe-standard
 CousineRegen-Bold.ttf -misc-cousine regen-bold-r-normal--0-0-0-0-p-0-ascii-0
 CousineRegen-Bold.ttf -misc-cousine regen-bold-r-normal--0-0-0-0-p-0-ibm-cp437
@@ -124,6 +124,70 @@ CousineRegen.ttf -misc-cousine regen-medium-r-normal--0-0-0-0-p-0-koi8-u
 CousineRegen.ttf -misc-cousine regen-medium-r-normal--0-0-0-0-p-0-koi8-uni
 CousineRegen.ttf -misc-cousine regen-medium-r-normal--0-0-0-0-p-0-microsoft-cp1252
 CousineRegen.ttf -misc-cousine regen-medium-r-normal--0-0-0-0-p-0-suneu-greek
+PragmataPro-B.ttf -misc-pragmatapro-bold-r-normal--0-0-0-0-m-0-adobe-standard
+PragmataPro-B.ttf -misc-pragmatapro-bold-r-normal--0-0-0-0-m-0-ascii-0
+PragmataPro-B.ttf -misc-pragmatapro-bold-r-normal--0-0-0-0-m-0-iso10646-1
+PragmataPro-B.ttf -misc-pragmatapro-bold-r-normal--0-0-0-0-m-0-iso8859-1
+PragmataPro-B.ttf -misc-pragmatapro-bold-r-normal--0-0-0-0-m-0-iso8859-15
+PragmataPro-B.ttf -misc-pragmatapro-bold-r-normal--0-0-0-0-m-0-microsoft-cp1252
+PragmataPro-I.ttf -misc-pragmatapro-medium-i-normal--0-0-0-0-m-0-adobe-standard
+PragmataPro-I.ttf -misc-pragmatapro-medium-i-normal--0-0-0-0-m-0-ascii-0
+PragmataPro-I.ttf -misc-pragmatapro-medium-i-normal--0-0-0-0-m-0-iso10646-1
+PragmataPro-I.ttf -misc-pragmatapro-medium-i-normal--0-0-0-0-m-0-iso8859-1
+PragmataPro-I.ttf -misc-pragmatapro-medium-i-normal--0-0-0-0-m-0-iso8859-15
+PragmataPro-I.ttf -misc-pragmatapro-medium-i-normal--0-0-0-0-m-0-microsoft-cp1252
+PragmataPro-Powerline.ttf -misc-pragmatapro for powerline-medium-r-normal--0-0-0-0-m-0-adobe-standard
+PragmataPro-Powerline.ttf -misc-pragmatapro for powerline-medium-r-normal--0-0-0-0-m-0-ascii-0
+PragmataPro-Powerline.ttf -misc-pragmatapro for powerline-medium-r-normal--0-0-0-0-m-0-ibm-cp850
+PragmataPro-Powerline.ttf -misc-pragmatapro for powerline-medium-r-normal--0-0-0-0-m-0-ibm-cp852
+PragmataPro-Powerline.ttf -misc-pragmatapro for powerline-medium-r-normal--0-0-0-0-m-0-ibm-cp866
+PragmataPro-Powerline.ttf -misc-pragmatapro for powerline-medium-r-normal--0-0-0-0-m-0-iso10646-1
+PragmataPro-Powerline.ttf -misc-pragmatapro for powerline-medium-r-normal--0-0-0-0-m-0-iso8859-1
+PragmataPro-Powerline.ttf -misc-pragmatapro for powerline-medium-r-normal--0-0-0-0-m-0-iso8859-10
+PragmataPro-Powerline.ttf -misc-pragmatapro for powerline-medium-r-normal--0-0-0-0-m-0-iso8859-13
+PragmataPro-Powerline.ttf -misc-pragmatapro for powerline-medium-r-normal--0-0-0-0-m-0-iso8859-15
+PragmataPro-Powerline.ttf -misc-pragmatapro for powerline-medium-r-normal--0-0-0-0-m-0-iso8859-16
+PragmataPro-Powerline.ttf -misc-pragmatapro for powerline-medium-r-normal--0-0-0-0-m-0-iso8859-2
+PragmataPro-Powerline.ttf -misc-pragmatapro for powerline-medium-r-normal--0-0-0-0-m-0-iso8859-3
+PragmataPro-Powerline.ttf -misc-pragmatapro for powerline-medium-r-normal--0-0-0-0-m-0-iso8859-4
+PragmataPro-Powerline.ttf -misc-pragmatapro for powerline-medium-r-normal--0-0-0-0-m-0-iso8859-5
+PragmataPro-Powerline.ttf -misc-pragmatapro for powerline-medium-r-normal--0-0-0-0-m-0-iso8859-8
+PragmataPro-Powerline.ttf -misc-pragmatapro for powerline-medium-r-normal--0-0-0-0-m-0-iso8859-9
+PragmataPro-Powerline.ttf -misc-pragmatapro for powerline-medium-r-normal--0-0-0-0-m-0-koi8-e
+PragmataPro-Powerline.ttf -misc-pragmatapro for powerline-medium-r-normal--0-0-0-0-m-0-koi8-r
+PragmataPro-Powerline.ttf -misc-pragmatapro for powerline-medium-r-normal--0-0-0-0-m-0-koi8-ru
+PragmataPro-Powerline.ttf -misc-pragmatapro for powerline-medium-r-normal--0-0-0-0-m-0-koi8-u
+PragmataPro-Powerline.ttf -misc-pragmatapro for powerline-medium-r-normal--0-0-0-0-m-0-koi8-uni
+PragmataPro-Powerline.ttf -misc-pragmatapro for powerline-medium-r-normal--0-0-0-0-m-0-microsoft-cp1252
+PragmataPro-Z.ttf -misc-pragmatapro-bold-i-normal--0-0-0-0-m-0-adobe-standard
+PragmataPro-Z.ttf -misc-pragmatapro-bold-i-normal--0-0-0-0-m-0-ascii-0
+PragmataPro-Z.ttf -misc-pragmatapro-bold-i-normal--0-0-0-0-m-0-iso10646-1
+PragmataPro-Z.ttf -misc-pragmatapro-bold-i-normal--0-0-0-0-m-0-iso8859-1
+PragmataPro-Z.ttf -misc-pragmatapro-bold-i-normal--0-0-0-0-m-0-iso8859-15
+PragmataPro-Z.ttf -misc-pragmatapro-bold-i-normal--0-0-0-0-m-0-microsoft-cp1252
+PragmataPro.ttf -misc-pragmatapro-medium-r-normal--0-0-0-0-m-0-adobe-standard
+PragmataPro.ttf -misc-pragmatapro-medium-r-normal--0-0-0-0-m-0-ascii-0
+PragmataPro.ttf -misc-pragmatapro-medium-r-normal--0-0-0-0-m-0-ibm-cp850
+PragmataPro.ttf -misc-pragmatapro-medium-r-normal--0-0-0-0-m-0-ibm-cp852
+PragmataPro.ttf -misc-pragmatapro-medium-r-normal--0-0-0-0-m-0-ibm-cp866
+PragmataPro.ttf -misc-pragmatapro-medium-r-normal--0-0-0-0-m-0-iso10646-1
+PragmataPro.ttf -misc-pragmatapro-medium-r-normal--0-0-0-0-m-0-iso8859-1
+PragmataPro.ttf -misc-pragmatapro-medium-r-normal--0-0-0-0-m-0-iso8859-10
+PragmataPro.ttf -misc-pragmatapro-medium-r-normal--0-0-0-0-m-0-iso8859-13
+PragmataPro.ttf -misc-pragmatapro-medium-r-normal--0-0-0-0-m-0-iso8859-15
+PragmataPro.ttf -misc-pragmatapro-medium-r-normal--0-0-0-0-m-0-iso8859-16
+PragmataPro.ttf -misc-pragmatapro-medium-r-normal--0-0-0-0-m-0-iso8859-2
+PragmataPro.ttf -misc-pragmatapro-medium-r-normal--0-0-0-0-m-0-iso8859-3
+PragmataPro.ttf -misc-pragmatapro-medium-r-normal--0-0-0-0-m-0-iso8859-4
+PragmataPro.ttf -misc-pragmatapro-medium-r-normal--0-0-0-0-m-0-iso8859-5
+PragmataPro.ttf -misc-pragmatapro-medium-r-normal--0-0-0-0-m-0-iso8859-8
+PragmataPro.ttf -misc-pragmatapro-medium-r-normal--0-0-0-0-m-0-iso8859-9
+PragmataPro.ttf -misc-pragmatapro-medium-r-normal--0-0-0-0-m-0-koi8-e
+PragmataPro.ttf -misc-pragmatapro-medium-r-normal--0-0-0-0-m-0-koi8-r
+PragmataPro.ttf -misc-pragmatapro-medium-r-normal--0-0-0-0-m-0-koi8-ru
+PragmataPro.ttf -misc-pragmatapro-medium-r-normal--0-0-0-0-m-0-koi8-u
+PragmataPro.ttf -misc-pragmatapro-medium-r-normal--0-0-0-0-m-0-koi8-uni
+PragmataPro.ttf -misc-pragmatapro-medium-r-normal--0-0-0-0-m-0-microsoft-cp1252
 mplus-1m-Powerline.ttf -misc-m+ 1m for powerline-medium-r-normal--0-0-0-0-p-0-ascii-0
 mplus-1m-Powerline.ttf -misc-m+ 1m for powerline-medium-r-normal--0-0-0-0-p-0-ibm-cp852
 mplus-1m-Powerline.ttf -misc-m+ 1m for powerline-medium-r-normal--0-0-0-0-p-0-ibm-cp866
