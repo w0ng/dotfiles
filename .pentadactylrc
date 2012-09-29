@@ -33,6 +33,7 @@ hi Normal -a font-family: Terminus !important; font-size: 9pt !important;
 " -----------------------------------------------------------------------------
 
 map , <Leader>
+nmap -builtin <Leader>p :set private!<CR>
 nmap -builtin <Leader>, :noh<CR>
 nmap -builtin ; :
 nmap -builtin : ;
