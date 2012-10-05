@@ -138,6 +138,7 @@ bindkey -M vicmd "?" history-incremental-search-backward
 # Custom Aliases {{{
 # -----------------------------------------------------------------------------
 
+alias clipzipmount="sudo mount -o gid=100,fmask=113,dmask=002 /dev/sde /mnt/usb"
 alias ls="ls -hF --color=auto --group-directories-first"
 alias ll="ls++"
 alias grep="grep --color=auto"
@@ -145,7 +146,7 @@ alias gist="jist -p"
 alias range="urxvtc -name ranger -e ranger"
 alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
 alias tm="urxvtc -name chatmail -e tmux attach-session -d -t 0"
-alias usbmount="sudo ntfs-3g -o gid=100,fmask=113,dmask=002 /dev/sde1 /mnt/usb"
+alias ntfsmount="sudo ntfs-3g -o gid=100,fmask=113,dmask=002 /dev/sde1 /mnt/usb"
 alias usbumount="sudo umount /mnt/usb"
 
 # }}}
