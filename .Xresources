@@ -20,10 +20,10 @@ URxvt.colorBD: #cc6666
 URxvt.colorIT: #b5bd68
 URxvt.colorUL: #81a2be
 ! font
-URxvt.font: xft:PragmataPro for Powerline:size=14
-URxvt.boldFont: xft:PragmataPro for Powerline:size=14
-URxvt.italicFont: xft:PragmataPro for Powerline:size=14
-URxvt.boldItalicFont: xft:PragmataPro for Powerline:size=14
+URxvt.font: xft:Cousine Regen for Powerline:size=14
+URxvt.boldFont: xft:Cousine Regen for Powerline:size=14
+URxvt.italicFont: xft:Cousine Regen for Powerline:size=14
+URxvt.boldItalicFont: xft:Cousine Regen for Powerline:size=14
 ! extensions
 URxvt.perl-ext-common: default,clipboard,keyboard-select,url-select
 ! clipboard
