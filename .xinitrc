@@ -39,7 +39,7 @@ wmname LG3D
 sh $HOME/.fehbg &
 
 # start apps in background (only if not already running)
-list=(dropbox mpd tmux transmission-daemon urxvtd)
+list=(dropbox mpd tmux transmission-daemon supybot urxvtd)
 for app in "${list[@]}"; do
   check=$(ps -C "$app" -opid=)
   if [[ -z "$check" ]]; then
@@ -47,6 +47,7 @@ for app in "${list[@]}"; do
       dropbox) dropboxd & ;;
       mpd) mpd ;;
       tmux) tmux & ;;
+      supybot) supybot --daemon $HOME/.supybot/lolbot.conf ;;
       transmission-daemon) transmission-daemon ;;
       urxvtd) urxvtd -q -o -f ;;
     esac
