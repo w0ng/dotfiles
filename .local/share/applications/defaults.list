@@ -1,4 +1,4 @@
-[MIME Cache]
+[Default Applications]
 application/csv=libreoffice-calc.desktop;
 application/eps=zathura.desktop;
 application/excel=libreoffice-calc.desktop;
