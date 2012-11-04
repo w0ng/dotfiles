@@ -15,6 +15,9 @@ URxvt.scrollstyle: rxvt
 URxvt.scrollBar: off
 URxvt.urgentOnBell: True
 URxvt.visualBell: True
+! transparency
+URxvt.transparent: True
+URxvt.shading: 5
 ! bold, italic, underline
 URxvt.colorBD: #cc6666
 URxvt.colorIT: #b5bd68
