@@ -15,7 +15,7 @@
 #define t_purple #b294bb
 
 *background: t_background
-*foreground: t_foreground
+*foreground: t_comment
 ! black
 *color0: t_current_line
 *color8: t_selection
