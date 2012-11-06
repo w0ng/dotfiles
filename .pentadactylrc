@@ -189,7 +189,7 @@ style -name github-font https://github.com/* <<EOM
   pre,
   textarea.commit-message,
   tt {
-    font-family: "sans-serif" !important;
+    font-family: "monospace" !important;
   }
 EOM
 
