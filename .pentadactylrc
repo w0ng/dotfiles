@@ -117,6 +117,7 @@ EOM
 "}}}
 " Style: Github and Gist fonts {{{
 " -----------------------------------------------------------------------------
+" Replace 'clean' with 'sans-serif', replace 'courier' with 'monospace'
 
 style -name github-font https://github.com/* <<EOM
   #dashboard .filter-bar .filter_input,
@@ -127,28 +128,67 @@ style -name github-font https://github.com/* <<EOM
   .file-comments,
   .forgot_password_form form input[type=submit],
   .homehead input.search,
-  .line-comments,
-  .line_numbers.comment-count .counter,
+  .inline-comments .counter,
+  .inline-comments .line-comments,
   .login_form form input[type=submit],
   .minibutton,
-  .pagehead>ul.tabs li a .counter,
-  .profilecols .filter-bar .filter_input,
+  .pagehead .container>ul.tabs li a .counter,
+  .stars-browser .filter-bar .filter_input,
   a.button.classy,
   a.button.classy.disabled,
-  a.button.classy.disabled:disabled:hover,
+  a.button.classy.disabled:hover,
   a.button.classy.disabled:hover,
   a.button.classy.disabled:hover:disabled,
   a.button.classy:disabled,
   a.button.classy:disabled:hover,
   body,
-  body.page-profile-next .profilecols .filter-bar .filter_input,
+  body.page-profile .profilecols .filter-bar .filter_input,
+  body.page-profile .vcard h1 em,
   button.classy,
   button.classy.disabled,
   button.classy.disabled:disabled:hover,
   button.classy:disabled,
   button.classy:disabled:hover,
+  button.classy:disabled:hover,
   dl.keyboard-mappings dt em,
   span.diffstat {
+    font-family: "sans-serif" !important;
+  }
+  #ace-editor,
+  #code_search_results .result .snippet,
+  #files .file .data table,
+  #files .file .meta .info,
+  #gollum-dialog-dialog-body fieldset input.code,
+  #gollum-editor #gollum-editor-body,
+  #gollum-editor .expanded textarea,
+  #toc .content,
+  #wiki-history table td.commit-name a,
+  #wiki-history tbody td.commit-name a,
+  .ace-twilight .ace_gutter,
+  .add-pill-form textarea.key_value,
+  .blob-editor textarea,
+  .commit .commit-desc pre,
+  .commit .sha,
+  .commit .sha-block,
+  .commit-preview .message p.commit-id,
+  .commit-ref,
+  .commits-condensed code,
+  .file-box .data table,
+  .file-box .meta .info,
+  .file-editor-textarea,
+  .kbd,
+  .merge-branch .commit-preview .message pre,
+  .merge-branch .commit-preview .message textarea,
+  .news .alert .branch-link,
+  .oauth-stats dl.keys dd,
+  .page-pulse p.explain,
+  code,
+  dl.keyboard-mappings dt,
+  input.commit-message-summary,
+  input.url-field,
+  pre,
+  textarea.commit-message,
+  tt {
     font-family: "sans-serif" !important;
   }
 EOM
@@ -172,12 +212,12 @@ style -name gist-font https://gist.github.com/* <<EOM
   .file .data pre,
   .file .input textarea,
   .file .meta input.gist-name-textbox,
-  .gist .gist-file .gist-data pre,
-  .gist .gist-file,
   .linux .file .data pre,
   .linux .file .input textarea,
   .windows .file .data pre,
   .windows .file .input textarea,
+  code,
+  pre,
   tt {
     font-family: "monospace" !important;
   }
