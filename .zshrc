@@ -2,44 +2,25 @@
 # ~/.zshrc
 #
 
-# Disable Flow Control {{{
+# Options {{{
 # -----------------------------------------------------------------------------
-
-stty -ixon
-
-# }}}
-# Autoload zsh Functions {{{
-# -----------------------------------------------------------------------------
+#
+[[ -e "$HOME/.config/dir_colours" ]] && eval $(dircolors -b "$HOME/.config/dir_colours")
 
 autoload -U compinit && compinit
 autoload -U colors && colors
 autoload -U up-line-or-beginning-search
 autoload -U down-line-or-beginning-search
 
-# }}}
-# Set zsh Options {{{
-# -----------------------------------------------------------------------------
-
 setopt correct
 setopt extended_glob
 setopt extended_history share_history
 setopt hist_find_no_dups hist_ignore_dups hist_verify
 setopt prompt_subst
+unsetopt flow_control
 
 # }}}
-# Source Completion Files {{{
-# -----------------------------------------------------------------------------
-
-if [[ -n "$WORKON_HOME" ]] && (( $+commands[virtualenvwrapper.sh] )); then
-  source "$commands[virtualenvwrapper.sh]"
-fi
-
-if [[ -s "$HOME/.config/git-prompt.sh" ]]; then
-  source "$HOME/.config/git-prompt.sh"
-fi
-
-# }}}
-# History Settings {{{
+# History {{{
 # -----------------------------------------------------------------------------
 
 HISTSIZE=10000
@@ -47,8 +28,11 @@ SAVEHIST=10000
 HISTFILE="$HOME/.logs/zhistory"
 
 # }}}
-# Enhanced Tab Completion {{{
+# Completion {{{
 # -----------------------------------------------------------------------------
+
+[[ -n "$WORKON_HOME" ]] && (( $+commands[virtualenvwrapper.sh] )) && source "$commands[virtualenvwrapper.sh]"
+[[ -e "$HOME/.config/git-prompt.sh" ]] && source "$HOME/.config/git-prompt.sh"
 
 zstyle ':completion:*' menu select
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
@@ -64,23 +48,24 @@ zstyle ':completion:*:*:kill:*:processes' list-colors "=(#b) #([0-9]#) ([0-9a-z-
 zstyle ':completion:*:*:kill:*' force-list always
 
 # }}}
-# Prompt Settings {{{
+# Prompt {{{
 # -----------------------------------------------------------------------------
 
 GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWSTASHSTATE=1
 GIT_PS1_SHOWUNTRACKEDFILES=1
 GIT_PS1_SHOWUPSTREAM="auto"
-PROMPT='%{$fg[black]%}┌─[%{$fg_bold[yellow]%}%~%{$reset_color$fg[black]%}]$(__git_ps1 "\e[0;30m[\e[1;31m%s\e[0;30m]")
+PROMPT='%{$fg[black]%}┌─[%{$fg_bold[yellow]%}%~%{$reset_color$fg[black]%}]\
+$(__git_ps1 "[$fg_bold[red]%s$reset_color$fg[black]]")
 └─╼%{$reset_color%} '
 SPROMPT="Correct $fg_bold[red]%R$reset_color to $fg_bold[green]%r$reset_color [nyae]? "
 
 
 # }}}
-# Dynamic Window Title {{{
+# Title {{{
 # -----------------------------------------------------------------------------
 
-case $TERM in
+case "$TERM" in
   (x|a|ml|dt|E)term*|(u|)rxvt*)
     precmd () { print -Pn "\e]0;%n@%M:%~\a" }
     preexec () { print -Pn "\e]0;%n@%M:%~ ($1)\a" }
@@ -98,44 +83,38 @@ case $TERM in
 esac
 
 # }}}
-# Custom dircolors {{{
-# -----------------------------------------------------------------------------
-
-if [[ -s "$HOME/.config/dir_colours" ]]; then
-  eval $(dircolors -b "$HOME/.config/dir_colours")
-fi
-
-# }}}
-# Custom Keybindings {{{
+# Keybindings {{{
 # -----------------------------------------------------------------------------
 
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
-bindkey "\e[1~" beginning-of-line # Home (tmux)
-bindkey "\e[2~" quoted-insert # Ins
-bindkey "\e[3~" delete-char # Del
-bindkey "\e[4~" end-of-line # End (tmux)
-bindkey "\e[5~" beginning-of-history # PgUp
-bindkey "\e[6~" end-of-history # PgDn
-bindkey "\e[7~" beginning-of-line # Home (rxvt)
-bindkey "\e[8~" end-of-line # End (rxvt)
-bindkey "\e[Z" reverse-menu-complete # Shift+Tab
-bindkey "^[[A" up-line-or-beginning-search # Up
-bindkey "^[[B" down-line-or-beginning-search # Down
-bindkey "^A" beginning-of-line
-bindkey "^E" end-of-line
+
+[[ -n "${terminfo[kich1]}" ]] && bindkey "${terminfo[kich1]}" quoted-insert # Ins
+[[ -n "${terminfo[kdch1]}" ]] && bindkey "${terminfo[kdch1]}" delete-char # Del
+[[ -n "${terminfo[khome]}" ]] && bindkey "${terminfo[khome]}" beginning-of-line # Home
+[[ -n "${terminfo[kend]}" ]] && bindkey "${terminfo[kend]}" end-of-line # End
+[[ -n "${terminfo[kpp]}" ]] && bindkey "${terminfo[kpp]}" beginning-of-history # PgUp
+[[ -n "${terminfo[knp]}" ]] && bindkey "${terminfo[knp]}" end-of-history # PgDn
+[[ -n "${terminfo[kcuu1]}" ]] && bindkey "${terminfo[kcuu1]}" up-line-or-beginning-search # Up
+[[ -n "${terminfo[kcud1]}" ]] && bindkey "${terminfo[kcud1]}" down-line-or-beginning-search # Down
+[[ -n "${terminfo[kcub1]}" ]] && bindkey "${terminfo[kcub1]}" backward-char # Left
+[[ -n "${terminfo[kcuf1]}" ]] && bindkey "${terminfo[kcuf1]}" forward-char # Right
+[[ -n "${terminfo[kcbt]}" ]] && bindkey "${terminfo[kcbt]}" reverse-menu-complete # S-Tab
+
+bindkey '^A' beginning-of-line
+bindkey '^E' end-of-line
 bindkey ' ' magic-space
-bindkey "^?" backward-delete-char
-bindkey -M viins "^N" down-line-or-beginning-search
-bindkey -M viins "^P" up-line-or-beginning-search
-bindkey -M viins "jj" vi-cmd-mode
-bindkey -M vicmd "^R" redo
-bindkey -M vicmd "u" undo
-bindkey -M vicmd "/" history-incremental-search-forward
-bindkey -M vicmd "?" history-incremental-search-backward
+bindkey '^?' backward-delete-char
+bindkey -M viins '^N' down-line-or-beginning-search
+bindkey -M viins '^P' up-line-or-beginning-search
+bindkey -M viins 'jj' vi-cmd-mode
+bindkey -M vicmd '^R' redo
+bindkey -M vicmd 'u' undo
+bindkey -M vicmd '/' history-incremental-search-forward
+bindkey -M vicmd '?' history-incremental-search-backward
 
 # }}}
-# Custom Aliases {{{
+# Aliases {{{
 # -----------------------------------------------------------------------------
 
 alias ls="ls -hF --color=auto --group-directories-first"
@@ -150,8 +129,8 @@ alias usbmount="sudo mount -o gid=100,fmask=113,dmask=002 /dev/sde /mnt/usb"
 alias usbumount="sudo umount /mnt/usb"
 
 # }}}
-# Function: Extract {{{
-# from: https://github.com/sorin-ionescu/prezto/blob/master/modules/archive/functions/extract)
+# Extract {{{
+# https://github.com/sorin-ionescu/prezto/blob/master/modules/archive/functions/extract
 # -----------------------------------------------------------------------------
 
 function extract() {
@@ -161,30 +140,30 @@ function extract() {
   local extract_dir
 
   if (( $# == 0 )); then
-    echo "Usage: extract [-option] [file ...]"
-    echo
-    echo Options:
-    echo " -r, --remove Remove archive."
-    echo
-    echo "Report bugs to <sorin.ionescu@gmail.com>."
+    cat >&2 <<EOF
+usage: $0 [-option] [file ...]
+
+options:
+-r, --remove    remove archive
+EOF
   fi
 
   remove_archive=1
-  if [[ "$1" == "-r" ]] || [[ "$1" == "--remove" ]]; then
+  if [[ "$1" == "-r" || "$1" == "--remove" ]]; then
     remove_archive=0
     shift
   fi
 
   while (( $# > 0 )); do
-    if [[ ! -f "$1" ]]; then
-      echo "extract: '$1' is not a valid file" 1>&2
+    if [[ ! -s "$1" ]]; then
+      print "$0: file not valid: $1" >&2
       shift
       continue
     fi
 
     success=0
-    file_name="$( basename "$1" )"
-    extract_dir="$( echo "$file_name" | sed "s/\.${1##*.}//g" )"
+    file_name="${1:t}"
+    extract_dir="${file_name:r}"
     case "$1" in
       (*.tar.gz|*.tgz) tar xvzf "$1" ;;
       (*.tar.bz2|*.tbz|*.tbz2) tar xvjf "$1" ;;
@@ -211,12 +190,11 @@ function extract() {
         cd ../data; tar xzvf ../data.tar.gz
         cd ..; rm *.tar.gz debian-binary
         cd ..
-        ;;
-      (*.chm) extract_chmLib "$1" $extract_dir ;;
+      ;;
       (*)
-        echo "extract: '$1' cannot be extracted" 1>&2
+        print "$0: cannot extract: $1" >&2
         success=1
-        ;;
+      ;;
     esac
 
     (( success = $success > 0 ? $success : $? ))
