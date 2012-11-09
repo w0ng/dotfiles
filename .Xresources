@@ -16,7 +16,7 @@ URxvt.scrollBar: off
 URxvt.urgentOnBell: True
 URxvt.visualBell: True
 ! bold, italic, underline
-URxvt.colorBD: #cc6666
+URxvt.colorBD: #e8e8d3
 URxvt.colorIT: #b5bd68
 URxvt.colorUL: #81a2be
 ! font
