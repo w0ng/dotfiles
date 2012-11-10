@@ -39,6 +39,8 @@ nmap -builtin ; :
 nmap -builtin : ;
 vmap -builtin ; :
 vmap -builtin : ;
+nmap -builtin <C-S-n> :tabmove! +1<CR>
+nmap -builtin <C-S-p> :tabmove! -1<CR>
 
 "}}}
 " Toggle Styles {{{
