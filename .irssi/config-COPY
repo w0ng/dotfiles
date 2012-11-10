@@ -2,6 +2,7 @@
 
 servers = (
   {
+    #address = "irc.freenode.net";
     address = "roddenberry.freenode.net";
     chatnet = "freenode";
     port = "6697";
@@ -11,6 +12,7 @@ servers = (
     autoconnect = "yes";
   },
   {
+    #address = "irc.rizon.net";
     address = "irc.cccp-project.net";
     chatnet = "rizon";
     port = "6697";
@@ -20,6 +22,7 @@ servers = (
     autoconnect = "yes";
   },
   {
+    #address = "client.oz.org";
     address = "rockhampton.oz.org";
     chatnet = "ozorg";
     port = "6667";
