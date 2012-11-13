@@ -148,6 +148,7 @@ abstracts = {
   #sb_act_text = "%c$*";
   #sb_act_msg = "%W$*";
   #sb_act_hilight = "%M$*";
+  sb_act_hilight = "%R$*";
   #sb_act_hilight_color = "$0$1-%n";
 };
 
