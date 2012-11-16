@@ -5,6 +5,8 @@
 # Options {{{
 # -----------------------------------------------------------------------------
 #
+
+stty -ixon
 [[ -e "$HOME/.config/dir_colours" ]] && eval $(dircolors -b "$HOME/.config/dir_colours")
 
 autoload -U compinit && compinit
@@ -17,7 +19,6 @@ setopt extended_glob
 setopt extended_history share_history
 setopt hist_find_no_dups hist_ignore_dups hist_verify
 setopt prompt_subst
-unsetopt flow_control
 
 # }}}
 # History {{{
