@@ -14,6 +14,8 @@
 #define t_blue #81a2be
 #define t_purple #b294bb
 
+URxvt.cursorColor: t_orange
+
 *background: t_background
 *foreground: t_comment
 ! black
