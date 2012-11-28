@@ -10,6 +10,7 @@ export BROWSER="firefox"
 export EDITOR="vim"
 export LESS="-R"
 export MOZ_DISABLE_PANGO=1
+export PYTHONDOCS=/usr/share/doc/python/html
 export PROJECT_HOME="$HOME/code/python"
 export TERMCMD="urxvtc"
 export WORKON_HOME="$HOME/.virtualenvs"
