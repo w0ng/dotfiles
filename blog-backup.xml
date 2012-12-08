@@ -16,7 +16,7 @@
 <!-- 7. WordPress will then import each of the posts, pages, comments, categories, etc. -->
 <!--    contained in this file into your site. -->
 
-<!-- generator="WordPress/3.4.1" created="2012-07-26 08:31" -->
+<!-- generator="WordPress/3.4.2" created="2012-12-08 22:10" -->
 <rss version="2.0"
 	xmlns:excerpt="http://wordpress.org/export/1.2/excerpt/"
 	xmlns:content="http://purl.org/rss/1.0/modules/content/"
@@ -29,7 +29,7 @@
 	<title>w0ng&#039;s Arch Linux Blog</title>
 	<link>http://archlinux.me/w0ng</link>
 	<description>Just another Arch Linux Blog site</description>
-	<pubDate>Thu, 26 Jul 2012 08:31:52 +0000</pubDate>
+	<pubDate>Sat, 08 Dec 2012 22:10:28 +0000</pubDate>
 	<language>en-US</language>
 	<wp:wxr_version>1.2</wp:wxr_version>
 	<wp:base_site_url>http://archlinux.me/</wp:base_site_url>
@@ -43,28 +43,48 @@
 	<wp:tag><wp:term_id>41</wp:term_id><wp:tag_slug>automatic</wp:tag_slug><wp:tag_name><![CDATA[automatic]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>32</wp:term_id><wp:tag_slug>bot</wp:tag_slug><wp:tag_name><![CDATA[bot]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>51</wp:term_id><wp:tag_slug>cfq</wp:tag_slug><wp:tag_name><![CDATA[cfq]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>77</wp:term_id><wp:tag_slug>clip-zip</wp:tag_slug><wp:tag_name><![CDATA[clip zip]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>71</wp:term_id><wp:tag_slug>colorscheme</wp:tag_slug><wp:tag_name><![CDATA[colorscheme]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>18</wp:term_id><wp:tag_slug>colour</wp:tag_slug><wp:tag_name><![CDATA[colour]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>25</wp:term_id><wp:tag_slug>cousine</wp:tag_slug><wp:tag_name><![CDATA[cousine]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>64</wp:term_id><wp:tag_slug>css</wp:tag_slug><wp:tag_name><![CDATA[css]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>17</wp:term_id><wp:tag_slug>cursor</wp:tag_slug><wp:tag_name><![CDATA[cursor]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>49</wp:term_id><wp:tag_slug>deadline</wp:tag_slug><wp:tag_name><![CDATA[deadline]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>42</wp:term_id><wp:tag_slug>default</wp:tag_slug><wp:tag_name><![CDATA[default]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>34</wp:term_id><wp:tag_slug>dircolors</wp:tag_slug><wp:tag_name><![CDATA[dircolors]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>35</wp:term_id><wp:tag_slug>dwm</wp:tag_slug><wp:tag_name><![CDATA[dwm]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>29</wp:term_id><wp:tag_slug>eggdrop</wp:tag_slug><wp:tag_name><![CDATA[eggdrop]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>81</wp:term_id><wp:tag_slug>flash</wp:tag_slug><wp:tag_name><![CDATA[flash]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>65</wp:term_id><wp:tag_slug>fonts</wp:tag_slug><wp:tag_name><![CDATA[fonts]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>67</wp:term_id><wp:tag_slug>gist</wp:tag_slug><wp:tag_name><![CDATA[gist]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>66</wp:term_id><wp:tag_slug>gist-io</wp:tag_slug><wp:tag_name><![CDATA[gist.io]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>8</wp:term_id><wp:tag_slug>git</wp:tag_slug><wp:tag_name><![CDATA[git]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>63</wp:term_id><wp:tag_slug>github</wp:tag_slug><wp:tag_name><![CDATA[github]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>52</wp:term_id><wp:tag_slug>gpt</wp:tag_slug><wp:tag_name><![CDATA[gpt]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>53</wp:term_id><wp:tag_slug>grub2</wp:tag_slug><wp:tag_name><![CDATA[grub2]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>40</wp:term_id><wp:tag_slug>headset</wp:tag_slug><wp:tag_name><![CDATA[headset]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>70</wp:term_id><wp:tag_slug>hybrid</wp:tag_slug><wp:tag_name><![CDATA[hybrid]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>24</wp:term_id><wp:tag_slug>ipython</wp:tag_slug><wp:tag_name><![CDATA[ipython]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>31</wp:term_id><wp:tag_slug>irc</wp:tag_slug><wp:tag_name><![CDATA[irc]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>55</wp:term_id><wp:tag_slug>irssi</wp:tag_slug><wp:tag_name><![CDATA[irssi]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>73</wp:term_id><wp:tag_slug>jellybeans</wp:tag_slug><wp:tag_name><![CDATA[jellybeans]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>14</wp:term_id><wp:tag_slug>lines</wp:tag_slug><wp:tag_name><![CDATA[lines]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>80</wp:term_id><wp:tag_slug>livestream</wp:tag_slug><wp:tag_name><![CDATA[livestream]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>13</wp:term_id><wp:tag_slug>long</wp:tag_slug><wp:tag_name><![CDATA[long]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>78</wp:term_id><wp:tag_slug>manual</wp:tag_slug><wp:tag_name><![CDATA[manual]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>68</wp:term_id><wp:tag_slug>markdown</wp:tag_slug><wp:tag_name><![CDATA[markdown]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>57</wp:term_id><wp:tag_slug>mode</wp:tag_slug><wp:tag_name><![CDATA[mode]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>82</wp:term_id><wp:tag_slug>mplayer</wp:tag_slug><wp:tag_name><![CDATA[mplayer]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>50</wp:term_id><wp:tag_slug>noop</wp:tag_slug><wp:tag_name><![CDATA[noop]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>62</wp:term_id><wp:tag_slug>pentadactyl</wp:tag_slug><wp:tag_name><![CDATA[pentadactyl]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>36</wp:term_id><wp:tag_slug>pretty</wp:tag_slug><wp:tag_name><![CDATA[pretty]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>10</wp:term_id><wp:tag_slug>prompt</wp:tag_slug><wp:tag_name><![CDATA[prompt]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>22</wp:term_id><wp:tag_slug>python2</wp:tag_slug><wp:tag_name><![CDATA[python2]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>75</wp:term_id><wp:tag_slug>rockbox</wp:tag_slug><wp:tag_name><![CDATA[rockbox]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>83</wp:term_id><wp:tag_slug>rtmpdump</wp:tag_slug><wp:tag_name><![CDATA[rtmpdump]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>84</wp:term_id><wp:tag_slug>rtmpsrv</wp:tag_slug><wp:tag_name><![CDATA[rtmpsrv]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>79</wp:term_id><wp:tag_slug>sandisk</wp:tag_slug><wp:tag_name><![CDATA[sandisk]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>76</wp:term_id><wp:tag_slug>sansa</wp:tag_slug><wp:tag_name><![CDATA[sansa]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>47</wp:term_id><wp:tag_slug>scheduler</wp:tag_slug><wp:tag_name><![CDATA[scheduler]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>56</wp:term_id><wp:tag_slug>script</wp:tag_slug><wp:tag_name><![CDATA[script]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>27</wp:term_id><wp:tag_slug>semicolon</wp:tag_slug><wp:tag_name><![CDATA[semicolon]]></wp:tag_name></wp:tag>
@@ -78,22 +98,25 @@
 	<wp:tag><wp:term_id>43</wp:term_id><wp:tag_slug>switch</wp:tag_slug><wp:tag_name><![CDATA[switch]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>15</wp:term_id><wp:tag_slug>syntax</wp:tag_slug><wp:tag_name><![CDATA[syntax]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>54</wp:term_id><wp:tag_slug>systemd</wp:tag_slug><wp:tag_name><![CDATA[systemd]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>74</wp:term_id><wp:tag_slug>sysvinit</wp:tag_slug><wp:tag_name><![CDATA[sysvinit]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>59</wp:term_id><wp:tag_slug>tags</wp:tag_slug><wp:tag_name><![CDATA[tags]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>28</wp:term_id><wp:tag_slug>tilde</wp:tag_slug><wp:tag_name><![CDATA[tilde]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>20</wp:term_id><wp:tag_slug>tmux</wp:tag_slug><wp:tag_name><![CDATA[tmux]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>72</wp:term_id><wp:tag_slug>tomorrow-night</wp:tag_slug><wp:tag_name><![CDATA[tomorrow-night]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>26</wp:term_id><wp:tag_slug>ttf-google-webfonts</wp:tag_slug><wp:tag_name><![CDATA[ttf-google-webfonts]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>48</wp:term_id><wp:tag_slug>udev</wp:tag_slug><wp:tag_name><![CDATA[udev]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>21</wp:term_id><wp:tag_slug>urxvt</wp:tag_slug><wp:tag_name><![CDATA[urxvt]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>39</wp:term_id><wp:tag_slug>usb</wp:tag_slug><wp:tag_name><![CDATA[usb]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>58</wp:term_id><wp:tag_slug>vi</wp:tag_slug><wp:tag_name><![CDATA[vi]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>19</wp:term_id><wp:tag_slug>vicmd</wp:tag_slug><wp:tag_name><![CDATA[vicmd]]></wp:tag_name></wp:tag>
+	<wp:tag><wp:term_id>69</wp:term_id><wp:tag_slug>viewer</wp:tag_slug><wp:tag_name><![CDATA[viewer]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>11</wp:term_id><wp:tag_slug>vim</wp:tag_slug><wp:tag_name><![CDATA[vim]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>23</wp:term_id><wp:tag_slug>virtualenv</wp:tag_slug><wp:tag_name><![CDATA[virtualenv]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>61</wp:term_id><wp:tag_slug>workflow</wp:tag_slug><wp:tag_name><![CDATA[workflow]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>60</wp:term_id><wp:tag_slug>workspaces</wp:tag_slug><wp:tag_name><![CDATA[workspaces]]></wp:tag_name></wp:tag>
 	<wp:tag><wp:term_id>7</wp:term_id><wp:tag_slug>zsh</wp:tag_slug><wp:tag_name><![CDATA[zsh]]></wp:tag_name></wp:tag>
 
-	<generator>http://wordpress.org/?v=3.4.1</generator>
+	<generator>http://wordpress.org/?v=3.4.2</generator>
 
 	<item>
 		<title>Git status in zsh prompt - the easy way</title>
@@ -315,10 +338,6 @@ Zsh auto-detects and sets the editing mode (default: emacs) to vi if <code>$EDIT
 				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1343068534.5504";s:7:"message";s:28:"Akismet cleared this comment";s:5:"event";s:9:"check-ham";s:4:"user";s:0:"";}]]></wp:meta_value>
 			</wp:commentmeta>
 			<wp:commentmeta>
-				<wp:meta_key>akismet_as_submitted</wp:meta_key>
-				<wp:meta_value><![CDATA[a:60:{s:15:"comment_post_ID";s:2:"29";s:14:"comment_author";s:3:"ben";s:20:"comment_author_email";s:17:"ben@benbergman.ca";s:18:"comment_author_url";s:0:"";s:15:"comment_content";s:149:"This works for me, but when used in tmux, it prints a weird charater to the screen and on some computers produces a beep. Any idea why this might be?";s:12:"comment_type";s:0:"";s:14:"comment_parent";s:1:"0";s:7:"user_ID";s:1:"0";s:7:"user_ip";s:13:"50.71.163.232";s:10:"user_agent";s:104:"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11";s:8:"referrer";s:81:"http://archlinux.me/w0ng/2012/04/06/zsh-change-cursor-colour-to-indicate-vi-mode/";s:4:"blog";s:24:"http://archlinux.me/w0ng";s:9:"blog_lang";s:5:"en_US";s:12:"blog_charset";s:5:"UTF-8";s:9:"permalink";s:81:"http://archlinux.me/w0ng/2012/04/06/zsh-change-cursor-colour-to-indicate-vi-mode/";s:21:"akismet_comment_nonce";s:6:"passed";s:11:"POST_author";s:3:"ben";s:10:"POST_email";s:17:"ben@benbergman.ca";s:8:"POST_url";s:0:"";s:12:"POST_comment";s:149:"This works for me, but when used in tmux, it prints a weird charater to the screen and on some computers produces a beep. Any idea why this might be?";s:11:"POST_submit";s:14:"Submit Comment";s:20:"POST_comment_post_ID";s:2:"29";s:19:"POST_comment_parent";s:1:"0";s:26:"POST_akismet_comment_nonce";s:10:"2df0c7de3b";s:15:"SERVER_SOFTWARE";s:6:"Apache";s:11:"REQUEST_URI";s:26:"/w0ng/wp-comments-post.php";s:18:"REDIRECT_UNIQUE_ID";s:24:"UA2Zdn8AAAEAACilkcMAAAAH";s:15:"REDIRECT_STATUS";s:3:"200";s:9:"UNIQUE_ID";s:24:"UA2Zdn8AAAEAACilkcMAAAAH";s:9:"HTTP_HOST";s:12:"archlinux.me";s:15:"HTTP_CONNECTION";s:10:"keep-alive";s:14:"CONTENT_LENGTH";s:3:"296";s:18:"HTTP_CACHE_CONTROL";s:9:"max-age=0";s:11:"HTTP_ORIGIN";s:19:"http://archlinux.me";s:15:"HTTP_USER_AGENT";s:104:"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11";s:12:"CONTENT_TYPE";s:33:"application/x-www-form-urlencoded";s:11:"HTTP_ACCEPT";s:63:"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";s:12:"HTTP_REFERER";s:81:"http://archlinux.me/w0ng/2012/04/06/zsh-change-cursor-colour-to-indicate-vi-mode/";s:20:"HTTP_ACCEPT_ENCODING";s:17:"gzip,deflate,sdch";s:20:"HTTP_ACCEPT_LANGUAGE";s:14:"en-US,en;q=0.8";s:19:"HTTP_ACCEPT_CHARSET";s:30:"ISO-8859-1,utf-8;q=0.7,*;q=0.3";s:4:"PATH";s:60:"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin";s:16:"SERVER_SIGNATURE";s:0:"";s:11:"SERVER_NAME";s:12:"archlinux.me";s:11:"SERVER_ADDR";s:15:"167.142.225.168";s:11:"SERVER_PORT";s:2:"80";s:11:"REMOTE_ADDR";s:13:"50.71.163.232";s:13:"DOCUMENT_ROOT";s:23:"/home/http/archlinux.me";s:12:"SERVER_ADMIN";s:19:"crouse@archlinux.us";s:15:"SCRIPT_FILENAME";s:44:"/home/http/archlinux.me/wp-comments-post.php";s:11:"REMOTE_PORT";s:5:"58064";s:12:"REDIRECT_URL";s:26:"/w0ng/wp-comments-post.php";s:17:"GATEWAY_INTERFACE";s:7:"CGI/1.1";s:15:"SERVER_PROTOCOL";s:8:"HTTP/1.1";s:14:"REQUEST_METHOD";s:4:"POST";s:12:"QUERY_STRING";s:0:"";s:11:"SCRIPT_NAME";s:21:"/wp-comments-post.php";s:8:"PHP_SELF";s:21:"/wp-comments-post.php";s:12:"REQUEST_TIME";s:10:"1343068534";s:25:"comment_post_modified_gmt";s:19:"2012-05-01 09:35:56";}]]></wp:meta_value>
-			</wp:commentmeta>
-			<wp:commentmeta>
 				<wp:meta_key>akismet_history</wp:meta_key>
 				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1343068785.8084";s:7:"message";s:43:"w0ng changed the comment status to approved";s:5:"event";s:15:"status-approved";s:4:"user";s:4:"w0ng";}]]></wp:meta_value>
 			</wp:commentmeta>
@@ -348,58 +367,6 @@ should work for running tmux inside of xterm (I couldn't get it to work in rvxt)
 			<wp:commentmeta>
 				<wp:meta_key>akismet_history</wp:meta_key>
 				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1343108976.8563";s:7:"message";s:28:"Akismet cleared this comment";s:5:"event";s:9:"check-ham";s:4:"user";s:4:"w0ng";}]]></wp:meta_value>
-			</wp:commentmeta>
-			<wp:commentmeta>
-				<wp:meta_key>akismet_as_submitted</wp:meta_key>
-				<wp:meta_value><![CDATA[a:57:{s:15:"comment_post_ID";s:2:"29";s:14:"comment_author";s:4:"w0ng";s:20:"comment_author_email";s:19:"akamchoiw@gmail.com";s:18:"comment_author_url";s:0:"";s:15:"comment_content";s:696:"I can't get it to work when using tmux and urxvt, but this works if you use xterm:
-
-zle-keymap-select () {
-  if [[ $TERM = "screen-256color" ]]; then
-    if [[ $KEYMAP = vicmd ]]; then
-      echo -ne "\033]12;red\033\\"
-    else 
-      echo -ne "\033]12;grey\033\\"
-    fi
-  elif [[ $TERM != "linux"  ]]; then
-    if [[ $KEYMAP = vicmd ]]; then
-      echo -ne "\033]12;red\007"
-    else
-      echo -ne "\033]12;grey\007"
-    fi
-  fi
-}; zle -N zle-keymap-select
-zle-line-init () {
-  zle -K viins
-  if [[ $TERM = "screen-256color"  ]]; then
-    echo -ne "\033]12;grey\033\\"
-  elif [[ $TERM != "linux" ]]; then
-    echo -ne "\033]12;#c5c8c6\007"
-  fi
-}; zle -N zle-line-init";s:12:"comment_type";s:0:"";s:14:"comment_parent";s:3:"321";s:7:"user_ID";s:2:"57";s:7:"user_ip";s:12:"60.240.59.78";s:10:"user_agent";s:70:"Mozilla/5.0 (X11; Linux x86_64; rv:14.0) Gecko/20100101 Firefox/14.0.1";s:8:"referrer";s:81:"http://archlinux.me/w0ng/2012/04/06/zsh-change-cursor-colour-to-indicate-vi-mode/";s:4:"blog";s:24:"http://archlinux.me/w0ng";s:9:"blog_lang";s:5:"en_US";s:12:"blog_charset";s:5:"UTF-8";s:9:"permalink";s:81:"http://archlinux.me/w0ng/2012/04/06/zsh-change-cursor-colour-to-indicate-vi-mode/";s:9:"user_role";s:13:"administrator";s:21:"akismet_comment_nonce";s:6:"passed";s:12:"POST_comment";s:696:"I can't get it to work when using tmux and urxvt, but this works if you use xterm:
-
-zle-keymap-select () {
-  if [[ $TERM = "screen-256color" ]]; then
-    if [[ $KEYMAP = vicmd ]]; then
-      echo -ne "\033]12;red\033\\"
-    else 
-      echo -ne "\033]12;grey\033\\"
-    fi
-  elif [[ $TERM != "linux"  ]]; then
-    if [[ $KEYMAP = vicmd ]]; then
-      echo -ne "\033]12;red\007"
-    else
-      echo -ne "\033]12;grey\007"
-    fi
-  fi
-}; zle -N zle-keymap-select
-zle-line-init () {
-  zle -K viins
-  if [[ $TERM = "screen-256color"  ]]; then
-    echo -ne "\033]12;grey\033\\"
-  elif [[ $TERM != "linux" ]]; then
-    echo -ne "\033]12;#c5c8c6\007"
-  fi
-}; zle -N zle-line-init";s:11:"POST_submit";s:14:"Submit Comment";s:20:"POST_comment_post_ID";s:2:"29";s:19:"POST_comment_parent";s:3:"321";s:32:"POST__wp_unfiltered_html_comment";s:10:"9ca5ecd41c";s:26:"POST_akismet_comment_nonce";s:10:"1c31e282a1";s:15:"SERVER_SOFTWARE";s:6:"Apache";s:11:"REQUEST_URI";s:26:"/w0ng/wp-comments-post.php";s:18:"REDIRECT_UNIQUE_ID";s:24:"UA43cH8AAAEAAC56u4kAAAAE";s:15:"REDIRECT_STATUS";s:3:"200";s:9:"UNIQUE_ID";s:24:"UA43cH8AAAEAAC56u4kAAAAE";s:9:"HTTP_HOST";s:12:"archlinux.me";s:15:"HTTP_USER_AGENT";s:70:"Mozilla/5.0 (X11; Linux x86_64; rv:14.0) Gecko/20100101 Firefox/14.0.1";s:11:"HTTP_ACCEPT";s:63:"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";s:20:"HTTP_ACCEPT_LANGUAGE";s:14:"en-us,en;q=0.5";s:20:"HTTP_ACCEPT_ENCODING";s:13:"gzip, deflate";s:15:"HTTP_CONNECTION";s:10:"keep-alive";s:12:"HTTP_REFERER";s:81:"http://archlinux.me/w0ng/2012/04/06/zsh-change-cursor-colour-to-indicate-vi-mode/";s:11:"HTTP_COOKIE";s:0:"";s:12:"CONTENT_TYPE";s:33:"application/x-www-form-urlencoded";s:14:"CONTENT_LENGTH";s:4:"1148";s:4:"PATH";s:60:"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin";s:16:"SERVER_SIGNATURE";s:0:"";s:11:"SERVER_NAME";s:12:"archlinux.me";s:11:"SERVER_ADDR";s:15:"167.142.225.168";s:11:"SERVER_PORT";s:2:"80";s:11:"REMOTE_ADDR";s:12:"60.240.59.78";s:13:"DOCUMENT_ROOT";s:23:"/home/http/archlinux.me";s:12:"SERVER_ADMIN";s:19:"crouse@archlinux.us";s:15:"SCRIPT_FILENAME";s:44:"/home/http/archlinux.me/wp-comments-post.php";s:11:"REMOTE_PORT";s:5:"56114";s:12:"REDIRECT_URL";s:26:"/w0ng/wp-comments-post.php";s:17:"GATEWAY_INTERFACE";s:7:"CGI/1.1";s:15:"SERVER_PROTOCOL";s:8:"HTTP/1.1";s:14:"REQUEST_METHOD";s:4:"POST";s:12:"QUERY_STRING";s:0:"";s:11:"SCRIPT_NAME";s:21:"/wp-comments-post.php";s:8:"PHP_SELF";s:21:"/wp-comments-post.php";s:12:"REQUEST_TIME";s:10:"1343108976";s:25:"comment_post_modified_gmt";s:19:"2012-05-01 09:35:56";}]]></wp:meta_value>
 			</wp:commentmeta>
 		</wp:comment>
 	</item>
@@ -584,6 +551,56 @@ Before vs after:
 			<wp:meta_key>_edit_last</wp:meta_key>
 			<wp:meta_value><![CDATA[57]]></wp:meta_value>
 		</wp:postmeta>
+		<wp:comment>
+			<wp:comment_id>699</wp:comment_id>
+			<wp:comment_author><![CDATA[Pravin Satpute]]></wp:comment_author>
+			<wp:comment_author_email>pravin.d.s@gmail.com</wp:comment_author_email>
+			<wp:comment_author_url></wp:comment_author_url>
+			<wp:comment_author_IP>115.242.114.13</wp:comment_author_IP>
+			<wp:comment_date>2012-09-29 16:43:33</wp:comment_date>
+			<wp:comment_date_gmt>2012-09-29 05:43:33</wp:comment_date_gmt>
+			<wp:comment_content><![CDATA[After doing this, can you check regenerated font in  putty.exe whether it still detect as Mono-space fonts.
+
+I am facing problem that regenerated font is not getting recognized as a Monospace font in Windows]]></wp:comment_content>
+			<wp:comment_approved>1</wp:comment_approved>
+			<wp:comment_type></wp:comment_type>
+			<wp:comment_parent>0</wp:comment_parent>
+			<wp:comment_user_id>0</wp:comment_user_id>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_result</wp:meta_key>
+				<wp:meta_value><![CDATA[false]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_history</wp:meta_key>
+				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1348897413.5907";s:7:"message";s:28:"Akismet cleared this comment";s:5:"event";s:9:"check-ham";s:4:"user";s:0:"";}]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_history</wp:meta_key>
+				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1349328922.2551";s:7:"message";s:43:"w0ng changed the comment status to approved";s:5:"event";s:15:"status-approved";s:4:"user";s:4:"w0ng";}]]></wp:meta_value>
+			</wp:commentmeta>
+		</wp:comment>
+		<wp:comment>
+			<wp:comment_id>719</wp:comment_id>
+			<wp:comment_author><![CDATA[w0ng]]></wp:comment_author>
+			<wp:comment_author_email>akamchoiw@gmail.com</wp:comment_author_email>
+			<wp:comment_author_url></wp:comment_author_url>
+			<wp:comment_author_IP>60.240.59.78</wp:comment_author_IP>
+			<wp:comment_date>2012-10-04 19:07:19</wp:comment_date>
+			<wp:comment_date_gmt>2012-10-04 08:07:19</wp:comment_date_gmt>
+			<wp:comment_content><![CDATA[Sorry, I haven't tried using the font in Windows]]></wp:comment_content>
+			<wp:comment_approved>1</wp:comment_approved>
+			<wp:comment_type></wp:comment_type>
+			<wp:comment_parent>699</wp:comment_parent>
+			<wp:comment_user_id>57</wp:comment_user_id>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_result</wp:meta_key>
+				<wp:meta_value><![CDATA[false]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_history</wp:meta_key>
+				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1349338039.3628";s:7:"message";s:28:"Akismet cleared this comment";s:5:"event";s:9:"check-ham";s:4:"user";s:4:"w0ng";}]]></wp:meta_value>
+			</wp:commentmeta>
+		</wp:comment>
 	</item>
 	<item>
 		<title>Better dircolors with Solarized</title>
@@ -796,10 +813,6 @@ static const char colors[NUMCOLORS][ColLast][8] = {
 				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:14:"1343090398.804";s:7:"message";s:28:"Akismet cleared this comment";s:5:"event";s:9:"check-ham";s:4:"user";s:0:"";}]]></wp:meta_value>
 			</wp:commentmeta>
 			<wp:commentmeta>
-				<wp:meta_key>akismet_as_submitted</wp:meta_key>
-				<wp:meta_value><![CDATA[a:60:{s:15:"comment_post_ID";s:3:"189";s:14:"comment_author";s:7:"eldamar";s:20:"comment_author_email";s:17:"samuel@eldamar.se";s:18:"comment_author_url";s:17:"http://eldamar.se";s:15:"comment_content";s:420:"I must be doing something wrong because i only get a empty statusbar after trying to use this icon solution, something about the output breaks my bar and everything after an icon or the icon character is not showing up for some reason, even if ii change to a font previosly working i still get nothing. i even tried to build from your PKGBUILD with every patch and the exact same config.h file, still didn't work for me.";s:12:"comment_type";s:0:"";s:14:"comment_parent";s:1:"0";s:7:"user_ID";s:1:"0";s:7:"user_ip";s:14:"85.226.119.128";s:10:"user_agent";s:104:"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11";s:8:"referrer";s:59:"http://archlinux.me/w0ng/2012/05/01/dwm-a-pretty-statusbar/";s:4:"blog";s:24:"http://archlinux.me/w0ng";s:9:"blog_lang";s:5:"en_US";s:12:"blog_charset";s:5:"UTF-8";s:9:"permalink";s:59:"http://archlinux.me/w0ng/2012/05/01/dwm-a-pretty-statusbar/";s:21:"akismet_comment_nonce";s:6:"passed";s:11:"POST_author";s:7:"eldamar";s:10:"POST_email";s:17:"samuel@eldamar.se";s:8:"POST_url";s:17:"http://eldamar.se";s:12:"POST_comment";s:420:"I must be doing something wrong because i only get a empty statusbar after trying to use this icon solution, something about the output breaks my bar and everything after an icon or the icon character is not showing up for some reason, even if ii change to a font previosly working i still get nothing. i even tried to build from your PKGBUILD with every patch and the exact same config.h file, still didn't work for me.";s:11:"POST_submit";s:14:"Submit Comment";s:20:"POST_comment_post_ID";s:3:"189";s:19:"POST_comment_parent";s:1:"0";s:26:"POST_akismet_comment_nonce";s:10:"65f01e01c6";s:15:"SERVER_SOFTWARE";s:6:"Apache";s:11:"REQUEST_URI";s:26:"/w0ng/wp-comments-post.php";s:18:"REDIRECT_UNIQUE_ID";s:24:"UA3u3n8AAAEAAG7fMZcAAAAA";s:15:"REDIRECT_STATUS";s:3:"200";s:9:"UNIQUE_ID";s:24:"UA3u3n8AAAEAAG7fMZcAAAAA";s:9:"HTTP_HOST";s:12:"archlinux.me";s:15:"HTTP_CONNECTION";s:10:"keep-alive";s:14:"CONTENT_LENGTH";s:3:"597";s:18:"HTTP_CACHE_CONTROL";s:9:"max-age=0";s:11:"HTTP_ORIGIN";s:19:"http://archlinux.me";s:15:"HTTP_USER_AGENT";s:104:"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11";s:12:"CONTENT_TYPE";s:33:"application/x-www-form-urlencoded";s:11:"HTTP_ACCEPT";s:63:"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";s:12:"HTTP_REFERER";s:59:"http://archlinux.me/w0ng/2012/05/01/dwm-a-pretty-statusbar/";s:20:"HTTP_ACCEPT_ENCODING";s:17:"gzip,deflate,sdch";s:20:"HTTP_ACCEPT_LANGUAGE";s:23:"en-US,en;q=0.8,sv;q=0.6";s:19:"HTTP_ACCEPT_CHARSET";s:30:"ISO-8859-1,utf-8;q=0.7,*;q=0.3";s:4:"PATH";s:60:"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin";s:16:"SERVER_SIGNATURE";s:0:"";s:11:"SERVER_NAME";s:12:"archlinux.me";s:11:"SERVER_ADDR";s:15:"167.142.225.168";s:11:"SERVER_PORT";s:2:"80";s:11:"REMOTE_ADDR";s:14:"85.226.119.128";s:13:"DOCUMENT_ROOT";s:23:"/home/http/archlinux.me";s:12:"SERVER_ADMIN";s:19:"crouse@archlinux.us";s:15:"SCRIPT_FILENAME";s:44:"/home/http/archlinux.me/wp-comments-post.php";s:11:"REMOTE_PORT";s:5:"54420";s:12:"REDIRECT_URL";s:26:"/w0ng/wp-comments-post.php";s:17:"GATEWAY_INTERFACE";s:7:"CGI/1.1";s:15:"SERVER_PROTOCOL";s:8:"HTTP/1.1";s:14:"REQUEST_METHOD";s:4:"POST";s:12:"QUERY_STRING";s:0:"";s:11:"SCRIPT_NAME";s:21:"/wp-comments-post.php";s:8:"PHP_SELF";s:21:"/wp-comments-post.php";s:12:"REQUEST_TIME";s:10:"1343090398";s:25:"comment_post_modified_gmt";s:19:"2012-05-06 15:33:45";}]]></wp:meta_value>
-			</wp:commentmeta>
-			<wp:commentmeta>
 				<wp:meta_key>akismet_history</wp:meta_key>
 				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1343104682.2572";s:7:"message";s:43:"w0ng changed the comment status to approved";s:5:"event";s:15:"status-approved";s:4:"user";s:4:"w0ng";}]]></wp:meta_value>
 			</wp:commentmeta>
@@ -839,37 +852,57 @@ Note that a much easier alternative could be using conky to display system stats
 				<wp:meta_key>akismet_history</wp:meta_key>
 				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1343104682.2077";s:7:"message";s:28:"Akismet cleared this comment";s:5:"event";s:9:"check-ham";s:4:"user";s:4:"w0ng";}]]></wp:meta_value>
 			</wp:commentmeta>
+		</wp:comment>
+		<wp:comment>
+			<wp:comment_id>403</wp:comment_id>
+			<wp:comment_author><![CDATA[domac]]></wp:comment_author>
+			<wp:comment_author_email>thecl1@yahoo.de</wp:comment_author_email>
+			<wp:comment_author_url></wp:comment_author_url>
+			<wp:comment_author_IP>217.250.194.169</wp:comment_author_IP>
+			<wp:comment_date>2012-08-05 21:26:51</wp:comment_date>
+			<wp:comment_date_gmt>2012-08-05 10:26:51</wp:comment_date_gmt>
+			<wp:comment_content><![CDATA[Hey,
+I just applied that patch and everything works well for me. Now I wanted to modify that statusbar to my needs. Can you tell me where to find the commands for the icons (at best to copy&amp;paste) and how to add colors to them?
+Thanks!]]></wp:comment_content>
+			<wp:comment_approved>1</wp:comment_approved>
+			<wp:comment_type></wp:comment_type>
+			<wp:comment_parent>0</wp:comment_parent>
+			<wp:comment_user_id>0</wp:comment_user_id>
 			<wp:commentmeta>
-				<wp:meta_key>akismet_as_submitted</wp:meta_key>
-				<wp:meta_value><![CDATA[a:70:{s:15:"comment_post_ID";s:3:"189";s:14:"comment_author";s:4:"w0ng";s:20:"comment_author_email";s:19:"akamchoiw@gmail.com";s:18:"comment_author_url";s:0:"";s:15:"comment_content";s:684:"I'm guessing it's because the statusbar script contains some files/variables that are only installed on my comp.
+				<wp:meta_key>akismet_result</wp:meta_key>
+				<wp:meta_value><![CDATA[false]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_history</wp:meta_key>
+				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1344162412.0129";s:7:"message";s:28:"Akismet cleared this comment";s:5:"event";s:9:"check-ham";s:4:"user";s:0:"";}]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_history</wp:meta_key>
+				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:14:"1344162700.306";s:7:"message";s:43:"w0ng changed the comment status to approved";s:5:"event";s:15:"status-approved";s:4:"user";s:4:"w0ng";}]]></wp:meta_value>
+			</wp:commentmeta>
+		</wp:comment>
+		<wp:comment>
+			<wp:comment_id>421</wp:comment_id>
+			<wp:comment_author><![CDATA[w0ng]]></wp:comment_author>
+			<wp:comment_author_email>akamchoiw@gmail.com</wp:comment_author_email>
+			<wp:comment_author_url></wp:comment_author_url>
+			<wp:comment_author_IP>60.240.59.78</wp:comment_author_IP>
+			<wp:comment_date>2012-08-09 18:31:19</wp:comment_date>
+			<wp:comment_date_gmt>2012-08-09 07:31:19</wp:comment_date_gmt>
+			<wp:comment_content><![CDATA[To get colours piped to the statusbar, you need to use the statuscolours patch. To output the colours, you bash escape sequences, e.g. if I wanted to output something in black in black on yellow (3rd colour definition in the posted config.h), you would pipe it with echo -e "\x03foobar"
 
-You shouldn't need any patches for this to work. All you need is to have terminus2 in ~/.fonts.
-
-To test whether the icon glyphs work, test if the statusbar displays fine after changing terminus to terminus2 in config.h.
-
-Next try to display some of the normal chars: e.g.
-$ xsetroot -name "abc"
-
-Then try to display some of the icon letters: e.g.
-$ xsetroot -name "ÜÜÝ"
-
-Then test each part of dwm-statusbar.bash (e.g. try getting print_datetime() to work and delete everything else).
-
-Note that a much easier alternative could be using conky to display system stats";s:14:"comment_parent";s:3:"323";s:7:"user_ID";s:2:"57";s:7:"user_ip";s:12:"60.240.59.78";s:10:"user_agent";s:70:"Mozilla/5.0 (X11; Linux x86_64; rv:14.0) Gecko/20100101 Firefox/14.0.1";s:8:"referrer";s:51:"http://archlinux.me/w0ng/wp-admin/edit-comments.php";s:4:"blog";s:24:"http://archlinux.me/w0ng";s:9:"blog_lang";s:5:"en_US";s:12:"blog_charset";s:5:"UTF-8";s:9:"permalink";s:59:"http://archlinux.me/w0ng/2012/05/01/dwm-a-pretty-statusbar/";s:9:"user_role";s:13:"administrator";s:21:"akismet_comment_nonce";s:6:"passed";s:22:"POST_newcomment_author";s:0:"";s:28:"POST_newcomment_author_email";s:0:"";s:26:"POST_newcomment_author_url";s:0:"";s:12:"POST_user_ID";s:2:"57";s:11:"POST_action";s:15:"replyto-comment";s:15:"POST_comment_ID";s:3:"323";s:20:"POST_comment_post_ID";s:3:"189";s:11:"POST_status";s:0:"";s:13:"POST_position";s:2:"-1";s:13:"POST_checkbox";s:1:"1";s:9:"POST_mode";s:6:"detail";s:32:"POST__ajax_nonce-replyto-comment";s:10:"e93c6857f3";s:32:"POST__wp_unfiltered_html_comment";s:10:"49e676bce5";s:12:"POST_content";s:684:"I'm guessing it's because the statusbar script contains some files/variables that are only installed on my comp.
-
-You shouldn't need any patches for this to work. All you need is to have terminus2 in ~/.fonts.
-
-To test whether the icon glyphs work, test if the statusbar displays fine after changing terminus to terminus2 in config.h.
-
-Next try to display some of the normal chars: e.g.
-$ xsetroot -name "abc"
-
-Then try to display some of the icon letters: e.g.
-$ xsetroot -name "ÜÜÝ"
-
-Then test each part of dwm-statusbar.bash (e.g. try getting print_datetime() to work and delete everything else).
-
-Note that a much easier alternative could be using conky to display system stats";s:7:"POST_id";s:3:"189";s:21:"POST_comments_listing";s:3:"all";s:19:"POST_approve_parent";s:1:"1";s:15:"SERVER_SOFTWARE";s:6:"Apache";s:11:"REQUEST_URI";s:29:"/w0ng/wp-admin/admin-ajax.php";s:18:"REDIRECT_UNIQUE_ID";s:24:"UA4mqX8AAAEAACbQKK0AAAAJ";s:15:"REDIRECT_STATUS";s:3:"200";s:9:"UNIQUE_ID";s:24:"UA4mqX8AAAEAACbQKK0AAAAJ";s:9:"HTTP_HOST";s:12:"archlinux.me";s:15:"HTTP_USER_AGENT";s:70:"Mozilla/5.0 (X11; Linux x86_64; rv:14.0) Gecko/20100101 Firefox/14.0.1";s:11:"HTTP_ACCEPT";s:3:"*/*";s:20:"HTTP_ACCEPT_LANGUAGE";s:14:"en-us,en;q=0.5";s:20:"HTTP_ACCEPT_ENCODING";s:13:"gzip, deflate";s:15:"HTTP_CONNECTION";s:10:"keep-alive";s:12:"CONTENT_TYPE";s:48:"application/x-www-form-urlencoded; charset=UTF-8";s:21:"HTTP_X_REQUESTED_WITH";s:14:"XMLHttpRequest";s:12:"HTTP_REFERER";s:51:"http://archlinux.me/w0ng/wp-admin/edit-comments.php";s:14:"CONTENT_LENGTH";s:4:"1056";s:11:"HTTP_COOKIE";s:0:"";s:11:"HTTP_PRAGMA";s:8:"no-cache";s:18:"HTTP_CACHE_CONTROL";s:8:"no-cache";s:4:"PATH";s:60:"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin";s:16:"SERVER_SIGNATURE";s:0:"";s:11:"SERVER_NAME";s:12:"archlinux.me";s:11:"SERVER_ADDR";s:15:"167.142.225.168";s:11:"SERVER_PORT";s:2:"80";s:11:"REMOTE_ADDR";s:12:"60.240.59.78";s:13:"DOCUMENT_ROOT";s:23:"/home/http/archlinux.me";s:12:"SERVER_ADMIN";s:19:"crouse@archlinux.us";s:15:"SCRIPT_FILENAME";s:47:"/home/http/archlinux.me/wp-admin/admin-ajax.php";s:11:"REMOTE_PORT";s:5:"47439";s:12:"REDIRECT_URL";s:29:"/w0ng/wp-admin/admin-ajax.php";s:17:"GATEWAY_INTERFACE";s:7:"CGI/1.1";s:15:"SERVER_PROTOCOL";s:8:"HTTP/1.1";s:14:"REQUEST_METHOD";s:4:"POST";s:12:"QUERY_STRING";s:0:"";s:11:"SCRIPT_NAME";s:24:"/wp-admin/admin-ajax.php";s:8:"PHP_SELF";s:24:"/wp-admin/admin-ajax.php";s:12:"REQUEST_TIME";s:10:"1343104681";s:25:"comment_post_modified_gmt";s:19:"2012-05-06 15:33:45";}]]></wp:meta_value>
+To find the unicode or escape chars for the icon glyphs, use something like xorg-xfd or gbdfed or fontforge]]></wp:comment_content>
+			<wp:comment_approved>1</wp:comment_approved>
+			<wp:comment_type></wp:comment_type>
+			<wp:comment_parent>403</wp:comment_parent>
+			<wp:comment_user_id>57</wp:comment_user_id>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_result</wp:meta_key>
+				<wp:meta_value><![CDATA[false]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_history</wp:meta_key>
+				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1344497479.2204";s:7:"message";s:28:"Akismet cleared this comment";s:5:"event";s:9:"check-ham";s:4:"user";s:4:"w0ng";}]]></wp:meta_value>
 			</wp:commentmeta>
 		</wp:comment>
 	</item>
@@ -949,6 +982,32 @@ Audio applications need to be restarted whenever default card changes. If anyone
 			<wp:meta_key>_edit_last</wp:meta_key>
 			<wp:meta_value><![CDATA[57]]></wp:meta_value>
 		</wp:postmeta>
+		<wp:comment>
+			<wp:comment_id>486</wp:comment_id>
+			<wp:comment_author><![CDATA[Cian]]></wp:comment_author>
+			<wp:comment_author_email>cian@cianmcgovern.com</wp:comment_author_email>
+			<wp:comment_author_url>http://www.cianmcgovern.com</wp:comment_author_url>
+			<wp:comment_author_IP>194.46.174.211</wp:comment_author_IP>
+			<wp:comment_date>2012-08-23 22:10:44</wp:comment_date>
+			<wp:comment_date_gmt>2012-08-23 11:10:44</wp:comment_date_gmt>
+			<wp:comment_content><![CDATA[I've been thinking of getting one of these Plantronics GameCom 780 headsets and I'm wondering if you had any issues with them on Arch Linux? Does everything work as expected?]]></wp:comment_content>
+			<wp:comment_approved>1</wp:comment_approved>
+			<wp:comment_type></wp:comment_type>
+			<wp:comment_parent>0</wp:comment_parent>
+			<wp:comment_user_id>0</wp:comment_user_id>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_result</wp:meta_key>
+				<wp:meta_value><![CDATA[false]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_history</wp:meta_key>
+				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:14:"1345720244.436";s:7:"message";s:28:"Akismet cleared this comment";s:5:"event";s:9:"check-ham";s:4:"user";s:0:"";}]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_history</wp:meta_key>
+				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:14:"1345827923.905";s:7:"message";s:43:"w0ng changed the comment status to approved";s:5:"event";s:15:"status-approved";s:4:"user";s:4:"w0ng";}]]></wp:meta_value>
+			</wp:commentmeta>
+		</wp:comment>
 	</item>
 	<item>
 		<title>Udev: Changing SSD&#039;s default (CFQ) I/O Scheduler</title>
@@ -996,6 +1055,85 @@ noop [deadline] cfq</pre>]]></content:encoded>
 			<wp:meta_key>_wp_old_slug</wp:meta_key>
 			<wp:meta_value><![CDATA[udev-changing-a-drives-default-cfq-io-scheduler]]></wp:meta_value>
 		</wp:postmeta>
+		<wp:comment>
+			<wp:comment_id>480</wp:comment_id>
+			<wp:comment_author><![CDATA[WonderWoofy]]></wp:comment_author>
+			<wp:comment_author_email>curtisshima@gmail.com</wp:comment_author_email>
+			<wp:comment_author_url></wp:comment_author_url>
+			<wp:comment_author_IP>76.21.78.128</wp:comment_author_IP>
+			<wp:comment_date>2012-08-21 17:01:50</wp:comment_date>
+			<wp:comment_date_gmt>2012-08-21 06:01:50</wp:comment_date_gmt>
+			<wp:comment_content><![CDATA[@w0ng - thanks a bunch to both you can falconindy for providing this.  I was using the rc.local method before which seemed like something of a hack.  But when I switched to systemd, it seemed wrong to have a service file that ran an echo command.  This seems like the *right* way to do it.]]></wp:comment_content>
+			<wp:comment_approved>1</wp:comment_approved>
+			<wp:comment_type></wp:comment_type>
+			<wp:comment_parent>0</wp:comment_parent>
+			<wp:comment_user_id>0</wp:comment_user_id>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_result</wp:meta_key>
+				<wp:meta_value><![CDATA[false]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_history</wp:meta_key>
+				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1345528910.1301";s:7:"message";s:28:"Akismet cleared this comment";s:5:"event";s:9:"check-ham";s:4:"user";s:0:"";}]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_history</wp:meta_key>
+				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1345533824.2193";s:7:"message";s:43:"w0ng changed the comment status to approved";s:5:"event";s:15:"status-approved";s:4:"user";s:4:"w0ng";}]]></wp:meta_value>
+			</wp:commentmeta>
+		</wp:comment>
+		<wp:comment>
+			<wp:comment_id>493</wp:comment_id>
+			<wp:comment_author><![CDATA[ColdFeetBob]]></wp:comment_author>
+			<wp:comment_author_email>a_nightfall@hotmail.com</wp:comment_author_email>
+			<wp:comment_author_url></wp:comment_author_url>
+			<wp:comment_author_IP>95.252.84.42</wp:comment_author_IP>
+			<wp:comment_date>2012-08-24 05:24:12</wp:comment_date>
+			<wp:comment_date_gmt>2012-08-23 18:24:12</wp:comment_date_gmt>
+			<wp:comment_content><![CDATA[Thanks for this post - I found it already in the Arch's Wiki.
+Is the "larger readahaed size" required for the deadline/noop scheduler or it is another kind of SSD optimization?]]></wp:comment_content>
+			<wp:comment_approved>1</wp:comment_approved>
+			<wp:comment_type></wp:comment_type>
+			<wp:comment_parent>0</wp:comment_parent>
+			<wp:comment_user_id>0</wp:comment_user_id>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_result</wp:meta_key>
+				<wp:meta_value><![CDATA[false]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_history</wp:meta_key>
+				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1345746252.2434";s:7:"message";s:28:"Akismet cleared this comment";s:5:"event";s:9:"check-ham";s:4:"user";s:0:"";}]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_history</wp:meta_key>
+				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1345827923.8816";s:7:"message";s:43:"w0ng changed the comment status to approved";s:5:"event";s:15:"status-approved";s:4:"user";s:4:"w0ng";}]]></wp:meta_value>
+			</wp:commentmeta>
+		</wp:comment>
+		<wp:comment>
+			<wp:comment_id>494</wp:comment_id>
+			<wp:comment_author><![CDATA[ColdFeetBob]]></wp:comment_author>
+			<wp:comment_author_email>a_nightfall@hotmail.com</wp:comment_author_email>
+			<wp:comment_author_url></wp:comment_author_url>
+			<wp:comment_author_IP>95.252.84.42</wp:comment_author_IP>
+			<wp:comment_date>2012-08-24 05:26:43</wp:comment_date>
+			<wp:comment_date_gmt>2012-08-23 18:26:43</wp:comment_date_gmt>
+			<wp:comment_content><![CDATA[Also, does the rule affect even pendrive, sd cards, etc (as "non rotating disks")?]]></wp:comment_content>
+			<wp:comment_approved>1</wp:comment_approved>
+			<wp:comment_type></wp:comment_type>
+			<wp:comment_parent>0</wp:comment_parent>
+			<wp:comment_user_id>0</wp:comment_user_id>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_result</wp:meta_key>
+				<wp:meta_value><![CDATA[false]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_history</wp:meta_key>
+				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1345746403.0474";s:7:"message";s:28:"Akismet cleared this comment";s:5:"event";s:9:"check-ham";s:4:"user";s:0:"";}]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_history</wp:meta_key>
+				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1345827923.8479";s:7:"message";s:43:"w0ng changed the comment status to approved";s:5:"event";s:15:"status-approved";s:4:"user";s:4:"w0ng";}]]></wp:meta_value>
+			</wp:commentmeta>
+		</wp:comment>
 	</item>
 	<item>
 		<title>SSD + GPT + grub2 + systemd</title>
@@ -1042,7 +1180,6 @@ noop [deadline] cfq</pre>]]></content:encoded>
 <ul>
 	<li>Init: <a href="https://wiki.archlinux.org/index.php/Systemd" target="_blank">systemd</a> instead of sysvinit</li>
 	<li>I/O scheduler: <a href="http://archlinux.me/w0ng/2012/07/09/udev-changing-ss-default-cfq-io-scheduler" target="_blank">noop</a> instead of cfq</li>
-	<li>Firefox profile: <a href="https://wiki.archlinux.org/index.php/Profile-sync-daemon" target="_blank">RAM</a> instead of disk</li>
 </ul>
 
 <strong>Misc Output</strong>
@@ -1070,86 +1207,6 @@ systemd-analyze, gdisk, df, fstab, ls: https://gist.github.com/3107896]]></conte
 			<wp:meta_key>_edit_last</wp:meta_key>
 			<wp:meta_value><![CDATA[57]]></wp:meta_value>
 		</wp:postmeta>
-		<wp:comment>
-			<wp:comment_id>210</wp:comment_id>
-			<wp:comment_author><![CDATA[Mooshie]]></wp:comment_author>
-			<wp:comment_author_email>poo@poo.com</wp:comment_author_email>
-			<wp:comment_author_url></wp:comment_author_url>
-			<wp:comment_author_IP>99.244.126.65</wp:comment_author_IP>
-			<wp:comment_date>2012-07-12 05:56:49</wp:comment_date>
-			<wp:comment_date_gmt>2012-07-11 18:56:49</wp:comment_date_gmt>
-			<wp:comment_content><![CDATA[such a noob]]></wp:comment_content>
-			<wp:comment_approved>trash</wp:comment_approved>
-			<wp:comment_type></wp:comment_type>
-			<wp:comment_parent>0</wp:comment_parent>
-			<wp:comment_user_id>0</wp:comment_user_id>
-			<wp:commentmeta>
-				<wp:meta_key>akismet_result</wp:meta_key>
-				<wp:meta_value><![CDATA[false]]></wp:meta_value>
-			</wp:commentmeta>
-			<wp:commentmeta>
-				<wp:meta_key>akismet_history</wp:meta_key>
-				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1342033009.0302";s:7:"message";s:28:"Akismet cleared this comment";s:5:"event";s:9:"check-ham";s:4:"user";s:0:"";}]]></wp:meta_value>
-			</wp:commentmeta>
-			<wp:commentmeta>
-				<wp:meta_key>akismet_as_submitted</wp:meta_key>
-				<wp:meta_value><![CDATA[a:57:{s:15:"comment_post_ID";s:3:"306";s:14:"comment_author";s:7:"Mooshie";s:20:"comment_author_email";s:11:"poo@poo.com";s:18:"comment_author_url";s:0:"";s:15:"comment_content";s:11:"such a noob";s:12:"comment_type";s:0:"";s:14:"comment_parent";s:1:"0";s:7:"user_ID";s:1:"0";s:7:"user_ip";s:13:"99.244.126.65";s:10:"user_agent";s:71:"Opera/9.80 (Windows NT 6.1; WOW64; U; en) Presto/2.10.289 Version/12.00";s:8:"referrer";s:58:"http://archlinux.me/w0ng/2012/07/12/ssd-gpt-grub2-systemd/";s:4:"blog";s:24:"http://archlinux.me/w0ng";s:9:"blog_lang";s:5:"en_US";s:12:"blog_charset";s:5:"UTF-8";s:9:"permalink";s:58:"http://archlinux.me/w0ng/2012/07/12/ssd-gpt-grub2-systemd/";s:21:"akismet_comment_nonce";s:6:"passed";s:11:"POST_author";s:7:"Mooshie";s:10:"POST_email";s:11:"poo@poo.com";s:8:"POST_url";s:0:"";s:12:"POST_comment";s:11:"such a noob";s:11:"POST_submit";s:14:"Submit Comment";s:20:"POST_comment_post_ID";s:3:"306";s:19:"POST_comment_parent";s:1:"0";s:26:"POST_akismet_comment_nonce";s:10:"deb79bbbaf";s:15:"SERVER_SOFTWARE";s:6:"Apache";s:11:"REQUEST_URI";s:26:"/w0ng/wp-comments-post.php";s:18:"REDIRECT_UNIQUE_ID";s:24:"T-3McH8AAAEAAGd0TrQAAAAF";s:15:"REDIRECT_STATUS";s:3:"200";s:9:"UNIQUE_ID";s:24:"T-3McH8AAAEAAGd0TrQAAAAF";s:15:"HTTP_USER_AGENT";s:71:"Opera/9.80 (Windows NT 6.1; WOW64; U; en) Presto/2.10.289 Version/12.00";s:9:"HTTP_HOST";s:12:"archlinux.me";s:11:"HTTP_ACCEPT";s:129:"text/html, application/xml;q=0.9, application/xhtml+xml, image/png, image/webp, image/jpeg, image/gif, image/x-xbitmap, */*;q=0.1";s:20:"HTTP_ACCEPT_LANGUAGE";s:14:"en-US,en;q=0.9";s:20:"HTTP_ACCEPT_ENCODING";s:13:"gzip, deflate";s:12:"HTTP_REFERER";s:58:"http://archlinux.me/w0ng/2012/07/12/ssd-gpt-grub2-systemd/";s:15:"HTTP_CONNECTION";s:10:"Keep-Alive";s:14:"CONTENT_LENGTH";s:3:"151";s:12:"CONTENT_TYPE";s:33:"application/x-www-form-urlencoded";s:4:"PATH";s:60:"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin";s:16:"SERVER_SIGNATURE";s:0:"";s:11:"SERVER_NAME";s:12:"archlinux.me";s:11:"SERVER_ADDR";s:15:"167.142.225.168";s:11:"SERVER_PORT";s:2:"80";s:11:"REMOTE_ADDR";s:13:"99.244.126.65";s:13:"DOCUMENT_ROOT";s:23:"/home/http/archlinux.me";s:12:"SERVER_ADMIN";s:19:"crouse@archlinux.us";s:15:"SCRIPT_FILENAME";s:44:"/home/http/archlinux.me/wp-comments-post.php";s:11:"REMOTE_PORT";s:5:"55928";s:12:"REDIRECT_URL";s:26:"/w0ng/wp-comments-post.php";s:17:"GATEWAY_INTERFACE";s:7:"CGI/1.1";s:15:"SERVER_PROTOCOL";s:8:"HTTP/1.1";s:14:"REQUEST_METHOD";s:4:"POST";s:12:"QUERY_STRING";s:0:"";s:11:"SCRIPT_NAME";s:21:"/wp-comments-post.php";s:8:"PHP_SELF";s:21:"/wp-comments-post.php";s:12:"REQUEST_TIME";s:10:"1342033008";s:25:"comment_post_modified_gmt";s:19:"2012-07-11 15:36:05";}]]></wp:meta_value>
-			</wp:commentmeta>
-			<wp:commentmeta>
-				<wp:meta_key>akismet_history</wp:meta_key>
-				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1342040659.5458";s:7:"message";s:43:"w0ng changed the comment status to approved";s:5:"event";s:15:"status-approved";s:4:"user";s:4:"w0ng";}]]></wp:meta_value>
-			</wp:commentmeta>
-			<wp:commentmeta>
-				<wp:meta_key>akismet_history</wp:meta_key>
-				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1342040708.4637";s:7:"message";s:40:"w0ng changed the comment status to trash";s:5:"event";s:12:"status-trash";s:4:"user";s:4:"w0ng";}]]></wp:meta_value>
-			</wp:commentmeta>
-			<wp:commentmeta>
-				<wp:meta_key>_wp_trash_meta_status</wp:meta_key>
-				<wp:meta_value><![CDATA[1]]></wp:meta_value>
-			</wp:commentmeta>
-			<wp:commentmeta>
-				<wp:meta_key>_wp_trash_meta_time</wp:meta_key>
-				<wp:meta_value><![CDATA[1342040708]]></wp:meta_value>
-			</wp:commentmeta>
-		</wp:comment>
-		<wp:comment>
-			<wp:comment_id>212</wp:comment_id>
-			<wp:comment_author><![CDATA[Mooshie]]></wp:comment_author>
-			<wp:comment_author_email>poo@poo.com</wp:comment_author_email>
-			<wp:comment_author_url></wp:comment_author_url>
-			<wp:comment_author_IP>99.244.126.65</wp:comment_author_IP>
-			<wp:comment_date>2012-07-12 12:29:30</wp:comment_date>
-			<wp:comment_date_gmt>2012-07-12 01:29:30</wp:comment_date_gmt>
-			<wp:comment_content><![CDATA[LOL w0ng is noob]]></wp:comment_content>
-			<wp:comment_approved>trash</wp:comment_approved>
-			<wp:comment_type></wp:comment_type>
-			<wp:comment_parent>0</wp:comment_parent>
-			<wp:comment_user_id>0</wp:comment_user_id>
-			<wp:commentmeta>
-				<wp:meta_key>akismet_result</wp:meta_key>
-				<wp:meta_value><![CDATA[false]]></wp:meta_value>
-			</wp:commentmeta>
-			<wp:commentmeta>
-				<wp:meta_key>akismet_history</wp:meta_key>
-				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1342056570.7705";s:7:"message";s:28:"Akismet cleared this comment";s:5:"event";s:9:"check-ham";s:4:"user";s:0:"";}]]></wp:meta_value>
-			</wp:commentmeta>
-			<wp:commentmeta>
-				<wp:meta_key>akismet_as_submitted</wp:meta_key>
-				<wp:meta_value><![CDATA[a:58:{s:15:"comment_post_ID";s:3:"306";s:14:"comment_author";s:7:"Mooshie";s:20:"comment_author_email";s:11:"poo@poo.com";s:18:"comment_author_url";s:0:"";s:15:"comment_content";s:16:"LOL w0ng is noob";s:12:"comment_type";s:0:"";s:14:"comment_parent";s:1:"0";s:7:"user_ID";s:1:"0";s:7:"user_ip";s:13:"99.244.126.65";s:10:"user_agent";s:71:"Opera/9.80 (Windows NT 6.1; WOW64; U; en) Presto/2.10.289 Version/12.00";s:8:"referrer";s:58:"http://archlinux.me/w0ng/2012/07/12/ssd-gpt-grub2-systemd/";s:4:"blog";s:24:"http://archlinux.me/w0ng";s:9:"blog_lang";s:5:"en_US";s:12:"blog_charset";s:5:"UTF-8";s:9:"permalink";s:58:"http://archlinux.me/w0ng/2012/07/12/ssd-gpt-grub2-systemd/";s:21:"akismet_comment_nonce";s:6:"passed";s:11:"POST_author";s:7:"Mooshie";s:10:"POST_email";s:11:"poo@poo.com";s:8:"POST_url";s:0:"";s:12:"POST_comment";s:16:"LOL w0ng is noob";s:11:"POST_submit";s:14:"Submit Comment";s:20:"POST_comment_post_ID";s:3:"306";s:19:"POST_comment_parent";s:1:"0";s:26:"POST_akismet_comment_nonce";s:10:"8419824328";s:15:"SERVER_SOFTWARE";s:6:"Apache";s:11:"REQUEST_URI";s:26:"/w0ng/wp-comments-post.php";s:18:"REDIRECT_UNIQUE_ID";s:24:"T-4oen8AAAEAADR6-BIAAAAG";s:15:"REDIRECT_STATUS";s:3:"200";s:9:"UNIQUE_ID";s:24:"T-4oen8AAAEAADR6-BIAAAAG";s:15:"HTTP_USER_AGENT";s:71:"Opera/9.80 (Windows NT 6.1; WOW64; U; en) Presto/2.10.289 Version/12.00";s:9:"HTTP_HOST";s:12:"archlinux.me";s:11:"HTTP_ACCEPT";s:129:"text/html, application/xml;q=0.9, application/xhtml+xml, image/png, image/webp, image/jpeg, image/gif, image/x-xbitmap, */*;q=0.1";s:20:"HTTP_ACCEPT_LANGUAGE";s:14:"en-US,en;q=0.9";s:20:"HTTP_ACCEPT_ENCODING";s:13:"gzip, deflate";s:12:"HTTP_REFERER";s:58:"http://archlinux.me/w0ng/2012/07/12/ssd-gpt-grub2-systemd/";s:11:"HTTP_COOKIE";s:0:"";s:15:"HTTP_CONNECTION";s:10:"Keep-Alive";s:14:"CONTENT_LENGTH";s:3:"156";s:12:"CONTENT_TYPE";s:33:"application/x-www-form-urlencoded";s:4:"PATH";s:60:"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin";s:16:"SERVER_SIGNATURE";s:0:"";s:11:"SERVER_NAME";s:12:"archlinux.me";s:11:"SERVER_ADDR";s:15:"167.142.225.168";s:11:"SERVER_PORT";s:2:"80";s:11:"REMOTE_ADDR";s:13:"99.244.126.65";s:13:"DOCUMENT_ROOT";s:23:"/home/http/archlinux.me";s:12:"SERVER_ADMIN";s:19:"crouse@archlinux.us";s:15:"SCRIPT_FILENAME";s:44:"/home/http/archlinux.me/wp-comments-post.php";s:11:"REMOTE_PORT";s:5:"63735";s:12:"REDIRECT_URL";s:26:"/w0ng/wp-comments-post.php";s:17:"GATEWAY_INTERFACE";s:7:"CGI/1.1";s:15:"SERVER_PROTOCOL";s:8:"HTTP/1.1";s:14:"REQUEST_METHOD";s:4:"POST";s:12:"QUERY_STRING";s:0:"";s:11:"SCRIPT_NAME";s:21:"/wp-comments-post.php";s:8:"PHP_SELF";s:21:"/wp-comments-post.php";s:12:"REQUEST_TIME";s:10:"1342056570";s:25:"comment_post_modified_gmt";s:19:"2012-07-11 15:36:05";}]]></wp:meta_value>
-			</wp:commentmeta>
-			<wp:commentmeta>
-				<wp:meta_key>akismet_history</wp:meta_key>
-				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1342056774.4885";s:7:"message";s:40:"w0ng changed the comment status to trash";s:5:"event";s:12:"status-trash";s:4:"user";s:4:"w0ng";}]]></wp:meta_value>
-			</wp:commentmeta>
-			<wp:commentmeta>
-				<wp:meta_key>_wp_trash_meta_status</wp:meta_key>
-				<wp:meta_value><![CDATA[0]]></wp:meta_value>
-			</wp:commentmeta>
-			<wp:commentmeta>
-				<wp:meta_key>_wp_trash_meta_time</wp:meta_key>
-				<wp:meta_value><![CDATA[1342056774]]></wp:meta_value>
-			</wp:commentmeta>
-		</wp:comment>
 	</item>
 	<item>
 		<title>Vim mode in Irssi</title>
@@ -1163,7 +1220,7 @@ systemd-analyze, gdisk, df, fstab, ls: https://gist.github.com/3107896]]></conte
 The script allows you to toggle between <code>INSERT</code>, <code>COMMAND</code> and <code>EX</code> modes.
 
 In my <a href="https://github.com/w0ng/vim/blob/master/vimrc" target="_blank">vimrc</a> and <a href="https://github.com/w0ng/dotfiles/blob/master/zshrc" target="_blank">zshrc</a>, I've already got <code>jj</code> mapped to <code>Esc</code> when in <code>INSERT</code> mode. The Irssi script provides this mapping by setting:
-<pre line="">/set vim_mode_cmd_seq j</pre>
+<pre>/set vim_mode_cmd_seq j</pre>
 
 Another useful feature is the mode indicator, best used in conjunction with <a href="https://github.com/shabble/irssi-scripts/tree/master/prompt_info" target="_blank">uberprompt</a>.
 
@@ -1219,77 +1276,109 @@ Get the script at: <a href="https://github.com/shabble/irssi-scripts/tree/master
 			<wp:meta_key>_edit_last</wp:meta_key>
 			<wp:meta_value><![CDATA[57]]></wp:meta_value>
 		</wp:postmeta>
+		<wp:comment>
+			<wp:comment_id>717</wp:comment_id>
+			<wp:comment_author><![CDATA[Kim]]></wp:comment_author>
+			<wp:comment_author_email>mail@kimlindberg.com</wp:comment_author_email>
+			<wp:comment_author_url>http://kimlindberg.com</wp:comment_author_url>
+			<wp:comment_author_IP>85.229.125.157</wp:comment_author_IP>
+			<wp:comment_date>2012-10-04 05:24:14</wp:comment_date>
+			<wp:comment_date_gmt>2012-10-03 18:24:14</wp:comment_date_gmt>
+			<wp:comment_content><![CDATA[How do you get your irssi looking like that?  Irssi theme/terminal colors/terminal font/other? It's nice :)]]></wp:comment_content>
+			<wp:comment_approved>1</wp:comment_approved>
+			<wp:comment_type></wp:comment_type>
+			<wp:comment_parent>0</wp:comment_parent>
+			<wp:comment_user_id>0</wp:comment_user_id>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_result</wp:meta_key>
+				<wp:meta_value><![CDATA[false]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_history</wp:meta_key>
+				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1349288654.8064";s:7:"message";s:28:"Akismet cleared this comment";s:5:"event";s:9:"check-ham";s:4:"user";s:0:"";}]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_history</wp:meta_key>
+				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1349328923.5819";s:7:"message";s:43:"w0ng changed the comment status to approved";s:5:"event";s:15:"status-approved";s:4:"user";s:4:"w0ng";}]]></wp:meta_value>
+			</wp:commentmeta>
+		</wp:comment>
+		<wp:comment>
+			<wp:comment_id>720</wp:comment_id>
+			<wp:comment_author><![CDATA[w0ng]]></wp:comment_author>
+			<wp:comment_author_email>akamchoiw@gmail.com</wp:comment_author_email>
+			<wp:comment_author_url></wp:comment_author_url>
+			<wp:comment_author_IP>60.240.59.78</wp:comment_author_IP>
+			<wp:comment_date>2012-10-04 19:19:30</wp:comment_date>
+			<wp:comment_date_gmt>2012-10-04 08:19:30</wp:comment_date_gmt>
+			<wp:comment_content><![CDATA[Terminal: urxvt
+Terminal font: Terminus
+Terminal colours: https://github.com/w0ng/dotfiles/blob/master/.config/termcolours/hybrid (copy & paste into ~/.Xresources)
+Irssi theme: http://pbrisbin.com/posts/irssi (latest version @ https://github.com/pbrisbin/irssi-config)
+Irssi scripts: https://github.com/w0ng/dotfiles/tree/master/.irssi/scripts]]></wp:comment_content>
+			<wp:comment_approved>1</wp:comment_approved>
+			<wp:comment_type></wp:comment_type>
+			<wp:comment_parent>717</wp:comment_parent>
+			<wp:comment_user_id>57</wp:comment_user_id>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_result</wp:meta_key>
+				<wp:meta_value><![CDATA[false]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_history</wp:meta_key>
+				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1349338770.4594";s:7:"message";s:28:"Akismet cleared this comment";s:5:"event";s:9:"check-ham";s:4:"user";s:4:"w0ng";}]]></wp:meta_value>
+			</wp:commentmeta>
+		</wp:comment>
+		<wp:comment>
+			<wp:comment_id>721</wp:comment_id>
+			<wp:comment_author><![CDATA[Kim]]></wp:comment_author>
+			<wp:comment_author_email>mail@kimlindberg.com</wp:comment_author_email>
+			<wp:comment_author_url>http://kimlindberg.com</wp:comment_author_url>
+			<wp:comment_author_IP>85.229.125.157</wp:comment_author_IP>
+			<wp:comment_date>2012-10-05 02:47:38</wp:comment_date>
+			<wp:comment_date_gmt>2012-10-04 15:47:38</wp:comment_date_gmt>
+			<wp:comment_content><![CDATA[Sweet.]]></wp:comment_content>
+			<wp:comment_approved>1</wp:comment_approved>
+			<wp:comment_type></wp:comment_type>
+			<wp:comment_parent>0</wp:comment_parent>
+			<wp:comment_user_id>0</wp:comment_user_id>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_result</wp:meta_key>
+				<wp:meta_value><![CDATA[false]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_history</wp:meta_key>
+				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1349365658.6028";s:7:"message";s:28:"Akismet cleared this comment";s:5:"event";s:9:"check-ham";s:4:"user";s:0:"";}]]></wp:meta_value>
+			</wp:commentmeta>
+		</wp:comment>
 	</item>
 	<item>
-		<title>dw</title>
-		<link>http://archlinux.me/w0ng/2012/07/18/dwm-im-doing-it-wrong/</link>
-		<pubDate>Tue, 17 Jul 2012 23:37:58 +0000</pubDate>
-		<dc:creator>w0ng</dc:creator>
-		<guid isPermaLink="false">http://archlinux.me/w0ng/?p=402</guid>
-		<description></description>
-		<content:encoded><![CDATA[dasas]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>402</wp:post_id>
-		<wp:post_date>2012-07-18 10:37:58</wp:post_date>
-		<wp:post_date_gmt>2012-07-17 23:37:58</wp:post_date_gmt>
-		<wp:comment_status>open</wp:comment_status>
-		<wp:ping_status>open</wp:ping_status>
-		<wp:post_name>dwm-im-doing-it-wrong</wp:post_name>
-		<wp:status>trash</wp:status>
-		<wp:post_parent>0</wp:post_parent>
-		<wp:menu_order>0</wp:menu_order>
-		<wp:post_type>post</wp:post_type>
-		<wp:post_password></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="category" nicename="linux"><![CDATA[Linux]]></category>
-		<wp:postmeta>
-			<wp:meta_key>_edit_last</wp:meta_key>
-			<wp:meta_value><![CDATA[57]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key>_wp_trash_meta_status</wp:meta_key>
-			<wp:meta_value><![CDATA[draft]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key>_wp_trash_meta_time</wp:meta_key>
-			<wp:meta_value><![CDATA[1342568315]]></wp:meta_value>
-		</wp:postmeta>
-	</item>
-	<item>
-		<title>My dwm Workflow</title>
+		<title>My dwm setup</title>
 		<link>http://archlinux.me/w0ng/?p=404</link>
-		<pubDate>Thu, 01 Jan 1970 00:00:00 +0000</pubDate>
+		<pubDate>Sun, 05 Aug 2012 03:14:01 +0000</pubDate>
 		<dc:creator>w0ng</dc:creator>
 		<guid isPermaLink="false">http://archlinux.me/w0ng/?p=404</guid>
 		<description></description>
-		<content:encoded><![CDATA[<b>I'm doing it wrong</b>
+		<content:encoded><![CDATA[<b>Windows, tags and workspaces</b>
 
-It's been about a year since I started using dwm. At first, I didn't understand it. I made the mistake of heavily patching my setup in order to provide features that were found on other popular tiling window managers right from the get go. 
-
-The feature list of dwm out of the box seemed rather dull and unusable. Even before actually installing it, I was browsing to see what extra functionality was available from the <a href="http://dwm.suckless.org/patches/" target="_blank">official website</a> and from a great thread worth subscribing to,  <a href="https://bbs.archlinux.org/viewtopic.php?id=92895" target="_blank">"DWM Hackers Unite! Share (or request) dwm patches"</a>.
-
-A comparison can be made for anyone that uses vim: don't fuck with scripts until you hone your vimrc and don't fuck with vimrc until you learn how to use vim. This should hold true for anyone using dwm. 
-
-<b>Windows, tags and workspaces</b>
-
-Whilst keypresses as an alternative to mouseclicks for window management should be intuitive to Arch users, one key concept of dwm wasn't initially apparent to me: <b>tags are not workspaces</b>. Judging from a bunch of <a href="https://bbs.archlinux.org/viewtopic.php?id=144310" target="_blank">screenshots</a> and <a href="https://bbs.archlinux.org/viewtopic.php?id=74599" target="_blank">dwm configs</a>, I'm not alone.
+Whilst keypresses as an alternative to mouseclicks for window management should be intuitive to terminal junkies, one key concept of dwm wasn't initially apparent to me: <b>tags are not workspaces</b>. 
 
 Tl;dr of <a href="http://lubutu.com/rant/dwm-faq" target="_blank">dwm FAQ</a>:
 
+A <em>window</em> is just an application window in the traditional sense.
 A <em>tag</em> is just a <em>label</em> for which each window may be assigned to. A window may be assigned to one or more tags. Tags provide no other functionality.
 A <em>workspace</em> is just a <em>view</em> of one or more tags that are pulled into it. A workspace can be in one of three (default) layouts: tiled, monocle, floating.
 
-Think of tags and workspaces as just being containers for the entire list of all active windows. They are used to show, hide and arrange windows. Changing the window arrangement in one workspace will hold in every other workspace, giving dwm its dynamic nature.
+As a comparison, think of traditional floating/stacking window managers, like the one used in Windows 7. In Windows 7, you have a single workspace with a bunch of taskbar icons showing the windows currently open. When you open an application such as Firefox, the Firefox icon shows up in the taskbar. Any subsequent Firefox windows that you open will be grouped with the first Firefox taskbar icon.
+
+In dwm, a tag is somewhat analogous to the taskbar icon. For example, here's a workspace containing two tags. The first tag contains Firefox and the second tag shows Irssi.
 
 <b>Changing default bindings</b>
 
 <code>MODKEY</code> by default is mapped to <code>Alt</code>. I like to map my <code>Win</code> key to it instead, since I use several <code>Alt + *</code> hotkeys in my default terminal, urxvt.
 
 <code>MODKEY + [1-9]</code> switches the workspace to the tag number and <code>MODKEY + Ctrl + [1-9]</code> toggles that tag to be shown/hidden from the current workspace. 
-Similarly, <code>MOUSE1</code> click on the tagbar switches the workspace to that tag and <code>MOUSE3</code> toggles it. 
+Similarly, <code>MOUSE1</code> click on the tagbar switches the workspace to that tag and <code>MOUSE3</code> toggles that tag. 
 It makes more sense to switch these around since toggling tags should be used more often than switching workspaces.
-
-I've also remapped my tagkeys from <code>[1-9]</code> to <code>[1,2,3,q,w,e,a,s,d]</code> for easier finger access.
 
 <b>Tags Setup</b>
 
@@ -1324,11 +1413,11 @@ I've also set up rules for the common apps I use:
 ]]></content:encoded>
 		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
 		<wp:post_id>404</wp:post_id>
-		<wp:post_date>2012-07-18 14:08:25</wp:post_date>
-		<wp:post_date_gmt>0000-00-00 00:00:00</wp:post_date_gmt>
+		<wp:post_date>2012-08-05 14:14:01</wp:post_date>
+		<wp:post_date_gmt>2012-08-05 03:14:01</wp:post_date_gmt>
 		<wp:comment_status>open</wp:comment_status>
 		<wp:ping_status>open</wp:ping_status>
-		<wp:post_name>my-dwm-workflow</wp:post_name>
+		<wp:post_name>my-dwm-setup</wp:post_name>
 		<wp:status>draft</wp:status>
 		<wp:post_parent>0</wp:post_parent>
 		<wp:menu_order>0</wp:menu_order>
@@ -1347,23 +1436,523 @@ I've also set up rules for the common apps I use:
 		</wp:postmeta>
 	</item>
 	<item>
-		<title>Zsh: Better history searching</title>
-		<link>http://archlinux.me/w0ng/?p=490</link>
+		<title>Edit githubs css using Pentadactyl and vim</title>
+		<link>http://archlinux.me/w0ng/?p=500</link>
 		<pubDate>Thu, 01 Jan 1970 00:00:00 +0000</pubDate>
 		<dc:creator>w0ng</dc:creator>
-		<guid isPermaLink="false">http://archlinux.me/w0ng/?p=490</guid>
+		<guid isPermaLink="false">http://archlinux.me/w0ng/?p=500</guid>
 		<description></description>
-		<content:encoded><![CDATA[The default history searching options kind of suck. 
+		<content:encoded><![CDATA[It's bugged me for a while that GitHub's css uses 'Clean' as one of the preferred sans-serif font, but I've been too lazy to do anything about it. In Arch, the Clean font is the tiny bitmap monospace font under the xorg-fonts-misc package that was installed as a dependency for xorg-server.
 
-]]></content:encoded>
+I use Pentadactyl inside Firefox. I prefer to allow other websites to use their own fonts. I don't have any Microsoft or Mac fonts installed. I use ttf-google-webfonts and Infinality's font configuration. I've modified it a bit so that my default GTK fonts are: sans-serif: Ubuntu, serif: Bitter, monospace: Cousine.
+
+I tried out a few older <a href="http://userstyles.org/styles/browse/github" target="_blank">userstyles</a> but they only replaced some of GitHub's references to Clean. So I eventually took a bit of time to replace all the css references using vim. So the following is a mini-vim tutorial.
+
+<strong>The 'how to'</strong>
+
+Open up <a href="https://github.com" target="_blank">https://github.com</a> in Pentadactyl. 
+
+View the Page Source in gvim.
+<pre>gF</pre>
+
+Search for '.css'.
+<pre>/\.css</pre>
+
+Copy the link to PRIMARY.
+<pre>vi"</pre>
+
+Download it.
+<pre>&lt;ESC&gt;
+:!wget &lt;SHIFT+INS&gt; -O ~/downloads/github1.css</pre>
+
+Do the same for the next css file.
+<pre>n
+vi"
+&lt;ESC&gt;
+:!wget &lt;SHIFT+INS&gt; -O ~/downloads/github2.css</pre>
+
+Close the page source file.
+<pre>:bd</pre>
+
+Open the first css file
+<pre>:e ~/downloads/github1.css</pre>
+
+Notice it's a single line file with 234 393 characters.
+<pre lang="css">html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre...</pre>
+
+Break up the css file by giving a new line after every instance of a brace ({}), comma (,) and semi-colon (;).
+<pre>:s/[{},;]/&\r/g</pre>
+
+You should be at the bottom of the file and it should look like this.
+<pre lang="css">...
+bottom:0;
+border-radius:2px;
+}
+ul.user-graph>li .graph-bar{
+display:block;
+position:absolute;
+bottom:23px;
+width:100%;
+background:#ddd;
+border-radius:2px;
+}</pre>
+
+Indent the file.
+<pre>gg=G</pre>
+
+You should now be at the top of the file. The entire file should be nicely indented like this (go to the bottom with <code>&lt;SHIFT+g&gt;</code> and back to the top with <code>gg</code> afterwards).
+<pre lang="css">...
+  bottom:0;
+  border-radius:2px;
+}
+ul.user-graph>li .graph-bar{
+  display:block;
+  position:absolute;
+  bottom:23px;
+  width:100%;
+  background:#ddd;
+  border-radius:2px;
+}
+</pre>
+
+Separate each pair of braces into paragraphs by adding a blank line.
+<pre>:%s/}/&\r/</pre>
+
+You should be at the bottom of the file and it should now look like this.
+<pre lang="css">...
+  height:100px;
+}
+
+ul.
+user-graph>li .
+avatar{
+  position:absolute;
+  bottom:0;
+  border-radius:2px;
+}
+
+ul.
+user-graph>li .
+...</pre>
+
+Open pentdactylrc in a vertically split window.
+<pre>:vs ~/.pentadactylrc</pre>
+
+Append (i.e. type) the following text to the end of pentadactylrc with <code>&lt;SHIFT+g&gt;o</code>
+<pre>style -name github-font https://github.com/* &lt;&lt;EOM
+{
+  font-family: "sans-serif" !important;
+}
+EOM
+</pre>
+
+Exit insert mode and ensure the current line is and move the current line is on the one that contains the text 'github-font'
+<pre>&lt;ESC&gt;
+/github-font</pre>
+
+Switch to the github1.css window and move to the top of the file:
+<pre>&lt;CTRL+w&gt;w
+gg</pre>
+
+Now type the following
+<pre>qqqqq/\ \ clean,&lt;ENTER&gt;[{d{&lt;CTRL+w&gt;w$gpa,&lt;ESC&gt;&lt;CTRL+w&gt;wdapdgg@qq</pre>
+
+ to create a going to create a recursive macro that does the following:
+<ul><li>empty any previous q macro (<code>qqq</code>)</li>
+<li>create a macro on q (<code>qq</code>)</li>
+<li>searches for '  clean,' (<code>/\ \ clean,</code>)</li>
+<li>moves the cursor to the first unmatched opening brace (<code>[{</code>)</li>
+<li>cuts all the words up to the beginning of the paragraph (<code>d{</code>)</li>
+<li>switch to the pentadactylrc window, move to end of line and paste (<code>&lt;CTRL+w&gt;w$gp</code>)</li>
+<li>Append a comma after the last pasted character (<code>a,&lt;ESC&gt;</code>)
+<li>switch to the github1 window and delete the paragraph around '  clean,' (<code>&lt;CTRL+w&gt;wdap</code>)
+<li>deletes everything from current cursor position up to beginning of file (<code>dgg</code>)</li>
+<li>call the macro recursively (<code>@q</code></code>)</li>
+<li>end the macro (<code>q</code>)</li>
+</ul>
+
+To make sure you typed everything correctly, if you type <code>:reg q</code> you should see this
+<pre line="">--- Registers ---
+"q   /\ \ clean,^M[{d{^Ww$gpa,^[^Wwdapdgg@q</pre>]]></content:encoded>
 		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>490</wp:post_id>
-		<wp:post_date>2012-07-20 16:46:01</wp:post_date>
+		<wp:post_id>500</wp:post_id>
+		<wp:post_date>2012-08-13 19:10:01</wp:post_date>
 		<wp:post_date_gmt>0000-00-00 00:00:00</wp:post_date_gmt>
 		<wp:comment_status>open</wp:comment_status>
 		<wp:ping_status>open</wp:ping_status>
-		<wp:post_name></wp:post_name>
+		<wp:post_name>edit-githubs-css-pentadactyl-vim</wp:post_name>
 		<wp:status>draft</wp:status>
+		<wp:post_parent>0</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type>post</wp:post_type>
+		<wp:post_password></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+		<category domain="post_tag" nicename="css"><![CDATA[css]]></category>
+		<category domain="post_tag" nicename="fonts"><![CDATA[fonts]]></category>
+		<category domain="post_tag" nicename="github"><![CDATA[github]]></category>
+		<category domain="category" nicename="linux"><![CDATA[Linux]]></category>
+		<category domain="post_tag" nicename="pentadactyl"><![CDATA[pentadactyl]]></category>
+		<category domain="post_tag" nicename="vim"><![CDATA[vim]]></category>
+		<wp:postmeta>
+			<wp:meta_key>_edit_last</wp:meta_key>
+			<wp:meta_value><![CDATA[57]]></wp:meta_value>
+		</wp:postmeta>
+	</item>
+	<item>
+		<title>gist.io: Writing for hackers</title>
+		<link>http://archlinux.me/w0ng/2012/08/06/gist-io-writing-for-hackers/</link>
+		<pubDate>Sun, 05 Aug 2012 23:49:36 +0000</pubDate>
+		<dc:creator>w0ng</dc:creator>
+		<guid isPermaLink="false">http://archlinux.me/w0ng/?p=606</guid>
+		<description></description>
+		<content:encoded><![CDATA[Just recently heard of <a href="http://gist.io/" target="_blank">gist.io</a> - a pastebin services that converts markdown formatted files from <a href="https://gist.github.com" target="_blank">https://gist.github.com</a> into HTML.
+
+Useful for those times you want to quickly share info that's off-topic to your blog and to an audience of non manpage readers. Why markdown? It's prettier than plain text and syntactically much simpler than html. GitHub users should like this. 
+
+<img src="http://ompldr.org/vZjAxYQ/gistio.png" alt="" />]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>606</wp:post_id>
+		<wp:post_date>2012-08-06 10:49:36</wp:post_date>
+		<wp:post_date_gmt>2012-08-05 23:49:36</wp:post_date_gmt>
+		<wp:comment_status>open</wp:comment_status>
+		<wp:ping_status>open</wp:ping_status>
+		<wp:post_name>gist-io-writing-for-hackers</wp:post_name>
+		<wp:status>publish</wp:status>
+		<wp:post_parent>0</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type>post</wp:post_type>
+		<wp:post_password></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+		<category domain="post_tag" nicename="gist"><![CDATA[gist]]></category>
+		<category domain="post_tag" nicename="gist-io"><![CDATA[gist.io]]></category>
+		<category domain="category" nicename="linux"><![CDATA[Linux]]></category>
+		<category domain="post_tag" nicename="markdown"><![CDATA[markdown]]></category>
+		<category domain="post_tag" nicename="viewer"><![CDATA[viewer]]></category>
+		<wp:postmeta>
+			<wp:meta_key>_edit_last</wp:meta_key>
+			<wp:meta_value><![CDATA[57]]></wp:meta_value>
+		</wp:postmeta>
+	</item>
+	<item>
+		<title>tl;dr: Why systemd?</title>
+		<link>http://archlinux.me/w0ng/2012/08/31/tldr-why-systemd/</link>
+		<pubDate>Fri, 31 Aug 2012 10:36:40 +0000</pubDate>
+		<dc:creator>w0ng</dc:creator>
+		<guid isPermaLink="false">http://archlinux.me/w0ng/?p=673</guid>
+		<description></description>
+		<content:encoded><![CDATA[What?
+<ul>
+	<li><a href="http://freedesktop.org/wiki/Software/systemd" target="_blank">systemd</a> is a system and service manager for Linux, compatible with SysV and LSB init scripts. </li>
+	<li>It can act as a drop-in replacement for <a href="http://savannah.nongnu.org/projects/sysvinit" target="_blank">SysVinit</a>.</li>
+	<li>Arch Linux will eventually <a href="http://mailman.archlinux.org/pipermail/arch-dev-public/2012-August/023389.html" target="_blank">fully migrate to systemd</a>. </li>
+</ul>
+
+When? 
+<ul>
+	<li>When it's ready. For the <a href="http://mailman.archlinux.org/pipermail/arch-dev-public/2012-April/022803.html" target="_blank">foreseeable future</a>, both SysVinit and systemd will be supported. </li>
+</ul>
+
+Why? 
+(From <a href="https://bbs.archlinux.org/viewtopic.php?pid=1149530#p1149530" target="_blank">tomegun @ Arch Forums</a>)
+<ul>
+	<li>It's hot-pluggable.</li>
+	<li>It tracks all daemons and processes.</li>
+	<li>It's modular.</li>
+	<li>It makes better use of udev and dbus.</li>
+	<li>It reduces dependencies between daemons.</li>
+	<li>It's easier to sandbox configuration options.</li>
+	<li>It's a cross-distro project.</li>
+	<li>It can use distro-independent service files.</li>
+	<li>It uses logind to properly manage user sessions.</li>
+	<li>It's faster or just as fast as SysVinit for most users.</li>
+</ul>]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>673</wp:post_id>
+		<wp:post_date>2012-08-31 21:36:40</wp:post_date>
+		<wp:post_date_gmt>2012-08-31 10:36:40</wp:post_date_gmt>
+		<wp:comment_status>open</wp:comment_status>
+		<wp:ping_status>open</wp:ping_status>
+		<wp:post_name>tldr-why-systemd</wp:post_name>
+		<wp:status>publish</wp:status>
+		<wp:post_parent>0</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type>post</wp:post_type>
+		<wp:post_password></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+		<category domain="category" nicename="linux"><![CDATA[Linux]]></category>
+		<category domain="post_tag" nicename="systemd"><![CDATA[systemd]]></category>
+		<category domain="post_tag" nicename="sysvinit"><![CDATA[sysvinit]]></category>
+		<wp:postmeta>
+			<wp:meta_key>_edit_last</wp:meta_key>
+			<wp:meta_value><![CDATA[57]]></wp:meta_value>
+		</wp:postmeta>
+	</item>
+	<item>
+		<title>Rockbox on Sansa Clip Zip: manual installation</title>
+		<link>http://archlinux.me/w0ng/2012/10/04/rockbox-on-sansa-clip-zip/</link>
+		<pubDate>Thu, 04 Oct 2012 11:51:10 +0000</pubDate>
+		<dc:creator>w0ng</dc:creator>
+		<guid isPermaLink="false">http://archlinux.me/w0ng/?p=710</guid>
+		<description></description>
+		<content:encoded><![CDATA[I purchased a <a href="http://www.amazon.com/SanDisk-Sansa-Clip-Player-SDMX22-004G-A57K/dp/B005FVNGRS/ref=sr_1_2?ie=UTF8&qid=1349340396&sr=8-2&keywords=sansa+clip+zip" target="_blank">4gb Sansa Clip Zip from Amazon</a> after researching online for a small, minimalistic, convenient mp3 player.
+
+
+<strong>What is Rockbox?</strong>
+
+<a href="http://www.rockbox.org/wiki/WhyRockbox" target="_blank">Rockbox</a> is an open-source firmware replacement for compatible mp3 players. It provides additional functionality, efficiency, customisability and improved playback quality.
+
+At time of writing, the only thing that hasn't been fully ported is the <a href="http://www.rockbox.org/wiki/SansaClip#Sansa_Clip_Zip_port_status" target="_blank">sudoku plugin</a>.
+
+<strong>Manual Installation</strong>
+For automated installation, you could use the <a href="https://aur.archlinux.org/packages.php?ID=25559" target="_blank">rbutil</a> package from the AUR, which provides a simple GUI interface. However, the GUI interface has a qt dependency. I don't use any other qt applications, so I opted for the manual installation method.
+
+See the <a href="http://www.rockbox.org/wiki/SansaAMS" target="_blank">Rockbox wiki</a> for complete instructions.
+
+<ol>
+	<li>Ensure that the <a href="http://kb.sandisk.com/app/answers/detail/a_id/162/related/1" target="_blank">player's USB setting</a> is on MSC (Mass Storage Class).
+<pre>On the Clip Zip -> Settings -> System Settings -> USB Mode -> MSC</pre></li>
+	<li>Plug in the player and mount it as a normal user.
+<pre line="">$ sudo mount -o uid=$(id -u),gid=$(id -g),fmask=113,dmask=002 /dev/disk/by-label/SANSA\\x20CLIPZ /mnt/usb</pre></li>
+	<li>Extract the firmware.
+<pre line="">$ wget http://build.rockbox.org/data/rockbox-sansaclipzip.zip -O ~/downloads/rockbox-sansaclipzip.zip
+$ unzip ~/downloads/rockbox-sansaclipzip.zip -d /mnt/usb
+</pre></li>
+	<li>Extract the bootloader.
+<pre line="">$ wget http://download.rockbox.org/bootloader/sandisk-sansa/mkamsboot/linux-x86-64/mkamsboot -O ~/downloads/rbinstall/mkamsboot
+$ wget http://download.rockbox.org/bootloader/sandisk-sansa/clipzip/bootloader-clipzip.sansa -O ~/downloads/rbinstall/bootloader-clipzip.sansa
+$ wget http://mp3support.sandisk.com/firmware/clipzip/clipzip01.01.18.zip -O ~/downloads/clipzip_of.zip
+$ unzip ~/downloads/clipzip_of.zip -d ~/downloads/rbinstall
+</pre></li>
+	<li>Install the bootloader.
+<pre line="">$ cd ~/downloads/rbinstall
+$ chmod +x mkamsboot
+$ ./mkamsboot clpza.bin bootloader-clipzip.sansa patched.bin
+$ cp patched.bin /mnt/usb/clpza.bin</pre></li>
+	<li>Unmount the player. Unplug the usb. Wait for firmware update to finish.
+<pre line="">$ sudo umount /mnt/usb</pre></li>
+</ol>]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>710</wp:post_id>
+		<wp:post_date>2012-10-04 22:51:10</wp:post_date>
+		<wp:post_date_gmt>2012-10-04 11:51:10</wp:post_date_gmt>
+		<wp:comment_status>open</wp:comment_status>
+		<wp:ping_status>open</wp:ping_status>
+		<wp:post_name>rockbox-on-sansa-clip-zip</wp:post_name>
+		<wp:status>publish</wp:status>
+		<wp:post_parent>0</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type>post</wp:post_type>
+		<wp:post_password></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+		<category domain="post_tag" nicename="clip-zip"><![CDATA[clip zip]]></category>
+		<category domain="category" nicename="linux"><![CDATA[Linux]]></category>
+		<category domain="post_tag" nicename="manual"><![CDATA[manual]]></category>
+		<category domain="post_tag" nicename="rockbox"><![CDATA[rockbox]]></category>
+		<category domain="post_tag" nicename="sandisk"><![CDATA[sandisk]]></category>
+		<category domain="post_tag" nicename="sansa"><![CDATA[sansa]]></category>
+		<wp:postmeta>
+			<wp:meta_key>_edit_last</wp:meta_key>
+			<wp:meta_value><![CDATA[57]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>_wp_old_slug</wp:meta_key>
+			<wp:meta_value><![CDATA[rockbox-on-sansa-clip-zip-2]]></wp:meta_value>
+		</wp:postmeta>
+	</item>
+	<item>
+		<title>RTMPDump: Watch live flash streams in mplayer</title>
+		<link>http://archlinux.me/w0ng/2012/11/18/rtmpdump-watch-live-flash-streams-in-mplayer/</link>
+		<pubDate>Sun, 18 Nov 2012 11:17:49 +0000</pubDate>
+		<dc:creator>w0ng</dc:creator>
+		<guid isPermaLink="false">http://archlinux.me/w0ng/?p=773</guid>
+		<description></description>
+		<content:encoded><![CDATA[Flash on Linux sucks. You may find it useful to stream live flash streams to mplayer (or vlc).
+
+Example live flash stream: <a href="http://cricfree.tv/sky-sports-1-live-stream.php" target="_blank">http://cricfree.tv/sky-sports-1-live-stream.php</a>. Screenshot of it in mplayer: <a href="http://ompldr.org/vZ2NubA" target="_blank">http://ompldr.org/vZ2NubA</a>.
+
+Redirect RTMP traffic through to local port:
+<pre><strong>$ sudo iptables -t nat -A OUTPUT -p tcp --dport 1935 -j REDIRECT</strong></pre>
+
+
+Start RTMP Server to hold sniffed RTMP info:
+<pre><strong>$ rtmpsrv</strong>
+
+RTMP Server v2.4
+(c) 2010 Andrej Stepanchuk, Howard Chu; license: GPL
+
+Streaming on rtmp://0.0.0.0:1935
+...</pre>
+
+
+Open or refresh the link to live flash stream in your web browser. The corresponding rtmpdump command output will be printed in the RTMP Server window.  e.g.
+<pre>...
+rtmpdump -r "rtmp://212.7.212.22:1935/lb/" -a "lb/" -f "LNX 11,2,202,251" -W "http://cdn.yycast.com/player/player.swf" -p "http://www.yycast.com" -y "kjghfsdm" -o kjghfsdm.flv
+...
+</pre>
+
+
+Close RTMP Server with Ctrl-C:
+<pre>...
+^CCaught signal: 2, cleaning up, just a second...</pre>
+
+
+Delete previously added iptables rule:
+<pre><strong>$ sudo iptables -t nat -D OUTPUT -p tcp --dport 1935 -j REDIRECT</strong></pre>
+
+
+Test sniffed rtmpdump command, omitting output:
+<pre><strong>$ rtmpdump -r "rtmp://212.7.212.22:1935/lb/" -a "lb/" -f "LNX 11,2,202,251" -W "http://cdn.yycast.com/player/player.swf" -p "http://www.yycast.com" -y "kjghfsdm"</strong>
+
+RTMPDump v2.4
+(c) 2010 Andrej Stepanchuk, Howard Chu, The Flvstreamer Team; license: GPL
+WARNING: You haven't specified an output file (-o filename), using stdout
+Connecting ...
+INFO: Connected...
+ERROR: rtmp server sent error
+ERROR: rtmp server requested close
+</pre>
+
+
+If similar errors are received, analyse sniffed command with the verbose flag, -V:
+<pre><strong>$ rtmpdump -r "rtmp://212.7.212.22:1935/lb/" -a "lb/" -f "LNX 11,2,202,251" -W "http://cdn.yycast.com/player/player.swf" -p "http://www.yycast.com" -y "kjghfsdm" -V</strong>
+
+...
+DEBUG: Property: &lt;Name:              level, STRING: error&gt;
+DEBUG: Property: &lt;Name:               code, STRING: NetConnection.Connect.Rejected&gt;
+DEBUG: Property: &lt;Name:        description, STRING: Connection failed: Application rejected connection.&gt;
+DEBUG: Property: &lt;Name:                 ex, OBJECT&gt;
+DEBUG: (object begin)
+DEBUG: Property: &lt;Name:           redirect, STRING: rtmp://95.211.186.227:1935/live/_definst_&gt;
+DEBUG: Property: &lt;Name:               code, NUMBER: 302.00&gt;
+DEBUG: (object end)
+DEBUG: Property: &lt;Name:           clientid, NUMBER: 1754134368.00&gt;
+...
+</pre>
+
+
+This log shows errors due to unhandled URL redirection. Update rtmpdump command to reflect direct URL:
+<pre><strong>$ rtmpdump -r "rtmp://95.211.186.227:1935/live/_definst_" -a "live/" -f "LNX 11,2,202,251" -W "http://cdn.yycast.com/player/player.swf" -p "http://www.yycast.com" -y "kjghfsdm" -V</strong>
+
+...
+DEBUG: Property: &lt;Name:              level, STRING: status&gt;
+DEBUG: Property: &lt;Name:               code, STRING: NetConnection.Connect.Success&gt;
+DEBUG: Property: &lt;Name:        description, STRING: Connection succeeded.&gt;
+DEBUG: Property: &lt;Name:               data, OBJECT&gt;
+...</pre>
+
+
+Error message is now gone. Remove verbose option. Pipe output to mplayer:  
+<pre><strong>$ rtmpdump -r "rtmp://95.211.186.227:1935/live/_definst_" -a "live/" -f "LNX 11,2,202,251" -W "http://cdn.yycast.com/player/player.swf" -p "http://www.yycast.com" -y "kjghfsdm" | mplayer -</strong></pre>
+
+Other things to try in case of <code>rtmpdump</code> errors:
+<ul>
+	<li>Adding the <code>--live</code> option.</li>
+
+	<li>Using <code>--port 80</code>.</li>
+
+	<li>Increase cache when piping to mplayer: <code>rtmpdump... | mplayer -cache 4096 -</code></li>
+</ul>
+
+]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>773</wp:post_id>
+		<wp:post_date>2012-11-18 22:17:49</wp:post_date>
+		<wp:post_date_gmt>2012-11-18 11:17:49</wp:post_date_gmt>
+		<wp:comment_status>open</wp:comment_status>
+		<wp:ping_status>open</wp:ping_status>
+		<wp:post_name>rtmpdump-watch-live-flash-streams-in-mplayer</wp:post_name>
+		<wp:status>publish</wp:status>
+		<wp:post_parent>0</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type>post</wp:post_type>
+		<wp:post_password></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+		<category domain="post_tag" nicename="flash"><![CDATA[flash]]></category>
+		<category domain="category" nicename="linux"><![CDATA[Linux]]></category>
+		<category domain="post_tag" nicename="livestream"><![CDATA[livestream]]></category>
+		<category domain="post_tag" nicename="mplayer"><![CDATA[mplayer]]></category>
+		<category domain="post_tag" nicename="rtmpdump"><![CDATA[rtmpdump]]></category>
+		<category domain="post_tag" nicename="rtmpsrv"><![CDATA[rtmpsrv]]></category>
+		<wp:postmeta>
+			<wp:meta_key>_edit_last</wp:meta_key>
+			<wp:meta_value><![CDATA[57]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:comment>
+			<wp:comment_id>1022</wp:comment_id>
+			<wp:comment_author><![CDATA[StoneCut]]></wp:comment_author>
+			<wp:comment_author_email>stonecut@gmail.com</wp:comment_author_email>
+			<wp:comment_author_url></wp:comment_author_url>
+			<wp:comment_author_IP>82.83.217.100</wp:comment_author_IP>
+			<wp:comment_date>2012-11-21 07:33:17</wp:comment_date>
+			<wp:comment_date_gmt>2012-11-20 20:33:17</wp:comment_date_gmt>
+			<wp:comment_content><![CDATA[Very useful article, thanks!]]></wp:comment_content>
+			<wp:comment_approved>1</wp:comment_approved>
+			<wp:comment_type></wp:comment_type>
+			<wp:comment_parent>0</wp:comment_parent>
+			<wp:comment_user_id>0</wp:comment_user_id>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_result</wp:meta_key>
+				<wp:meta_value><![CDATA[false]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_history</wp:meta_key>
+				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1353443597.2979";s:7:"message";s:28:"Akismet cleared this comment";s:5:"event";s:9:"check-ham";s:4:"user";s:0:"";}]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_history</wp:meta_key>
+				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1353445967.1546";s:7:"message";s:43:"w0ng changed the comment status to approved";s:5:"event";s:15:"status-approved";s:4:"user";s:4:"w0ng";}]]></wp:meta_value>
+			</wp:commentmeta>
+		</wp:comment>
+		<wp:comment>
+			<wp:comment_id>1071</wp:comment_id>
+			<wp:comment_author><![CDATA[andy]]></wp:comment_author>
+			<wp:comment_author_email>gpl4all@gmail.com</wp:comment_author_email>
+			<wp:comment_author_url></wp:comment_author_url>
+			<wp:comment_author_IP>118.137.157.239</wp:comment_author_IP>
+			<wp:comment_date>2012-11-26 04:33:41</wp:comment_date>
+			<wp:comment_date_gmt>2012-11-25 17:33:41</wp:comment_date_gmt>
+			<wp:comment_content><![CDATA[it's very useful tip, thank you buddy!]]></wp:comment_content>
+			<wp:comment_approved>1</wp:comment_approved>
+			<wp:comment_type></wp:comment_type>
+			<wp:comment_parent>0</wp:comment_parent>
+			<wp:comment_user_id>0</wp:comment_user_id>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_result</wp:meta_key>
+				<wp:meta_value><![CDATA[false]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_history</wp:meta_key>
+				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1353864821.4084";s:7:"message";s:28:"Akismet cleared this comment";s:5:"event";s:9:"check-ham";s:4:"user";s:0:"";}]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_as_submitted</wp:meta_key>
+				<wp:meta_value><![CDATA[a:58:{s:15:"comment_post_ID";s:3:"773";s:14:"comment_author";s:4:"andy";s:20:"comment_author_email";s:17:"gpl4all@gmail.com";s:18:"comment_author_url";s:0:"";s:15:"comment_content";s:38:"it's very useful tip, thank you buddy!";s:12:"comment_type";s:0:"";s:14:"comment_parent";s:1:"0";s:7:"user_ID";s:1:"0";s:7:"user_ip";s:15:"118.137.157.239";s:10:"user_agent";s:68:"Mozilla/5.0 (X11; Linux x86_64; rv:16.0) Gecko/20100101 Firefox/16.0";s:8:"referrer";s:81:"http://archlinux.me/w0ng/2012/11/18/rtmpdump-watch-live-flash-streams-in-mplayer/";s:4:"blog";s:24:"http://archlinux.me/w0ng";s:9:"blog_lang";s:5:"en_US";s:12:"blog_charset";s:5:"UTF-8";s:9:"permalink";s:81:"http://archlinux.me/w0ng/2012/11/18/rtmpdump-watch-live-flash-streams-in-mplayer/";s:21:"akismet_comment_nonce";s:6:"passed";s:11:"POST_author";s:4:"andy";s:10:"POST_email";s:17:"gpl4all@gmail.com";s:8:"POST_url";s:0:"";s:12:"POST_comment";s:38:"it's very useful tip, thank you buddy!";s:11:"POST_submit";s:14:"Submit Comment";s:20:"POST_comment_post_ID";s:3:"773";s:19:"POST_comment_parent";s:1:"0";s:26:"POST_akismet_comment_nonce";s:10:"405ad068fb";s:15:"SERVER_SOFTWARE";s:6:"Apache";s:11:"REQUEST_URI";s:26:"/w0ng/wp-comments-post.php";s:18:"REDIRECT_UNIQUE_ID";s:24:"ULJWdX8AAAEAAFqfi7oAAAAg";s:15:"REDIRECT_STATUS";s:3:"200";s:9:"UNIQUE_ID";s:24:"ULJWdX8AAAEAAFqfi7oAAAAg";s:9:"HTTP_HOST";s:12:"archlinux.me";s:15:"HTTP_USER_AGENT";s:68:"Mozilla/5.0 (X11; Linux x86_64; rv:16.0) Gecko/20100101 Firefox/16.0";s:11:"HTTP_ACCEPT";s:63:"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";s:20:"HTTP_ACCEPT_LANGUAGE";s:14:"en-US,en;q=0.5";s:20:"HTTP_ACCEPT_ENCODING";s:13:"gzip, deflate";s:8:"HTTP_DNT";s:1:"1";s:15:"HTTP_CONNECTION";s:10:"keep-alive";s:12:"HTTP_REFERER";s:81:"http://archlinux.me/w0ng/2012/11/18/rtmpdump-watch-live-flash-streams-in-mplayer/";s:12:"CONTENT_TYPE";s:33:"application/x-www-form-urlencoded";s:14:"CONTENT_LENGTH";s:3:"187";s:4:"PATH";s:60:"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin";s:16:"SERVER_SIGNATURE";s:0:"";s:11:"SERVER_NAME";s:12:"archlinux.me";s:11:"SERVER_ADDR";s:15:"167.142.225.168";s:11:"SERVER_PORT";s:2:"80";s:11:"REMOTE_ADDR";s:15:"118.137.157.239";s:13:"DOCUMENT_ROOT";s:23:"/home/http/archlinux.me";s:12:"SERVER_ADMIN";s:19:"crouse@archlinux.us";s:15:"SCRIPT_FILENAME";s:44:"/home/http/archlinux.me/wp-comments-post.php";s:11:"REMOTE_PORT";s:5:"36865";s:12:"REDIRECT_URL";s:26:"/w0ng/wp-comments-post.php";s:17:"GATEWAY_INTERFACE";s:7:"CGI/1.1";s:15:"SERVER_PROTOCOL";s:8:"HTTP/1.1";s:14:"REQUEST_METHOD";s:4:"POST";s:12:"QUERY_STRING";s:0:"";s:11:"SCRIPT_NAME";s:21:"/wp-comments-post.php";s:8:"PHP_SELF";s:21:"/wp-comments-post.php";s:12:"REQUEST_TIME";s:10:"1353864821";s:25:"comment_post_modified_gmt";s:19:"2012-11-18 12:03:00";}]]></wp:meta_value>
+			</wp:commentmeta>
+			<wp:commentmeta>
+				<wp:meta_key>akismet_history</wp:meta_key>
+				<wp:meta_value><![CDATA[a:4:{s:4:"time";s:15:"1353893547.2658";s:7:"message";s:43:"w0ng changed the comment status to approved";s:5:"event";s:15:"status-approved";s:4:"user";s:4:"w0ng";}]]></wp:meta_value>
+			</wp:commentmeta>
+		</wp:comment>
+	</item>
+	<item>
+		<title>test</title>
+		<link>http://archlinux.me/w0ng/2012/11/18/test/</link>
+		<pubDate>Sun, 18 Nov 2012 11:21:07 +0000</pubDate>
+		<dc:creator>w0ng</dc:creator>
+		<guid isPermaLink="false">http://archlinux.me/w0ng/?p=825</guid>
+		<description></description>
+		<content:encoded><![CDATA[<pre>" set max syntax columns to prevent lag on long lines (default: 3000)
+set synmaxcol=128
+" disable cursorline (default: nocursorline)
+set nocursorline "</pre>]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>825</wp:post_id>
+		<wp:post_date>2012-11-18 22:21:07</wp:post_date>
+		<wp:post_date_gmt>2012-11-18 11:21:07</wp:post_date_gmt>
+		<wp:comment_status>open</wp:comment_status>
+		<wp:ping_status>open</wp:ping_status>
+		<wp:post_name>test</wp:post_name>
+		<wp:status>trash</wp:status>
 		<wp:post_parent>0</wp:post_parent>
 		<wp:menu_order>0</wp:menu_order>
 		<wp:post_type>post</wp:post_type>
@@ -1374,25 +1963,106 @@ I've also set up rules for the common apps I use:
 			<wp:meta_key>_edit_last</wp:meta_key>
 			<wp:meta_value><![CDATA[57]]></wp:meta_value>
 		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>_wp_trash_meta_status</wp:meta_key>
+			<wp:meta_value><![CDATA[draft]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>_wp_trash_meta_time</wp:meta_key>
+			<wp:meta_value><![CDATA[1353237691]]></wp:meta_value>
+		</wp:postmeta>
 	</item>
 	<item>
-		<title></title>
-		<link>http://archlinux.me/w0ng/?p=492</link>
-		<pubDate>Thu, 01 Jan 1970 00:00:00 +0000</pubDate>
+		<title>test2</title>
+		<link>http://archlinux.me/w0ng/2012/11/18/test2/</link>
+		<pubDate>Sun, 18 Nov 2012 11:29:15 +0000</pubDate>
 		<dc:creator>w0ng</dc:creator>
-		<guid isPermaLink="false">http://archlinux.me/w0ng/?p=492</guid>
+		<guid isPermaLink="false">http://archlinux.me/w0ng/?p=833</guid>
 		<description></description>
-		<content:encoded><![CDATA[fdsfsdfdse 'tpope/v
+		<content:encoded><![CDATA[When using the <a href="https://github.com/altercation/solarized/blob/master/xresources-colors-solarized/Xresources" target="_blank">recommended Solarized colours</a> in <code>~/.Xresources</code>, dircolors output isn't very distinguishable. 
 
-e 'tpope/vt]]></content:encoded>
+Here's what it looks like:
+<img src="http://dl.dropbox.com/u/23813887/dircolors1.png" alt="" />
+
+Here's what we want:
+<img src="http://dl.dropbox.com/u/23813887/dircolors2.png" alt="" />
+
+Copy the default dircolors to <code>$HOME</code>
+<pre>$ dircolors -p &gt; ~/.dir_colours</pre>
+
+Make the following changes to <code>~/.dir_colours</code>
+<pre>--- .dir_colours.orig	2012-04-21 19:48:39.029808008 +1000
++++ .dir_colours	2012-04-21 18:28:38.645813921 +1000
+@@ -68,8 +68,8 @@ TERM xterm-debian
+ #NORMAL 00 # no color code at all
+ #FILE 00 # regular file: use no color at all
+ RESET 0 # reset to "normal" color
+-DIR 01;34 # directory
+-LINK 01;36 # symbolic link. (If you set this to 'target' instead of a
++DIR 00;34 # directory
++LINK 00;36 # symbolic link. (If you set this to 'target' instead of a
+  # numerical value, the color is as for the file pointed to.)
+ MULTIHARDLINK 00 # regular file with more than one link
+ FIFO 40;33 # pipe
+@@ -85,7 +85,7 @@ STICKY_OTHER_WRITABLE 30;42 # dir that i
+ OTHER_WRITABLE 34;42 # dir that is other-writable (o+w) and not sticky
+ STICKY 37;44 # dir with the sticky bit set (+t) and not other-writable
+ # This is for files with execute permission:
+-EXEC 01;32
++EXEC 00;32
+ # List any file extensions like '.gz' or '.tar' that you would like ls
+ # to colorize below. Put the extension, a space, and the color init string.
+ # (and any comments you want to add after a '#')
+@@ -184,19 +184,19 @@ EXEC 01;32
+ .ogv 01;35
+ .ogx 01;35
+ # audio formats
+-.aac 00;36
+-.au 00;36
+-.flac 00;36
+-.mid 00;36
+-.midi 00;36
+-.mka 00;36
+-.mp3 00;36
+-.mpc 00;36
+-.ogg 00;36
+-.ra 00;36
+-.wav 00;36
++.aac 00;33
++.au 00;33
++.flac 00;33
++.mid 00;33
++.midi 00;33
++.mka 00;33
++.mp3 00;33
++.mpc 00;33
++.ogg 00;33
++.ra 00;33
++.wav 00;33
+ # http://wiki.xiph.org/index.php/MIME_Types_and_File_Extensions
+-.axa 00;36
+-.oga 00;36
+-.spx 00;36
+-.xspf 00;36
++.axa 00;33
++.oga 00;33
++.spx 00;33
++.xspf 00;33
+</pre>
+
+Finally, run the following line to append to the colours to <code>~/.bashrc</code> or <code>~/.zshrc</code>:
+<pre>$ echo "eval $(dircolors ~/.dir_colours)" &gt;&gt; ~/.zshrc</code></pre>
+
+
+]]></content:encoded>
 		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>492</wp:post_id>
-		<wp:post_date>2012-07-25 05:28:10</wp:post_date>
-		<wp:post_date_gmt>0000-00-00 00:00:00</wp:post_date_gmt>
+		<wp:post_id>833</wp:post_id>
+		<wp:post_date>2012-11-18 22:29:15</wp:post_date>
+		<wp:post_date_gmt>2012-11-18 11:29:15</wp:post_date_gmt>
 		<wp:comment_status>open</wp:comment_status>
 		<wp:ping_status>open</wp:ping_status>
-		<wp:post_name></wp:post_name>
-		<wp:status>draft</wp:status>
+		<wp:post_name>test2</wp:post_name>
+		<wp:status>trash</wp:status>
 		<wp:post_parent>0</wp:post_parent>
 		<wp:menu_order>0</wp:menu_order>
 		<wp:post_type>post</wp:post_type>
@@ -1402,6 +2072,14 @@ e 'tpope/vt]]></content:encoded>
 		<wp:postmeta>
 			<wp:meta_key>_edit_last</wp:meta_key>
 			<wp:meta_value><![CDATA[57]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>_wp_trash_meta_status</wp:meta_key>
+			<wp:meta_value><![CDATA[draft]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>_wp_trash_meta_time</wp:meta_key>
+			<wp:meta_value><![CDATA[1353238178]]></wp:meta_value>
 		</wp:postmeta>
 	</item>
 </channel>
