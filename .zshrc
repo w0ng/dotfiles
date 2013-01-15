@@ -33,7 +33,8 @@ HISTFILE="$HOME/.logs/zhistory"
 # -----------------------------------------------------------------------------
 
 [[ -n "$WORKON_HOME" ]] && (( $+commands[virtualenvwrapper.sh] )) && source "$commands[virtualenvwrapper.sh]"
-[[ -e "$HOME/.config/git-prompt.sh" ]] && source "$HOME/.config/git-prompt.sh"
+[[ -f "$HOME/.config/git-prompt.sh" ]] && source "$HOME/.config/git-prompt.sh"
+[[ -f "$HOME/.rbenv/completions/rbenv.zsh" ]] && source "$HOME/.rbenv/completions/rbenv.zsh"
 
 zstyle ':completion:*' menu select
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
