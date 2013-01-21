@@ -7,6 +7,14 @@ accounts = gmail,mq
 maxsyncaccounts = 2
 pythonfile = ~/.mutt/nametrans.py
 
+[mbnames]
+enabled = yes
+filename = ~/.mutt/mailboxes
+header = "mailboxes "
+peritem = "+%(accountname)s/%(foldername)s"
+sep = " "
+footer = "\n"
+
 [Account gmail]
 localrepository = gmail-local
 remoterepository = gmail-remote
