@@ -1,0 +1,12 @@
+  set from = "andrew.wong@students.mq.edu.au"
+  set sendmail = "/usr/bin/msmtp -a mq"
+  set mbox = "+mq/all_mail"
+unset record
+  set postponed = "+mq/drafts"
+#  set query_command = "mail-query '%s' ~/Mail/Ideeli/INBOX"
+  set signature = ~/.mutt/accounts/mq_sig
+  set pgp_sign_as=0x6141E24B
+
+color status cyan default
+
+# vim: ft=muttrc
