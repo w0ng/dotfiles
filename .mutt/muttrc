@@ -5,9 +5,9 @@
   set alias_format      = "%4n %t %-20a %r"
   set askcc
   set beep_new
-unset confirmappend
+#unset confirmappend
   set date_format       = "%d/%m/%y at %I:%M%P"
-  set delete
+#  set delete
   set edit_headers
   set editor            = "vim +:silent+?^$"
   set fast_reply
