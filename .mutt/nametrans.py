@@ -12,7 +12,7 @@ mapping = {'INBOX': 'inbox',
            'INBOX.Drafts': 'draft',
            'INBOX.Junk': 'junk',
            'INBOX.Sent': 'sent',
-           'INBOX.Trash': 'trash'}
+           'INBOX.Trash': 'trashcan'}
 
 r_mapping = {val: key for key, val in mapping.items()}
 
