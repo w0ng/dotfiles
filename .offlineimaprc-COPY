@@ -3,8 +3,8 @@
 ###
 [general]
 ui = ttyui
-accounts = gmail,mq
-maxsyncaccounts = 2
+accounts = gmail,mq,wongdev
+maxsyncaccounts = 3
 pythonfile = ~/.mutt/nametrans.py
 
 [mbnames]
@@ -34,6 +34,7 @@ maxconnections = 3
 nametrans = nt_remote
 sslcacertfile = /etc/ssl/certs/ca-certificates.crt
 
+
 [Account mq]
 localrepository = mq-local
 remoterepository = mq-remote
@@ -51,4 +52,25 @@ realdelete = no
 postsynchook = notmuch new
 maxconnections = 3
 nametrans = nt_remote
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+
+[Account wongdev]
+localrepository = wongdev-local
+remoterepository = wongdev-remote
+
+[Repository wongdev-local]
+type = Maildir
+localfolders = ~/.mutt/maildir/wongdev
+nametrans = nt_local
+
+[Repository wongdev-remote]
+type = IMAP
+remotehost = syds14-n2s.hosting-services.net.au
+remoteuser = andrew@wongdev.com
+remotepass = XXXXXXXXXXX
+realdelete = no
+postsynchook = notmuch new
+maxconnections = 3
+nametrans = nt_remote
+ssl = yes
 sslcacertfile = /etc/ssl/certs/ca-certificates.crt
