@@ -50,8 +50,9 @@ unset wait_key
 alternative_order text/plain text/enriched text/html
 
 # override with account specific folder-hooks
-folder-hook gmail/* source ~/.mutt/accounts/gmail
-folder-hook mq/*    source ~/.mutt/accounts/mq
+folder-hook gmail/*   source ~/.mutt/accounts/gmail
+folder-hook mq/*      source ~/.mutt/accounts/mq
+folder-hook wongdev/* source ~/.mutt/accounts/wongdev
 
 # collapse subscribed mailing threads
 folder-hook gmail/arch_* "exec collapse-all"
@@ -79,11 +80,12 @@ bind   index,pager   \&        noop
 bind   index,pager   R         group-reply
 
 # shortcut macros
-macro index ,g  "<change-folder> =gmail/inbox<enter>"            "go to Gmail Inbox"
-macro index ,m  "<change-folder> =mq/inbox<enter>"               "go to MQ Inbox"
-macro index ,aa "<change-folder> =gmail/arch_announce<enter>"    "go to Arch Announce"
-macro index ,ad "<change-folder> =gmail/arch_dev<enter>"         "go to Arch Dev"
-macro index ,ag "<change-folder> =gmail/arch_general<enter>"     "go to Arch General"
+macro index ,g  "<change-folder> =gmail/inbox<enter>"         "go to Gmail Inbox"
+macro index ,m  "<change-folder> =mq/inbox<enter>"            "go to MQ Inbox"
+macro index ,w  "<change-folder> =wongdev/inbox<enter>"       "go to wongdev Inbox"
+macro index ,aa "<change-folder> =gmail/arch_announce<enter>" "go to Arch Announce"
+macro index ,ad "<change-folder> =gmail/arch_dev<enter>"      "go to Arch Dev"
+macro index ,ag "<change-folder> =gmail/arch_general<enter>"  "go to Arch General"
 
 # source files
 source $alias_file
