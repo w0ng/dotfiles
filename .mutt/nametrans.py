@@ -1,17 +1,21 @@
 import re
 
-mapping = { 'INBOX':              'inbox'
-          , '[Gmail]/All Mail':   'all_mail'
-          , '[Gmail]/Bin':        'bin'
-          , '[Gmail]/Drafts':     'drafts'
-          , '[Gmail]/Important':  'important'
-          , '[Gmail]/Sent Mail':  'sent_mail'
-          , '[Gmail]/Spam':       'spam'
-          , '[Gmail]/Starred':    'starred'
-          , '[Gmail]/Trash':      'trash'
-          }
+mapping = {'INBOX': 'inbox',
+           '[Gmail]/All Mail': 'all_mail',
+           '[Gmail]/Bin': 'bin',
+           '[Gmail]/Drafts': 'drafts',
+           '[Gmail]/Important': 'important',
+           '[Gmail]/Sent Mail': 'sent_mail',
+           '[Gmail]/Spam': 'spam',
+           '[Gmail]/Starred': 'starred',
+           '[Gmail]/Trash': 'trash',
+           'INBOX.Drafts': 'draft',
+           'INBOX.Junk': 'junk',
+           'INBOX.Sent': 'sent',
+           'INBOX.Trash': 'trash'}
 
-r_mapping = { val: key for key, val in mapping.items() }
+r_mapping = {val: key for key, val in mapping.items()}
+
 
 def nt_remote(folder):
     try:
@@ -19,11 +23,13 @@ def nt_remote(folder):
     except:
         return re.sub(' ', '_', folder).lower()
 
+
 def nt_local(folder):
     try:
         return r_mapping[folder]
     except:
         return re.sub('_', ' ', folder).capitalize()
+
 
 # folderfilter = exclude(['Label', 'Label', ... ])
 def exclude(excludes):
