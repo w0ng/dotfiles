@@ -30,6 +30,14 @@ servers = (
     ssl_verify = "no";
     autoconnect = "yes";
   },
+  {
+    address = "irc.alphachat.net";
+    chatnet = "alphachat";
+    port = "6667";
+    use_ssl = "no";
+    ssl_verify = "no";
+    autoconnect = "yes";
+  },
   { address = "localhost"; chatnet = "bitlbee"; autoconnect = "yes"; }
 );
 
@@ -38,6 +46,10 @@ chatnets = {
   freenode = { type = "IRC"; };
   rizon = { type = "IRC"; };
   ozorg = { type = "IRC"; };
+  alphachat = {
+    type = "IRC";
+    autosendcmd = "/^msg nickserv identify XXXXXXXXXXXX; wait 2000;";
+  };
   bitlbee = {
     type = "IRC";
     autosendcmd = "/^msg &bitlbee identify XXXXXXXXXXXX;";
@@ -45,14 +57,10 @@ chatnets = {
 };
 
 channels = (
+  { name = "#odotaleague"; chatnet = "alphachat"; autojoin = "yes"; },
   { name = "#archlinux"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#bash"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#fsc"; chatnet = "rizon"; autojoin = "yes"; },
-  { name = "#overclockers"; chatnet = "ozorg"; autojoin = "yes"; },
-  { name = "#django"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#python"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#vim"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#zsh"; chatnet = "freenode"; autojoin = "yes"; }
+  { name = "#overclockers"; chatnet = "ozorg"; autojoin = "yes"; }
 );
 
 aliases = {
@@ -173,10 +181,13 @@ ignores = (
 );
 
 hilights = (
-  { text = "w0ng"; nick = "no"; word = "no"; fullword = "yes"; },
-  { text = "w0ng_"; nick = "no"; word = "no"; fullword = "yes"; },
-  { text = "wong"; nick = "no"; word = "no"; fullword = "yes"; },
-  { text = "wong_"; nick = "no"; word = "no"; fullword = "yes"; }
+  {
+    text = "w(0|o)ng_?";
+    nick = "no";
+    word = "no";
+    fullword = "yes";
+    regexp = "yes";
+  }
 );
 
 logs = { };
@@ -187,12 +198,32 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
+        name = "#archlinux";
+        tag = "freenode";
+      }
+    );
+  };
+  3 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
         name = "#fsc";
         tag = "rizon";
       }
     );
   };
-  3 = {
+  4 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#odotaleague";
+        tag = "alphachat";
+      }
+    );
+  };
+  5 = {
     items = (
       {
         type = "CHANNEL";
@@ -202,67 +233,17 @@ windows = {
       }
     );
   };
-  4 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#archlinux";
-        tag = "freenode";
-      }
-    );
-  };
-  5 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#bash";
-        tag = "freenode";
-      }
-    );
-  };
   6 = {
     items = (
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#django";
-        tag = "freenode";
+        name = "#twitter_w0ng_au";
+        tag = "bitlbee";
       }
     );
   };
   7 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#python";
-        tag = "freenode";
-      }
-    );
-  };
-  8 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#vim";
-        tag = "freenode";
-      }
-    );
-  };
-  9 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#zsh";
-        tag = "freenode";
-      }
-    );
-  };
-  10 = {
     items = (
       {
         type = "CHANNEL";
@@ -275,6 +256,6 @@ windows = {
   99 = { name = "hilight"; sticky = "yes"; };
 };
 mainwindows = {
-  2 = { first_line = "3"; lines = "80"; };
-  99 = { first_line = "1"; lines = "2"; };
+  1 = { first_line = "4"; lines = "80"; };
+  99 = { first_line = "1"; lines = "3"; };
 };
