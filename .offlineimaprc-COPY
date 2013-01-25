@@ -68,6 +68,7 @@ type = IMAP
 remotehost = syds14-n2s.hosting-services.net.au
 remoteuser = andrew@wongdev.com
 remotepass = XXXXXXXXXXX
+remoteport = 993
 realdelete = no
 postsynchook = notmuch new
 maxconnections = 3
