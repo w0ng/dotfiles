@@ -30,14 +30,6 @@ servers = (
     ssl_verify = "no";
     autoconnect = "yes";
   },
-  {
-    address = "irc.alphachat.net";
-    chatnet = "alphachat";
-    port = "6667";
-    use_ssl = "no";
-    ssl_verify = "no";
-    autoconnect = "yes";
-  },
   { address = "localhost"; chatnet = "bitlbee"; autoconnect = "yes"; }
 );
 
@@ -46,10 +38,6 @@ chatnets = {
   freenode = { type = "IRC"; };
   rizon = { type = "IRC"; };
   ozorg = { type = "IRC"; };
-  alphachat = {
-    type = "IRC";
-    autosendcmd = "/^msg nickserv identify XXXXXXXXXXXX; wait 2000;";
-  };
   bitlbee = {
     type = "IRC";
     autosendcmd = "/^msg &bitlbee identify XXXXXXXXXXXX;";
@@ -57,7 +45,6 @@ chatnets = {
 };
 
 channels = (
-  { name = "#odotaleague"; chatnet = "alphachat"; autojoin = "yes"; },
   { name = "#archlinux"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#fsc"; chatnet = "rizon"; autojoin = "yes"; },
   { name = "#overclockers"; chatnet = "ozorg"; autojoin = "yes"; }
@@ -218,22 +205,12 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#odotaleague";
-        tag = "alphachat";
-      }
-    );
-  };
-  5 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
         name = "#overclockers";
         tag = "ozorg";
       }
     );
   };
-  6 = {
+  5 = {
     items = (
       {
         type = "CHANNEL";
@@ -243,7 +220,7 @@ windows = {
       }
     );
   };
-  7 = {
+  6 = {
     items = (
       {
         type = "CHANNEL";
