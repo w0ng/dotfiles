@@ -7,8 +7,8 @@ Xft.dpi: 96
 Xcursor.theme: Vanilla-DMZ
 
 ! Colour Scheme
-!#include "/home/w0ng/.config/termcolours/jellybeans"
-#include "/home/w0ng/.config/termcolours/hybrid"
+#include "/home/w0ng/.config/termcolours/jellybeans"
+!#include "/home/w0ng/.config/termcolours/hybrid"
 
 ! URxvt Options
 URxvt.scrollstyle: rxvt
@@ -17,13 +17,13 @@ URxvt.urgentOnBell: True
 URxvt.visualBell: True
 ! bold, italic, underline
 URxvt.colorBD: #e8e8d3
-URxvt.colorIT: #b5bd68
-URxvt.colorUL: #81a2be
+URxvt.colorIT: #799D6A
+URxvt.colorUL: #8197BF
 ! font
-URxvt.font: xft:unifontdashed:size=12
-URxvt.boldFont: xft:unifontdashed:size=12
-URxvt.italicFont: xft:unifontdashed:size=12
-URxvt.boldItalicFont: xft:unifontdashed:size=12
+URxvt.font: -*-terminus-medium-r-*-*-12-*-*-*-*-*-*-*
+URxvt.boldFont: -*-terminus-medium-r-*-*-12-*-*-*-*-*-*-*
+URxvt.italicFont: -*-terminus-medium-r-*-*-12-*-*-*-*-*-*-*
+URxvt.boldItalicFont: -*-terminus-medium-r-*-*-12-*-*-*-*-*-*-*
 ! extensions
 URxvt.perl-ext-common: default,clipboard,keyboard-select,url-select
 ! clipboard

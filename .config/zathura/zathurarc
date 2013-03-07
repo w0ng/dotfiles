@@ -2,14 +2,14 @@
 # ~/.config/zathura/zathurarc
 #
 
-set default-bg "#1d1f21"
-set default-fg "#969896"
+set default-bg "#151515"
+set default-fg "#888888"
 set font "Terminus normal 9"
-set inputbar-bg "#1d1f21"
-set inputbar-fg "#f0c674"
-set statusbar-bg "#282a2e"
-set statusbar-fg "#969896"
-set recolor-lightcolor "#1d1f21"
-set recolor-darkcolor "#969896"
+set inputbar-bg "#151515"
+set inputbar-fg "#FFB964"
+set statusbar-bg "#1C1C1C"
+set statusbar-fg "#888888"
+set recolor-lightcolor "#151515"
+set recolor-darkcolor "#888888"
 
 map ; focus_inputbar ":"
