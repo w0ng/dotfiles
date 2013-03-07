@@ -1,4 +1,5 @@
 ! Hybrid Terminal Colours
+! vim: ft=xdefaults
 
 ! Tomorrow-Night Palette
 #define t_background #1D1F21
@@ -15,7 +16,7 @@
 #define t_purple #B294BB
 
 *background: t_background
-*foreground: t_comment
+*foreground: t_foreground
 ! black
 *color0: t_current_line
 *color8: t_selection

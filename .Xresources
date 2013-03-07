@@ -15,9 +15,10 @@ URxvt.scrollstyle: rxvt
 URxvt.scrollBar: off
 URxvt.urgentOnBell: True
 URxvt.visualBell: True
+URxvt.transparent: True
 ! bold, italic, underline
-URxvt.colorBD: #C5C8C6
-URxvt.colorIT: #B5BD68
+URxvt.colorBD: #B5BD68
+URxvt.colorIT: #B294BB
 URxvt.colorUL: #81A2BE
 ! font
 URxvt.font: -*-terminuspowerline-medium-r-*-*-12-*-*-*-*-*-*-*
