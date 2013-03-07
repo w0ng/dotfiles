@@ -9,16 +9,16 @@
 	ui = true
 [color "branch"]
   current = green bold
-  remote = red
+  remote = red bold
 [color "diff"]
   meta = yellow
   frag = cyan bold
-  old = red
+  old = red bold
   new = green bold
 [color "status"]
   added = green bold
-  changed = red
-  untracked = red
+  changed = red bold
+  untracked = red bold
 [core]
 	editor = vim
 	excludesfile = /home/w0ng/.gitignore_global

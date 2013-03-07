@@ -1,12 +1,13 @@
 ! Jellybeans Terminal Colours
+! vim: ft=xdefaults
 *background: #151515
 *foreground: #888888
 ! black
 *color0: #1C1C1C
 *color8: #404040
 ! red
-*color1: #CF6A4C
-*color9: #FF9D80
+*color1: #B85335
+*color9: #CF6A4C
 ! green
 *color2: #799D6A
 *color10: #99AD6A
@@ -14,8 +15,8 @@
 *color3: #FFB964
 *color11: #FAD07A
 ! blue
-*color4: #8197BF
-*color12: #ACCAFF
+*color4: #667899
+*color12: #8197BF
 ! magenta
 *color5: #8787AF
 *color13: #C6B6EE
