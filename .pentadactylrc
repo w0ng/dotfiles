@@ -18,7 +18,7 @@ set hlfind
 " -----------------------------------------------------------------------------
 
 hi -a StatusLine font-weight: normal;
-hi -a StatusLineNormal color:#888888 !important; background:#1C1C1C !important;
+hi -a StatusLineNormal color:#969896 !important; background:#282A2E !important;
 
 "}}}
 " Font {{{
@@ -46,24 +46,24 @@ nmap -builtin <C-S-p> :tabmove! -1<CR>
 " Toggle Styles {{{
 " -----------------------------------------------------------------------------
 
-map -builtin <F3> :styletoggle<Space>-name<Space>jellybeans<CR>
+map -builtin <F3> :styletoggle<Space>-name<Space>hybrid<CR>
 
 "}}}
-" Style: Jellybeans Colourscheme {{{
+" Style: Hybrid Colourscheme {{{
 " -----------------------------------------------------------------------------
 
-style -name jellybeans http://*,https://*,file://*,about:blank <<EOM
+style -name hybrid http://*,https://*,file://*,about:blank <<EOM
   * {
     color: #969896 !important;
-    background: #151515 !important;
-    border-color: #1C1C1C !important;
+    background: #1D1F21 !important;
+    border-color: #282A2E !important;
   }
   a, a * {
-    color: #8197BF !important;
+    color: #81A2BE !important;
     text-decoration: none !important;
   }
   a:hover, a:hover * {
-    color: #FAD07A !important;
+    color: #F0C674 !important;
   }
   a:visited, a:visited * {
     color: #b294bb !important;
@@ -72,7 +72,7 @@ style -name jellybeans http://*,https://*,file://*,about:blank <<EOM
     color: #de935f !important;
   }
 EOM
-styledisable -name=jellybeans
+styledisable -name=hybrid
 
 "}}}
 " Style: Minimalistic Tabs {{{
@@ -83,14 +83,14 @@ style -name minitabs chrome://* <<EOM
     display: none !important;
   }
   .tabbrowser-tabs {
-    background: #1C1C1C !important;
+    background: #282A2E !important;
   }
   .tabbrowser-tab {
     -moz-appearance: none !important;
     -moz-border-radius: 0 !important;
-    background: #1C1C1C !important;
+    background: #282A2E !important;
     border: none !important;
-    color: #888888 !important;
+    color: #969896 !important;
     font-family: Terminus;
     font-size: 9pt !important;
     height: 18px !important;
@@ -107,12 +107,12 @@ style -name minitabs chrome://* <<EOM
     min-width: 1px !important;
   }
   .tabbrowser-tab:hover {
-    background: #FAD07A !important;
-    color: #1C1C1C !important;
+    background: #F0C674 !important;
+    color: #282A2E !important;
   }
   .tabbrowser-tab[selected] {
-    background: #1C1C1C !important;
-    color: #FAD07A !important;
+    background: #282A2E !important;
+    color: #F0C674 !important;
   }
 EOM
 

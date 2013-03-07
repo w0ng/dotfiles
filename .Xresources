@@ -7,8 +7,8 @@ Xft.dpi: 96
 Xcursor.theme: Vanilla-DMZ
 
 ! Colour Scheme
-#include "/home/w0ng/.config/termcolours/jellybeans"
-!#include "/home/w0ng/.config/termcolours/hybrid"
+!#include "/home/w0ng/.config/termcolours/jellybeans"
+#include "/home/w0ng/.config/termcolours/hybrid"
 
 ! URxvt Options
 URxvt.scrollstyle: rxvt
@@ -16,9 +16,9 @@ URxvt.scrollBar: off
 URxvt.urgentOnBell: True
 URxvt.visualBell: True
 ! bold, italic, underline
-URxvt.colorBD: #e8e8d3
-URxvt.colorIT: #799D6A
-URxvt.colorUL: #8197BF
+URxvt.colorBD: #C5C8C6
+URxvt.colorIT: #B5BD68
+URxvt.colorUL: #81A2BE
 ! font
 URxvt.font: -*-terminuspowerline-medium-r-*-*-12-*-*-*-*-*-*-*
 URxvt.boldFont: -*-terminuspowerline-medium-r-*-*-12-*-*-*-*-*-*-*
