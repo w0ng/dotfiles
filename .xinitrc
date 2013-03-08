@@ -38,6 +38,9 @@ wmname LG3D
 # set background
 sh $HOME/.fehbg &
 
+# enable compositing
+xcompmgr &
+
 # start apps in background (only if not already running)
 list=(mpd tmux transmission-daemon urxvtd)
 for app in "${list[@]}"; do
