@@ -36,7 +36,7 @@ xset m 3
 wmname LG3D
 
 # set background
-sh $HOME/.fehbg &
+sh $HOME/.fehbg
 
 # enable compositing
 xcompmgr &
