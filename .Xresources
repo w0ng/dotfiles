@@ -4,7 +4,7 @@
 
 ! X Settings
 Xft.dpi: 96
-Xcursor.theme: Vanilla-DMZ
+Xcursor.theme: Neutral
 
 ! Colour Scheme
 !#include "/home/w0ng/.config/termcolours/jellybeans"
