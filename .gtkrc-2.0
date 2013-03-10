@@ -3,8 +3,8 @@
 
 gtk-theme-name="Equinox Evolution"
 gtk-icon-theme-name="Faenza"
-gtk-font-name="Ubuntu 9"
-gtk-cursor-theme-name="Vanilla-DMZ"
+gtk-font-name="PT Sans 9"
+gtk-cursor-theme-name="Neutral"
 gtk-cursor-theme-size=0
 gtk-toolbar-style=GTK_TOOLBAR_BOTH
 gtk-toolbar-icon-size=GTK_ICON_SIZE_LARGE_TOOLBAR
@@ -14,6 +14,6 @@ gtk-enable-event-sounds=1
 gtk-enable-input-feedback-sounds=1
 gtk-xft-antialias=1
 gtk-xft-hinting=1
-gtk-xft-hintstyle="hintslight"
+gtk-xft-hintstyle="hintfull"
 gtk-xft-rgba="rgb"
 include "/home/w0ng/.gtkrc-2.0.mine"
