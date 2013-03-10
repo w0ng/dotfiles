@@ -119,16 +119,18 @@ bindkey -M vicmd '?' history-incremental-search-backward
 # Aliases {{{
 # -----------------------------------------------------------------------------
 
-alias ls="ls -hF --color=auto --group-directories-first"
-alias ll="ls++"
-alias grep="grep --color=auto"
+alias cower="cower -c -v"
 alias gist="jist -p"
-alias range="urxvtc -name ranger -e ranger"
-alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
-alias tm="urxvtc -name chatmail -e tmux attach-session -d -t 0"
+alias grep="grep --color=auto"
+alias ll="ls++"
+alias ls="ls -hF --color=auto --group-directories-first"
 alias ntfsmount="sudo ntfs-3g -o gid=100,fmask=113,dmask=002 /dev/sde1 /mnt/usb"
+alias pacman="pacman-color"
+alias range="urxvtc -name ranger -e ranger"
 alias rra="sudo iptables -t nat -A OUTPUT -p tcp --dport 1935 -j REDIRECT"
 alias rrd="sudo iptables -t nat -D OUTPUT -p tcp --dport 1935 -j REDIRECT"
+alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
+alias tm="urxvtc -name chatmail -e tmux attach-session -d -t 0"
 alias usbmount="sudo mount -o gid=100,fmask=113,dmask=002 /dev/sde /mnt/usb"
 alias usbumount="sudo umount /mnt/usb"
 
