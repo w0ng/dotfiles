@@ -15,7 +15,7 @@ URxvt.scrollstyle: rxvt
 URxvt.scrollBar: off
 URxvt.urgentOnBell: True
 URxvt.visualBell: True
-URxvt.backgroundPixmap: /home/w0ng/pictures/noisebg.png\;style=tiled
+URxvt.backgroundPixmap: /home/w0ng/pictures/wallpapers/noisebg.png\;style=tiled
 ! bold, italic, underline
 URxvt.colorBD: #B5BD68
 URxvt.colorIT: #B294BB
