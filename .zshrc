@@ -122,6 +122,7 @@ bindkey -M vicmd '?' history-incremental-search-backward
 alias cower="cower -c -v"
 alias gist="jist -p"
 alias grep="grep --color=auto"
+alias ix="curl -n -F 'f:1=<-' http://ix.io"
 alias ll="ls++"
 alias ls="ls -hF --color=auto --group-directories-first"
 alias ntfsmount="sudo ntfs-3g -o gid=100,fmask=113,dmask=002 /dev/sde1 /mnt/usb"
