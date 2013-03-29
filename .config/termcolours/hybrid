@@ -6,7 +6,7 @@
 #define t_current_line #282A2E
 #define t_selection #373B41
 #define t_foreground #C5C8C6
-#define t_comment #969896
+#define t_comment #707880
 #define t_red #CC6666
 #define t_orange #DE935F
 #define t_yellow #F0C674
