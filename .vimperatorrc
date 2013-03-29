@@ -14,7 +14,7 @@ set tabnumbers
 " Custom colours {{{
 " -----------------------------------------------------------------------------
 
-hi Normal -a color:#969896 !important; background:#282A2E !important;
+hi Normal -a color:#707880 !important; background:#282A2E !important;
 hi CompItem[selected] -a color:#282A2E !important;
 hi Filter -a color:#282A2E !important;
 hi InfoMsg -a color:#f0c674 !important; background:transparent !important;
@@ -62,7 +62,7 @@ noremap <F3> :styletoggle<Space>-name<Space>tomorrownight<CR>
 
 style -name tomorrownight http://*,https://*,file://*,about:blank <<EOM
   * {
-    color: #969896 !important;
+    color: #707880 !important;
     background: #1d1f21 !important;
     border-color: #282a2e !important;
   }
@@ -98,7 +98,7 @@ style -name minitabs chrome://* <<EOM
   -moz-border-radius: 0 !important;
   background: #282a2e !important;
   border: none !important;
-  color: #969896 !important;
+  color: #707880 !important;
   font-family: Terminus !important;
   font-size: 9pt !important;
   height: 18px !important;

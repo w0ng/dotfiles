@@ -18,7 +18,7 @@ set hlfind
 " -----------------------------------------------------------------------------
 
 hi -a StatusLine font-weight: normal;
-hi -a StatusLineNormal color:#969896 !important; background:#282A2E !important;
+hi -a StatusLineNormal color:#707880 !important; background:#282A2E !important;
 
 "}}}
 " Font {{{
@@ -54,7 +54,7 @@ map -builtin <F3> :styletoggle<Space>-name<Space>hybrid<CR>
 
 style -name hybrid http://*,https://*,file://*,about:blank <<EOM
   * {
-    color: #969896 !important;
+    color: #707880 !important;
     background: #1D1F21 !important;
     border-color: #282A2E !important;
   }
@@ -90,7 +90,7 @@ style -name minitabs chrome://* <<EOM
     -moz-border-radius: 0 !important;
     background: #282A2E !important;
     border: none !important;
-    color: #969896 !important;
+    color: #707880 !important;
     font-family: Terminus;
     font-size: 9pt !important;
     height: 18px !important;
