@@ -18,7 +18,7 @@ set hlfind
 " -----------------------------------------------------------------------------
 
 hi -a StatusLine font-weight: normal;
-hi -a StatusLineNormal color:#707880 !important; background:#282A2E !important;
+hi -a StatusLineNormal color:#C5C8C6 !important; background:#282A2E !important;
 
 "}}}
 " Font {{{
