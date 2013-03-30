@@ -54,7 +54,7 @@ map -builtin <F3> :styletoggle<Space>-name<Space>hybrid<CR>
 
 style -name hybrid http://*,https://*,file://*,about:blank <<EOM
   * {
-    color: #707880 !important;
+    color: #C5C8C6 !important;
     background: #1D1F21 !important;
     border-color: #282A2E !important;
   }
