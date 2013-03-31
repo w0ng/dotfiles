@@ -132,7 +132,7 @@ alias rra="sudo iptables -t nat -A OUTPUT -p tcp --dport 1935 -j REDIRECT"
 alias rrd="sudo iptables -t nat -D OUTPUT -p tcp --dport 1935 -j REDIRECT"
 alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
 alias tm="urxvtc -name chatmail -e tmux attach-session -d -t 0"
-alias usbmount="sudo mount -o gid=100,fmask=113,dmask=002 /dev/sde /mnt/usb"
+alias usbmount="sudo mount -o gid=100,fmask=113,dmask=002 /dev/sde1 /mnt/usb"
 alias usbumount="sudo umount /mnt/usb"
 
 # }}}
