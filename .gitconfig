@@ -33,3 +33,7 @@
 	s = status -sb
 [push]
 	default = simple
+[merge]
+	tool = vimdiff
+[mergetool]
+	keepBackup = false
