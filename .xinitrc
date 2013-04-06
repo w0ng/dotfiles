@@ -42,18 +42,10 @@ sh $HOME/.fehbg
 xcompmgr &
 
 # start apps in background (only if not already running)
-list=(mpd tmux transmission-daemon urxvtd)
-for app in "${list[@]}"; do
-  check=$(ps -C "$app" -opid=)
-  if [[ -z "$check" ]]; then
-    case "$app" in
-      mpd) mpd ;;
-      tmux) tmux & ;;
-      transmission-daemon) transmission-daemon ;;
-      urxvtd) urxvtd -q -o -f ;;
-    esac
-  fi
-done
+[[ -z "$(pidof mpd)" ]] && mpd
+[[ -z "$(pidof tmux)" ]] && tmux &
+[[ -z "$(pidof transmission-daemon)" ]] && transmission-daemon
+[[ -z "$(pidof urxvtd)" ]] && urxvtd -q -o -f
 
 # start WM
 exec $HOME/bin/dwm-start
