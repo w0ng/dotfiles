@@ -1,6 +1,7 @@
 ###
 
 servers = (
+  { address = "localhost"; chatnet = "bitlbee"; autoconnect = "yes"; },
   {
     #address = "irc.freenode.net";
     address = "roddenberry.freenode.net";
@@ -12,13 +13,13 @@ servers = (
     autoconnect = "yes";
   },
   {
-    #address = "irc.rizon.net";
-    address = "irc.cccp-project.net";
-    chatnet = "rizon";
+    address = "irc.oftc.net";
+    chatnet = "oftc";
     port = "6697";
     use_ssl = "yes";
-    ssl_cert = "~/.irssi/certs/rizon.pem";
-    ssl_verify = "no";
+    ssl_cert = "~/.irssi/certs/oftc.pem";
+    ssl_verify = "yes";
+    ssl_capath = "/etc/ssl/certs/";
     autoconnect = "yes";
   },
   {
@@ -30,24 +31,45 @@ servers = (
     ssl_verify = "no";
     autoconnect = "yes";
   },
-  { address = "localhost"; chatnet = "bitlbee"; autoconnect = "yes"; }
+  {
+    #address = "irc.rizon.net";
+    address = "irc.rizon.us";
+    chatnet = "rizon";
+    port = "6697";
+    use_ssl = "yes";
+    ssl_cert = "~/.irssi/certs/rizon.pem";
+    ssl_verify = "no";
+    autoconnect = "yes";
+  }
 );
 
 
 chatnets = {
-  freenode = { type = "IRC"; };
-  rizon = { type = "IRC"; };
-  ozorg = { type = "IRC"; };
   bitlbee = {
     type = "IRC";
     autosendcmd = "/^msg &bitlbee identify XXXXXXXXXXXX;";
   };
+  freenode = { type = "IRC"; };
+  oftc = { type = "IRC"; };
+  ozorg = { type = "IRC"; };
+  rizon = { type = "IRC"; };
 };
 
 channels = (
   { name = "#archlinux"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#fsc"; chatnet = "rizon"; autojoin = "yes"; },
-  { name = "#overclockers"; chatnet = "ozorg"; autojoin = "yes"; }
+  { name = "#overclockers"; chatnet = "ozorg"; autojoin = "yes"; },
+  { name = "#bash"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#blender"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "##c"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#gimp"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#git"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "##OpenGL"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#pentadactyl"; chatnet = "oftc"; autojoin = "yes"; },
+  { name = "#python"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#suckless"; chatnet = "oftc"; autojoin = "yes"; },
+  { name = "#vim"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#zsh"; chatnet = "freenode"; autojoin = "yes"; }
 );
 
 aliases = {
@@ -215,7 +237,7 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#twitter_w0ng_au";
+        name = "&bitlbee";
         tag = "bitlbee";
       }
     );
@@ -225,8 +247,118 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "&bitlbee";
+        name = "#twitter_w0ng_au";
         tag = "bitlbee";
+      }
+    );
+  };
+  7 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#bash";
+        tag = "freenode";
+      }
+    );
+  };
+  8 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#blender";
+        tag = "freenode";
+      }
+    );
+  };
+  9 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "##c";
+        tag = "freenode";
+      }
+    );
+  };
+  10 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#gimp";
+        tag = "freenode";
+      }
+    );
+  };
+  11 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#git";
+        tag = "freenode";
+      }
+    );
+  };
+  12 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "##OpenGL";
+        tag = "freenode";
+      }
+    );
+  };
+  13 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#pentadactyl";
+        tag = "oftc";
+      }
+    );
+  };
+  14 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#python";
+        tag = "freenode";
+      }
+    );
+  };
+  15 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#suckless";
+        tag = "oftc";
+      }
+    );
+  };
+  16 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#vim";
+        tag = "freenode";
+      }
+    );
+  };
+  17 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#zsh";
+        tag = "freenode";
       }
     );
   };
