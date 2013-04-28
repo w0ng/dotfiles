@@ -41,8 +41,8 @@ vmap -builtin ; :
 vmap -builtin : ;
 nmap -builtin <C-S-n> :tabmove! +1<CR>
 nmap -builtin <C-S-p> :tabmove! -1<CR>
-nmap -builtin s :open l
-nmap -builtin S :tabopen l
+nmap -builtin s :open l<Space>
+nmap -builtin S :tabopen l<Space>
 
 "}}}
 " Toggle Styles {{{
