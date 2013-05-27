@@ -120,7 +120,6 @@ bindkey -M vicmd '?' history-incremental-search-backward
 # -----------------------------------------------------------------------------
 
 alias cower="cower -c -v"
-alias gist="jist -p"
 alias grep="grep --color=auto"
 alias ix="curl -n -F 'f:1=<-' http://ix.io"
 alias ll="ls++"
