@@ -60,11 +60,8 @@ channels = (
   { name = "#fsc"; chatnet = "rizon"; autojoin = "yes"; },
   { name = "#overclockers"; chatnet = "ozorg"; autojoin = "yes"; },
   { name = "#bash"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#blender"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "##c"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#gimp"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#git"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "##OpenGL"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#pentadactyl"; chatnet = "oftc"; autojoin = "yes"; },
   { name = "#python"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#suckless"; chatnet = "oftc"; autojoin = "yes"; },
@@ -274,7 +271,7 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#blender";
+        name = "##c";
         tag = "freenode";
       }
     );
@@ -284,7 +281,7 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "##c";
+        name = "#git";
         tag = "freenode";
       }
     );
@@ -294,42 +291,12 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#gimp";
-        tag = "freenode";
-      }
-    );
-  };
-  11 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#git";
-        tag = "freenode";
-      }
-    );
-  };
-  12 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "##OpenGL";
-        tag = "freenode";
-      }
-    );
-  };
-  13 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
         name = "#pentadactyl";
         tag = "oftc";
       }
     );
   };
-  14 = {
+  11 = {
     items = (
       {
         type = "CHANNEL";
@@ -339,7 +306,7 @@ windows = {
       }
     );
   };
-  15 = {
+  12 = {
     items = (
       {
         type = "CHANNEL";
@@ -349,7 +316,7 @@ windows = {
       }
     );
   };
-  16 = {
+  13 = {
     items = (
       {
         type = "CHANNEL";
@@ -359,7 +326,7 @@ windows = {
       }
     );
   };
-  17 = {
+  14 = {
     items = (
       {
         type = "CHANNEL";
@@ -372,6 +339,6 @@ windows = {
   99 = { name = "hilight"; sticky = "yes"; };
 };
 mainwindows = {
-  1 = { first_line = "4"; lines = "80"; };
+  1 = { first_line = "4"; lines = "81"; };
   99 = { first_line = "1"; lines = "3"; };
 };
