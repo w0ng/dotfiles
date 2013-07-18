@@ -4,21 +4,21 @@
 
 [user]
 	name = Andrew Wong
-	email = andrew@wongdev.com
+	email = akamchoiw@gmail.com
 [color]
 	ui = true
 [color "branch"]
-  current = green
-  remote = red
+  current = green bold
+  remote = red bold
 [color "diff"]
   meta = yellow
-  frag = cyan
-  old = red
-  new = green
+  frag = cyan bold
+  old = red bold
+  new = green bold
 [color "status"]
-  added = green
-  changed = red
-  untracked = red
+  added = green bold
+  changed = red bold
+  untracked = red bold
 [core]
 	editor = vim
 	excludesfile = /home/w0ng/.gitignore_global

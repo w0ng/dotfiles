@@ -60,8 +60,11 @@ channels = (
   { name = "#fsc"; chatnet = "rizon"; autojoin = "yes"; },
   { name = "#overclockers"; chatnet = "ozorg"; autojoin = "yes"; },
   { name = "#bash"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#blender"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "##c"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#gimp"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#git"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "##OpenGL"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#pentadactyl"; chatnet = "oftc"; autojoin = "yes"; },
   { name = "#python"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#suckless"; chatnet = "oftc"; autojoin = "yes"; },
@@ -163,7 +166,7 @@ settings = {
     beep_msg_level = "NOTICE MSGS HILIGHT";
     bell_beeps = "no";
     hilight_nick_matches = "no";
-    hilight_act_color = "%r";
+    hilight_act_color = "%R";
     hilight_color = "%Y";
     autolog_path = "~/.logs/irc/$tag/${0}-%Y-%m.log";
     autolog = "yes";
@@ -271,7 +274,7 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "##c";
+        name = "#blender";
         tag = "freenode";
       }
     );
@@ -281,7 +284,7 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#git";
+        name = "##c";
         tag = "freenode";
       }
     );
@@ -291,8 +294,8 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#pentadactyl";
-        tag = "oftc";
+        name = "#gimp";
+        tag = "freenode";
       }
     );
   };
@@ -301,7 +304,7 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#python";
+        name = "#git";
         tag = "freenode";
       }
     );
@@ -311,12 +314,42 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
+        name = "##OpenGL";
+        tag = "freenode";
+      }
+    );
+  };
+  13 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#pentadactyl";
+        tag = "oftc";
+      }
+    );
+  };
+  14 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#python";
+        tag = "freenode";
+      }
+    );
+  };
+  15 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
         name = "#suckless";
         tag = "oftc";
       }
     );
   };
-  13 = {
+  16 = {
     items = (
       {
         type = "CHANNEL";
@@ -326,7 +359,7 @@ windows = {
       }
     );
   };
-  14 = {
+  17 = {
     items = (
       {
         type = "CHANNEL";
@@ -339,6 +372,6 @@ windows = {
   99 = { name = "hilight"; sticky = "yes"; };
 };
 mainwindows = {
-  1 = { first_line = "4"; lines = "81"; };
+  1 = { first_line = "4"; lines = "80"; };
   99 = { first_line = "1"; lines = "3"; };
 };
