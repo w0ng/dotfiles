@@ -15,29 +15,51 @@
 #define t_blue #81A2BE
 #define t_purple #B294BB
 
-*background: t_background
-*foreground: t_foreground
+! base16-default Palette
+#define b_background #151515
+#define b_current_line #202020
+#define b_selection #303030
+#define b_foreground #C5C8C6
+#define b_comment #505050
+#define b_red #AC4142
+#define b_orange #D28445
+#define b_yellow #F4BF75
+#define b_green #90A959
+#define b_aqua #75B5AA
+#define b_blue #6A9FB5
+#define b_purple #AA759F
+
+!*background: t_background
+!*foreground: t_foreground
+*background: b_background
+*foreground: b_foreground
 ! black
-*color0: t_current_line
-*color8: t_selection
+!*color0: t_current_line
+!*color8: t_selection
+*color0: b_current_line
+*color8: b_selection
 ! red
-*color1: #A54242
+*color1: b_red
 *color9: t_red
 ! green
-*color2: #8C9440
+*color2: b_green
 *color10: t_green
 ! yellow
-*color3: t_orange
-*color11: t_yellow
+!*color3: t_orange
+!*color11: t_yellow
+*color3: b_orange
+*color11: b_yellow
 ! blue
-*color4: #5F819D
+*color4: b_blue
 *color12: t_blue
 ! magenta
-*color5: #85678F
+*color5: b_purple
 *color13: t_purple
 ! cyan
-*color6: #5E8D87
+*color6: b_aqua
 *color14: t_aqua
 ! white
-*color7: t_comment
-*color15: t_foreground
+!*color7: t_comment
+!*color15: t_foreground
+*color7: b_comment
+*color15: b_foreground

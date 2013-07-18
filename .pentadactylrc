@@ -18,7 +18,7 @@ set hlfind
 " -----------------------------------------------------------------------------
 
 hi -a StatusLine font-weight: normal;
-hi -a StatusLineNormal color:#C5C8C6 !important; background:#282A2E !important;
+hi -a StatusLineNormal color:#C5C8C6 !important; background:#202020 !important;
 
 "}}}
 " Font {{{
@@ -57,21 +57,21 @@ map -builtin <F3> :styletoggle<Space>-name<Space>hybrid<CR>
 style -name hybrid http://*,https://*,file://*,about:blank <<EOM
   * {
     color: #C5C8C6 !important;
-    background: #1D1F21 !important;
-    border-color: #282A2E !important;
+    background: #151515 !important;
+    border-color: #202020 !important;
   }
   a, a * {
-    color: #81A2BE !important;
+    color: #6A9FB5 !important;
     text-decoration: none !important;
   }
   a:hover, a:hover * {
-    color: #F0C674 !important;
+    color: #F4BF75 !important;
   }
   a:visited, a:visited * {
-    color: #b294bb !important;
+    color: #AA759F !important;
   }
   a:visited:hover, a:visited:hover * {
-    color: #de935f !important;
+    color: #D28445 !important;
   }
 EOM
 styledisable -name=hybrid
@@ -85,14 +85,14 @@ style -name minitabs chrome://* <<EOM
     display: none !important;
   }
   .tabbrowser-tabs {
-    background: #282A2E !important;
+    background: #202020 !important;
   }
   .tabbrowser-tab {
     -moz-appearance: none !important;
     -moz-border-radius: 0 !important;
-    background: #282A2E !important;
+    background: #202020 !important;
     border: none !important;
-    color: #707880 !important;
+    color: #505050 !important;
     font-family: Terminus;
     font-size: 9pt !important;
     height: 18px !important;
@@ -109,12 +109,12 @@ style -name minitabs chrome://* <<EOM
     min-width: 1px !important;
   }
   .tabbrowser-tab:hover {
-    background: #F0C674 !important;
-    color: #282A2E !important;
+    background: #F4BF75 !important;
+    color: #202020 !important;
   }
   .tabbrowser-tab[selected] {
-    background: #282A2E !important;
-    color: #F0C674 !important;
+    background: #202020 !important;
+    color: #F4BF75 !important;
   }
 EOM
 
