@@ -18,7 +18,7 @@ set hlfind
 " -----------------------------------------------------------------------------
 
 hi -a StatusLine font-weight: normal;
-hi -a StatusLineNormal color:#C5C8C6 !important; background:#282A2E !important;
+hi -a StatusLineNormal color:#C5C8C6 !important; background:#2D3C46 !important;
 
 "}}}
 " Font {{{
@@ -57,8 +57,8 @@ map -builtin <F3> :styletoggle<Space>-name<Space>hybrid<CR>
 style -name hybrid http://*,https://*,file://*,about:blank <<EOM
   * {
     color: #C5C8C6 !important;
-    background: #1D1F21 !important;
-    border-color: #282A2E !important;
+    background: #232C31 !important;
+    border-color: #2D3C46 !important;
   }
   a, a * {
     color: #81A2BE !important;
@@ -85,12 +85,12 @@ style -name minitabs chrome://* <<EOM
     display: none !important;
   }
   .tabbrowser-tabs {
-    background: #282A2E !important;
+    background: #2D3C46 !important;
   }
   .tabbrowser-tab {
     -moz-appearance: none !important;
     -moz-border-radius: 0 !important;
-    background: #282A2E !important;
+    background: #2D3C46 !important;
     border: none !important;
     color: #707880 !important;
     font-family: Terminus;
@@ -110,10 +110,10 @@ style -name minitabs chrome://* <<EOM
   }
   .tabbrowser-tab:hover {
     background: #F0C674 !important;
-    color: #282A2E !important;
+    color: #2D3C46 !important;
   }
   .tabbrowser-tab[selected] {
-    background: #282A2E !important;
+    background: #2D3C46 !important;
     color: #F0C674 !important;
   }
 EOM
