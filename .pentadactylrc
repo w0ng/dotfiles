@@ -92,7 +92,7 @@ style -name minitabs chrome://* <<EOM
     -moz-border-radius: 0 !important;
     background: #2D3C46 !important;
     border: none !important;
-    color: #707880 !important;
+    color: #6C7A80 !important;
     font-family: Terminus;
     font-size: 9pt !important;
     height: 18px !important;
