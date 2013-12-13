@@ -2,6 +2,8 @@
 # ~/.mplayer/config
 #
 
+#af=volume=-20
+
 # video settings
 vo = xv
 monitoraspect = 16:9
