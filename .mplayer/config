@@ -2,8 +2,6 @@
 # ~/.mplayer/config
 #
 
-#af=volume=-20
-
 # video settings
 vo = xv
 monitoraspect = 16:9
@@ -11,6 +9,7 @@ monitoraspect = 16:9
 # audio settings
 ao = alsa
 mixer-channel = PCM
+#af=volume=-20
 
 # default language
 slang = en,eng
@@ -19,9 +18,12 @@ alang = en,eng
 # osd settings
 use-filename-title = yes
 osdlevel = 3
-subfont-osd-scale = 3
-subfont-text-scale = 5
+subfont-osd-scale = 2
+subfont-text-scale = 4
 
 # misc settings
 msgmodule = 1
 msgcolor = 1
+
+# workaround for dwm not refreshing black borders
+nokeepaspect = 1
