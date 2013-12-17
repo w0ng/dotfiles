@@ -16,10 +16,13 @@ alang = en,eng
 
 # osd settings
 title = "${filename}"
-osd-level = 3
+osd-level = 2
+osd-font = 'Noto Sans:style=Bold'
 osd-scale = 1.5
-sub-scale = 5
+sub-text-font = 'Noto Sans:style=Bold'
+sub-scale = 1.5
 
 # misc settings
 msgmodule = yes
 msgcolor = yes
+
