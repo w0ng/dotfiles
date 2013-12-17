@@ -21,10 +21,10 @@ URxvt.colorBD: #B5BD68
 URxvt.colorIT: #B294BB
 URxvt.colorUL: #81A2BE
 ! font
-URxvt.font: xft:unifontdashed
-URxvt.boldFont:  xft:unifontdashed
-URxvt.italicFont: xft:unifontdashed
-URxvt.boldItalicFont: xft:unifontdashed
+URxvt.font: xft:Inconsolata_g_Powerline:size=10.5, xft:unifontdashed
+URxvt.boldFont:  xft:Inconsolata_g_Powerline:size=10.5, xft:unifontdashed
+URxvt.italicFont: xft:Inconsolata_g_Powerline:size=10.5, xft:unifontdashed
+URxvt.boldItalicFont: xft:Inconsolata_g_Powerline:size=10.5, xft:unifontdashed
 ! extensions
 URxvt.perl-ext-common: default,clipboard,keyboard-select,url-select
 ! clipboard
