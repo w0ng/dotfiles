@@ -37,18 +37,18 @@
 
 !*background: b_background
 !*foreground: b_foreground
-!*background: t_background
-!*foreground: t_foreground
-*background: c_background
+*background: t_background
 *foreground: t_foreground
+!*background: c_background
+!*foreground: t_foreground
 
 ! black
 !*color0: b_current_line
 !*color8: b_selection
-!*color0: t_current_line
-!*color8: t_selection
-*color0: c_current_line
-*color8: c_selection
+*color0: t_current_line
+*color8: t_selection
+!*color0: c_current_line
+!*color8: c_selection
 
 ! red
 *color1: b_red
@@ -79,7 +79,7 @@
 ! white
 !*color7: b_comment
 !*color15: b_foreground
-!*color7: t_comment
-!*color15: t_foreground
-*color7: c_comment
+*color7: t_comment
 *color15: t_foreground
+!*color7: c_comment
+!*color15: t_foreground
