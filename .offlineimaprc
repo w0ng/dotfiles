@@ -3,8 +3,8 @@
 ###
 [general]
 ui = ttyui
-accounts = gmail,mq,wongdev
-maxsyncaccounts = 3
+accounts = gmail,wongdev
+maxsyncaccounts = 2
 pythonfile = ~/.mutt/nametrans.py
 
 [mbnames]
@@ -18,6 +18,9 @@ footer = "\n"
 [Account gmail]
 localrepository = gmail-local
 remoterepository = gmail-remote
+# background: minutes between syncs; num quick-syncs between auto refreshes
+autorefresh = 3
+quick = 6
 
 [Repository gmail-local]
 type = Maildir
@@ -27,36 +30,22 @@ nametrans = nt_local
 [Repository gmail-remote]
 type = Gmail
 remoteuser = akamchoiw@gmail.com
-remotepass = XXXXXXXXXXX
 realdelete = no
 postsynchook = notmuch new
 maxconnections = 3
 nametrans = nt_remote
 sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+# background: seconds to hold connection between; requires 'autorefresh' set
+keepalive = 60
+holdconnectionopen = yes
 
-
-[Account mq]
-localrepository = mq-local
-remoterepository = mq-remote
-
-[Repository mq-local]
-type = Maildir
-localfolders = ~/.mutt/maildir/mq
-nametrans = nt_local
-
-[Repository mq-remote]
-type = Gmail
-remoteuser = andrew.wong@students.mq.edu.au
-remotepass = XXXXXXXXXXX
-realdelete = no
-postsynchook = notmuch new
-maxconnections = 3
-nametrans = nt_remote
-sslcacertfile = /etc/ssl/certs/ca-certificates.crt
 
 [Account wongdev]
 localrepository = wongdev-local
 remoterepository = wongdev-remote
+# background: minutes between syncs; num quick-syncs between auto refreshes
+autorefresh = 3
+quick = 6
 
 [Repository wongdev-local]
 type = Maildir
@@ -65,9 +54,8 @@ nametrans = nt_local
 
 [Repository wongdev-remote]
 type = IMAP
-remotehost = syds14-n2s.hosting-services.net.au
+remotehost = c2s3-1e-syd.hosting-services.net.au
 remoteuser = andrew@wongdev.com
-remotepass = XXXXXXXXXXX
 remoteport = 993
 realdelete = no
 postsynchook = notmuch new
@@ -75,3 +63,6 @@ maxconnections = 3
 nametrans = nt_remote
 ssl = yes
 sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+# background: seconds to hold connection between; requires 'autorefresh' set
+keepalive = 60
+holdconnectionopen = yes
