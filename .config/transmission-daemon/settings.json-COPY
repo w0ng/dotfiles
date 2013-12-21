@@ -23,6 +23,7 @@
     "lpd-enabled": false, 
     "message-level": 2, 
     "peer-congestion-algorithm": "", 
+    "peer-id-ttl-hours": 6, 
     "peer-limit-global": 250, 
     "peer-limit-per-torrent": 250, 
     "peer-port": 51413, 
@@ -61,7 +62,7 @@
     "trash-original-torrent-files": true, 
     "umask": 18, 
     "upload-slots-per-torrent": 3, 
-    "utp-enabled": false, 
+    "utp-enabled": false,
     "watch-dir": "/home/w0ng/downloads", 
     "watch-dir-enabled": true
 }
