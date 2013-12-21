@@ -1,0 +1,4 @@
+map <C-n> gt
+map <C-p> gT
+
+map ; :
