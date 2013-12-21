@@ -179,16 +179,6 @@ class chain(Command):
             self.fm.execute_console(command)
 
 
-class search(Command):
-    def execute(self):
-        self.fm.search_file(self.rest(1), regexp=True)
-
-
-class search_inc(Command):
-    def quick(self):
-        self.fm.search_file(self.rest(1), regexp=True, offset=0)
-
-
 class shell(Command):
     escape_macros_for_shell = True
 
@@ -204,7 +194,7 @@ class shell(Command):
             command = 'cat %f'
         if command:
             if '%' in command:
-                command = self.fm.substitute_macros(command)
+                command = self.fm.substitute_macros(command, escape=True)
             self.fm.execute_command(command, flags=flags)
 
     def tab(self):
@@ -327,60 +317,6 @@ class open_with(Command):
         return all(x in '0123456789' for x in arg)
 
 
-class find(Command):
-    """:find <string>
-
-    The find command will attempt to find a partial, case insensitive
-    match in the filenames of the current directory and execute the
-    file automatically.
-    """
-
-    count = 0
-    tab = Command._tab_directory_content
-
-    def execute(self):
-        if self.quick():
-            if self.rest(1) == '..':
-                self.fm.move(left=1)
-            else:
-                self.fm.move(right=1)
-            self.fm.block_input(0.5)
-        else:
-            self.fm.cd(self.rest(1))
-
-    def quick(self):
-        self.count = 0
-        cwd = self.fm.thisdir
-        arg = self.rest(1)
-        if not arg:
-            return False
-
-        if arg == '.':
-            return False
-        if arg == '..':
-            return True
-
-        deq = deque(cwd.files)
-        deq.rotate(-cwd.pointer)
-        i = 0
-        case_insensitive = arg.lower() == arg
-        for fsobj in deq:
-            if case_insensitive:
-                filename = fsobj.basename_lower
-            else:
-                filename = fsobj.basename
-            if arg in filename:
-                self.count += 1
-                if self.count == 1:
-                    cwd.move(to=(cwd.pointer + i) % len(cwd.files))
-                    self.fm.thisfile = cwd.pointed_obj
-            if self.count > 1:
-                return False
-            i += 1
-
-        return self.count == 1
-
-
 class set_(Command):
     """:set <option name>=<python expression>
 
@@ -430,6 +366,18 @@ class setlocal(set_):
             name = self.arg(1)
             name, value, _ = self.parse_setting_line()
             self.fm.set_option_from_string(name, value, localpath=path)
+
+
+class setintag(setlocal):
+    """:setintag <tag or tags> <option name>=<option value>
+
+    Sets an option for directories that are tagged with a specific tag.
+    """
+    def execute(self):
+        tags = self.arg(1)
+        self.shift()
+        name, value, _ = self.parse_setting_line()
+        self.fm.set_option_from_string(name, value, tags=tags)
 
 
 class quit(Command):
@@ -524,28 +472,6 @@ class delete(Command):
             self.fm.delete()
 
 
-class mark(Command):
-    """:mark <regexp>
-
-    Mark all files matching a regular expression.
-    """
-    do_mark = True
-
-    def execute(self):
-        import re
-        cwd = self.fm.thisdir
-        input = self.rest(1)
-        searchflags = re.UNICODE
-        if input.lower() == input: # "smartcase"
-            searchflags |= re.IGNORECASE
-        pattern = re.compile(input, searchflags)
-        for fileobj in cwd.files:
-            if pattern.search(fileobj.basename):
-                cwd.mark_item(fileobj, val=self.do_mark)
-        self.fm.ui.status.need_redraw = True
-        self.fm.ui.need_redraw = True
-
-
 class mark_tag(Command):
     """:mark_tag [<tags>]
 
@@ -593,7 +519,7 @@ class load_copy_buffer(Command):
     """
     copy_buffer_filename = 'copy_buffer'
     def execute(self):
-        from ranger.fsobject import File
+        from ranger.container.file import File
         from os.path import exists
         try:
             fname = self.fm.confpath(self.copy_buffer_filename)
@@ -623,14 +549,6 @@ class save_copy_buffer(Command):
                     (fname or self.copy_buffer_filename), bad=True)
         f.write("\n".join(f.path for f in self.fm.copy_buffer))
         f.close()
-
-
-class unmark(mark):
-    """:unmark <regexp>
-
-    Unmark all files matching a regular expression.
-    """
-    do_mark = False
 
 
 class unmark_tag(mark_tag):
@@ -744,7 +662,7 @@ class rename(Command):
     """
 
     def execute(self):
-        from ranger.fsobject import File
+        from ranger.container.file import File
         from os import access
 
         new_name = self.rest(1)
@@ -819,7 +737,7 @@ class bulkrename(Command):
     def execute(self):
         import sys
         import tempfile
-        from ranger.fsobject.file import File
+        from ranger.container.file import File
         from ranger.ext.shell_escape import shell_escape as esc
         py3 = sys.version > "3"
 
@@ -867,7 +785,7 @@ class relink(Command):
     """
 
     def execute(self):
-        from ranger.fsobject import File
+        from ranger.container.file import File
 
         new_path = self.rest(1)
         cf = self.fm.thisfile
@@ -1035,79 +953,182 @@ class pmap(map_):
     context = 'pager'
 
 
-class travel(Command):
-    """:travel <string>
+class scout(Command):
+    """:scout [-FLAGS] <pattern>
 
-    Filters the current directory for files containing the letters in the
-    string, possibly with other letters in between.  The filter is applied as
-    you type.  When only one directory is left, it is entered and the console
-    is automatially reopened, allowing for fast travel.
-    To close the console, press ESC or execute a file.
+    Swiss army knife command for searching, traveling and filtering files.
+    The command takes various flags as arguments which can be used to
+    influence its behaviour:
+
+    -a = automatically open a file on unambiguous match
+    -e = open the selected file when pressing enter
+    -f = filter files that match the current search pattern
+    -g = interpret pattern as a glob pattern
+    -i = ignore the letter case of the files
+    -k = keep the console open when changing a directory with the command
+    -l = letter skipping; e.g. allow "rdme" to match the file "readme"
+    -m = mark the matching files after pressing enter
+    -M = unmark the matching files after pressing enter
+    -p = permanent filter: hide non-matching files after pressing enter
+    -s = smart case; like -i unless pattern contains upper case letters
+    -t = apply filter and search pattern as you type
+    -v = inverts the match
+
+    Multiple flags can be combined.  For example, ":scout -gpt" would create
+    a :filter-like command using globbing.
     """
+    AUTO_OPEN       = 'a'
+    OPEN_ON_ENTER   = 'e'
+    FILTER          = 'f'
+    SM_GLOB         = 'g'
+    IGNORE_CASE     = 'i'
+    KEEP_OPEN       = 'k'
+    SM_LETTERSKIP   = 'l'
+    MARK            = 'm'
+    UNMARK          = 'M'
+    PERM_FILTER     = 'p'
+    SM_REGEX        = 'r'
+    SMART_CASE      = 's'
+    AS_YOU_TYPE     = 't'
+    INVERT          = 'v'
+
+    def __init__(self, *args, **kws):
+        Command.__init__(self, *args, **kws)
+        self._regex = None
+        self.flags, self.pattern = self.parse_flags()
 
     def execute(self):
         thisdir = self.fm.thisdir
+        flags   = self.flags
+        pattern = self.pattern
+        regex   = self._build_regex()
+        count   = self._count(move=True)
 
-        self.cancel() # Clean up
-        if self.rest(1) == "..":
-            self.fm.move(left=1)
-        elif len(thisdir.files) > 0:
-            self.fm.move(right=1)
-        else:
-            self.fm.cd(self.rest(1))
+        self.fm.thistab.last_search = regex
+        self.fm.set_search_method(order="search")
 
-        # reopen the console:
-        if thisdir != self.fm.thisdir:
-            self.fm.open_console(self.__class__.__name__ + " ")
-            if self.rest(1) != "..":
-                self.fm.block_input(0.5)
+        if self.MARK in flags or self.UNMARK in flags:
+            value = flags.find(self.MARK) > flags.find(self.UNMARK)
+            if self.FILTER in flags:
+                for f in thisdir.files:
+                    thisdir.mark_item(f, value)
+            else:
+                for f in thisdir.files:
+                    if regex.search(f.basename):
+                        thisdir.mark_item(f, value)
+
+        if self.PERM_FILTER in flags:
+            thisdir.filter = regex if pattern else None
+
+        # clean up:
+        self.cancel()
+
+        if self.OPEN_ON_ENTER in flags or \
+                self.AUTO_OPEN in flags and count == 1:
+            if os.path.exists(pattern):
+                self.fm.cd(pattern)
+            else:
+                self.fm.move(right=1)
+
+        if self.KEEP_OPEN in flags and thisdir != self.fm.thisdir:
+            # reopen the console:
+            self.fm.open_console(self.line[0:-len(pattern)])
+
+        if thisdir != self.fm.thisdir and pattern != "..":
+            self.fm.block_input(0.5)
 
     def cancel(self):
         self.fm.thisdir.temporary_filter = None
-        self.fm.thisdir.load_content(schedule=False)
+        self.fm.thisdir.refilter()
 
     def quick(self):
-        self.fm.thisdir.temporary_filter = self.build_regex(self.rest(1))
-        self.fm.thisdir.load_content(schedule=False)
-        arg = self.rest(1)
-
-        if arg == ".":
-            return False # Make sure we can always use ".."
-        elif arg and len(self.fm.thisdir.files) == 1 or arg == "..":
+        asyoutype = self.AS_YOU_TYPE in self.flags
+        if self.FILTER in self.flags:
+            self.fm.thisdir.temporary_filter = self._build_regex()
+        if self.PERM_FILTER in self.flags and asyoutype:
+            self.fm.thisdir.filter = self._build_regex()
+        if self.FILTER in self.flags or self.PERM_FILTER in self.flags:
+            self.fm.thisdir.refilter()
+        if self._count(move=asyoutype) == 1 and self.AUTO_OPEN in self.flags:
             return True
+        return False
 
     def tab(self):
-        if self.fm.thisdir.files[-1] is not self.fm.thisfile:
-            self.fm.move(down=1)
+        self._count(move=True, offset=1)
+
+    def _build_regex(self):
+        if self._regex is not None:
+            return self._regex
+
+        frmat   = "%s"
+        flags   = self.flags
+        pattern = self.pattern
+
+        if pattern == ".":
+            return re.compile("")
+
+        # Handle carets at start and dollar signs at end separately
+        if pattern.startswith('^'):
+            pattern = pattern[1:]
+            frmat = "^" + frmat
+        if pattern.endswith('$'):
+            pattern = pattern[:-1]
+            frmat += "$"
+
+        # Apply one of the search methods
+        if self.SM_REGEX in flags:
+            regex = pattern
+        elif self.SM_GLOB in flags:
+            regex = re.escape(pattern).replace("\\*", ".*").replace("\\?", ".")
+        elif self.SM_LETTERSKIP in flags:
+            regex = ".*".join(re.escape(c) for c in pattern)
         else:
-            # We're at the bottom, so wrap
-            self.fm.move(to=0)
+            regex = re.escape(pattern)
 
-    def build_regex(self, arg):
-        regex = "%s"
-        if arg.endswith("$"):
-            arg = arg[:-1]
-            regex += "$"
-        if arg.startswith("^"):
-            arg = arg[1:]
-            regex = "^" + regex
+        regex = frmat % regex
 
-        case_insensitive = arg.lower() == arg
-        flags = re.I if case_insensitive else 0
-        return re.compile(regex % ".*".join(arg), flags)
+        # Invert regular expression if necessary
+        if self.INVERT in flags:
+            regex = "^(?:(?!%s).)*$" % regex
 
+        # Compile Regular Expression
+        options = re.LOCALE | re.UNICODE
+        if self.IGNORE_CASE in flags or self.SMART_CASE in flags and \
+                pattern.islower():
+            options |= re.IGNORECASE
+        try:
+            self._regex = re.compile(regex, options)
+        except:
+            self._regex = re.compile("")
+        return self._regex
 
-class filter(Command):
-    """:filter <string>
+    def _count(self, move=False, offset=0):
+        count   = 0
+        cwd     = self.fm.thisdir
+        pattern = self.pattern
 
-    Displays only the files which contain <string> in their basename.
-    """
+        if not pattern:
+            return 0
+        if pattern == '.':
+            return 0
+        if pattern == '..':
+            return 1
 
-    def execute(self):
-        self.fm.set_filter(self.rest(1))
-        self.fm.reload_cwd()
+        deq = deque(cwd.files)
+        deq.rotate(-cwd.pointer - offset)
+        i = offset
+        regex = self._build_regex()
+        for fsobj in deq:
+            if regex.search(fsobj.basename):
+                count += 1
+                if move and count == 1:
+                    cwd.move(to=(cwd.pointer + i) % len(cwd.files))
+                    self.fm.thisfile = cwd.pointed_obj
+            if count > 1:
+                return count
+            i += 1
 
-    quick = execute
+        return count == 1
 
 
 class grep(Command):
@@ -1122,3 +1143,102 @@ class grep(Command):
             action.extend(['-e', self.rest(1), '-r'])
             action.extend(f.path for f in self.fm.thistab.get_selection())
             self.fm.execute_command(action, flags='p')
+
+
+# Version control commands
+# --------------------------------
+class stage(Command):
+    """
+    :stage
+
+    Stage selected files for the corresponding version control system
+    """
+    def execute(self):
+        from ranger.ext.vcs import VcsError
+
+        filelist = [f.path for f in self.fm.thistab.get_selection()]
+        self.fm.thisdir.vcs_outdated = True
+#        for f in self.fm.thistab.get_selection():
+#            f.vcs_outdated = True
+
+        try:
+            self.fm.thisdir.vcs.add(filelist)
+        except VcsError:
+            self.fm.notify("Could not stage files.")
+
+        self.fm.reload_cwd()
+
+
+class unstage(Command):
+    """
+    :unstage
+
+    Unstage selected files for the corresponding version control system
+    """
+    def execute(self):
+        from ranger.ext.vcs import VcsError
+
+        filelist = [f.path for f in self.fm.thistab.get_selection()]
+        self.fm.thisdir.vcs_outdated = True
+#        for f in self.fm.thistab.get_selection():
+#            f.vcs_outdated = True
+
+        try:
+            self.fm.thisdir.vcs.reset(filelist)
+        except VcsError:
+            self.fm.notify("Could not unstage files.")
+
+        self.fm.reload_cwd()
+
+
+class diff(Command):
+    """
+    :diff
+
+    Displays a diff of selected files against last last commited version
+    """
+    def execute(self):
+        from ranger.ext.vcs import VcsError
+        import tempfile
+
+        L = self.fm.thistab.get_selection()
+        if len(L) == 0: return
+
+        filelist = [f.path for f in L]
+        vcs = L[0].vcs
+
+        diff = vcs.get_raw_diff(filelist=filelist)
+        if len(diff.strip()) > 0:
+            tmp = tempfile.NamedTemporaryFile()
+            tmp.write(diff.encode('utf-8'))
+            tmp.flush()
+
+            pager = os.environ.get('PAGER', ranger.DEFAULT_PAGER)
+            self.fm.run([pager, tmp.name])
+        else:
+            raise Exception("diff is empty")
+
+
+class log(Command):
+    """
+    :log
+
+    Displays the log of the current repo or files
+    """
+    def execute(self):
+        from ranger.ext.vcs import VcsError
+        import tempfile
+
+        L = self.fm.thistab.get_selection()
+        if len(L) == 0: return
+
+        filelist = [f.path for f in L]
+        vcs = L[0].vcs
+
+        log = vcs.get_raw_log(filelist=filelist)
+        tmp = tempfile.NamedTemporaryFile()
+        tmp.write(log.encode('utf-8'))
+        tmp.flush()
+
+        pager = os.environ.get('PAGER', ranger.DEFAULT_PAGER)
+        self.fm.run([pager, tmp.name])
