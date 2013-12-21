@@ -33,7 +33,7 @@ HISTFILE="$HOME/.logs/zhistory"
 # -----------------------------------------------------------------------------
 
 [[ -n "$WORKON_HOME" ]] && (( $+commands[virtualenvwrapper.sh] )) && source "$commands[virtualenvwrapper.sh]"
-[[ -f "$HOME/.config/git-prompt.sh" ]] && source "$HOME/.config/git-prompt.sh"
+[[ -f "/usr/share/git/git-prompt.sh" ]] && source "/usr/share/git/git-prompt.sh"
 [[ -f "$HOME/.rbenv/completions/rbenv.zsh" ]] && source "$HOME/.rbenv/completions/rbenv.zsh"
 
 zstyle ':completion:*' menu select
@@ -122,16 +122,14 @@ bindkey -M vicmd '?' history-incremental-search-backward
 alias cower="cower -c -v"
 alias grep="grep --color=auto"
 alias ix="curl -n -F 'f:1=<-' http://ix.io"
-alias ll="ls++"
 alias ls="ls -hF --color=auto --group-directories-first"
+alias lsp="ls++"
 alias luksmount="sudo cryptsetup luksOpen /dev/sde1 luksusb && sudo mount -o gid=100,fmask=113,dmask=002 /dev/mapper/luksusb /mnt/usb"
 alias luksumount="sudo umount /mnt/usb && sudo cryptsetup luksClose /dev/mapper/luksusb"
 alias ntfsmount="sudo ntfs-3g -o gid=100,fmask=113,dmask=002 /dev/sde1 /mnt/usb"
 alias range="urxvtc -name ranger -e ranger"
-alias rra="sudo iptables -t nat -A OUTPUT -p tcp --dport 1935 -j REDIRECT"
-alias rrd="sudo iptables -t nat -D OUTPUT -p tcp --dport 1935 -j REDIRECT"
-alias so="scrot -cd 3 ~/pictures/tmp.png && ompload ~/pictures/tmp.png"
 alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
+alias ts="scrot -cd 3 ~/pictures/tmp.png && ompload ~/pictures/tmp.png"
 alias tm="urxvtc -name chatmail -e tmux attach-session -d -t 0"
 alias usbmount="sudo mount -o gid=100,fmask=113,dmask=002 /dev/sde1 /mnt/usb"
 alias usbumount="sudo umount /mnt/usb"
