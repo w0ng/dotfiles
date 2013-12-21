@@ -129,7 +129,7 @@ alias luksumount="sudo umount /mnt/usb && sudo cryptsetup luksClose /dev/mapper/
 alias ntfsmount="sudo ntfs-3g -o gid=100,fmask=113,dmask=002 /dev/sde1 /mnt/usb"
 alias range="urxvtc -name ranger -e ranger"
 alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
-alias ts="scrot -cd 3 ~/pictures/tmp.png && ompload ~/pictures/tmp.png"
+alias ts="scrot -cd 3 ~/pictures/tmp.png && imgurbash ~/pictures/tmp.png"
 alias tm="urxvtc -name chatmail -e tmux attach-session -d -t 0"
 alias usbmount="sudo mount -o gid=100,fmask=113,dmask=002 /dev/sde1 /mnt/usb"
 alias usbumount="sudo umount /mnt/usb"
