@@ -24,9 +24,9 @@ hi -a StatusLineNormal color:#C5C8C6 !important; background:#282A2E !important;
 " Font {{{
 " -----------------------------------------------------------------------------
 
-hi FontCode -a font-family: Terminus important; font-size: 9pt !important;
-hi FontFixed -a font-family: Terminus !important; font-size: 9pt !important;
-hi Normal -a font-family: Terminus !important; font-size: 9pt !important;
+hi FontCode -a font-family: Tamsyn important; font-size: 10.5pt !important;
+hi FontFixed -a font-family: Tamsyn !important; font-size: 10.5pt !important;
+hi Normal -a font-family: Tamsyn !important; font-size: 10.5pt !important;
 
 "}}}
 " Mappings {{{
@@ -93,16 +93,16 @@ style -name minitabs chrome://* <<EOM
     background: #282A2E !important;
     border: none !important;
     color: #707880 !important;
-    font-family: Terminus;
-    font-size: 9pt !important;
+    font-family: Tamsyn;
+    font-size: 10.5pt !important;
     height: 18px !important;
     margin: 0 !important;
     min-height: 0 !important;
     padding: 0 0.5ex !important;
   }
   .tabbrowser-tab:not([pinned]) {
-    max-width: 100px !important;
-    min-width: 100px !important;
+    max-width: 125px !important;
+    min-width: 125px !important;
   }
   .tabbrowser-tab:not([fadein]) {
     max-width: 1px !important;

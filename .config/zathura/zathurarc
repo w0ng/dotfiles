@@ -4,9 +4,9 @@
 
 set default-bg "#1d1f21"
 set default-fg "#C5C8C6"
-set font "Terminus normal 9"
-set inputbar-bg "#1d1f21"
-set inputbar-fg "#f0c674"
+set font "Tamsyn normal 10.5"
+#set inputbar-bg "#1d1f21"
+set inputbar-fg "#1d1f21"
 set statusbar-bg "#282a2e"
 set statusbar-fg "#C5C8C6"
 set recolor-lightcolor "#1d1f21"
