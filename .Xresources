@@ -16,6 +16,7 @@ URxvt.scrollBar: off
 URxvt.urgentOnBell: True
 URxvt.visualBell: True
 URxvt.cursorColor: #00FFFF
+URxvt.backgroundPixmap: /home/w0ng/pictures/wallpapers/noisebg.png\;style=tiled
 ! bold, italic, underline
 URxvt.colorBD: #B5BD68
 URxvt.colorIT: #B294BB
