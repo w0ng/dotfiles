@@ -41,8 +41,14 @@ vmap -builtin ; :
 vmap -builtin : ;
 nmap -builtin <C-S-n> :tabmove! +1<CR>
 nmap -builtin <C-S-p> :tabmove! -1<CR>
-nmap -builtin s :open l<Space>
-nmap -builtin S :tabopen l<Space>
+
+" Noscript plugin
+nmap -builtin ss :set script!<CR>
+nmap -builtin sa :set noscript-sites!=<A-Tab>
+nmap -builtin st :set noscript-tempsites!=<A-Tab>
+nmap -builtin su :set noscript-untrusted!=<A-Tab>
+
+
 
 "}}}
 " Toggle Styles {{{
