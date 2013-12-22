@@ -16,16 +16,15 @@ URxvt.scrollBar: off
 URxvt.urgentOnBell: True
 URxvt.visualBell: True
 URxvt.cursorColor: #00FFFF
-URxvt.backgroundPixmap: /home/w0ng/pictures/wallpapers/noisebg.png\;style=tiled
 ! bold, italic, underline
 URxvt.colorBD: #B5BD68
 URxvt.colorIT: #B294BB
 URxvt.colorUL: #81A2BE
 ! font
-URxvt.font: -*-tamsyn-medium-*-*-*-14-*-*-*-*-*-*-*, xft:unifontdashed
-URxvt.boldFont:  -*-tamsyn-medium-*-*-*-14-*-*-*-*-*-*-*, xft:unifontdashed
-URxvt.italicFont: -*-tamsyn-medium-*-*-*-14-*-*-*-*-*-*-*, xft:unifontdashed
-URxvt.boldItalicFont: -*-tamsyn-medium-*-*-*-14-*-*-*-*-*-*-*, xft:unifontdashed
+URxvt.font: -*-tamsyn-medium-*-*-*-14-*-*-*-*-*-*-*, -*-terminus-medium-r-*-*-*-*-*-*-*-*-iso10646-*, xft:unifontdashed
+URxvt.boldFont:  -*-tamsyn-medium-*-*-*-14-*-*-*-*-*-*-*, -*-terminus-medium-r-*-*-*-*-*-*-*-*-iso10646-*, xft:unifontdashed
+URxvt.italicFont: -*-tamsyn-medium-*-*-*-14-*-*-*-*-*-*-*, -*-terminus-medium-r-*-*-*-*-*-*-*-*-iso10646-*, xft:unifontdashed
+URxvt.boldItalicFont: -*-tamsyn-medium-*-*-*-14-*-*-*-*-*-*-*, -*-terminus-medium-r-*-*-*-*-*-*-*-*-iso10646-*, xft:unifontdashed
 ! extensions
 URxvt.perl-ext-common: default,clipboard,keyboard-select,url-select
 ! clipboard
