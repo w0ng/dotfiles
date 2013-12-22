@@ -51,7 +51,6 @@ alternative_order text/plain text/enriched text/html
 
 # override with account specific folder-hooks
 folder-hook gmail/*   source ~/.mutt/accounts/gmail
-folder-hook mq/*      source ~/.mutt/accounts/mq
 folder-hook wongdev/* source ~/.mutt/accounts/wongdev
 
 # collapse subscribed mailing threads
@@ -81,7 +80,6 @@ bind   index,pager   R         group-reply
 
 # shortcut macros
 macro index ,g  "<change-folder> =gmail/inbox<enter>"         "go to Gmail Inbox"
-macro index ,m  "<change-folder> =mq/inbox<enter>"            "go to MQ Inbox"
 macro index ,w  "<change-folder> =wongdev/inbox<enter>"       "go to wongdev Inbox"
 macro index ,aa "<change-folder> =gmail/arch_announce<enter>" "go to Arch Announce"
 macro index ,ad "<change-folder> =gmail/arch_dev<enter>"      "go to Arch Dev"
@@ -96,4 +94,3 @@ source ~/.mutt/accounts/gmail
 # gpg signature
 source ~/.mutt/gpg.rc
 set crypt_autosign=yes
-set pgp_mime_signature_filename="signature.asc"
