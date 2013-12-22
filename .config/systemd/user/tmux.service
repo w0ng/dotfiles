@@ -1,0 +1,11 @@
+[Unit]
+Description=Tmux Server
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/tmux start-server
+ExecStop=/usr/bin/tmux kill-server
+RemainAfterExit=yes
+
+[Install]
+WantedBy=default.target

@@ -41,11 +41,5 @@ sh $HOME/.fehbg
 # enable compositing
 xcompmgr &
 
-# start apps in background (only if not already running)
-[[ -z "$(pidof mpd)" ]] && mpd
-[[ -z "$(pidof tmux)" ]] && tmux &
-[[ -z "$(pidof transmission-daemon)" ]] && transmission-daemon
-[[ -z "$(pidof urxvtd)" ]] && urxvtd -q -o -f
-
 # start WM
 exec $HOME/bin/dwm-start
