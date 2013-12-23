@@ -136,7 +136,7 @@ alias usbumount="sudo umount /mnt/usb"
 
 # }}}
 # Extract {{{
-# https://github.com/sorin-ionescu/prezto/blob/master/modules/archive/functions/extract
+# https://github.com/sorin-ionescu/prezto/tree/master/modules/archive/functions/unarchive
 # -----------------------------------------------------------------------------
 
 function extract() {
@@ -150,7 +150,7 @@ function extract() {
 usage: $0 [-option] [file ...]
 
 options:
--r, --remove    remove archive
+    -r, --remove    remove archive
 EOF
   fi
 
@@ -186,7 +186,9 @@ EOF
       (*.lzma) unlzma "$1" ;;
       (*.Z) uncompress "$1" ;;
       (*.zip) unzip "$1" -d $extract_dir ;;
-      (*.rar) unrar e -ad "$1" ;;
+      (*.rar) unrar &> /dev/null \
+        && unrar e -ad "$1" \
+        || rar e -ad "$1" ;;
       (*.7z) 7za x "$1" ;;
       (*.deb)
         mkdir -p "$extract_dir/control"
