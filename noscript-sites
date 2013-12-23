@@ -1,3 +1,4 @@
+127.0.0.1
 addons.mozilla.org
 afx.ms
 ajax.aspnetcdn.com
@@ -11,6 +12,7 @@ github.com
 github.global.ssl.fastly.net
 google.com
 googleapis.com
+googleusercontent.com
 gstatic.com
 hotmail.com
 informaction.com
@@ -42,6 +44,7 @@ yimg.com
 youtube.com
 ytimg.com
 about:blank
+dactyl:
 http://afx.ms
 http://firstdata.com
 http://firstdata.lv
@@ -50,6 +53,7 @@ http://gfx.ms
 http://github.com
 http://google.com
 http://googleapis.com
+http://googleusercontent.com
 http://gstatic.com
 http://hotmail.com
 http://informaction.com
@@ -86,6 +90,7 @@ https://gfx.ms
 https://github.com
 https://google.com
 https://googleapis.com
+https://googleusercontent.com
 https://gstatic.com
 https://hotmail.com
 https://informaction.com
