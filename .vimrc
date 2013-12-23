@@ -161,17 +161,12 @@ nnoremap <leader>r :CtrlPMRUFiles<CR>
 "}}}
 " Plugin Settings {{{
 " -----------------------------------------------------------------------------
+let g:ackprg = 'ag --nogroup --nocolor --column'
 let g:ctrlp_custom_ignore = {
       \ 'dir':  '\.git$\|\.hg$\|\.svn$\|__pycache__$',
       \ 'file': '\.pyc$\|\.so$\|\.swp$',
       \ }
-
-"if $TERM == 'rxvt-unicode-256color'
-"  let g:Powerline_symbols = 'fancy'
-"else
-  let g:Powerline_symbols = 'compatible'
-"endif
-
+let g:Powerline_symbols = 'compatible'
 let g:tex_flavor='latex'
 
 let g:neocomplcache_enable_at_startup = 1
