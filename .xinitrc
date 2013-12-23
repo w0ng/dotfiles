@@ -38,8 +38,5 @@ wmname LG3D
 # set background
 sh $HOME/.fehbg
 
-# enable compositing
-xcompmgr &
-
 # start WM
 exec $HOME/bin/dwm-start
