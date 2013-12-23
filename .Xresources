@@ -11,6 +11,7 @@ Xcursor.theme: Neutral
 #include "/home/w0ng/.config/termcolours/hybrid"
 
 ! URxvt Options
+URxvt.depth: 32
 URxvt.scrollstyle: rxvt
 URxvt.scrollBar: off
 URxvt.urgentOnBell: True
