@@ -80,7 +80,7 @@ colorscheme hybrid
 
 " gVim
 if has('gui_running')
-  set guifont=Inconsolata_g_Powerline\ 10.5
+  set guifont=Tamsyn\ 10.5
   set guioptions-=m               " remove menu
   set guioptions-=T               " remove toolbar
   set guioptions-=r               " remove right scrollbar
@@ -90,7 +90,6 @@ if has('gui_running')
   " Paste from PRIMARY and CLIPBOARD
   inoremap <silent> <M-v> <Esc>"+p`]a
   inoremap <silent> <S-Insert> <Esc>"*p`]a
-  colorscheme hybrid-light
 endif
 
 " vimdiff
