@@ -143,8 +143,8 @@ set pastetoggle=<F2>
 nnoremap <F4> :call ToggleColours()<CR>
 
 " Insert current date and time
-nnoremap <leader>d "=strftime("%d %b %Y %I:%M %p AEST")<CR>p
-nnoremap <leader>D "=strftime("%d %b %Y %I:%M %p AEST")<CR>P
+nnoremap <leader>d "=strftime("%F %R")<CR>p
+nnoremap <leader>D "=strftime("%F %R")<CR>P
 
 " Shortcut for ack
 nnoremap <leader>a :Ack<Space>
