@@ -224,7 +224,7 @@ autocmd FileType python setlocal omnifunc=python3complete#Complete
 " Indent rules
 autocmd FileType c setlocal noet ts=8 sw=8 sts=8
 autocmd FileType cpp,python setlocal ts=4 sw=4 sts=4
-autocmd FileType markdown setlocal ts=4 sw=4 sts=4 tw=79
+autocmd FileType markdown setlocal ts=4 sw=4 sts=4
 
 " Folding rules
 autocmd FileType c,cpp setlocal foldmethod=syntax
