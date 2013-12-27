@@ -62,10 +62,10 @@ set foldnestmax=1         " limit max folds for indent and syntax methods
 " Tabs
 set autoindent            " copy indent from previous line
 set expandtab             " replace tabs with spaces
-set shiftwidth=2          " spaces for autoindenting
+set shiftwidth=4          " spaces for autoindenting
 set smarttab              " <BS> removes shiftwidth worth of spaces
-set softtabstop=2         " spaces for editing, e.g. <Tab> or <BS>
-set tabstop=2             " spaces for <Tab>
+set softtabstop=4         " spaces for editing, e.g. <Tab> or <BS>
+set tabstop=4             " spaces for <Tab>
 
 " Searches
 set hlsearch              " highlight search results
@@ -80,21 +80,21 @@ colorscheme hybrid
 
 " gVim
 if has('gui_running')
-  set guifont=Tamsyn\ 10.5
-  set guioptions-=m               " remove menu
-  set guioptions-=T               " remove toolbar
-  set guioptions-=r               " remove right scrollbar
-  set guioptions-=b               " remove bottom scrollbar
-  set guioptions-=L               " remove left scrollbar
-  set guicursor+=a:block-blinkon0 " always use block cursor, no cursor blinking
-  " Paste from PRIMARY and CLIPBOARD
-  inoremap <silent> <M-v> <Esc>"+p`]a
-  inoremap <silent> <S-Insert> <Esc>"*p`]a
+    set guifont=Tamsyn\ 10.5
+    set guioptions-=m               " remove menu
+    set guioptions-=T               " remove toolbar
+    set guioptions-=r               " remove right scrollbar
+    set guioptions-=b               " remove bottom scrollbar
+    set guioptions-=L               " remove left scrollbar
+    set guicursor+=a:block-blinkon0 " always use block cursor, no cursor blinking
+    " Paste from PRIMARY and CLIPBOARD
+    inoremap <silent> <M-v> <Esc>"+p`]a
+    inoremap <silent> <S-Insert> <Esc>"*p`]a
 endif
 
 " vimdiff
 if &diff
-  set diffopt=filler,foldcolumn:0
+    set diffopt=filler,foldcolumn:0
 endif
 
 "}}}
@@ -163,9 +163,9 @@ nnoremap <leader>r :CtrlPMRUFiles<CR>
 " -----------------------------------------------------------------------------
 let g:ackprg = 'ag --nogroup --nocolor --column'
 let g:ctrlp_custom_ignore = {
-      \ 'dir':  '\.git$\|\.hg$\|\.svn$\|__pycache__$',
-      \ 'file': '\.pyc$\|\.so$\|\.swp$',
-      \ }
+            \ 'dir':  '\.git$\|\.hg$\|\.svn$\|__pycache__$',
+            \ 'file': '\.pyc$\|\.so$\|\.swp$',
+            \ }
 let g:Powerline_symbols = 'compatible'
 let g:tex_flavor='latex'
 
@@ -177,13 +177,13 @@ let g:neocomplcache_min_syntax_length = 3
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 
 let g:neocomplcache_dictionary_filetype_lists = {
-      \ 'default' : '',
-      \ 'vimshell' : $HOME.'/.vimshell_hist',
-      \ 'scheme' : $HOME.'/.gosh_completions'
-      \ }
+            \ 'default' : '',
+            \ 'vimshell' : $HOME.'/.vimshell_hist',
+            \ 'scheme' : $HOME.'/.gosh_completions'
+            \ }
 
 if !exists('g:neocomplcache_keyword_patterns')
-  let g:neocomplcache_keyword_patterns = {}
+    let g:neocomplcache_keyword_patterns = {}
 endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
@@ -191,7 +191,7 @@ inoremap <expr><C-g>     neocomplcache#undo_completion()
 inoremap <expr><C-l>     neocomplcache#complete_common_string()
 inoremap <expr><silent> <CR> <SID>my_cr_function()
 function! s:my_cr_function()
-  return pumvisible() ? neocomplcache#close_popup() . "\<CR>" : "\<CR>"
+    return pumvisible() ? neocomplcache#close_popup() . "\<CR>" : "\<CR>"
 endfunction
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
@@ -201,7 +201,7 @@ inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
 " Enable heavy omni completion.
 if !exists('g:neocomplcache_omni_patterns')
-  let g:neocomplcache_omni_patterns = {}
+    let g:neocomplcache_omni_patterns = {}
 endif
 let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
@@ -211,7 +211,7 @@ let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
 " Complete from different filetypes
 if !exists('g:neocomplcache_same_filetype_lists')
-  let g:neocomplcache_same_filetype_lists = {}
+    let g:neocomplcache_same_filetype_lists = {}
 endif
 
 "}}}
@@ -223,8 +223,7 @@ autocmd FileType python setlocal omnifunc=python3complete#Complete
 
 " Indent rules
 autocmd FileType c setlocal noet ts=8 sw=8 sts=8
-autocmd FileType cpp,python setlocal ts=4 sw=4 sts=4
-autocmd FileType markdown setlocal ts=4 sw=4 sts=4
+autocmd FileType markdown setlocal tw=79
 
 " Folding rules
 autocmd FileType c,cpp setlocal foldmethod=syntax
@@ -232,22 +231,22 @@ autocmd FileType css,html,htmldjango setlocal foldmethod=indent foldnestmax=20
 
 " Set correct markdown extensions
 autocmd BufNewFile,BufRead *.markdown,*.md,*.mdown,*.mkd,*.mkdn
-      \ if &ft =~# '^\%(conf\|modula2\)$' |
-      \   set ft=markdown |
-      \ else |
-      \   setf markdown |
-      \ endif
+            \ if &ft =~# '^\%(conf\|modula2\)$' |
+            \   set ft=markdown |
+            \ else |
+            \   setf markdown |
+            \ endif
 
 "}}}
 " Functions {{{
 " -----------------------------------------------------------------------------
 
 function! ToggleColours()
-if g:colors_name == 'hybrid'
-  colorscheme hybrid-light
-else
-  colorscheme hybrid
-endif
+    if g:colors_name == 'hybrid'
+        colorscheme hybrid-light
+    else
+        colorscheme hybrid
+    endif
 endfunction
 
 "}}}
