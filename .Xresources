@@ -22,10 +22,11 @@ URxvt.colorBD: #B5BD68
 URxvt.colorIT: #B294BB
 URxvt.colorUL: #81A2BE
 ! font
-URxvt.font: -*-tamsyn-medium-*-*-*-14-*-*-*-*-*-*-*, -*-terminus-medium-r-*-*-*-*-*-*-*-*-iso10646-*, xft:unifontdashed
-URxvt.boldFont:  -*-tamsyn-medium-*-*-*-14-*-*-*-*-*-*-*, -*-terminus-medium-r-*-*-*-*-*-*-*-*-iso10646-*, xft:unifontdashed
-URxvt.italicFont: -*-tamsyn-medium-*-*-*-14-*-*-*-*-*-*-*, -*-terminus-medium-r-*-*-*-*-*-*-*-*-iso10646-*, xft:unifontdashed
-URxvt.boldItalicFont: -*-tamsyn-medium-*-*-*-14-*-*-*-*-*-*-*, -*-terminus-medium-r-*-*-*-*-*-*-*-*-iso10646-*, xft:unifontdashed
+URxvt.font: xft:Cousine:size=9, xft:DejaVu Sans Mono:size=9
+URxvt.boldFont:  xft:Cousine:size=9, xft:DejaVu Sans Mono:size=9
+URxvt.italicFont: xft:Cousine:size=9, xft:DejaVu Sans Mono:size=9
+URxvt.boldItalicFont: xft:Cousine:size=9, xft:DejaVu Sans Mono:size=9
+URxvt.letterSpace: -2
 ! extensions
 URxvt.perl-ext-common: default,clipboard,keyboard-select,url-select
 ! clipboard

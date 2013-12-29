@@ -80,7 +80,7 @@ colorscheme hybrid
 
 " gVim
 if has('gui_running')
-    set guifont=Tamsyn\ 10.5
+    set guifont=Cousine\ 9
     set guioptions-=m               " remove menu
     set guioptions-=T               " remove toolbar
     set guioptions-=r               " remove right scrollbar
