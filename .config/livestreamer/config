@@ -1,1 +1,1 @@
-player=mpv -cache 1024
+player=mpv -cache 1024 -af drc
