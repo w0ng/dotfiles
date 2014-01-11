@@ -119,18 +119,13 @@ bindkey -M vicmd '?' history-incremental-search-backward
 # Aliases {{{
 # -----------------------------------------------------------------------------
 
-alias cower="cower -c -v"
+alias fm="urxvtc -name filemgr -e ranger"
 alias grep="grep --color=auto"
 alias ix="curl -n -F 'f:1=<-' http://ix.io"
 alias ls="ls -hF --color=auto --group-directories-first"
 alias lsp="ls++"
-alias luksmount="sudo cryptsetup luksOpen /dev/sde1 luksusb && sudo mount -o gid=100,fmask=113,dmask=002 /dev/mapper/luksusb /mnt/usb"
-alias luksumount="sudo umount /mnt/usb && sudo cryptsetup luksClose /dev/mapper/luksusb"
 alias ntfsmount="sudo ntfs-3g -o gid=100,fmask=113,dmask=002 /dev/sde1 /mnt/usb"
-alias range="urxvtc -name ranger -e ranger"
-alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
-alias ts="scrot -cd 3 ~/pictures/tmp.png && imgurbash ~/pictures/tmp.png"
-alias tm="urxvtc -name chatmail -e tmux attach-session -d -t 0"
+alias tm="urxvtc -name ircmailbt -e tmux attach-session -d -t 0"
 alias usbmount="sudo mount -o gid=100,fmask=113,dmask=002 /dev/sde1 /mnt/usb"
 alias usbumount="sudo umount /mnt/usb"
 
