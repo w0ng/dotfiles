@@ -1,0 +1,16 @@
+#
+# ~/.config/zathura/zathurarc
+#
+
+set default-bg "#1d1f21"
+set default-fg "#c5c8c6"
+set font "Cousine normal 9"
+#set inputbar-bg "#1d1f21"
+set inputbar-fg "#1d1f21"
+set statusbar-bg "#282a2e"
+set statusbar-fg "#c5c8c6"
+set recolor-lightcolor "#1d1f21"
+set recolor-darkcolor "#c5c8c6"
+
+map ; focus_inputbar ":"
+map , set nohlsearch

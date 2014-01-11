@@ -1,6 +1,0 @@
-map <C-n> gt
-map <C-p> gT
-
-map ; :
-
-set content = no
