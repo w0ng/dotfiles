@@ -62,11 +62,12 @@ channels = (
   { name = "#bash"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "##c"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#git"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "##javascript"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#pentadactyl"; chatnet = "oftc"; autojoin = "yes"; },
   { name = "#python"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#regex"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#suckless"; chatnet = "oftc"; autojoin = "yes"; },
-  { name = "#vim"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#zsh"; chatnet = "freenode"; autojoin = "yes"; }
+  { name = "#vim"; chatnet = "freenode"; autojoin = "yes"; }
 );
 
 aliases = {
@@ -291,12 +292,22 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
+        name = "##javascript";
+        tag = "freenode";
+      }
+    );
+  };
+  11 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
         name = "#pentadactyl";
         tag = "oftc";
       }
     );
   };
-  11 = {
+  12 = {
     items = (
       {
         type = "CHANNEL";
@@ -306,22 +317,12 @@ windows = {
       }
     );
   };
-  12 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#suckless";
-        tag = "oftc";
-      }
-    );
-  };
   13 = {
     items = (
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#vim";
+        name = "#regex";
         tag = "freenode";
       }
     );
@@ -331,7 +332,17 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#zsh";
+        name = "#suckless";
+        tag = "oftc";
+      }
+    );
+  };
+  15 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#vim";
         tag = "freenode";
       }
     );
