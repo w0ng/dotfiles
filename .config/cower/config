@@ -1,0 +1,4 @@
+# Use color in the output. This takes an optional arg of auto/never/always,
+# identical to the command line arg --color. If no arg is specified, this is
+# assumed to mean auto.
+Color = auto
