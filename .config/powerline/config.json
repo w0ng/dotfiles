@@ -3,12 +3,12 @@
 		"term_truecolor": false,
 		"dividers": {
 			"left": {
-				"hard": " ",
-				"soft": " "
+				"hard": "  ",
+				"soft": "│ "
 			},
 			"right": {
-				"hard": " ",
-				"soft": " "
+				"hard": "  ",
+				"soft": " │"
 			}
 		},
 		"spaces": 1

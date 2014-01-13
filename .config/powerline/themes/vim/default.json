@@ -1,7 +1,7 @@
 {
 	"segment_data": {
 		"branch": {
-			"before": " "
+			"before": "BR:"
 		},
 		"modified_indicator": {
 			"args": { "text": "+" }
@@ -11,7 +11,7 @@
 			"after": "%"
 		},
 		"line_current_symbol": {
-			"contents": " "
+			"contents": "LN"
 		}
 	},
 	"segments": {
