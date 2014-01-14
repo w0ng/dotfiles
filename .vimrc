@@ -16,6 +16,7 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 Bundle 'gmarik/vundle'
 " https://github.com/*
+Bundle 'Lokaltog/vim-powerline'
 Bundle 'Shougo/neocomplcache'
 Bundle 'godlygeek/tabular'
 Bundle 'kien/ctrlp.vim'
@@ -167,6 +168,7 @@ let g:ctrlp_custom_ignore = {
             \ 'file': '\.pyc$\|\.so$\|\.swp$',
             \ }
 let g:tex_flavor='latex'
+let g:Powerline_symbols = 'compatible'
 
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_smart_case = 1
