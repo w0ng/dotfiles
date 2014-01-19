@@ -62,6 +62,27 @@ $(__git_ps1 "[$fg_bold[red]%s$reset_color$fg[black]]")
 └─╼%{$reset_color%} '
 SPROMPT="Correct $fg_bold[red]%R$reset_color to $fg_bold[green]%r$reset_color [nyae]? "
 
+# Change cursor colour depending on vi mode.
+# $(man zshzle) for more info on zle functions.
+
+# Manual mode changes (i.e. by pressing <Esc> or <i>)
+function zle-keymap-select {
+    if [[ "$TERM" != "linux" ]]; then
+        if [[ "$KEYMAP" == "vicmd" ]]; then
+            printf "\033]12;red\007"
+        else
+            printf "\033]12;cyan\007"
+        fi
+    fi
+}
+zle -N zle-keymap-select
+
+# Start and finish each new line of input in insert mode
+function zle-line-init zle-line-finish {
+    zle -K viins
+}
+zle -N zle-line-init
+zle -N zle-line-finish
 
 # }}}
 # Title {{{
@@ -87,6 +108,7 @@ esac
 # }}}
 # Keybindings {{{
 # -----------------------------------------------------------------------------
+# Not using "bindkey -v" here because editing mode is set to vi in ~/.inputrc
 
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
