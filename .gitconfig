@@ -3,37 +3,37 @@
 #
 
 [user]
-	name = Andrew Wong
-  email = akamchoiw@gmail.com
+    name = Andrew Wong
+    email = wongadev@gmail.com
 [color]
-	ui = true
+    ui = true
 [color "branch"]
-  current = green bold
-  remote = red bold
+    current = green bold
+    remote = red bold
 [color "diff"]
-  meta = yellow
-  frag = cyan bold
-  old = red bold
-  new = green bold
+    meta = yellow
+    frag = cyan bold
+    old = red bold
+    new = green bold
 [color "status"]
-  added = green bold
-  changed = red bold
-  untracked = red bold
+    added = green bold
+    changed = red bold
+    untracked = red bold
 [core]
-	editor = vim
-	excludesfile = /home/w0ng/.gitignore_global
+    editor = vim
+    excludesfile = /home/w0ng/.gitignore_global
 [github]
-	user = w0ng
+    user = w0ng
 [diff]
-	tool = vimdiff
+    tool = vimdiff
 [difftool]
-	prompt = false
+    prompt = false
 [alias]
-	l = log --pretty=format:'%C(yellow)%h%C(magenta)%d%Creset %s %C(cyan)%cr%Creset' --graph
-	s = status -sb
+    l = log --pretty=format:'%C(yellow)%h%C(magenta)%d%Creset %s %C(cyan)%cr%Creset' --graph
+    s = status -sb
 [push]
-	default = simple
+    default = simple
 [merge]
-	tool = vimdiff
+    tool = vimdiff
 [mergetool]
-	keepBackup = false
+    keepBackup = false
