@@ -17,6 +17,7 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 " https://github.com/*
 Bundle 'Lokaltog/vim-powerline'
+Bundle 'Raimondi/delimitMate'
 Bundle 'Shougo/neocomplcache'
 Bundle 'godlygeek/tabular'
 Bundle 'hynek/vim-python-pep8-indent'
@@ -168,6 +169,7 @@ let g:ctrlp_custom_ignore = {
             \ 'dir':  '\.git$\|\.hg$\|\.svn$\|__pycache__$',
             \ 'file': '\.pyc$\|\.so$\|\.swp$',
             \ }
+let delimitMate_expand_cr = 1
 let g:tex_flavor='latex'
 let g:Powerline_symbols = 'compatible'
 
@@ -191,10 +193,8 @@ let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
 inoremap <expr><C-g>     neocomplcache#undo_completion()
 inoremap <expr><C-l>     neocomplcache#complete_common_string()
-inoremap <expr><silent> <CR> <SID>my_cr_function()
-function! s:my_cr_function()
-    return pumvisible() ? neocomplcache#close_popup() . "\<CR>" : "\<CR>"
-endfunction
+imap <expr><CR> pumvisible() ? neocomplcache#smart_close_popup() . "\<CR>"
+            \ : "<Plug>delimitMateCR"
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
@@ -215,6 +215,13 @@ let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 if !exists('g:neocomplcache_same_filetype_lists')
     let g:neocomplcache_same_filetype_lists = {}
 endif
+
+" Force Eclim to use neocomplcache
+let g:EclimCompletionMethod = 'omnifunc'
+if !exists('g:neocomplcache_force_omni_patterns')
+  let g:neocomplcache_force_omni_patterns = {}
+endif
+let g:neocomplcache_force_omni_patterns.java = '\k\.\k*'
 
 "}}}
 " Autocommands {{{
