@@ -145,16 +145,15 @@ set pastetoggle=<F2>
 " Toggle between light and dark colour schemes
 nnoremap <F4> :call ToggleColours()<CR>
 
-" Insert current date and time
-nnoremap <leader>d "=strftime("%F %R")<CR>p
-nnoremap <leader>D "=strftime("%F %R")<CR>P
-
-" Shortcut for ack
+" Shortcut to ack plugin
 nnoremap <leader>a :Ack<Space>
 
-" Shortcut for Tabularize
-nnoremap <leader>t :Tabularize /
-vnoremap <leader>t :Tabularize /
+" View javadoc of element under cursor
+nnoremap <leader>d :JavaDocPreview<CR>
+
+" Insert timestamp
+nnoremap <leader>t "=strftime("%F %R")<CR>p
+nnoremap <leader>T "=strftime("%F %R")<CR>P
 
 " Search and open buffer, files, recent
 nnoremap <leader>b :CtrlPBuffer<CR>
