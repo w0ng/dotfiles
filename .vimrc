@@ -234,7 +234,7 @@ autocmd FileType c setlocal noet ts=8 sw=8 sts=8
 autocmd FileType markdown setlocal tw=79
 
 " Folding rules
-autocmd FileType c,cpp setlocal foldmethod=syntax
+autocmd FileType c,cpp,java setlocal foldmethod=syntax foldnestmax=5
 autocmd FileType css,html,htmldjango setlocal foldmethod=indent foldnestmax=20
 
 " Set correct markdown extensions
