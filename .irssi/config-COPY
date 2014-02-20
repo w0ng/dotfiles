@@ -13,18 +13,8 @@ servers = (
     autoconnect = "yes";
   },
   {
-    address = "irc.oftc.net";
-    chatnet = "oftc";
-    port = "6697";
-    use_ssl = "yes";
-    ssl_cert = "~/.irssi/certs/oftc.pem";
-    ssl_verify = "yes";
-    ssl_capath = "/etc/ssl/certs/";
-    autoconnect = "yes";
-  },
-  {
-    #address = "client.oz.org";
-    address = "rockhampton.oz.org";
+    address = "client.oz.org";
+    #address = "rockhampton.oz.org";
     chatnet = "ozorg";
     port = "6667";
     use_ssl = "no";
@@ -50,7 +40,6 @@ chatnets = {
     autosendcmd = "/^msg &bitlbee identify XXXXXXXXXXXX;";
   };
   freenode = { type = "IRC"; };
-  oftc = { type = "IRC"; };
   ozorg = { type = "IRC"; };
   rizon = { type = "IRC"; };
 };
@@ -59,14 +48,13 @@ channels = (
   { name = "#archlinux"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#fsc"; chatnet = "rizon"; autojoin = "yes"; },
   { name = "#overclockers"; chatnet = "ozorg"; autojoin = "yes"; },
+  { name = "#android"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#android-dev"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#bash"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "##c"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#django"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#git"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "##javascript"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#pentadactyl"; chatnet = "oftc"; autojoin = "yes"; },
+  { name = "##java"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#python"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#regex"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#suckless"; chatnet = "oftc"; autojoin = "yes"; },
   { name = "#vim"; chatnet = "freenode"; autojoin = "yes"; }
 );
 
@@ -262,7 +250,7 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#bash";
+        name = "#android";
         tag = "freenode";
       }
     );
@@ -272,7 +260,7 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "##c";
+        name = "#android-dev";
         tag = "freenode";
       }
     );
@@ -282,7 +270,7 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#git";
+        name = "#bash";
         tag = "freenode";
       }
     );
@@ -292,7 +280,7 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "##javascript";
+        name = "#django";
         tag = "freenode";
       }
     );
@@ -302,8 +290,8 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#pentadactyl";
-        tag = "oftc";
+        name = "#git";
+        tag = "freenode";
       }
     );
   };
@@ -312,7 +300,7 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#python";
+        name = "##java";
         tag = "freenode";
       }
     );
@@ -322,22 +310,12 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#regex";
+        name = "#python";
         tag = "freenode";
       }
     );
   };
   14 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#suckless";
-        tag = "oftc";
-      }
-    );
-  };
-  15 = {
     items = (
       {
         type = "CHANNEL";
