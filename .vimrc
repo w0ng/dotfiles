@@ -235,7 +235,7 @@ autocmd FileType markdown setlocal tw=79
 
 " Folding rules
 autocmd FileType c,cpp,java setlocal foldmethod=syntax foldnestmax=5
-autocmd FileType css,html,htmldjango setlocal foldmethod=indent foldnestmax=20
+autocmd FileType css,html,htmldjango,xhtml setlocal foldmethod=indent foldnestmax=20
 
 " Set correct markdown extensions
 autocmd BufNewFile,BufRead *.markdown,*.md,*.mdown,*.mkd,*.mkdn
