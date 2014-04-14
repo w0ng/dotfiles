@@ -29,7 +29,7 @@ nametrans = nt_local
 
 [Repository gmail-remote]
 type = Gmail
-remoteuser = akamchoiw@gmail.com
+remoteuser = wongadev@gmail.com
 realdelete = no
 postsynchook = notmuch new
 maxconnections = 3

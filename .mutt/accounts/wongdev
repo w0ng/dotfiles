@@ -1,4 +1,4 @@
-  set from      = "andrew@devwong.com"
+  set from      = "andrew@wongdev.com"
   set sendmail  = "/usr/bin/msmtp -a wongdev"
   set mbox      = "+wongdev/inbox"
 unset record
