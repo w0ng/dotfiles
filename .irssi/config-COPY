@@ -13,8 +13,8 @@ servers = (
     autoconnect = "yes";
   },
   {
-    address = "client.oz.org";
-    #address = "rockhampton.oz.org";
+    #address = "client.oz.org";
+    address = "rockhampton.oz.org";
     chatnet = "ozorg";
     port = "6667";
     use_ssl = "no";
@@ -47,15 +47,7 @@ chatnets = {
 channels = (
   { name = "#archlinux"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#fsc"; chatnet = "rizon"; autojoin = "yes"; },
-  { name = "#overclockers"; chatnet = "ozorg"; autojoin = "yes"; },
-  { name = "#android"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#android-dev"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#bash"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#django"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#git"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "##java"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#python"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#vim"; chatnet = "freenode"; autojoin = "yes"; }
+  { name = "#overclockers"; chatnet = "ozorg"; autojoin = "yes"; }
 );
 
 aliases = {
@@ -121,13 +113,6 @@ statusbar = {
       items = {
         barstart = { priority = "100"; };
         awl_0 = { };
-        barend = { priority = "100"; alignment = "right"; };
-      };
-    };
-    awl_1 = {
-      items = {
-        barstart = { priority = "100"; };
-        awl_1 = { };
         barend = { priority = "100"; alignment = "right"; };
       };
     };
@@ -235,99 +220,9 @@ windows = {
       }
     );
   };
-  6 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#twitter_w0ng_au";
-        tag = "bitlbee";
-      }
-    );
-  };
-  7 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#android";
-        tag = "freenode";
-      }
-    );
-  };
-  8 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#android-dev";
-        tag = "freenode";
-      }
-    );
-  };
-  9 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#bash";
-        tag = "freenode";
-      }
-    );
-  };
-  10 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#django";
-        tag = "freenode";
-      }
-    );
-  };
-  11 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#git";
-        tag = "freenode";
-      }
-    );
-  };
-  12 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "##java";
-        tag = "freenode";
-      }
-    );
-  };
-  13 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#python";
-        tag = "freenode";
-      }
-    );
-  };
-  14 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#vim";
-        tag = "freenode";
-      }
-    );
-  };
   99 = { name = "hilight"; sticky = "yes"; };
 };
 mainwindows = {
-  1 = { first_line = "4"; lines = "81"; };
+  3 = { first_line = "4"; lines = "48"; };
   99 = { first_line = "1"; lines = "3"; };
 };
