@@ -132,7 +132,7 @@ settings = {
   "fe-text" = { actlist_sort = "refnum"; };
 
   "fe-common/core" = {
-    emphasis = "OFF";
+    emphasis = "yes";
     theme = "pbrisbin";
     beep_msg_level = "NOTICE MSGS HILIGHT";
     bell_beeps = "no";
