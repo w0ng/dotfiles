@@ -1,9 +1,9 @@
 # DO NOT EDIT! This file will be overwritten by LXAppearance.
 # Any customization should be done in ~/.gtkrc-2.0.mine instead.
 
-gtk-theme-name="Zukitwo"
-gtk-icon-theme-name="Faenza"
-gtk-font-name="PT Sans 9"
+gtk-theme-name="Numix"
+gtk-icon-theme-name="Numix"
+gtk-font-name="Roboto 9"
 gtk-cursor-theme-name="Neutral"
 gtk-cursor-theme-size=0
 gtk-toolbar-style=GTK_TOOLBAR_BOTH

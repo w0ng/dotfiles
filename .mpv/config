@@ -17,9 +17,9 @@ alang = en,eng
 # osd settings
 title = "${filename}"
 osd-level = 3
-osd-font = 'Noto Sans:style=Bold'
+osd-font = 'Roboto:style=Bold'
 osd-scale = 1.5
-sub-text-font = 'Noto Sans:style=Bold'
+sub-text-font = 'Roboto:style=Bold'
 sub-scale = 1.5
 
 # misc settings
