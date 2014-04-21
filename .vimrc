@@ -54,7 +54,7 @@ set spelllang=en_au       " spell check with Australian English
 set spellfile=~/.vim/spell/en.utf-8.add
 set textwidth=0           " don't break lines after some maximum width
 set ttyfast               " increase chars sent to screen for redrawing
-set ttyscroll=3           " limit lines to scroll to speed up display
+"set ttyscroll=3           " limit lines to scroll to speed up display
 set title                 " use filename in window title
 set wildmenu              " enhanced cmd line completion
 
