@@ -71,7 +71,7 @@ function zle-keymap-select {
         if [[ "$KEYMAP" == "vicmd" ]]; then
             printf "\033]12;red\007"
         else
-            printf "\033]12;cyan\007"
+            printf "\033]12;green\007"
         fi
     fi
 }

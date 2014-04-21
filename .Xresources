@@ -16,16 +16,16 @@ URxvt.scrollstyle: rxvt
 URxvt.scrollBar: off
 URxvt.urgentOnBell: True
 URxvt.visualBell: True
-URxvt.cursorColor: #00FFFF
+URxvt.cursorColor: #00FF00
 ! bold, italic, underline
 URxvt.colorBD: #B5BD68
 URxvt.colorIT: #B294BB
 URxvt.colorUL: #81A2BE
 ! font
-URxvt.font: xft:Inconsolata\\-g:style=g:size=10.5, xft:DejaVu Sans Mono:size=10.5
-URxvt.boldFont:  xft:Inconsolata\\-g:style=g:size=10.5, xft:DejaVu Sans Mono:size=10.5
-URxvt.italicFont: xft:Inconsolata\\-g:style=g:size=10.5, xft:DejaVu Sans Mono:size=10.5
-URxvt.boldItalicFont: xft:Inconsolata\\-g:style=g:size=10.5, xft:DejaVu Sans Mono:size=10.5
+URxvt.font: xft:Cousine:size=9, xft:DejaVu Sans Mono:size=9
+URxvt.boldFont:  xft:Cousine:size=9, xft:DejaVu Sans Mono:size=9
+URxvt.italicFont: xft:Cousine:size=9, xft:DejaVu Sans Mono:size=9
+URxvt.boldItalicFont: xft:Cousine:size=9, xft:DejaVu Sans Mono:size=9
 URxvt.letterSpace: -2
 ! extensions
 URxvt.perl-ext-common: default,clipboard,keyboard-select,url-select
