@@ -144,7 +144,7 @@ bindkey -M vicmd '?' history-incremental-search-backward
 alias fm="urxvtc -name filemgr -e ranger"
 alias grep="grep --color=auto"
 alias ix="curl -n -F 'f:1=<-' http://ix.io"
-alias ls="ls -hF --color=auto --group-directories-first"
+alias ls="ls -hFH --color=auto --group-directories-first"
 alias lsp="ls++ --potsf"
 alias ntfsmount="sudo ntfs-3g -o gid=100,fmask=113,dmask=002 /dev/sde1 /mnt/usb"
 alias tm="urxvtc -name ircmailbt -e tmux attach-session -d -t 0"
