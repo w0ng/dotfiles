@@ -24,9 +24,9 @@ hi -a StatusLineNormal color:#C5C8C6 !important; background:#282A2E !important;
 " Font {{{
 " -----------------------------------------------------------------------------
 
-hi FontCode -a font-family: Cousine important; font-size: 9pt !important;
-hi FontFixed -a font-family: Cousine !important; font-size: 9pt !important;
-hi Normal -a font-family: Cousine !important; font-size: 9pt !important;
+hi FontCode -a font-family: Terminus important; font-size: 8pt !important;
+hi FontFixed -a font-family: Terminus !important; font-size: 8pt !important;
+hi Normal -a font-family: Terminus !important; font-size: 8pt !important;
 
 "}}}
 " Mappings {{{
@@ -99,8 +99,8 @@ style -name minitabs chrome://* <<EOM
     background: #282A2E !important;
     border: none !important;
     color: #707880 !important;
-    font-family: Cousine;
-    font-size: 9pt !important;
+    font-family: Terminus;
+    font-size: 8pt !important;
     height: 18px !important;
     margin: 0 !important;
     min-height: 0 !important;
