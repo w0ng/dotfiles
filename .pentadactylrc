@@ -85,43 +85,68 @@ styledisable -name=hybrid
 "}}}
 " Style: Minimalistic Tabs {{{
 " -----------------------------------------------------------------------------
+" Based on http://userstyles.org/styles/99560/square-tab-for-firefox-australis
 
 style -name minitabs chrome://* <<EOM
-  #TabsToolbar toolbarbutton {
+#TabsToolbar toolbarbutton {
     display: none !important;
-  }
-  .tabbrowser-tabs {
+}
+
+#TabsToolbar .tabbrowser-tabs {
     background: #282A2E !important;
-  }
-  .tabbrowser-tab {
-    -moz-appearance: none !important;
-    -moz-border-radius: 0 !important;
+    min-height: 18px !important;
+    padding-bottom: 2px;
+}
+
+#TabsToolbar .tabbrowser-tab {
     background: #282A2E !important;
     border: none !important;
     color: #707880 !important;
-    font-family: Cousine;
-    font-size: 9pt !important;
-    height: 18px !important;
+    font: 9pt Cousine !important;
     margin: 0 !important;
-    min-height: 0 !important;
-    padding: 0 0.5ex !important;
-  }
-  .tabbrowser-tab:not([pinned]) {
-    max-width: 125px !important;
-    min-width: 125px !important;
-  }
-  .tabbrowser-tab:not([fadein]) {
-    max-width: 1px !important;
-    min-width: 1px !important;
-  }
-  .tabbrowser-tab:hover {
-    background: #F0C674 !important;
-    color: #282A2E !important;
-  }
-  .tabbrowser-tab[selected] {
+}
+
+#TabsToolbar .tabbrowser-tab[selected] {
     background: #282A2E !important;
     color: #F0C674 !important;
-  }
+}
+
+#TabsToolbar .tabbrowser-tab:not([pinned]) {
+    max-width: 125px !important;
+    min-width: 125px !important;
+}
+
+#TabsToolbar .tabbrowser-tab:not([fadein]) {
+    max-width: 1px !important;
+    min-width: 1px !important;
+}
+
+#TabsToolbar .tabbrowser-tab:hover:not([selected]) {
+    background: #F0C674 !important;
+    color: #282A2E !important;
+
+}
+
+#TabsToolbar .tab-background {
+    background: transparent !important;
+    margin: 0 !important;
+}
+
+#TabsToolbar .tab-background-start,
+#TabsToolbar .tab-background-end {
+    display: none !important;
+}
+
+#TabsToolbar .tab-background-middle {
+    background: transparent !important;
+    margin: -4px -2px !important;
+}
+
+#TabsToolbar .tabbrowser-tab:after,
+#TabsToolbar .tabbrowser-tab:before {
+    display: none !important;
+}
+
 EOM
 
 "}}}
