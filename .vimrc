@@ -233,7 +233,7 @@ autocmd FileType python setlocal omnifunc=python3complete#Complete
 
 " Indent rules
 autocmd FileType c setlocal noet ts=8 sw=8 sts=8
-autocmd FileType css,html,htmldjango,php,xhtml setlocal ts=2 sw=2 sts=2
+autocmd FileType css,html,htmldjango,javascript,php,xhtml setlocal ts=2 sw=2 sts=2
 autocmd FileType markdown setlocal tw=79
 
 " Folding rules
