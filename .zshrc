@@ -148,6 +148,7 @@ alias ls="ls -hFH --color=auto --group-directories-first"
 alias lsp="ls++ --potsf"
 alias ntfsmount="sudo ntfs-3g -o gid=100,fmask=113,dmask=002 /dev/sde1 /mnt/usb"
 alias tm="urxvtc -name ircmailbt -e tmux attach-session -d -t 0"
+alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
 alias usbmount="sudo mount -o gid=100,fmask=113,dmask=002 /dev/sde1 /mnt/usb"
 alias usbumount="sudo umount /mnt/usb"
 
