@@ -12,20 +12,21 @@ set encoding=utf-8       " always encode in utf
 " -----------------------------------------------------------------------------
 
 filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-Bundle 'gmarik/vundle'
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'gmarik/Vundle.vim'
 " https://github.com/*
-Bundle 'Lokaltog/vim-powerline'
-Bundle 'Raimondi/delimitMate'
-Bundle 'Shougo/neocomplete'
-Bundle 'godlygeek/tabular'
-Bundle 'hynek/vim-python-pep8-indent'
-Bundle 'kien/ctrlp.vim'
-Bundle 'mileszs/ack.vim.git'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-surround'
-Bundle 'w0ng/vim-hybrid'
+Plugin 'Lokaltog/vim-powerline'
+Plugin 'Raimondi/delimitMate'
+Plugin 'Shougo/neocomplete'
+Plugin 'godlygeek/tabular'
+Plugin 'hynek/vim-python-pep8-indent'
+Plugin 'kien/ctrlp.vim'
+Plugin 'mileszs/ack.vim.git'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-surround'
+Plugin 'w0ng/vim-hybrid'
+call vundle#end()
 
 "}}}
 " Settings {{{
