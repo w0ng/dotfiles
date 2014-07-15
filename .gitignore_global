@@ -38,12 +38,22 @@
 
 # OS generated files #
 ######################
+.DS_Store
 .DS_Store*
-ehthumbs.db
+.DS_Store?
+.Spotlight-V100
+.Trashes
+._*
 Icon?
 Thumbs.db
+ehthumbs.db
 
 # Temp files #
 ##############
 *.pyc
 *.swp
+
+# VCS directories #
+###################
+.hg/
+.svn/
