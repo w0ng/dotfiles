@@ -8,25 +8,31 @@ set nocompatible         " use vim defaults instead of vi
 set encoding=utf-8       " always encode in utf
 
 "}}}
-" Install Plugins {{{
+" Vim Plugins {{{
 " -----------------------------------------------------------------------------
 
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'gmarik/Vundle.vim'
-" https://github.com/*
-Plugin 'Lokaltog/vim-powerline'
-Plugin 'Raimondi/delimitMate'
-Plugin 'Shougo/neocomplete'
-Plugin 'godlygeek/tabular'
-Plugin 'hynek/vim-python-pep8-indent'
-Plugin 'kien/ctrlp.vim'
-Plugin 'mileszs/ack.vim.git'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-surround'
-Plugin 'w0ng/vim-hybrid'
-call vundle#end()
+set runtimepath+=/home/w0ng/.vim/bundle/neobundle.vim
+call neobundle#begin(expand('/home/w0ng/.vim/bundle'))
+NeoBundleFetch 'Shougo/neobundle.vim'
+" Plugins from https://github.com/*
+NeoBundle 'Lokaltog/vim-powerline'
+NeoBundle 'Raimondi/delimitMate'
+NeoBundle 'Shougo/neocomplete'
+NeoBundle 'Shougo/vimproc.vim', {
+            \ 'build' : {
+            \     'windows' : 'tools\\update-dll-mingw',
+            \     'cygwin' : 'make -f make_cygwin.mak',
+            \     'mac' : 'make -f make_mac.mak',
+            \     'unix' : 'make -f make_unix.mak',
+            \    },
+            \ }
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'godlygeek/tabular'
+NeoBundle 'hynek/vim-python-pep8-indent'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'w0ng/vim-hybrid'
+call neobundle#end()
 
 "}}}
 " Settings {{{
@@ -92,7 +98,7 @@ if has('gui_running')
     set guioptions-=r               " remove right scrollbar
     set guioptions-=b               " remove bottom scrollbar
     set guioptions-=L               " remove left scrollbar
-    set guicursor+=a:block-blinkon0 " always use block cursor, no cursor blinking
+    set guicursor+=a:block-blinkon0 " use solid block cursor
     " Paste from PRIMARY and CLIPBOARD
     inoremap <silent> <M-v> <Esc>"+p`]a
     inoremap <silent> <S-Insert> <Esc>"*p`]a
@@ -109,6 +115,10 @@ endif
 
 " Map leader
 let mapleader = ','
+
+" Search command history based on current input
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
 
 " Exit insert mode
 inoremap jj <esc>
@@ -148,9 +158,6 @@ set pastetoggle=<F2>
 " Toggle between light and dark colour schemes
 nnoremap <F4> :call ToggleColours()<CR>
 
-" Shortcut to ack plugin
-nnoremap <leader>a :Ack<Space>
-
 " View javadoc of element under cursor
 nnoremap <leader>d :JavaDocPreview<CR>
 
@@ -158,22 +165,26 @@ nnoremap <leader>d :JavaDocPreview<CR>
 nnoremap <leader>t "=strftime("%F %R")<CR>p
 nnoremap <leader>T "=strftime("%F %R")<CR>P
 
-" Search and open buffer, files, recent
-nnoremap <leader>b :CtrlPBuffer<CR>
-nnoremap <leader>f :CtrlP<CR>
-nnoremap <leader>r :CtrlPMRUFiles<CR>
+" Search for files/buffers
+nnoremap <leader>f :<C-u>Unite -start-insert file_rec/async:!<CR>
+nnoremap <leader>g :<C-u>Unite grep:.<CR>
+nnoremap <leader>r :<C-u>Unite buffer bookmark<CR>
 
 "}}}
 " Plugin Settings {{{
 " -----------------------------------------------------------------------------
-let g:ackprg = 'ag --nogroup --nocolor --column'
-let g:ctrlp_custom_ignore = {
-            \ 'dir':  '\.git$\|\.hg$\|\.svn$\|__pycache__$',
-            \ 'file': '\.pyc$\|\.so$\|\.swp$',
-            \ }
 let delimitMate_expand_cr = 1
 let g:tex_flavor='latex'
 let g:Powerline_symbols = 'compatible'
+if executable('ag')
+    let g:unite_source_grep_command = 'ag'
+    let g:unite_source_grep_default_opts =
+                \ '-i --line-numbers --nocolor --nogroup --hidden'
+    let g:unite_source_grep_recursive_opt = ''
+    let g:unite_source_rec_async_command =
+                \ 'ag --follow --nocolor --nogroup --hidden -g ""'
+endif
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
