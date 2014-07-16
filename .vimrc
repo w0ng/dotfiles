@@ -166,9 +166,9 @@ nnoremap <leader>t "=strftime("%F %R")<CR>p
 nnoremap <leader>T "=strftime("%F %R")<CR>P
 
 " Search for files/buffers
+nnoremap <leader>b :<C-u>Unite buffer<CR>
 nnoremap <leader>f :<C-u>Unite -start-insert file_rec/async:!<CR>
 nnoremap <leader>g :<C-u>Unite grep:.<CR>
-nnoremap <leader>r :<C-u>Unite buffer bookmark<CR>
 
 "}}}
 " Plugin Settings {{{
