@@ -15,7 +15,6 @@ set runtimepath+=/home/w0ng/.vim/bundle/neobundle.vim
 call neobundle#begin(expand('/home/w0ng/.vim/bundle'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 " Plugins from https://github.com/*
-NeoBundle 'Lokaltog/vim-powerline'
 NeoBundle 'Raimondi/delimitMate'
 NeoBundle 'Shougo/neocomplete'
 NeoBundle 'Shougo/vimproc.vim', {
@@ -27,6 +26,7 @@ NeoBundle 'Shougo/vimproc.vim', {
             \    },
             \ }
 NeoBundle 'Shougo/unite.vim'
+NeoBundle 'bling/vim-airline'
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'hynek/vim-python-pep8-indent'
 NeoBundle 'tpope/vim-fugitive'
@@ -52,7 +52,7 @@ set hidden                " hide when switching buffers, don't unload
 set laststatus=2          " always show status line
 set lazyredraw            " don't update screen when executing macros
 set mouse=a               " enable mouse in all modes
-set noshowmode            " don't show mode, since I'm already using powerline
+set noshowmode            " don't show mode, since I'm already using airline
 set nowrap                " disable word wrap
 set number                " show line numbers
 set showcmd               " show command on last line of screen
@@ -167,15 +167,26 @@ nnoremap <leader>T "=strftime("%F %R")<CR>P
 
 " Search for files/buffers
 nnoremap <leader>b :<C-u>Unite buffer<CR>
-nnoremap <leader>f :<C-u>Unite -start-insert file_rec/async:!<CR>
+nnoremap <leader>f :<C-u>Unite file_rec/async:!<CR>
 nnoremap <leader>g :<C-u>Unite grep:.<CR>
 
 "}}}
 " Plugin Settings {{{
 " -----------------------------------------------------------------------------
 let delimitMate_expand_cr = 1
-let g:tex_flavor='latex'
-let g:Powerline_symbols = 'compatible'
+let g:airline_inactive_collapse = 0
+let g:airline_left_alt_sep = ''
+let g:airline_left_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_theme = 'hybrid'
+let g:airline#extensions#branch#enabled = 1
+let g:tex_flavor = 'latex'
+
+call unite#custom#profile('default', 'context', {
+\   'start_insert': 1,
+\   'winheight': 10,
+\ })
 if executable('ag')
     let g:unite_source_grep_command = 'ag'
     let g:unite_source_grep_default_opts =
