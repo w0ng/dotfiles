@@ -185,7 +185,7 @@ let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = 'BR:'
 let g:airline_symbols.readonly = 'RO'
 let g:airline_symbols.linenr = 'LN'
-let g:airline_theme = 'hybrid'
+let g:airline_theme = 'hybridline'
 let g:airline#extensions#branch#enabled = 1
 let g:tex_flavor = 'latex'
 
