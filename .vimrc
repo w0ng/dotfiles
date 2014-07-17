@@ -175,10 +175,16 @@ nnoremap <leader>g :<C-u>Unite grep:.<CR>
 " -----------------------------------------------------------------------------
 let delimitMate_expand_cr = 1
 let g:airline_inactive_collapse = 0
-let g:airline_left_alt_sep = ''
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
 let g:airline_left_sep = ''
-let g:airline_right_alt_sep = ''
+let g:airline_left_alt_sep = ''
 let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = 'BR:'
+let g:airline_symbols.readonly = 'RO'
+let g:airline_symbols.linenr = 'LN'
 let g:airline_theme = 'hybrid'
 let g:airline#extensions#branch#enabled = 1
 let g:tex_flavor = 'latex'
