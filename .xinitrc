@@ -22,7 +22,8 @@ xmodmap -e "remove mod1 = Super_L"
 # add font paths
 xset fp default
 [[ -d /usr/share/fonts/local ]] && xset +fp /usr/share/fonts/local
-[[ -d $HOME/.fonts ]] && xset +fp $HOME/.fonts
+[[ -d /usr/share/fonts/OTF ]] && xset +fp /usr/share/fonts/OTF
+[[ -d $HOME/.local/share/fonts ]] && xset +fp $HOME/.local/share/fonts
 xset fp rehash
 
 # turn monitor off after 60min
