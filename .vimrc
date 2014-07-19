@@ -92,7 +92,7 @@ colorscheme hybrid
 
 " gVim
 if has('gui_running')
-    set guifont=Inconsolata\-g\ 10.5
+    set guifont=Inconsolata\ for\ Powerline\ 12
     set guioptions-=m               " remove menu
     set guioptions-=T               " remove toolbar
     set guioptions-=r               " remove right scrollbar
@@ -175,18 +175,8 @@ nnoremap <leader>g :<C-u>Unite grep:.<CR>
 " -----------------------------------------------------------------------------
 let delimitMate_expand_cr = 1
 let g:airline_inactive_collapse = 0
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = 'BR:'
-let g:airline_symbols.readonly = 'RO'
-let g:airline_symbols.linenr = 'LN'
+let g:airline_powerline_fonts = 1
 let g:airline_theme = 'hybridline'
-let g:airline#extensions#branch#enabled = 1
 let g:tex_flavor = 'latex'
 
 call unite#custom#profile('default', 'context', {
