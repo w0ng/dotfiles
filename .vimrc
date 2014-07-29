@@ -26,11 +26,11 @@ NeoBundle 'Shougo/vimproc.vim', {
             \    },
             \ }
 NeoBundle 'Shougo/unite.vim'
-NeoBundle 'bling/vim-airline'
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'hynek/vim-python-pep8-indent'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-surround'
+NeoBundle 'w0ng/vim-airline'
 NeoBundle 'w0ng/vim-hybrid'
 call neobundle#end()
 
