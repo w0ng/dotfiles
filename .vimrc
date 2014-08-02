@@ -240,7 +240,7 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 " Indent rules
 autocmd FileType c setlocal noet ts=8 sw=8 sts=8
-autocmd FileType cpp,java,php,python setlocal ts=4 sw=4 sts=4
+autocmd FileType cpp,java,markdown,php,python setlocal ts=4 sw=4 sts=4
 autocmd FileType markdown setlocal tw=79
 
 " Folding rules
