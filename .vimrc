@@ -15,7 +15,6 @@ set runtimepath+=/home/w0ng/.vim/bundle/neobundle.vim
 call neobundle#begin(expand('/home/w0ng/.vim/bundle'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 " Plugins from https://github.com/*
-NeoBundle 'Raimondi/delimitMate'
 NeoBundle 'Shougo/neocomplete'
 NeoBundle 'Shougo/vimproc.vim', {
             \ 'build' : {
@@ -173,7 +172,6 @@ nnoremap <leader>g :<C-u>Unite grep:.<CR>
 "}}}
 " Plugin Settings {{{
 " -----------------------------------------------------------------------------
-let delimitMate_expand_cr = 1
 let g:airline_inactive_collapse = 0
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'hybridline'
@@ -209,14 +207,15 @@ if !exists('g:neocomplete#keyword_patterns')
 endif
 let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
-inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
-imap <expr><CR> pumvisible() ? neocomplete#smart_close_popup() . "\<CR>"
-            \ : "<Plug>delimitMateCR"
+inoremap <expr><C-g>  neocomplete#undo_completion()
+inoremap <expr><C-l>  neocomplete#complete_common_string()
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return neocomplete#close_popup() . "\<CR>"
+endfunction
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr> <BS>  pumvisible() ? neocomplete#smart_close_popup()."\<BS>"
-            \ : delimitMate#BS()
+inoremap <expr><C-h>  neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS>   neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplete#close_popup()
 inoremap <expr><C-e>  neocomplete#cancel_popup()
 
@@ -239,13 +238,16 @@ autocmd FileType python setlocal omnifunc=python3complete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 " Indent rules
-autocmd FileType c setlocal noet ts=8 sw=8 sts=8
-autocmd FileType cpp,java,markdown,php,python setlocal ts=4 sw=4 sts=4
-autocmd FileType markdown setlocal tw=79
+autocmd FileType c
+      \ setlocal noexpandtab tabstop=8 shiftwidth=8 softtabstop=8
+autocmd FileType cpp,java,javascript,json,markdown,php,python
+      \ setlocal tabstop=4 shiftwidth=4 softtabstop=4
+autocmd FileType markdown setlocal textwidth=79
 
 " Folding rules
 autocmd FileType c,cpp,java setlocal foldmethod=syntax foldnestmax=5
-autocmd FileType css,html,htmldjango,xhtml setlocal foldmethod=indent foldnestmax=20
+autocmd FileType css,html,htmldjango,xhtml
+      \ setlocal foldmethod=indent foldnestmax=20
 
 " Set correct markdown extensions
 autocmd BufNewFile,BufRead *.markdown,*.md,*.mdown,*.mkd,*.mkdn
