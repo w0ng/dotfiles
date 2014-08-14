@@ -119,9 +119,6 @@ let mapleader = ','
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
 
-" Exit insert mode
-inoremap jj <esc>
-
 " Toggle fold
 nnoremap <space> za
 
