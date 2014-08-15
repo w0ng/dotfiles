@@ -156,6 +156,7 @@ settings = {
     bitlbee_send_typing = "yes";
     lt_in_queries = "yes";
     uberprompt_format = "$vim_cmd_mode$uber%c :: %n";
+    vim_mode_cmd_seq = "j";
   };
 
   "irc/core" = { alternate_nick = "w0ng_"; };

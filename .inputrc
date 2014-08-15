@@ -10,4 +10,5 @@ $if mode=vi
   "\C-e": end-of-line
   "\C-n": history-search-forward
   "\C-p": history-search-backward
+  "jj": vi-movement-mode
 $endif
