@@ -1,0 +1,18 @@
+set history=50 " number of command-lines that are remembered
+set hlsearch " highlight matches with last search pattern
+set ignorecase " ignore case in search patterns
+set showmode " message on status line to show current mode
+set smartcase " no ignore case when pattern has uppercase
+set visualbell " use visual bell instead of beeping
+" Switch tabs
+nnoremap <C-n> gt
+nnoremap <C-p> gT
+" Exit insert mode
+inoremap jj <Esc>
+" Toggle hlsearch for current results
+nnoremap ,, :nohlsearch<CR>
+" Switch colon and semi-colon
+nnoremap ; :
+nnoremap : ;
+vnoremap ; :
+vnoremap : ;
