@@ -1,9 +1,0 @@
-# Bind eclimd to all interfaces
-nailgun.server.host=0.0.0.0
-
-# Specifies the port that nailgun / eclimd listens on for client requests.
-nailgun.server.port=10012
-
-# Specifies the workspace directory to use
-# See $ECLIPSE_HOME/configuration/config.ini for other osgi properties.
-osgi.instance.area.default=@user.home/code

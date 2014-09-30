@@ -1,1 +1,0 @@
-../uberprompt.pl

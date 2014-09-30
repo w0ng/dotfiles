@@ -1,10 +1,15 @@
-#
-# ~/.gitconfig
-#
-
 [user]
-    name = Andrew Wong
-    email = wongadev@gmail.com
+	name = Andrew Wong
+	email = andrew.w@legalconsult.com.au
+[core]
+	excludesfile = /Users/Home/.gitignore_global
+	editor = /usr/local/bin/vim
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
 [color]
     ui = true
 [color "branch"]
@@ -19,13 +24,10 @@
     added = green bold
     changed = red bold
     untracked = red bold
-[core]
-    editor = vim
-    excludesfile = /home/w0ng/.gitignore_global
 [github]
     user = w0ng
 [diff]
-    tool = vimdiff
+    tool = /usr/local/bin/vimdiff
 [difftool]
     prompt = false
 [alias]
@@ -34,6 +36,6 @@
 [push]
     default = simple
 [merge]
-    tool = vimdiff
+    tool = /usr/local/bin/vimdiff
 [mergetool]
     keepBackup = false

@@ -1,6 +1,0 @@
-application/octet-stream ; echo %s "can be anything..." ; copiousoutput
-text/html ; /usr/bin/firefox %s ; copiousoutput
-application/pdf ; /usr/bin/zathura %s ; copiousoutput
-image/* ; /usr/bin/feh %s ; copiousoutput
-audio/* ; /usr/bin/mplayer %s ; copiousoutput
-video/* ; /usr/bin/mplayer %s ; copiousoutput

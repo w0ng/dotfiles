@@ -1,8 +1,0 @@
-[Unit]
-Description=Eclim daemon - headless eclipse server
-
-[Service]
-ExecStart=/usr/share/eclipse/eclimd
-
-[Install]
-WantedBy=default.target
