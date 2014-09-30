@@ -175,6 +175,10 @@ nnoremap <leader>g :<C-u>Unite grep:.<CR>
 let g:airline_inactive_collapse = 0
 let g:airline_powerline_fonts = 0
 let g:airline_symbols = {}
+let g:airline_left_sep = ''
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_sep = ''
 let g:airline_theme = 'hybridline'
 let g:tex_flavor = 'latex'
 
