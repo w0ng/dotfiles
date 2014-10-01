@@ -27,6 +27,7 @@ NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimfiler.vim'
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'hynek/vim-python-pep8-indent'
+NeoBundle 'majutsushi/tagbar'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'w0ng/vim-airline'
@@ -161,9 +162,8 @@ nnoremap <F4> :call ToggleColours()<CR>
 " View javadoc of element under cursor
 nnoremap <leader>d :JavaDocPreview<CR>
 
-" Insert timestamp
-nnoremap <leader>t "=strftime("%F %R")<CR>p
-nnoremap <leader>T "=strftime("%F %R")<CR>P
+" Toggle tagbar
+nnoremap <leader>t :Tagbar<CR>
 
 " Search for files/buffers
 nnoremap <leader>b :<C-u>Unite buffer<CR>
