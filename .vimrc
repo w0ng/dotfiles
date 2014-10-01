@@ -24,6 +24,7 @@ NeoBundle 'Shougo/vimproc.vim', {
             \    },
             \ }
 NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/vimfiler.vim'
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'hynek/vim-python-pep8-indent'
 NeoBundle 'tpope/vim-fugitive'
@@ -169,6 +170,9 @@ nnoremap <leader>b :<C-u>Unite buffer<CR>
 nnoremap <leader>f :<C-u>Unite file_rec/async:!<CR>
 nnoremap <leader>g :<C-u>Unite grep:.<CR>
 
+" Togle VimFilerExplorer
+nnoremap <leader>e :VimFilerExplorer -parent<CR>
+
 "}}}
 " Plugin Settings {{{
 " -----------------------------------------------------------------------------
@@ -181,6 +185,7 @@ let g:airline_right_sep = ''
 let g:airline_right_sep = ''
 let g:airline_theme = 'hybridline'
 let g:tex_flavor = 'latex'
+let g:vimfiler_as_default_explorer = 1
 
 call unite#custom#profile('default', 'context', {
 \   'start_insert': 1,
