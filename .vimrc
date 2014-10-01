@@ -264,6 +264,10 @@ autocmd BufNewFile,BufRead *.markdown,*.md,*.mdown,*.mkd,*.mkdn
             \   setf markdown |
             \ endif
 
+" Change refresh bindings for vimfilerexplorer
+autocmd FileType vimfiler nunmap <buffer> <C-l>
+autocmd FileType vimfiler nmap <buffer> <C-R> <Plug>(vimfiler_redraw_screen)
+
 "}}}
 " Functions {{{
 " -----------------------------------------------------------------------------
