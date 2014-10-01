@@ -30,6 +30,7 @@ NeoBundle 'hynek/vim-python-pep8-indent'
 NeoBundle 'majutsushi/tagbar'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-surround'
+NeoBundle 'vim-php/tagbar-phpctags.vim'
 NeoBundle 'w0ng/vim-airline'
 NeoBundle 'w0ng/vim-hybrid'
 call neobundle#end()
@@ -184,6 +185,7 @@ let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline_right_sep = ''
 let g:airline_theme = 'hybridline'
+let g:tagbar_phpctags_bin='/Users/Home/bin/phpctags'
 let g:tex_flavor = 'latex'
 let g:vimfiler_as_default_explorer = 1
 
