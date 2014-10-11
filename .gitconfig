@@ -6,7 +6,7 @@
 	editor = vim
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path =
+	path = 
 [mergetool "sourcetree"]
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
@@ -31,7 +31,7 @@
 [difftool]
     prompt = false
 [alias]
-    l = log --pretty=format:'%C(yellow)%h %C(cyan)%cN%C(magenta)%d%Creset %s %C(blue)%cr%Creset' --graph --use-mailmap
+    l = log --pretty=format:'%C(yellow)%h%C(magenta)%d%Creset %s %C(cyan)%cN% C(blue)(%cr)%Creset' --graph --use-mailmap
     s = status -sb
 [push]
     default = simple
