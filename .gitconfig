@@ -3,7 +3,7 @@
 	email = andrew.w@legalconsult.com.au
 [core]
 	excludesfile = /Users/Home/.gitignore_global
-	editor = /usr/local/bin/vim
+	editor = vim
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 
@@ -27,7 +27,7 @@
 [github]
     user = w0ng
 [diff]
-    tool = /usr/local/bin/vimdiff
+    tool = vimdiff
 [difftool]
     prompt = false
 [alias]
@@ -36,6 +36,6 @@
 [push]
     default = simple
 [merge]
-    tool = /usr/local/bin/vimdiff
+    tool = vimdiff
 [mergetool]
     keepBackup = false
