@@ -25,6 +25,7 @@ NeoBundle 'Shougo/vimproc.vim', {
             \ }
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimfiler.vim'
+NeoBundle 'elzr/vim-json'
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'hynek/vim-python-pep8-indent'
 NeoBundle 'majutsushi/tagbar'
