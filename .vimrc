@@ -94,7 +94,7 @@ colorscheme hybrid
 
 " gVim
 if has('gui_running')
-    set guifont=Inconsolata:h14
+    set guifont=Inconsolata:h16
     set guioptions-=m               " remove menu
     set guioptions-=T               " remove toolbar
     set guioptions-=r               " remove right scrollbar
