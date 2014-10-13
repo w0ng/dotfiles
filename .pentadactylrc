@@ -1,0 +1,45 @@
+"
+" ~/.pentadactylrc
+"
+" vim: set ft=pentadactyl:
+
+loadplugins '\.(js|penta)$'
+group user
+
+
+" Options {{{
+" -----------------------------------------------------------------------------
+
+set defsearch=g
+set guioptions+=n
+set hlfind
+
+"}}}
+" Font {{{
+" -----------------------------------------------------------------------------
+
+hi FontCode -a font: normal 14px Inconsolata !important;
+hi FontFixed -a font: normal 14px Inconsolata !important;
+hi Normal -a font: normal 14px Inconsolata !important;
+
+"}}}
+" Mappings {{{
+" -----------------------------------------------------------------------------
+
+map , <Leader>
+nmap -builtin <Leader>p :private winopen<CR>
+nmap -builtin <Leader>, :noh<CR>
+nmap -builtin ; :
+nmap -builtin : ;
+vmap -builtin ; :
+vmap -builtin : ;
+nmap -builtin <C-S-n> :tabmove! +1<CR>
+nmap -builtin <C-S-p> :tabmove! -1<CR>
+
+" Noscript plugin
+nmap -builtin ss :set script!<CR>
+nmap -builtin sa :set noscript-sites!=<A-Tab>
+nmap -builtin st :set noscript-tempsites!=<A-Tab>
+nmap -builtin su :set noscript-untrusted!=<A-Tab>
+
+"}}}
