@@ -1,6 +1,6 @@
 [user]
 	name = Andrew Wong
-	email = andrew.w@legalconsult.com.au
+	email = andrew.wong@legalconsult.com.au
 [core]
 	excludesfile = /Users/Home/.gitignore_global
 	editor = vim
