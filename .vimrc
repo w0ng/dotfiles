@@ -93,7 +93,7 @@ set t_Co=256
 let g:hybrid_use_Xresources = 1
 colorscheme hybrid
 
-" gVim
+" gVim/Vim dependent
 if has('gui_running')
     set guifont=Inconsolata:h16
     set guioptions-=m               " remove menu
@@ -105,6 +105,9 @@ if has('gui_running')
     " Paste from PRIMARY and CLIPBOARD
     inoremap <silent> <M-v> <Esc>"+p`]a
     inoremap <silent> <S-Insert> <Esc>"*p`]a
+else
+    " Copy to CLIPBOARD
+    vnoremap ,c "*y
 endif
 
 " vimdiff
