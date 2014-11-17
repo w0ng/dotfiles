@@ -200,10 +200,10 @@ call unite#custom#profile('default', 'context', {
 if executable('ag')
     let g:unite_source_grep_command = 'ag'
     let g:unite_source_grep_default_opts =
-                \ '-i --line-numbers --nocolor --nogroup --hidden'
+                \ '-i --line-numbers --nocolor --nogroup --hidden --skip-vcs-ignores'
     let g:unite_source_grep_recursive_opt = ''
     let g:unite_source_rec_async_command =
-                \ 'ag --follow --nocolor --nogroup --hidden -g ""'
+                \ 'ag --follow --nocolor --nogroup --hidden --skip-vcs-ignores -g ""'
 endif
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 

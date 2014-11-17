@@ -58,3 +58,7 @@ ehthumbs.db
 .git/
 .hg/
 .svn/
+
+# Project-specific: legacy files #
+##################################
+legacy/
