@@ -29,6 +29,7 @@ NeoBundle 'elzr/vim-json'
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'hynek/vim-python-pep8-indent'
 NeoBundle 'majutsushi/tagbar'
+NeoBundle 'scrooloose/syntastic'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'vim-php/tagbar-phpctags.vim'
@@ -132,9 +133,6 @@ inoremap jj <esc>
 " Toggle fold
 nnoremap <space> za
 
-" Toggle spellcheck
-nnoremap <leader>s :set spell!<CR>
-
 " Toggle hlsearch for current results
 nnoremap <leader><leader> :nohlsearch<CR>
 
@@ -164,8 +162,12 @@ set pastetoggle=<F2>
 " Toggle between light and dark colour schemes
 nnoremap <F4> :call ToggleColours()<CR>
 
-" View javadoc of element under cursor
-nnoremap <leader>d :JavaDocPreview<CR>
+" Syntastic PHP syntax checkers
+nnoremap <leader>se :call ToggleErrors()<CR>
+nnoremap <leader>sc :SyntasticCheck phpcs<CR>
+nnoremap <leader>sm :SyntasticCheck phpmd<CR>
+nnoremap <leader>sr :SyntasticReset<CR>
+nnoremap <leader>st :SyntasticToggleMode<CR>
 
 " Toggle tagbar
 nnoremap <leader>t :Tagbar<CR>
@@ -189,6 +191,7 @@ let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline_right_sep = ''
 let g:airline_theme = 'hybridline'
+let g:syntastic_php_checkers = ['php']
 let g:tagbar_phpctags_bin='/Users/Home/bin/phpctags'
 let g:tex_flavor = 'latex'
 let g:vimfiler_as_default_explorer = 1
@@ -283,6 +286,15 @@ function! ToggleColours()
         colorscheme hybrid-light
     else
         colorscheme hybrid
+    endif
+endfunction
+
+function! ToggleErrors()
+    let old_last_winnr = winnr('$')
+    lclose
+    if old_last_winnr == winnr('$')
+        " Nothing was closed, open syntastic error location panel
+        Errors
     endif
 endfunction
 
