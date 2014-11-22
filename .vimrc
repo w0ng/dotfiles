@@ -191,6 +191,7 @@ let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline_right_sep = ''
 let g:airline_theme = 'hybridline'
+let g:syntastic_html_checkers = ['jshint']
 let g:syntastic_php_checkers = ['php']
 let g:tagbar_phpctags_bin='/Users/Home/bin/phpctags'
 let g:tex_flavor = 'latex'
