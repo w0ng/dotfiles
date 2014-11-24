@@ -3,22 +3,13 @@
 servers = (
   { address = "localhost"; chatnet = "bitlbee"; autoconnect = "yes"; },
   {
-    #address = "irc.freenode.net";
-    address = "roddenberry.freenode.net";
+    address = "irc.freenode.net";
+    #address = "roddenberry.freenode.net";
     chatnet = "freenode";
     port = "6697";
     use_ssl = "yes";
     ssl_verify = "yes";
     ssl_capath = "/etc/ssl/certs";
-    autoconnect = "yes";
-  },
-  {
-    #address = "client.oz.org";
-    address = "rockhampton.oz.org";
-    chatnet = "ozorg";
-    port = "6667";
-    use_ssl = "no";
-    ssl_verify = "no";
     autoconnect = "yes";
   },
   {
@@ -40,14 +31,16 @@ chatnets = {
     autosendcmd = "/^msg &bitlbee identify XXXXXXXXXXXX;";
   };
   freenode = { type = "IRC"; };
-  ozorg = { type = "IRC"; };
   rizon = { type = "IRC"; };
 };
 
 channels = (
   { name = "#archlinux"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#fsc"; chatnet = "rizon"; autojoin = "yes"; },
-  { name = "#overclockers"; chatnet = "ozorg"; autojoin = "yes"; }
+  { name = "##javascript"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#jquery"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#mysql"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "##php"; chatnet = "freenode"; autojoin = "yes"; }
 );
 
 aliases = {
@@ -205,8 +198,8 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#overclockers";
-        tag = "ozorg";
+        name = "&bitlbee";
+        tag = "bitlbee";
       }
     );
   };
@@ -215,14 +208,44 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "&bitlbee";
-        tag = "bitlbee";
+        name = "##javascript";
+        tag = "freenode";
+      }
+    );
+  };
+  6 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#jquery";
+        tag = "freenode";
+      }
+    );
+  };
+  7 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#mysql";
+        tag = "freenode";
+      }
+    );
+  };
+  8 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "##php";
+        tag = "freenode";
       }
     );
   };
   99 = { name = "hilight"; sticky = "yes"; };
 };
 mainwindows = {
-  3 = { first_line = "4"; lines = "48"; };
+  1 = { first_line = "4"; lines = "48"; };
   99 = { first_line = "1"; lines = "3"; };
 };
