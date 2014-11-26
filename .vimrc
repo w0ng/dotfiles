@@ -72,8 +72,8 @@ set wildmenu              " enhanced cmd line completion
 " Folding
 set foldignore=           " don't ignore anything when folding
 set foldlevelstart=99     " no folds closed on open
-set foldmethod=marker     " collapse code using markers
-set foldnestmax=1         " limit max folds for indent and syntax methods
+set foldmethod=indent     " collapse code using indent levels
+set foldnestmax=20        " limit max folds for indent and syntax methods
 
 " Tabs
 set autoindent            " copy indent from previous line
@@ -264,7 +264,6 @@ autocmd FileType markdown setlocal tw=79
 
 " Folding rules
 autocmd FileType c,cpp,java setlocal foldmethod=syntax foldnestmax=5
-autocmd FileType css,html,htmldjango,xhtml setlocal foldmethod=indent foldnestmax=20
 
 " Set correct markdown extensions
 autocmd BufNewFile,BufRead *.markdown,*.md,*.mdown,*.mkd,*.mkdn
