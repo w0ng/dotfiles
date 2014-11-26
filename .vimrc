@@ -12,9 +12,21 @@ set encoding=utf-8       " always encode in utf
 " -----------------------------------------------------------------------------
 set runtimepath+=/Users/Home/.vim/bundle/neobundle.vim/
 call neobundle#begin(expand('/users/Home/.vim/bundle'))
-NeoBundleFetch 'Shougo/neobundle.vim'
-" Plugins from https://github.com/*
-NeoBundle 'Shougo/neocomplete'
+NeoBundleFetch 'Shougo/neobundle.vim'    " Vim package manager
+NeoBundle 'Shougo/neocomplete'           " Automatic keyword completion
+NeoBundle 'Shougo/unite.vim'             " Find files and buffers using ag
+NeoBundle 'Shougo/vimfiler.vim'          " File explorer
+NeoBundle 'elzr/vim-json'                " Nicer JSON syntax highlighting
+NeoBundle 'godlygeek/tabular'            " Text filtering and alignment
+NeoBundle 'hynek/vim-python-pep8-indent' " Nicer python inden
+NeoBundle 'majutsushi/tagbar'            " Display tags in a window
+NeoBundle 'scrooloose/syntastic'         " Syntax checking on write
+NeoBundle 'tpope/vim-fugitive'           " Git wrapper
+NeoBundle 'tpope/vim-surround'           " Manipulate quotes and brackets
+NeoBundle 'vim-php/tagbar-phpctags.vim'  " PHP plugin for tagbar
+NeoBundle 'w0ng/vim-airline'             " Pretty statusbar
+NeoBundle 'w0ng/vim-hybrid'              " Dark colourscheme
+" Interactive command execution
 NeoBundle 'Shougo/vimproc.vim', {
             \ 'build' : {
             \     'windows' : 'tools\\update-dll-mingw',
@@ -23,18 +35,6 @@ NeoBundle 'Shougo/vimproc.vim', {
             \     'unix' : 'make -f make_unix.mak',
             \    },
             \ }
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/vimfiler.vim'
-NeoBundle 'elzr/vim-json'
-NeoBundle 'godlygeek/tabular'
-NeoBundle 'hynek/vim-python-pep8-indent'
-NeoBundle 'majutsushi/tagbar'
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'vim-php/tagbar-phpctags.vim'
-NeoBundle 'w0ng/vim-airline'
-NeoBundle 'w0ng/vim-hybrid'
 call neobundle#end()
 
 "}}}
@@ -94,7 +94,7 @@ set t_Co=256
 let g:hybrid_use_Xresources = 1
 colorscheme hybrid
 
-" gVim/Vim dependent
+" gVim
 if has('gui_running')
     set guifont=Inconsolata:h16
     set guioptions-=m               " remove menu
