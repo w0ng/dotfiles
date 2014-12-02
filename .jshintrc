@@ -85,6 +85,7 @@
     // Custom Globals
     "globals"       : {
         // additional predefined global variables
-        "d3": true
+        "d3": true,
+        "google": true
     }
 }
