@@ -10,8 +10,8 @@ set encoding=utf-8       " always encode in utf
 "}}}
 " Vim Plugins {{{
 " -----------------------------------------------------------------------------
-set runtimepath+=/Users/Home/.vim/bundle/neobundle.vim/
-call neobundle#begin(expand('/users/Home/.vim/bundle'))
+set runtimepath+=/Users/andrew/.vim/bundle/neobundle.vim/
+call neobundle#begin(expand('/users/andrew/.vim/bundle'))
 NeoBundleFetch 'Shougo/neobundle.vim'    " Vim package manager
 NeoBundle 'Shougo/neocomplete'           " Automatic keyword completion
 NeoBundle 'Shougo/unite.vim'             " Find files and buffers using ag
@@ -192,7 +192,7 @@ let g:airline_right_sep = ''
 let g:airline_theme = 'hybridline'
 let g:syntastic_html_checkers = ['jshint']
 let g:syntastic_php_checkers = ['php']
-let g:tagbar_phpctags_bin='/Users/Home/bin/phpctags'
+let g:tagbar_phpctags_bin='/Users/andrew/bin/phpctags'
 let g:tex_flavor = 'latex'
 let g:vimfiler_as_default_explorer = 1
 
