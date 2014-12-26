@@ -1,0 +1,27 @@
+# vim: ft=sh
+# android-studio: install Java for OS X 2014-001 and Oracle JDK7
+#                 set JAVA_HOME to dir of JDK6
+# phpstorm: fix font rendering by changing 1.6+ to 1.6*
+#           in ~/Applications/PhpStorm.app/Contents
+#           <key>JVMVersion</key>
+#           <string>1.6*</string>
+# vagrant: requires su password during installation
+# virtualbox: requires su password during installation
+
+adium
+android-studio
+codekit
+firefox
+gimp
+google-chrome
+google-drive
+iterm2
+mysqlworkbench
+phpstorm
+sequel-pro
+skitch
+sourcetree
+textmate
+vagrant
+virtualbox
+vlc

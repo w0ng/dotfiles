@@ -1,0 +1,10 @@
+# vim: ft=sh
+# macvim: install with arguments --with-cscope --with-lua --override-system-vim
+
+caskroom/cask/brew-cask
+git
+macvim
+the_silver_searcher
+tree
+wget
+zsh
