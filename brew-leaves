@@ -2,6 +2,7 @@
 # macvim: install with arguments --with-cscope --with-lua --override-system-vim
 
 caskroom/cask/brew-cask
+dos2unix
 gist
 git
 macvim
