@@ -11,6 +11,7 @@ group user
 " -----------------------------------------------------------------------------
 
 set defsearch=g
+set guioptions-=br
 set guioptions+=n
 set hlfind
 
@@ -18,9 +19,9 @@ set hlfind
 " Font {{{
 " -----------------------------------------------------------------------------
 
-hi FontCode -a font: normal 14px Inconsolata !important;
-hi FontFixed -a font: normal 14px Inconsolata !important;
-hi Normal -a font: normal 14px Inconsolata !important;
+hi FontCode -a font: normal 12px 'Source Code Pro' !important;
+hi FontFixed -a font: normal 12px 'Source Code Pro' !important;
+hi Normal -a font: normal 12px 'Source Code Pro' !important;
 
 "}}}
 " Mappings {{{
@@ -41,5 +42,16 @@ nmap -builtin ss :set script!<CR>
 nmap -builtin sa :set noscript-sites!=<A-Tab>
 nmap -builtin st :set noscript-tempsites!=<A-Tab>
 nmap -builtin su :set noscript-untrusted!=<A-Tab>
+
+"}}}
+" Fix OSX tabs display {{{
+" -----------------------------------------------------------------------------
+
+style -name fix-osx-tabs chrome://* <<EOM
+[dactyl-australis=true] .tabbrowser-tabs {
+    min-height: 27px !important;
+    max-height: 27px !important;
+}
+EOM
 
 "}}}
