@@ -1,0 +1,23 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+
+    config.vm.box = "wong/debian-7.7.0-amd64"
+
+    config.vm.box_url = "~/vagrant-boxes/debian-7.7.0-amd64.box"
+
+    # Add this IP to the host PC's /etc/hosts file
+    config.vm.network "private_network", ip: "192.168.33.100"
+
+    config.vm.define File.basename(Dir.pwd) do |appname|
+    end
+
+    config.vm.provider "virtualbox" do |vb|
+        vb.name = File.basename(Dir.pwd)
+        vb.cpus = 2
+        vb.memory = 1024
+    end
+
+    config.vm.provision :shell, :path => "install.sh"
+end
