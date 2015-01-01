@@ -1,31 +1,130 @@
 #!/usr/bin/env bash
 #
-# Based on https://gist.github.com/fideloper/7074502
+# Based on https://github.com/fideloper/Vaprobash
 
-echo "--- Installing base items ---"
+# =============================================================================
+
+echo "--- Installing base packages ---"
+
 apt-get update
-apt-get install -y build-essential curl wget python-software-properties mlocate
+apt-get upgrade
+apt-get install -y \
+    build-essential \
+    curl \
+    git-core \
+    mlocate \
+    python-software-properties \
+    unzip
 
-echo "--- Setting MySQL password to 'root' ---"
-debconf-set-selections <<< 'mysql-server mysql-server/root_password password root'
-debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password root'
+# =============================================================================
+
+echo "--- Creating a wildcard self-signed SSL Certificate ---"
+
+# Based on https://serversforhackers.com/ssl-certs/
+SSL_DIR="/etc/ssl/xip.io"
+DOMAIN="*.xip.io"
+PASSPHRASE=""
+SUBJ="
+C=AU
+ST=New South Wales
+O=
+localityName=Sydney
+commonName=$DOMAIN
+organizationalUnitName=
+emailAddress=
+"
+
+[[ ! -d "$SSL_DIR" ]] && sudo mkdir -p "$SSL_DIR"
+
+# Generate private key, csr and certificate
+sudo openssl genrsa \
+    -out "$SSL_DIR/xip.io.key" 2048
+
+sudo openssl req \
+    -new \
+    -subj "$(echo -n "$SUBJ" | tr "\n" "/")" \
+    -key "$SSL_DIR/xip.io.key" \
+    -out "$SSL_DIR/xip.io.csr" \
+    -passin pass:$PASSPHRASE
+
+sudo openssl x509 \
+    -req \
+    -days 365 \
+    -in "$SSL_DIR/xip.io.csr" \
+    -signkey "$SSL_DIR/xip.io.key" \
+    -out "$SSL_DIR/xip.io.crt"
+
+# =============================================================================
 
 echo "--- Installing Apache, PHP and MySQL ---"
-apt-get install -y git-core php5 apache2 libapache2-mod-php5 php5-mysql php5-curl php5-gd php5-mcrypt php5-ldap php5-xdebug mysql-server 
+
+# MySQL: preset root password to enable non-interactive package installation
+debconf-set-selections <<< \
+    'mysql-server mysql-server/root_password password root'
+debconf-set-selections <<< \
+    'mysql-server mysql-server/root_password_again password root'
+
+apt-get install -y \
+    apache2 \
+    libapache2-mod-php5 \
+    mysql-server \
+    php5 \
+    php5-curl \
+    php5-gd \
+    php5-gmp \
+    php5-imagick \
+    php5-intl \
+    php5-ldap \
+    php5-mcrypt \
+    php5-memcached \
+    php5-mysql \
+    php5-xdebug
+
+# =============================================================================
+
+echo "--- Configuring PHP ---"
+
+# PHP: Display all errors
+sed -i "s/error_reporting = .*/error_reporting = E_ALL/" \
+    /etc/php5/apache2/php.ini
+sed -i "s/display_errors = .*/display_errors = On/" \
+    /etc/php5/apache2/php.ini
+
+# Xdebug: enable extension, do not limit output
+cat > $(find /etc/php5 -name xdebug.ini) << EOF
+zend_extension=$(find /usr/lib/php5 -name xdebug.so)
+xdebug.remote_enable = 1
+xdebug.remote_connect_back = 1
+xdebug.remote_port = 9000
+xdebug.scream= 0
+xdebug.cli_color= 1
+xdebug.show_local_vars= 1
+xdebug.var_display_max_depth = -1
+xdebug.var_display_max_children = -1
+xdebug.var_display_max_data = -1
+EOF
+
+# =============================================================================
 
 echo "--- Configuring Apache ---"
-a2enmod rewrite
-mv /etc/apache2/sites-available/default /etc/apache2/sites-available/default.bak
-cat <<EOF > /etc/apache2/sites-available/default
+
+SERVER="${1}.xip.io"
+DOC_ROOT="$2"
+ALIAS="$3"
+CERT_PATH="/etc/ssl/xip.io"
+CERT_NAME="xip.io"
+
+[[ ! -d "$DOC_ROOT" ]] && mkdir -p "$DOC_ROOT"
+
+# Create a vhost using arguments supplied by VagrantFile
+[[ ! -f "${DOC_ROOT}/${SERVER}.conf" ]] && \
+    cat <<EOF > /etc/apache2/sites-available/${SERVER}.conf
 <VirtualHost *:80>
     ServerAdmin webmaster@localhost
-    RewriteEngine On
-    DocumentRoot /vagrant/public
-    <Directory />
-        Options FollowSymLinks
-        AllowOverride None
-    </Directory>
-    <Directory /vagrant/public>
+    ServerName ${SERVER}
+    ServerAlias ${ALIAS}
+    DocumentRoot ${DOC_ROOT}
+    <Directory ${DOC_ROOT}>
         Options Indexes FollowSymLinks MultiViews
         AllowOverride All
         Order allow,deny
@@ -34,34 +133,69 @@ cat <<EOF > /etc/apache2/sites-available/default
         RewriteCond %{REQUEST_FILENAME} !-d
         RewriteRule ^([^\.]+)$ \$1.php [NC,L]
     </Directory>
-        ErrorLog \${APACHE_LOG_DIR}/error.log
-        LogLevel warn
-        CustomLog \${APACHE_LOG_DIR}/access.log combined
+    ErrorLog \${APACHE_LOG_DIR}/${SERVER}-error.log
+    LogLevel warn
+    CustomLog \${APACHE_LOG_DIR}/${SERVER}-access.log combined
 </VirtualHost>
 EOF
 
-echo "--- Configuring PHP ---"
-sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php5/apache2/php.ini
-sed -i "s/display_errors = .*/display_errors = On/" /etc/php5/apache2/php.ini
-
-echo "--- Configuring Xdebug ---"
-cat << EOF | tee -a /etc/php5/conf.d/xdebug.ini
-xdebug.scream=1
-xdebug.cli_color=1
-xdebug.show_local_vars=1
+# Create an SSL vhost using the xip.io cert created earlier
+[[ -d "${CERT_PATH}" ]] && \
+    cat <<EOF >> /etc/apache2/sites-available/${SERVER}.conf
+<VirtualHost *:443>
+    ServerAdmin webmaster@localhost
+    ServerName ${SERVER}
+    ServerAlias ${ALIAS}
+    DocumentRoot ${DOC_ROOT}
+    <Directory ${DOC_ROOT}>
+        Options Indexes FollowSymLinks MultiViews
+        AllowOverride All
+        Order allow,deny
+        allow from all
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteRule ^([^\.]+)$ \$1.php [NC,L]
+    </Directory>
+    ErrorLog \${APACHE_LOG_DIR}/${SERVER}-error.log
+    LogLevel warn
+    CustomLog \${APACHE_LOG_DIR}/${SERVER}-access.log combined
+    SSLEngine on
+    SSLCertificateFile ${CERT_PATH}/${CERT_NAME}.crt
+    SSLCertificateKeyFile ${CERT_PATH}/${CERT_NAME}.key
+    <FilesMatch "\.(cgi|shtml|phtml|php)$">
+        SSLOptions +StdEnvVars
+    </FilesMatch>
+    BrowserMatch "MSIE [2-6]" \\
+        nokeepalive ssl-unclean-shutdown \\
+        downgrade-1.0 force-response-1.0
+    BrowserMatch "MSIE [17-9]" ssl-unclean-shutdown
+</VirtualHost>
 EOF
 
+# Update global Apache settings
+echo "ServerName localhost" >> /etc/apache2/apache2.conf
+cd /etc/apache2/sites-available/ && a2ensite ${SERVER}.conf
+a2dissite 000-default
+a2enmod rewrite actions ssl
+
+# =============================================================================
+
 echo "--- Installing Composer ---"
+
 curl -sS https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
 
+# =============================================================================
+
 echo "--- Installing vim ---"
+
 apt-get install -y vim
+
+# Based on https://github.com/w0ng/dotfiles/blob/master/.vimrc
 cat <<EOF > /home/vagrant/.vimrc
 "
 " ~/.vimrc
 "
-" Based on https://github.com/w0ng/dotfiles/blob/master/.vimrc
 " Compatability
 set nocompatible         " use vim defaults instead of vi
 set encoding=utf-8       " always encode in utf
@@ -115,8 +249,13 @@ if &diff
 endif
 EOF
 
-echo "--- Finalising installation ---"
-service apache2 restart
-updatedb
+# =============================================================================
 
-echo "--- DONE ---"
+echo "--- Finalising installation ---"
+apache2ctl graceful && echo "Apache restarted gracefully."
+updatedb && echo "mlocate DB updated."
+
+# =============================================================================
+
+echo "--- FINISHED ---"
+echo "View the dev site via http://${SERVER} or http://${ALIAS}"
