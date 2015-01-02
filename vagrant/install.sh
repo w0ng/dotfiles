@@ -108,9 +108,8 @@ EOF
 
 echo "--- Configuring Apache ---"
 
-SERVER="${1}.xip.io"
+SERVER="$1"
 DOC_ROOT="$2"
-ALIAS="$3"
 CERT_PATH="/etc/ssl/xip.io"
 CERT_NAME="xip.io"
 
@@ -122,7 +121,6 @@ CERT_NAME="xip.io"
 <VirtualHost *:80>
     ServerAdmin webmaster@localhost
     ServerName ${SERVER}
-    ServerAlias ${ALIAS}
     DocumentRoot ${DOC_ROOT}
     <Directory ${DOC_ROOT}>
         Options Indexes FollowSymLinks MultiViews
@@ -145,7 +143,6 @@ EOF
 <VirtualHost *:443>
     ServerAdmin webmaster@localhost
     ServerName ${SERVER}
-    ServerAlias ${ALIAS}
     DocumentRoot ${DOC_ROOT}
     <Directory ${DOC_ROOT}>
         Options Indexes FollowSymLinks MultiViews
@@ -258,4 +255,4 @@ updatedb && echo "mlocate DB updated."
 # =============================================================================
 
 echo "--- FINISHED ---"
-echo "View the dev site via http://${SERVER} or http://${ALIAS}"
+echo "View the dev site via http://${SERVER}"
