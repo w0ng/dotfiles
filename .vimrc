@@ -46,7 +46,7 @@ syntax on
 
 " General
 set backspace=2           " enable <BS> for everything
-set colorcolumn=120       " visual indicator of column
+set colorcolumn=85        " visual indicator of column
 set completeopt-=preview  " dont show preview window
 set cursorline            " visual indicator of current line
 set fcs=vert:│,fold:-     " solid instead of broken line for vert splits
