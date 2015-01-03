@@ -1,11 +1,11 @@
 {
-    "alt-speed-down": 50, 
+    "alt-speed-down": 12, 
     "alt-speed-enabled": false, 
-    "alt-speed-time-begin": 540, 
+    "alt-speed-time-begin": 0, 
     "alt-speed-time-day": 127, 
     "alt-speed-time-enabled": false, 
-    "alt-speed-time-end": 1020, 
-    "alt-speed-up": 50, 
+    "alt-speed-time-end": 360, 
+    "alt-speed-up": 12, 
     "bind-address-ipv4": "0.0.0.0", 
     "bind-address-ipv6": "::", 
     "blocklist-enabled": false, 
@@ -47,7 +47,7 @@
     "rpc-port": 9091, 
     "rpc-url": "/transmission/", 
     "rpc-username": "", 
-    "rpc-whitelist": "127.0.0.1", 
+    "rpc-whitelist": "127.0.0.1,192.168.1.5", 
     "rpc-whitelist-enabled": true, 
     "scrape-paused-torrents-enabled": true, 
     "script-torrent-done-enabled": false, 
@@ -62,7 +62,7 @@
     "trash-original-torrent-files": true, 
     "umask": 18, 
     "upload-slots-per-torrent": 3, 
-    "utp-enabled": false,
+    "utp-enabled": false, 
     "watch-dir": "/home/w0ng/downloads", 
     "watch-dir-enabled": true
 }
