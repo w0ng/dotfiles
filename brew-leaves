@@ -1,5 +1,5 @@
 # vim: ft=sh
-# macvim: install with arguments --with-cscope --with-lua --override-system-vim
+# macvim: install with arguments --with-cscope --with-lua --with-python3 --override-system-vim
 
 caskroom/cask/brew-cask
 dos2unix
@@ -7,6 +7,10 @@ gist
 git
 macvim
 mercurial
+perl
+python
+python3
+ruby
 the_silver_searcher
 tree
 wget
