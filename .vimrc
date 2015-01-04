@@ -192,7 +192,8 @@ let g:airline_right_sep = ''
 let g:airline_theme = 'hybridline'
 let g:syntastic_html_checkers = ['jshint']
 let g:syntastic_php_checkers = ['php']
-let g:tagbar_phpctags_bin='/Users/andrew/bin/phpctags'
+let g:syntastic_python_python_exec = '/usr/local/bin/python3'
+let g:tagbar_phpctags_bin='/usr/local/bin/phpctags'
 let g:tex_flavor = 'latex'
 let g:vimfiler_as_default_explorer = 1
 
