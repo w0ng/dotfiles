@@ -21,6 +21,7 @@ NeoBundle 'godlygeek/tabular'            " Text filtering and alignment
 NeoBundle 'majutsushi/tagbar'            " Display tags in a window
 NeoBundle 'scrooloose/syntastic'         " Syntax checking on write
 NeoBundle 'tpope/vim-fugitive'           " Git wrapper
+NeoBundle 'tpope/nerdcommenter'          " Syntax aware commenting
 NeoBundle 'tpope/vim-surround'           " Manipulate quotes and brackets
 NeoBundle 'vim-php/tagbar-phpctags.vim'  " PHP plugin for tagbar
 NeoBundle 'w0ng/vim-airline'             " Pretty statusbar
