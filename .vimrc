@@ -196,6 +196,7 @@ let g:syntastic_php_checkers = ['php']
 let g:syntastic_python_python_exec = '/usr/local/bin/python3'
 let g:tagbar_phpctags_bin='/usr/local/bin/phpctags'
 let g:tex_flavor = 'latex'
+let g:vim_json_syntax_conceal = 0
 let g:vimfiler_as_default_explorer = 1
 
 call unite#custom#profile('default', 'context', {
@@ -265,6 +266,9 @@ autocmd FileType markdown setlocal tw=79
 
 " Folding rules
 autocmd FileType c,cpp,java setlocal foldmethod=syntax foldnestmax=5
+
+" Treat lock files as json files
+autocmd BufNewFile,BufRead *.lock set ft=json
 
 " Set correct markdown extensions
 autocmd BufNewFile,BufRead *.markdown,*.md,*.mdown,*.mkd,*.mkdn
