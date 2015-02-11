@@ -60,6 +60,11 @@ ehthumbs.db
 
 # Project-specific: legacy files #
 ##################################
-.sass-cache/
 legacy/
 public/
+
+# Misc settings #
+#################
+.idea/
+.sass-cache/
+.vagrant/
