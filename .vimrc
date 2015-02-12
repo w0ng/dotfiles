@@ -11,7 +11,7 @@ set encoding=utf-8       " always encode in utf
 " Vim Plugins {{{
 " -----------------------------------------------------------------------------
 set runtimepath+=/Users/andrew/.vim/bundle/neobundle.vim/
-call neobundle#begin(expand('/users/andrew/.vim/bundle'))
+call neobundle#begin(expand('/Users/andrew/.vim/bundle'))
 NeoBundleFetch 'Shougo/neobundle.vim'    " Vim package manager
 NeoBundle 'Shougo/neocomplete'           " Automatic keyword completion
 NeoBundle 'Shougo/unite.vim'             " Find files and buffers using ag
@@ -20,6 +20,8 @@ NeoBundle 'elzr/vim-json'                " Nicer JSON syntax highlighting
 NeoBundle 'godlygeek/tabular'            " Text filtering and alignment
 NeoBundle 'majutsushi/tagbar'            " Display tags in a window
 NeoBundle 'scrooloose/syntastic'         " Syntax checking on write
+NeoBundle 'tobyS/pdv'                    " PHP Documenter
+NeoBundle 'tobyS/vmustache'              " Mustache template system
 NeoBundle 'tpope/vim-fugitive'           " Git wrapper
 NeoBundle 'tpope/nerdcommenter'          " Syntax aware commenting
 NeoBundle 'tpope/vim-surround'           " Manipulate quotes and brackets
@@ -177,8 +179,11 @@ nnoremap <leader>b :<C-u>Unite buffer<CR>
 nnoremap <leader>f :<C-u>Unite file_rec/async:!<CR>
 nnoremap <leader>g :<C-u>Unite grep:.<CR>
 
-" Togle VimFilerExplorer
+" Toggle VimFilerExplorer
 nnoremap <leader>e :VimFilerExplorer -parent<CR>
+
+" Document current line
+nnoremap <leader>d :call pdv#DocumentCurrentLine()<CR>
 
 "}}}
 " Plugin Settings {{{
@@ -191,6 +196,7 @@ let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline_right_sep = ''
 let g:airline_theme = 'hybridline'
+let g:pdv_template_dir = '/Users/andrew/.vim/bundle/pdv/templates'
 let g:syntastic_html_checkers = ['jshint']
 let g:syntastic_php_checkers = ['php']
 let g:syntastic_python_python_exec = '/usr/local/bin/python3'
