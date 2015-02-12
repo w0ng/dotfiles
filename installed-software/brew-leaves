@@ -2,11 +2,13 @@
 # macvim: install with arguments --with-cscope --with-lua --with-python3 --override-system-vim
 
 caskroom/cask/brew-cask
+ctags
 dos2unix
 gist
 git
 macvim
 mercurial
+node
 perl
 php55
 python
