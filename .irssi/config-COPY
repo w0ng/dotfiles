@@ -3,6 +3,15 @@
 servers = (
   { address = "localhost"; chatnet = "bitlbee"; autoconnect = "yes"; },
   {
+    #address = "client.oz.org";
+    address = "rockhampton.oz.org";
+    chatnet = "ozorg";
+    port = "6667";
+    use_ssl = "no";
+    ssl_verify = "no";
+    autoconnect = "yes";
+  },
+  {
     address = "irc.freenode.net";
     #address = "roddenberry.freenode.net";
     chatnet = "freenode";
@@ -13,8 +22,8 @@ servers = (
     autoconnect = "yes";
   },
   {
-    #address = "irc.rizon.net";
-    address = "irc.rizon.us";
+    address = "irc.rizon.net";
+    #address = "irc.rizon.us";
     chatnet = "rizon";
     port = "6697";
     use_ssl = "yes";
@@ -31,13 +40,14 @@ chatnets = {
     autosendcmd = "/^msg &bitlbee identify XXXXXXXXXXXX;";
   };
   freenode = { type = "IRC"; };
+  ozorg = { type = "IRC"; };
   rizon = { type = "IRC"; };
 };
 
 channels = (
   { name = "#archlinux"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#fsc"; chatnet = "rizon"; autojoin = "yes"; },
-  { name = "#css"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#overclockers"; chatnet = "ozorg"; autojoin = "yes"; },
   { name = "##javascript"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#jquery"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#laravel"; chatnet = "freenode"; autojoin = "yes"; },
@@ -200,8 +210,8 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "&bitlbee";
-        tag = "bitlbee";
+        name = "#overclockers";
+        tag = "ozorg";
       }
     );
   };
@@ -210,8 +220,8 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#css";
-        tag = "freenode";
+        name = "&bitlbee";
+        tag = "bitlbee";
       }
     );
   };
