@@ -4,15 +4,26 @@ set ignorecase " ignore case in search patterns
 set showmode " message on status line to show current mode
 set smartcase " no ignore case when pattern has uppercase
 set visualbell " use visual bell instead of beeping
+
 " Switch tabs
 nnoremap <C-n> gt
 nnoremap <C-p> gT
+
 " Exit insert mode
 inoremap jj <Esc>
+
 " Toggle hlsearch for current results
 nnoremap ,, :nohlsearch<CR>
+
 " Switch colon and semi-colon
 nnoremap ; :
 nnoremap : ;
 vnoremap ; :
 vnoremap : ;
+
+" Split windows
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+nnoremap <C-c> <C-w>c
