@@ -10,7 +10,9 @@ macvim
 mercurial
 node
 perl
-php55
+php-code-sniffer
+php54-xdebug
+phpmd
 python
 python3
 ruby
