@@ -1,6 +1,7 @@
 "
 " ~/.vimrc
-"
+" vim: fdm=marker
+
 " Comptability {{{
 " -----------------------------------------------------------------------------
 "
@@ -18,6 +19,7 @@ NeoBundle 'Shougo/unite.vim'             " Find files and buffers using ag
 NeoBundle 'Shougo/vimfiler.vim'          " File explorer
 NeoBundle 'elzr/vim-json'                " Nicer JSON syntax highlighting
 NeoBundle 'godlygeek/tabular'            " Text filtering and alignment
+NeoBundle 'kchmck/vim-coffee-script'     " Coffee syntax highlighting
 NeoBundle 'majutsushi/tagbar'            " Display tags in a window
 NeoBundle 'scrooloose/syntastic'         " Syntax checking on write
 NeoBundle 'tobyS/pdv'                    " PHP Documenter
@@ -197,9 +199,6 @@ let g:airline_right_sep = ''
 let g:airline_right_sep = ''
 let g:airline_theme = 'hybridline'
 let g:pdv_template_dir = '/Users/andrew/.vim/bundle/pdv/templates'
-let g:syntastic_html_checkers = ['jshint']
-let g:syntastic_php_checkers = ['php']
-let g:syntastic_python_python_exec = '/usr/local/bin/python3'
 let g:tagbar_phpctags_bin='/usr/local/bin/phpctags'
 let g:tex_flavor = 'latex'
 let g:vim_json_syntax_conceal = 0
@@ -287,6 +286,23 @@ autocmd BufNewFile,BufRead *.markdown,*.md,*.mdown,*.mkd,*.mkdn
 " Change refresh bindings for vimfilerexplorer
 autocmd FileType vimfiler nunmap <buffer> <C-l>
 autocmd FileType vimfiler nmap <buffer> <C-R> <Plug>(vimfiler_redraw_screen)
+
+"}}}
+" Syntastic Checkers {{{
+" -----------------------------------------------------------------------------
+
+let g:syntastic_coffee_checkers = ['coffeelint']
+let g:syntastic_css_checkers = ['csslint']
+let g:syntastic_html_checkers = ['tidy']
+let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_json_checkers = ['jsonlint']
+let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
+let g:syntastic_sass_checkers = ['sass']
+let g:syntastic_scss_checkers = ['scss_lint']
+
+let g:syntastic_python_python_exec = '/usr/local/bin/python3'
+
+"let g:syntastic_mode_map = {'passive_filetypes': ['sass', 'scss']}
 
 "}}}
 " Functions {{{
