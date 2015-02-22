@@ -31,7 +31,8 @@
 [difftool]
     prompt = false
 [alias]
-    l = log --pretty=format:'%C(yellow)%h%C(magenta)%d%Creset %s %C(cyan)%cN% C(blue)(%cr)%Creset' --graph --use-mailmap
+    l = log --pretty=format:'%C(yellow)%h%C(magenta)%d%C(reset) %s %C(cyan)%cN %C(blue)(%cr)%C(reset)' --graph --use-mailmap
+    ll = log --pretty=format:'%C(yellow)%h%C(magenta)%d%C(reset) %s %C(cyan)%cN %C(blue)(%cD)%C(reset)' --graph --use-mailmap
     s = status -sb
 [push]
     default = simple
@@ -40,4 +41,4 @@
 [mergetool]
     keepBackup = false
 [mailmap]
-	file = /Users/Home/.mailmap
+	file = /Users/andrew/.mailmap
