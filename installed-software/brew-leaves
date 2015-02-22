@@ -16,7 +16,9 @@ phpmd
 python
 python3
 ruby
+shellcheck
 the_silver_searcher
+tidy
 tree
 wget
 zsh
