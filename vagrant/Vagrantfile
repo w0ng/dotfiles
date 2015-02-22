@@ -3,27 +3,44 @@
 
 # Config variables
 project_name = File.basename(Dir.pwd)
-server_ip = "192.168.33.10"
+server_ip = "192.168.22.10"
 server_name = server_ip + ".xip.io"
-public_folder = "/vagrant"
+doc_root = "/vagrant/public"
 
 Vagrant.configure(2) do |config|
 
-    config.vm.box = "wong/debian-7.7.0-amd64"
-
-    config.vm.box_url = "~/vagrant-boxes/debian-7.7.0-amd64.box"
+    config.vm.box = "w0ng/debian-7.8.0-amd64"
 
     config.vm.network "private_network", ip: server_ip
+
+    config.vm.synced_folder '.', '/vagrant', nfs: true
 
     config.vm.define project_name do |appname|
     end
 
     config.vm.provider "virtualbox" do |vb|
+        # Based on: https://stefanwrobel.com/how-to-make-vagrant-performance-not-suck
+        # Give VM 1/4 system memory & access to all cpu cores on the host
+        host = RbConfig::CONFIG['host_os']
+        # OSX
+        if host =~ /darwin/
+            cpus = `sysctl -n hw.ncpu`.to_i
+            mem = `sysctl -n hw.memsize`.to_i / 1024 / 1024 / 4
+        # Linux
+        elsif host =~ /linux/
+            cpus = `nproc`.to_i
+            mem = `grep 'MemTotal' /proc/meminfo | sed -e 's/MemTotal://' -e 's/ kB//'`.to_i / 1024 / 4
+        # Windows
+        else
+            cpus = 2
+            mem = 1024
+        end
+
         vb.name = project_name
-        vb.cpus = 2
-        vb.memory = 1024
+        vb.customize ["modifyvm", :id, "--memory", mem]
+        vb.customize ["modifyvm", :id, "--cpus", cpus]
     end
 
     config.vm.provision :shell, path: "install.sh",
-        args: [server_name, public_folder]
+        args: [server_name, doc_root]
 end

@@ -4,6 +4,22 @@
 
 # =============================================================================
 
+echo "--- Adding Dotdeb to repository list ---"
+
+cat <<EOF >> /etc/apt/sources.list
+
+# Main Dotdeb repository
+deb http://packages.dotdeb.org wheezy all
+deb-src http://packages.dotdeb.org wheezy all
+# PHP 5.5 on Debian 7 "Wheezy"
+deb http://packages.dotdeb.org wheezy-php55 all
+deb-src http://packages.dotdeb.org wheezy-php55 all
+EOF
+
+wget http://www.dotdeb.org/dotdeb.gpg
+apt-key add dotdeb.gpg
+rm dotdeb.gpg
+
 echo "--- Installing base packages ---"
 
 apt-get update
@@ -13,6 +29,7 @@ apt-get install -y \
     curl \
     git-core \
     mlocate \
+    nfs-common \
     python-software-properties \
     unzip
 
@@ -56,18 +73,18 @@ sudo openssl x509 \
 
 # =============================================================================
 
+# Set mysql root user password to 'root'
+debconf-set-selections <<< 'mysql-server mysql-server/root_password password root'
+debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password root'
+
 echo "--- Installing Apache, PHP and MySQL ---"
 
-# MySQL: preset root password to enable non-interactive package installation
-debconf-set-selections <<< \
-    'mysql-server mysql-server/root_password password root'
-debconf-set-selections <<< \
-    'mysql-server mysql-server/root_password_again password root'
-
+# Use native driver to prevent minor version mismatch warning with mysql 5.6
+# i.e. php5-mysqlnd instead of php5-mysql
 apt-get install -y \
     apache2 \
     libapache2-mod-php5 \
-    mysql-server \
+    mysql-server-5.6 \
     php5 \
     php5-curl \
     php5-gd \
@@ -77,32 +94,41 @@ apt-get install -y \
     php5-ldap \
     php5-mcrypt \
     php5-memcached \
-    php5-mysql \
+    php5-mysqlnd \
     php5-xdebug
 
 # =============================================================================
 
 echo "--- Configuring PHP ---"
 
-# PHP: Display all errors
+# PHP: Display all errors, increase memory limit, set timezone
 sed -i "s/error_reporting = .*/error_reporting = E_ALL/" \
     /etc/php5/apache2/php.ini
 sed -i "s/display_errors = .*/display_errors = On/" \
     /etc/php5/apache2/php.ini
+sed -i "s/memory_limit = .*/memory_limit = 512M/" \
+    /etc/php5/apache2/php.ini
+sed -i "s/^;\?date.timezone =.*/date.timezone = \"Australia\/Sydney\"/" \
+    /etc/php5/apache2/php.ini
+sed -i "s/^;\?date.timezone =.*/date.timezone = \"Australia\/Sydney\"/" \
+    /etc/php5/cli/php.ini
 
-# Xdebug: enable extension, do not limit output
-cat > $(find /etc/php5 -name xdebug.ini) << EOF
+# Xdebug: enable extension, do not limit output, enable triggered profiler
+cat > "$(find /etc/php5 -name xdebug.ini)" << EOF
 zend_extension=$(find /usr/lib/php5 -name xdebug.so)
 xdebug.remote_enable = 1
 xdebug.remote_connect_back = 1
 xdebug.remote_port = 9000
-xdebug.scream= 0
-xdebug.cli_color= 1
-xdebug.show_local_vars= 1
+xdebug.scream = 0
+xdebug.cli_color = 1
+xdebug.show_local_vars = 1
 xdebug.var_display_max_depth = -1
 xdebug.var_display_max_children = -1
 xdebug.var_display_max_data = -1
+xdebug.profiler_enable_trigger = 1
+xdebug.profiler_output_dir = /vagrant/tmp
 EOF
+echo "PHP configured."
 
 # =============================================================================
 
@@ -120,16 +146,17 @@ CERT_NAME="xip.io"
     cat <<EOF > /etc/apache2/sites-available/${SERVER}.conf
 <VirtualHost *:80>
     ServerAdmin webmaster@localhost
-    ServerName ${SERVER}
+    ServerAlias ${SERVER}
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^([^\.]+)$ \$1.php [NC,L]
     DocumentRoot ${DOC_ROOT}
     <Directory ${DOC_ROOT}>
         Options Indexes FollowSymLinks MultiViews
         AllowOverride All
         Order allow,deny
         allow from all
-        RewriteCond %{REQUEST_FILENAME} !-f
-        RewriteCond %{REQUEST_FILENAME} !-d
-        RewriteRule ^([^\.]+)$ \$1.php [NC,L]
     </Directory>
     ErrorLog \${APACHE_LOG_DIR}/${SERVER}-error.log
     LogLevel warn
@@ -142,16 +169,17 @@ EOF
     cat <<EOF >> /etc/apache2/sites-available/${SERVER}.conf
 <VirtualHost *:443>
     ServerAdmin webmaster@localhost
-    ServerName ${SERVER}
+    ServerAlias ${SERVER}
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^([^\.]+)$ \$1.php [NC,L]
     DocumentRoot ${DOC_ROOT}
     <Directory ${DOC_ROOT}>
         Options Indexes FollowSymLinks MultiViews
         AllowOverride All
         Order allow,deny
         allow from all
-        RewriteCond %{REQUEST_FILENAME} !-f
-        RewriteCond %{REQUEST_FILENAME} !-d
-        RewriteRule ^([^\.]+)$ \$1.php [NC,L]
     </Directory>
     ErrorLog \${APACHE_LOG_DIR}/${SERVER}-error.log
     LogLevel warn
@@ -171,9 +199,12 @@ EOF
 
 # Update global Apache settings
 echo "ServerName localhost" >> /etc/apache2/apache2.conf
-cd /etc/apache2/sites-available/ && a2ensite ${SERVER}.conf
+cd /etc/apache2/sites-available/ && a2ensite "${SERVER}".conf
 a2dissite 000-default
 a2enmod rewrite actions ssl
+a2enmod php5
+service apache2 restart
+echo "Apache configured."
 
 # =============================================================================
 
@@ -181,6 +212,7 @@ echo "--- Installing Composer ---"
 
 curl -sS https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
+echo "Composer installed."
 
 # =============================================================================
 
@@ -200,7 +232,7 @@ filetype plugin indent on
 syntax on
 " General
 set backspace=2           " enable <BS> for everything
-"set colorcolumn=120       " visual indicator of column
+"set colorcolumn=80       " visual indicator of column
 set completeopt-=preview  " dont show preview window
 "set cursorline            " visual indicator of current line
 set hidden                " hide when switching buffers, don't unload
@@ -245,11 +277,11 @@ if &diff
     set diffopt=filler,foldcolumn:0
 endif
 EOF
+echo "Vim installed."
 
 # =============================================================================
 
 echo "--- Finalising installation ---"
-apache2ctl graceful && echo "Apache restarted gracefully."
 updatedb && echo "mlocate DB updated."
 
 # =============================================================================
