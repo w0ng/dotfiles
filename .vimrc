@@ -19,6 +19,7 @@ NeoBundle 'Shougo/unite.vim'             " Find files and buffers using ag
 NeoBundle 'Shougo/vimfiler.vim'          " File explorer
 NeoBundle 'elzr/vim-json'                " Nicer JSON syntax highlighting
 NeoBundle 'godlygeek/tabular'            " Text filtering and alignment
+NeoBundle 'hynek/vim-python-pep8-indent' " PEP8 indentation
 NeoBundle 'kchmck/vim-coffee-script'     " Coffee syntax highlighting
 NeoBundle 'majutsushi/tagbar'            " Display tags in a window
 NeoBundle 'scrooloose/syntastic'         " Syntax checking on write
