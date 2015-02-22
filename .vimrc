@@ -297,8 +297,11 @@ let g:syntastic_html_checkers = ['tidy']
 let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_json_checkers = ['jsonlint']
 let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
+let g:syntastic_python_checkers = ['python', 'flake8']
 let g:syntastic_sass_checkers = ['sass']
 let g:syntastic_scss_checkers = ['scss_lint']
+let g:syntastic_sh_checkers = ['sh', 'shellcheck']
+let g:syntastic_zsh_checkers = ['zsh']
 
 let g:syntastic_python_python_exec = '/usr/local/bin/python3'
 
