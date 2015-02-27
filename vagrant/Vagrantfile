@@ -5,7 +5,8 @@
 project_name = File.basename(Dir.pwd)
 server_ip = "192.168.22.10"
 server_name = server_ip + ".xip.io"
-doc_root = "/vagrant/public"
+server_alias = "dev.localhost." + server_name
+doc_root = "/vagrant"
 
 Vagrant.configure(2) do |config|
 
@@ -42,5 +43,5 @@ Vagrant.configure(2) do |config|
     end
 
     config.vm.provision :shell, path: "install.sh",
-        args: [server_name, doc_root]
+        args: [server_name, server_alias, doc_root]
 end

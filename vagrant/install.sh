@@ -157,19 +157,21 @@ echo "PHP configured."
 
 echo "--- Configuring Apache ---"
 
-SERVER="$1"
-DOC_ROOT="$2"
+SERVER_NAME="$1"
+SERVER_ALIAS="$2"
+DOC_ROOT="$3"
 CERT_PATH="/etc/ssl/xip.io"
 CERT_NAME="xip.io"
 
 [[ ! -d "$DOC_ROOT" ]] && mkdir -p "$DOC_ROOT"
 
 # Create a vhost using arguments supplied by VagrantFile
-[[ ! -f "${DOC_ROOT}/${SERVER}.conf" ]] && \
-    cat <<EOF > /etc/apache2/sites-available/${SERVER}.conf
+[[ ! -f "${DOC_ROOT}/${SERVER_NAME}.conf" ]] && \
+    cat <<EOF > /etc/apache2/sites-available/${SERVER_NAME}.conf
 <VirtualHost *:80>
     ServerAdmin webmaster@localhost
-    ServerAlias ${SERVER}
+    ServerName ${SERVER_NAME}
+    ServerAlias ${SERVER_ALIAS}
     DocumentRoot ${DOC_ROOT}
     <Directory ${DOC_ROOT}>
         Options +Indexes +FollowSymLinks +MultiViews
@@ -177,18 +179,19 @@ CERT_NAME="xip.io"
         Order allow,deny
         allow from all
     </Directory>
-    ErrorLog \${APACHE_LOG_DIR}/${SERVER}-error.log
+    ErrorLog \${APACHE_LOG_DIR}/${SERVER_NAME}-error.log
     LogLevel warn
-    CustomLog \${APACHE_LOG_DIR}/${SERVER}-access.log combined
+    CustomLog \${APACHE_LOG_DIR}/${SERVER_NAME}-access.log combined
 </VirtualHost>
 EOF
 
 # Create an SSL vhost using the xip.io cert created earlier
 [[ -d "${CERT_PATH}" ]] && \
-    cat <<EOF >> /etc/apache2/sites-available/${SERVER}.conf
+    cat <<EOF >> /etc/apache2/sites-available/${SERVER_NAME}.conf
 <VirtualHost *:443>
     ServerAdmin webmaster@localhost
-    ServerAlias ${SERVER}
+    ServerName ${SERVER_NAME}
+    ServerAlias ${SERVER_ALIAS}
     DocumentRoot ${DOC_ROOT}
     <Directory ${DOC_ROOT}>
         Options +Indexes +FollowSymLinks +MultiViews
@@ -196,9 +199,9 @@ EOF
         Order allow,deny
         allow from all
     </Directory>
-    ErrorLog \${APACHE_LOG_DIR}/${SERVER}-error.log
+    ErrorLog \${APACHE_LOG_DIR}/${SERVER_NAME}-error.log
     LogLevel warn
-    CustomLog \${APACHE_LOG_DIR}/${SERVER}-access.log combined
+    CustomLog \${APACHE_LOG_DIR}/${SERVER_NAME}-access.log combined
     SSLEngine on
     SSLCertificateFile ${CERT_PATH}/${CERT_NAME}.crt
     SSLCertificateKeyFile ${CERT_PATH}/${CERT_NAME}.key
@@ -225,7 +228,8 @@ EOF
 
 # Update Apache settings
 echo "ServerName localhost" >> /etc/apache2/apache2.conf
-cd /etc/apache2/sites-available/ && a2ensite "${SERVER}".conf
+sed -i '/Listen 443/i\ \ \ \ NameVirtualHost *:443' /etc/apache2/ports.conf
+cd /etc/apache2/sites-available/ && a2ensite "${SERVER_NAME}".conf
 a2dissite 000-default
 a2enmod rewrite actions ssl
 
@@ -313,4 +317,4 @@ updatedb && echo "mlocate DB updated."
 # =============================================================================
 
 echo "--- FINISHED ---"
-echo "View the dev site via http://${SERVER}"
+echo "View the dev site via http://${SERVER_NAME}"
