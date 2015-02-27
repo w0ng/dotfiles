@@ -1,11 +1,19 @@
 #!/usr/bin/env bash
 #
-# Based on https://github.com/fideloper/Vaprobash
+# References:
+#   https://github.com/fideloper/Vaprobash
+#   https://serversforhackers.com/ssl-certs/
+#   https://www.linode.com/docs/websites/apache/running-fastcgi-php-fpm-on-debian-7-with-apache
+#   https://github.com/w0ng/dotfiles/blob/master/.vimrc
 
 # =============================================================================
 
-echo "--- Adding Dotdeb to repository list ---"
+echo "--- Adding non-free and Dotdeb repositories ---"
 
+# Non-free
+sed -ri "s/^(deb.* main)$/\1 non-free/" /etc/apt/sources.list
+
+# PHP 5.5 from Dotdeb
 cat <<EOF >> /etc/apt/sources.list
 
 # Main Dotdeb repository
@@ -19,6 +27,8 @@ EOF
 wget http://www.dotdeb.org/dotdeb.gpg
 apt-key add dotdeb.gpg
 rm dotdeb.gpg
+
+# =============================================================================
 
 echo "--- Installing base packages ---"
 
@@ -37,7 +47,6 @@ apt-get install -y \
 
 echo "--- Creating a wildcard self-signed SSL Certificate ---"
 
-# Based on https://serversforhackers.com/ssl-certs/
 SSL_DIR="/etc/ssl/xip.io"
 DOMAIN="*.xip.io"
 PASSPHRASE=""
@@ -51,20 +60,20 @@ organizationalUnitName=
 emailAddress=
 "
 
-[[ ! -d "$SSL_DIR" ]] && sudo mkdir -p "$SSL_DIR"
+[[ ! -d "$SSL_DIR" ]] && mkdir -p "$SSL_DIR"
 
 # Generate private key, csr and certificate
-sudo openssl genrsa \
+openssl genrsa \
     -out "$SSL_DIR/xip.io.key" 2048
 
-sudo openssl req \
+openssl req \
     -new \
     -subj "$(echo -n "$SUBJ" | tr "\n" "/")" \
     -key "$SSL_DIR/xip.io.key" \
     -out "$SSL_DIR/xip.io.csr" \
     -passin pass:$PASSPHRASE
 
-sudo openssl x509 \
+openssl x509 \
     -req \
     -days 365 \
     -in "$SSL_DIR/xip.io.csr" \
@@ -74,18 +83,22 @@ sudo openssl x509 \
 # =============================================================================
 
 # Set mysql root user password to 'root'
-debconf-set-selections <<< 'mysql-server mysql-server/root_password password root'
-debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password root'
+debconf-set-selections <<< \
+    'mysql-server mysql-server/root_password password root'
+debconf-set-selections <<< \
+    'mysql-server mysql-server/root_password_again password root'
 
 echo "--- Installing Apache, PHP and MySQL ---"
 
-# Use native driver to prevent minor version mismatch warning with mysql 5.6
-# i.e. php5-mysqlnd instead of php5-mysql
+# Use native driver to prevent minor version mismatch warning with mysql 5.6:
+# php5-mysqlnd instead of php5-mysql
 apt-get install -y \
     apache2 \
-    libapache2-mod-php5 \
+    apache2-mpm-worker \
+    libapache2-mod-fastcgi \
     mysql-server-5.6 \
-    php5 \
+    php5-cli \
+    php5-fpm \
     php5-curl \
     php5-gd \
     php5-gmp \
@@ -101,15 +114,22 @@ apt-get install -y \
 
 echo "--- Configuring PHP ---"
 
-# PHP: Display all errors, increase memory limit, set timezone
+# Add vagrant user to group used for PHP5-FPM
+usermod -a -G www-data vagrant
+
+# Display all errors
 sed -i "s/error_reporting = .*/error_reporting = E_ALL/" \
-    /etc/php5/apache2/php.ini
+    /etc/php5/fpm/php.ini
 sed -i "s/display_errors = .*/display_errors = On/" \
-    /etc/php5/apache2/php.ini
+    /etc/php5/fpm/php.ini
+
+# Increase memory limit
 sed -i "s/memory_limit = .*/memory_limit = 512M/" \
-    /etc/php5/apache2/php.ini
+    /etc/php5/fpm/php.ini
+
+# Set timezone
 sed -i "s/^;\?date.timezone =.*/date.timezone = \"Australia\/Sydney\"/" \
-    /etc/php5/apache2/php.ini
+    /etc/php5/fpm/php.ini
 sed -i "s/^;\?date.timezone =.*/date.timezone = \"Australia\/Sydney\"/" \
     /etc/php5/cli/php.ini
 
@@ -128,6 +148,9 @@ xdebug.var_display_max_data = -1
 xdebug.profiler_enable_trigger = 1
 xdebug.profiler_output_dir = /vagrant/tmp
 EOF
+
+service php5-fpm restart
+
 echo "PHP configured."
 
 # =============================================================================
@@ -147,13 +170,9 @@ CERT_NAME="xip.io"
 <VirtualHost *:80>
     ServerAdmin webmaster@localhost
     ServerAlias ${SERVER}
-    RewriteEngine On
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^([^\.]+)$ \$1.php [NC,L]
     DocumentRoot ${DOC_ROOT}
     <Directory ${DOC_ROOT}>
-        Options Indexes FollowSymLinks MultiViews
+        Options +Indexes +FollowSymLinks +MultiViews
         AllowOverride All
         Order allow,deny
         allow from all
@@ -170,13 +189,9 @@ EOF
 <VirtualHost *:443>
     ServerAdmin webmaster@localhost
     ServerAlias ${SERVER}
-    RewriteEngine On
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^([^\.]+)$ \$1.php [NC,L]
     DocumentRoot ${DOC_ROOT}
     <Directory ${DOC_ROOT}>
-        Options Indexes FollowSymLinks MultiViews
+        Options +Indexes +FollowSymLinks +MultiViews
         AllowOverride All
         Order allow,deny
         allow from all
@@ -197,13 +212,25 @@ EOF
 </VirtualHost>
 EOF
 
-# Update global Apache settings
+# Configure FastCGI mod
+sed -i '$d' /etc/apache2/mods-available/fastcgi.conf
+cat <<EOF >> /etc/apache2/mods-available/fastcgi.conf
+  AddType application/x-httpd-fastphp5 .php
+  Action application/x-httpd-fastphp5 /php5-fcgi
+  Alias /php5-fcgi /usr/lib/cgi-bin/php5-fcgi
+  FastCgiExternalServer /usr/lib/cgi-bin/php5-fcgi -socket /var/run/php5-fpm.sock -pass-header Authorization
+</IfModule>
+EOF
+
+
+# Update Apache settings
 echo "ServerName localhost" >> /etc/apache2/apache2.conf
 cd /etc/apache2/sites-available/ && a2ensite "${SERVER}".conf
 a2dissite 000-default
 a2enmod rewrite actions ssl
-a2enmod php5
+
 service apache2 restart
+
 echo "Apache configured."
 
 # =============================================================================
@@ -220,7 +247,6 @@ echo "--- Installing vim ---"
 
 apt-get install -y vim
 
-# Based on https://github.com/w0ng/dotfiles/blob/master/.vimrc
 cat <<EOF > /home/vagrant/.vimrc
 "
 " ~/.vimrc
