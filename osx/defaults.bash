@@ -32,4 +32,6 @@ sudo nvram SystemAudioVolume=%80
 #defaults write com.apple.mail DisableReplyAnimations -bool true
 #defaults write com.apple.mail DisableSendAnimations -bool true
 
-# TODO: disable full screen animation and desktop switching animation
+# TODO:
+# Disable desktop switching animation: pay $25 for TotalSpaces2, because Apple
+# Disable full screen animation: install Linux, because Apple
