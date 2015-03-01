@@ -64,8 +64,6 @@
     </option>
     <option name="BAD_CHARACTER">
       <value>
-        <option name="FOREGROUND" value="cc6666" />
-        <option name="BACKGROUND" value="5f0000" />
         <option name="EFFECT_COLOR" value="ff0000" />
         <option name="EFFECT_TYPE" value="2" />
       </value>
@@ -231,9 +229,10 @@
     </option>
     <option name="CUSTOM_INVALID_STRING_ESCAPE_ATTRIBUTES">
       <value>
-        <option name="FOREGROUND" value="cc6666" />
-        <option name="BACKGROUND" value="5f0000" />
-        <option name="EFFECT_TYPE" value="0" />
+        <option name="FOREGROUND" value="b5bd68" />
+        <option name="EFFECT_COLOR" value="ff0000" />
+        <option name="ERROR_STRIPE_COLOR" value="bc3f3c" />
+        <option name="EFFECT_TYPE" value="2" />
       </value>
     </option>
     <option name="CUSTOM_KEYWORD1_ATTRIBUTES">
@@ -364,8 +363,7 @@
     </option>
     <option name="DEFAULT_INVALID_STRING_ESCAPE">
       <value>
-        <option name="FOREGROUND" value="cc6666" />
-        <option name="BACKGROUND" value="5f0000" />
+        <option name="FOREGROUND" value="b5bd68" />
         <option name="EFFECT_COLOR" value="ff0000" />
         <option name="EFFECT_TYPE" value="2" />
       </value>
@@ -502,8 +500,6 @@
     </option>
     <option name="ERRORS_ATTRIBUTES">
       <value>
-        <option name="FOREGROUND" value="cc6666" />
-        <option name="BACKGROUND" value="5f0000" />
         <option name="EFFECT_COLOR" value="ff0000" />
         <option name="ERROR_STRIPE_COLOR" value="bc3f3c" />
         <option name="EFFECT_TYPE" value="2" />
