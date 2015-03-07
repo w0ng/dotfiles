@@ -155,10 +155,19 @@ echo "PHP configured."
 
 echo "--- Configuring MySQL ---"
 
-sed -i '/\[mysqld\]/a sql_mode = "STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION"\n' \
+# Set strict mode
+sed -i '/\[mysqld\]/a sql_mode = "STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION"' \
     /etc/mysql/my.cnf
 
-echo "MySQL set to strict mode."
+# Fix deprecated defaults
+sed -i '/\[mysqld\]/a explicit_defaults_for_timestamp = 1' \
+    /etc/mysql/my.cnf
+sed -i 's/key_buffer[^_]/key_buffer_size/' \
+    /etc/mysql/my.cnf
+
+service mysql restart
+
+echo "MySQL configured."
 
 # =============================================================================
 
