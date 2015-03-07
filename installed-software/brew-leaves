@@ -12,6 +12,8 @@ node
 perl
 php-code-sniffer
 php54-xdebug
+php55-xdebug
+php56-xdebug
 phpmd
 python
 python3
