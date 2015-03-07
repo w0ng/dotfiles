@@ -13,15 +13,15 @@ echo "--- Adding non-free and Dotdeb repositories ---"
 # Non-free
 sed -ri "s/^(deb.* main)$/\1 non-free/" /etc/apt/sources.list
 
-# PHP 5.5 from Dotdeb
+# Dotdeb repos, for MySQL 5.6 and PHP 5.6
 cat <<EOF >> /etc/apt/sources.list
 
 # Main Dotdeb repository
 deb http://packages.dotdeb.org wheezy all
 deb-src http://packages.dotdeb.org wheezy all
-# PHP 5.5 on Debian 7 "Wheezy"
-deb http://packages.dotdeb.org wheezy-php55 all
-deb-src http://packages.dotdeb.org wheezy-php55 all
+# PHP 5.6 for Debian 7 "Wheezy"
+deb http://packages.dotdeb.org wheezy-php56 all
+deb-src http://packages.dotdeb.org wheezy-php56 all
 EOF
 
 wget http://www.dotdeb.org/dotdeb.gpg
@@ -33,7 +33,7 @@ rm dotdeb.gpg
 echo "--- Installing base packages ---"
 
 apt-get update
-apt-get upgrade
+apt-get upgrade -y
 apt-get install -y \
     build-essential \
     curl \
@@ -88,10 +88,11 @@ debconf-set-selections <<< \
 debconf-set-selections <<< \
     'mysql-server mysql-server/root_password_again password root'
 
-echo "--- Installing Apache, PHP and MySQL ---"
+echo "--- Installing Apache, MySQL and PHP ---"
 
 # Use native driver to prevent minor version mismatch warning with mysql 5.6:
 # php5-mysqlnd instead of php5-mysql
+# FIXME: add php5-xdebug when the 5.6 package is released
 apt-get install -y \
     apache2 \
     apache2-mpm-worker \
@@ -107,8 +108,7 @@ apt-get install -y \
     php5-ldap \
     php5-mcrypt \
     php5-memcached \
-    php5-mysqlnd \
-    php5-xdebug
+    php5-mysqlnd
 
 # =============================================================================
 
@@ -123,10 +123,6 @@ sed -i "s/error_reporting = .*/error_reporting = E_ALL/" \
 sed -i "s/display_errors = .*/display_errors = On/" \
     /etc/php5/fpm/php.ini
 
-# Increase memory limit
-sed -i "s/memory_limit = .*/memory_limit = 512M/" \
-    /etc/php5/fpm/php.ini
-
 # Set timezone
 sed -i "s/^;\?date.timezone =.*/date.timezone = \"Australia\/Sydney\"/" \
     /etc/php5/fpm/php.ini
@@ -134,24 +130,35 @@ sed -i "s/^;\?date.timezone =.*/date.timezone = \"Australia\/Sydney\"/" \
     /etc/php5/cli/php.ini
 
 # Xdebug: enable extension, do not limit output, enable triggered profiler
-cat > "$(find /etc/php5 -name xdebug.ini)" << EOF
-zend_extension=$(find /usr/lib/php5 -name xdebug.so)
-xdebug.remote_enable = 1
-xdebug.remote_connect_back = 1
-xdebug.remote_port = 9000
-xdebug.scream = 0
-xdebug.cli_color = 1
-xdebug.show_local_vars = 1
-xdebug.var_display_max_depth = -1
-xdebug.var_display_max_children = -1
-xdebug.var_display_max_data = -1
-xdebug.profiler_enable_trigger = 1
-xdebug.profiler_output_dir = /vagrant/tmp
-EOF
+# FIXME: uncomment when php5-xdebug for php 5.6 is available
+#[[ ! -d "/vagrant/tmp" ]] && mkdir -p "/vagrant/tmp"
+#cat > "$(find /etc/php5 -name xdebug.ini)" << EOF
+#zend_extension=$(find /usr/lib/php5 -name xdebug.so)
+#xdebug.remote_enable = 1
+#xdebug.remote_connect_back = 1
+#xdebug.remote_port = 9000
+#xdebug.scream = 0
+#xdebug.cli_color = 1
+#xdebug.show_local_vars = 1
+#xdebug.var_display_max_depth = -1
+#xdebug.var_display_max_children = -1
+#xdebug.var_display_max_data = -1
+#xdebug.profiler_enable_trigger = 1
+#xdebug.profiler_output_dir = /vagrant/tmp
+#EOF
 
 service php5-fpm restart
 
 echo "PHP configured."
+
+# =============================================================================
+
+echo "--- Configuring MySQL ---"
+
+sed -i '/\[mysqld\]/a sql_mode = "STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION"\n' \
+    /etc/mysql/my.cnf
+
+echo "MySQL set to strict mode."
 
 # =============================================================================
 
