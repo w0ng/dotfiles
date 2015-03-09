@@ -11,6 +11,7 @@ group user
 " -----------------------------------------------------------------------------
 
 set defsearch=g
+set editor='/usr/local/bin/mvim -f +<line> +"sil! call cursor(0, <column>)" <file>'
 set guioptions-=br
 set guioptions+=n
 set hlfind
