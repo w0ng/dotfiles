@@ -17,6 +17,7 @@ NeoBundleFetch 'Shougo/neobundle.vim'    " Vim package manager
 NeoBundle 'Shougo/neocomplete'           " Automatic keyword completion
 NeoBundle 'Shougo/unite.vim'             " Find files and buffers using ag
 NeoBundle 'Shougo/vimfiler.vim'          " File explorer
+NeoBundle 'bling/vim-airline'            " Pretty statusbar
 NeoBundle 'elzr/vim-json'                " Nicer JSON syntax highlighting
 NeoBundle 'godlygeek/tabular'            " Text filtering and alignment
 NeoBundle 'hynek/vim-python-pep8-indent' " PEP8 indentation
@@ -29,7 +30,6 @@ NeoBundle 'tpope/vim-fugitive'           " Git wrapper
 NeoBundle 'tpope/nerdcommenter'          " Syntax aware commenting
 NeoBundle 'tpope/vim-surround'           " Manipulate quotes and brackets
 NeoBundle 'vim-php/tagbar-phpctags.vim'  " PHP plugin for tagbar
-NeoBundle 'w0ng/vim-airline'             " Pretty statusbar
 NeoBundle 'w0ng/vim-hybrid'              " Dark colourscheme
 " Interactive command execution
 NeoBundle 'Shougo/vimproc.vim', {
