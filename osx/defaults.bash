@@ -28,6 +28,9 @@ chflags nohidden ~/Library
 # Disable system sounds. `sudo nvram -d SystemAudioVolume` to revert.
 sudo nvram SystemAudioVolume=%80
 
+# Disable native full screen for mvim (i.e. don't create a new space)
+defaults write org.vim.MacVim MMNativeFullScreen 0
+
 # Disable send and reply animations in Mail.app (does not work in Yosemite)
 #defaults write com.apple.mail DisableReplyAnimations -bool true
 #defaults write com.apple.mail DisableSendAnimations -bool true
