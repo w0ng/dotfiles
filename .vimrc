@@ -101,7 +101,7 @@ colorscheme hybrid
 
 " gVim
 if has('gui_running')
-    set guifont=Inconsolata:h16
+    set guifont=Inconsolata:h18
     set guioptions-=m               " remove menu
     set guioptions-=T               " remove toolbar
     set guioptions-=r               " remove right scrollbar
@@ -113,7 +113,7 @@ if has('gui_running')
     inoremap <silent> <S-Insert> <Esc>"*p`]a
 else
     " Copy to CLIPBOARD
-    vnoremap ,c "*y
+    vnoremap ,y "*y
 endif
 
 " vimdiff
