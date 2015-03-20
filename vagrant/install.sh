@@ -317,13 +317,36 @@ set smartcase             " override ignorecase if upper case typed
 set t_Co=256
 set background=dark
 " Copy to OSX CLIPBOARD
-"vnoremap ,c "*y
+"vnoremap ,y "*y
 " Vimdiff display
 if &diff
     set diffopt=filler,foldcolumn:0
 endif
 EOF
 echo "Vim installed."
+
+# =============================================================================
+
+echo "--- Set vi editing mode for Readline ---"
+
+cat <<EOF > /home/vagrant/.inputrc
+$include /etc/inputrc
+set editing-mode vi
+set completion-ignore-case On
+
+$if mode=vi
+  set keymap vi-command
+  #
+  set keymap vi-insert
+  "\C-a": beginning-of-line
+  "\C-e": end-of-line
+  "\C-l": clear-screen
+  "\C-n": history-search-forward
+  "\C-p": history-search-backward
+  "jj": vi-movement-mode
+$endif
+EOF
+echo "Vi Readline set."
 
 # =============================================================================
 
