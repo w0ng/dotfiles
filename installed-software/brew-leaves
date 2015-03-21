@@ -4,6 +4,7 @@
 caskroom/cask/brew-cask
 ctags
 dos2unix
+ffmpeg
 gist
 git
 macvim
