@@ -156,7 +156,7 @@ echo "PHP configured."
 echo "--- Configuring MySQL ---"
 
 # Set strict mode
-sed -i '/\[mysqld\]/a sql_mode = "STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION"' \
+sed -i '/\[mysqld\]/a sql_mode = "STRICT_ALL_TABLES,ONLY_FULL_GROUP_BY,NO_ZERO_DATE,NO_ZERO_IN_DATE,NO_ENGINE_SUBSTITUTION"' \
     /etc/mysql/my.cnf
 
 # Fix deprecated defaults
