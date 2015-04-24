@@ -221,7 +221,7 @@ cat <<EOF >> /etc/apache2/mods-available/fastcgi.conf
   AddType application/x-httpd-fastphp5 .php
   Action application/x-httpd-fastphp5 /php5-fcgi
   Alias /php5-fcgi /usr/lib/cgi-bin/php5-fcgi
-  FastCgiExternalServer /usr/lib/cgi-bin/php5-fcgi -socket /var/run/php5-fpm.sock -pass-header Authorization
+  FastCgiExternalServer /usr/lib/cgi-bin/php5-fcgi -socket /var/run/php5-fpm.sock -pass-header Authorization -idle-timeout 300
 </IfModule>
 EOF
 
