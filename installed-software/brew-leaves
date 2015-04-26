@@ -10,6 +10,7 @@ git
 macvim
 mercurial
 node
+p7zip
 perl
 php-code-sniffer
 php54-xdebug
@@ -23,5 +24,6 @@ shellcheck
 the_silver_searcher
 tidy
 tree
+unrar
 wget
 zsh
