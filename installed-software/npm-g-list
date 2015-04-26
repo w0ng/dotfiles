@@ -1,9 +1,9 @@
 /usr/local/lib
-├── coffee-script@1.9.1
-├── coffeelint@1.9.2
+├── coffee-script@1.9.2
+├── coffeelint@1.9.4
 ├── csslint@0.10.0
 ├── gulp@3.8.11
-├── jshint@2.6.3
+├── jshint@2.7.0
 ├── jsonlint@1.6.2
-└── npm@2.7.3
+└── npm@2.8.4
 
