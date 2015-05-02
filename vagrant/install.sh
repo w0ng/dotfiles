@@ -38,6 +38,7 @@ apt-get install -y \
     build-essential \
     curl \
     git-core \
+    libnotify-bin \
     mlocate \
     nfs-common \
     python-software-properties \
@@ -108,7 +109,8 @@ apt-get install -y \
     php5-ldap \
     php5-mcrypt \
     php5-memcached \
-    php5-mysqlnd
+    php5-mysqlnd \
+    ruby
 
 # =============================================================================
 
@@ -156,7 +158,7 @@ echo "PHP configured."
 echo "--- Configuring MySQL ---"
 
 # Set strict mode
-sed -i '/\[mysqld\]/a sql_mode = "STRICT_ALL_TABLES,ONLY_FULL_GROUP_BY,NO_ZERO_DATE,NO_ZERO_IN_DATE,NO_ENGINE_SUBSTITUTION"' \
+sed -i '/\[mysqld\]/a sql_mode = "STRICT_ALL_TABLES,ONLY_FULL_GROUP_BY,NO_ENGINE_SUBSTITUTION"' \
     /etc/mysql/my.cnf
 
 # Fix deprecated defaults
