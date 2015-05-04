@@ -13,8 +13,9 @@ Vagrant.configure(2) do |config|
     config.vm.box = "w0ng/debian-7.8.0-amd64"
 
     config.vm.network "private_network", ip: server_ip
+    config.vm.network "forwarded_port", guest: 80, host: 8000
 
-    config.vm.synced_folder '.', '/vagrant', nfs: true
+    config.vm.synced_folder '.', '/vagrant', :nfs => true, :mount_options => ['actimeo=2']
 
     config.vm.define project_name do |appname|
     end
