@@ -111,9 +111,6 @@ if has('gui_running')
     " Paste from PRIMARY and CLIPBOARD
     inoremap <silent> <M-v> <Esc>"+p`]a
     inoremap <silent> <S-Insert> <Esc>"*p`]a
-else
-    " Copy to CLIPBOARD
-    vnoremap ,y "*y
 endif
 
 " vimdiff
@@ -127,6 +124,9 @@ endif
 
 " Map leader
 let mapleader = ','
+
+" Copy to CLIPBOARD
+vnoremap <leader> "*y
 
 " Search command history based on current input
 cnoremap <C-p> <Up>
