@@ -246,7 +246,6 @@ EOF
 
 # Update Apache settings
 echo "ServerName localhost" >> /etc/apache2/apache2.conf
-sed -i '/Listen 443/i\ \ \ \ NameVirtualHost *:443' /etc/apache2/ports.conf
 cd /etc/apache2/sites-available/ && a2ensite "${SERVER_NAME}".conf
 a2dissite 000-default
 a2enmod rewrite actions ssl
