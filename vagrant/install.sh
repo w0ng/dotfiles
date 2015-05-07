@@ -153,11 +153,18 @@ echo "--- Configuring MySQL ---"
 sed -i '/\[mysqld\]/a sql_mode = "STRICT_ALL_TABLES,ONLY_FULL_GROUP_BY,NO_ENGINE_SUBSTITUTION"' \
     /etc/mysql/my.cnf
 
-# Fix deprecated defaults
-sed -i '/\[mysqld\]/a explicit_defaults_for_timestamp = 1' \
-    /etc/mysql/my.cnf
+# Fix deprecated defaults for MySQL 5.6
+#sed -i '/\[mysqld\]/a explicit_defaults_for_timestamp = 1' \
+#    /etc/mysql/my.cnf
+#sed -i 's/key_buffer[^_]/key_buffer_size/' \
+#    /etc/mysql/my.cnf
+
+# Fix deprecated defaults for MySQL 5.5
 sed -i 's/key_buffer[^_]/key_buffer_size/' \
-    /etc/mysql/my.cnf
+        /etc/mysql/my.cnf
+sed -i 's/myisam-recover[^-]/myisam-recover-options/' \
+        /etc/mysql/my.cnf
+
 
 service mysql restart
 

@@ -4,8 +4,8 @@
 # Config variables
 project_name = File.basename(Dir.pwd)
 server_ip = "192.168.22.10"
-server_name = server_ip + ".xip.io"
-server_alias = "localhost." + server_name
+server_name = "dev.local.192.168.22.10.xip.io"
+server_alias = "dev.local.*.xip.io"
 doc_root = "/vagrant"
 
 Vagrant.configure(2) do |config|
@@ -13,8 +13,9 @@ Vagrant.configure(2) do |config|
     config.vm.box = "w0ng/debian-7.8.0-amd64"
 
     config.vm.network "private_network", ip: server_ip
+    config.vm.network "forwarded_port", guest: 80, host: 8000
 
-    config.vm.synced_folder '.', '/vagrant', nfs: true
+    config.vm.synced_folder '.', '/vagrant', :nfs => true, :mount_options => ['actimeo=2']
 
     config.vm.define project_name do |appname|
     end
@@ -31,7 +32,7 @@ Vagrant.configure(2) do |config|
         elsif host =~ /linux/
             cpus = `nproc`.to_i
             mem = `grep 'MemTotal' /proc/meminfo | sed -e 's/MemTotal://' -e 's/ kB//'`.to_i / 1024 / 4
-        # Windows default to 2 cpus 1GB ram
+        # Windows
         else
             cpus = 2
             mem = 1024

@@ -140,7 +140,7 @@ echo "PHP configured."
 echo "--- Configuring MySQL ---"
 
 # Set strict mode
-sed -i '/\[mysqld\]/a sql_mode = "STRICT_ALL_TABLES,ONLY_FULL_GROUP_BY,NO_ZERO_DATE,NO_ZERO_IN_DATE,NO_ENGINE_SUBSTITUTION"' \
+sed -i '/\[mysqld\]/a sql_mode = "STRICT_ALL_TABLES,ONLY_FULL_GROUP_BY,NO_ENGINE_SUBSTITUTION"' \
     /etc/mysql/my.cnf
 
 # Fix deprecated MySQL 5.5 defaults
@@ -268,7 +268,7 @@ set completeopt-=preview  " dont show preview window
 set hidden                " hide when switching buffers, don't unload
 set laststatus=2          " always show status line
 set lazyredraw            " don't update screen when executing macros
-set mouse=a               " enable mouse in all modes
+"set mouse=a               " enable mouse in all modes
 set showmode              " show mode in status line
 set nowrap                " disable word wrap
 set number                " show line numbers
@@ -307,7 +307,34 @@ if &diff
     set diffopt=filler,foldcolumn:0
 endif
 EOF
+
+chown vagrant /home/vagrant/.vimrc
 echo "Vim installed."
+
+# =============================================================================
+
+echo "--- Set vi editing mode for Readline ---"
+
+cat <<EOF > /home/vagrant/.inputrc
+\$include /etc/inputrc
+set editing-mode vi
+set completion-ignore-case On
+
+\$if mode=vi
+  set keymap vi-command
+  #
+  set keymap vi-insert
+  "\C-a": beginning-of-line
+  "\C-e": end-of-line
+  "\C-l": clear-screen
+  "\C-n": history-search-forward
+  "\C-p": history-search-backward
+  "jj": vi-movement-mode
+\$endif
+EOF
+
+chown vagrant /home/vagrant/.inputrc
+echo "Vi Readline set."
 
 # =============================================================================
 
@@ -317,4 +344,4 @@ updatedb && echo "mlocate DB updated."
 # =============================================================================
 
 echo "--- FINISHED ---"
-echo "View the dev site via http://${SERVER_ALIAS}"
+echo "View the dev site via http://${SERVER_NAME}"
