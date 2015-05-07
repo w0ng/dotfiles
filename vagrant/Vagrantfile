@@ -4,13 +4,13 @@
 # Config variables
 project_name = File.basename(Dir.pwd)
 server_ip = "192.168.22.10"
-server_name = server_ip + ".xip.io"
-server_alias = "dev.localhost." + server_name
+server_name = "dev.local.192.168.22.10.xip.io"
+server_alias = "dev.local.*.xip.io"
 doc_root = "/vagrant"
 
 Vagrant.configure(2) do |config|
 
-    config.vm.box = "w0ng/debian-7.8.0-amd64"
+    config.vm.box = "w0ng/debian-8.0.0-amd64"
 
     config.vm.network "private_network", ip: server_ip
     config.vm.network "forwarded_port", guest: 80, host: 8000

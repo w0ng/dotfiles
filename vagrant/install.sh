@@ -14,19 +14,16 @@ echo "--- Adding non-free and Dotdeb repositories ---"
 sed -ri "s/^(deb.* main)$/\1 non-free/" /etc/apt/sources.list
 
 # Dotdeb repos, for MySQL 5.6 and PHP 5.6
-cat <<EOF >> /etc/apt/sources.list
-
-# Main Dotdeb repository
-deb http://packages.dotdeb.org wheezy all
-deb-src http://packages.dotdeb.org wheezy all
-# PHP 5.6 for Debian 7 "Wheezy"
-deb http://packages.dotdeb.org wheezy-php56 all
-deb-src http://packages.dotdeb.org wheezy-php56 all
-EOF
-
-wget http://www.dotdeb.org/dotdeb.gpg
-apt-key add dotdeb.gpg
-rm dotdeb.gpg
+#cat <<EOF >> /etc/apt/sources.list
+#
+## Main Dotdeb repository
+#deb http://packages.dotdeb.org wheezy all
+#deb-src http://packages.dotdeb.org wheezy all
+#EOF
+#
+#wget http://www.dotdeb.org/dotdeb.gpg
+#apt-key add dotdeb.gpg
+#rm dotdeb.gpg
 
 # =============================================================================
 
@@ -90,14 +87,11 @@ debconf-set-selections <<< \
 
 echo "--- Installing Apache, MySQL and PHP ---"
 
-# Use native driver to prevent minor version mismatch warning with mysql 5.6:
-# php5-mysqlnd instead of php5-mysql
-# FIXME: add php5-xdebug when the 5.6 package is released
 apt-get install -y \
     apache2 \
     apache2-mpm-worker \
     libapache2-mod-fastcgi \
-    mysql-server-5.6 \
+    mysql-server \
     php5-cli \
     php5-fpm \
     php5-curl \
@@ -108,7 +102,8 @@ apt-get install -y \
     php5-ldap \
     php5-mcrypt \
     php5-memcached \
-    php5-mysqlnd
+    php5-mysql \
+    php5-xdebug
 
 # =============================================================================
 
@@ -130,22 +125,21 @@ sed -i "s/^;\?date.timezone =.*/date.timezone = \"Australia\/Sydney\"/" \
     /etc/php5/cli/php.ini
 
 # Xdebug: enable extension, do not limit output, enable triggered profiler
-# FIXME: uncomment when php5-xdebug for php 5.6 is available
-#[[ ! -d "/vagrant/tmp" ]] && mkdir -p "/vagrant/tmp"
-#cat > "$(find /etc/php5 -name xdebug.ini)" << EOF
-#zend_extension=$(find /usr/lib/php5 -name xdebug.so)
-#xdebug.remote_enable = 1
-#xdebug.remote_connect_back = 1
-#xdebug.remote_port = 9000
-#xdebug.scream = 0
-#xdebug.cli_color = 1
-#xdebug.show_local_vars = 1
-#xdebug.var_display_max_depth = -1
-#xdebug.var_display_max_children = -1
-#xdebug.var_display_max_data = -1
-#xdebug.profiler_enable_trigger = 1
-#xdebug.profiler_output_dir = /vagrant/tmp
-#EOF
+[[ ! -d "/vagrant/tmp" ]] && mkdir -p "/vagrant/tmp"
+cat > "$(find /etc/php5 -name xdebug.ini)" << EOF
+zend_extension=$(find /usr/lib/php5 -name xdebug.so)
+xdebug.remote_enable = 1
+xdebug.remote_connect_back = 1
+xdebug.remote_port = 9000
+xdebug.scream = 0
+xdebug.cli_color = 1
+xdebug.show_local_vars = 1
+xdebug.var_display_max_depth = -1
+xdebug.var_display_max_children = -1
+xdebug.var_display_max_data = -1
+xdebug.profiler_enable_trigger = 1
+xdebug.profiler_output_dir = /vagrant/tmp
+EOF
 
 service php5-fpm restart
 
@@ -156,7 +150,7 @@ echo "PHP configured."
 echo "--- Configuring MySQL ---"
 
 # Set strict mode
-sed -i '/\[mysqld\]/a sql_mode = "STRICT_ALL_TABLES,ONLY_FULL_GROUP_BY,NO_ZERO_DATE,NO_ZERO_IN_DATE,NO_ENGINE_SUBSTITUTION"' \
+sed -i '/\[mysqld\]/a sql_mode = "STRICT_ALL_TABLES,ONLY_FULL_GROUP_BY,NO_ENGINE_SUBSTITUTION"' \
     /etc/mysql/my.cnf
 
 # Fix deprecated defaults
@@ -192,8 +186,7 @@ CERT_NAME="xip.io"
     <Directory ${DOC_ROOT}>
         Options +Indexes +FollowSymLinks +MultiViews
         AllowOverride All
-        Order allow,deny
-        allow from all
+        Require all granted
     </Directory>
     ErrorLog \${APACHE_LOG_DIR}/${SERVER_NAME}-error.log
     LogLevel warn
@@ -212,8 +205,7 @@ EOF
     <Directory ${DOC_ROOT}>
         Options +Indexes +FollowSymLinks +MultiViews
         AllowOverride All
-        Order allow,deny
-        allow from all
+        Require all granted
     </Directory>
     ErrorLog \${APACHE_LOG_DIR}/${SERVER_NAME}-error.log
     LogLevel warn
@@ -238,6 +230,9 @@ cat <<EOF >> /etc/apache2/mods-available/fastcgi.conf
   Action application/x-httpd-fastphp5 /php5-fcgi
   Alias /php5-fcgi /usr/lib/cgi-bin/php5-fcgi
   FastCgiExternalServer /usr/lib/cgi-bin/php5-fcgi -socket /var/run/php5-fpm.sock -pass-header Authorization
+  <Directory /usr/lib/cgi-bin>
+    Require all granted
+  </Directory>
 </IfModule>
 EOF
 
@@ -284,7 +279,7 @@ set completeopt-=preview  " dont show preview window
 set hidden                " hide when switching buffers, don't unload
 set laststatus=2          " always show status line
 set lazyredraw            " don't update screen when executing macros
-set mouse=a               " enable mouse in all modes
+"set mouse=a               " enable mouse in all modes
 set showmode              " show mode in status line
 set nowrap                " disable word wrap
 set number                " show line numbers
@@ -323,6 +318,8 @@ if &diff
     set diffopt=filler,foldcolumn:0
 endif
 EOF
+
+chown vagrant /home/vagrant/.vimrc
 echo "Vim installed."
 
 # =============================================================================
@@ -330,11 +327,11 @@ echo "Vim installed."
 echo "--- Set vi editing mode for Readline ---"
 
 cat <<EOF > /home/vagrant/.inputrc
-$include /etc/inputrc
+\$include /etc/inputrc
 set editing-mode vi
 set completion-ignore-case On
 
-$if mode=vi
+\$if mode=vi
   set keymap vi-command
   #
   set keymap vi-insert
@@ -344,8 +341,10 @@ $if mode=vi
   "\C-n": history-search-forward
   "\C-p": history-search-backward
   "jj": vi-movement-mode
-$endif
+\$endif
 EOF
+
+chown vagrant /home/vagrant/.inputrc
 echo "Vi Readline set."
 
 # =============================================================================
