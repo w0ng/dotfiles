@@ -1,0 +1,76 @@
+Adium.app/
+Adobe Acrobat Reader DC.app/
+Alfred 2.app/
+Android File Transfer.app/
+Android Studio.app/
+App Store.app/
+Automator.app/
+BetterTouchTool.app/
+Calculator.app/
+Calendar.app/
+Chess.app/
+CodeKit.app/
+Contacts.app/
+DVD Player.app/
+Dash.app/
+Dashboard.app/
+Dictionary.app/
+FaceTime.app/
+Firefox.app/
+Font Book.app/
+GIMP.app/
+Game Center.app/
+GarageBand.app/
+Google Chrome.app/
+Google Drive.app/
+IDLE 3.app@
+IDLE.app@
+Image Capture.app/
+KeePassX.app/
+Keynote.app/
+Launchpad.app/
+LiteIcon.app/
+MacVim.app@
+Mail.app/
+Maps.app/
+Messages.app/
+Microsoft Office 2011/
+Mission Control.app/
+MySQLWorkbench.app/
+Notes.app/
+Numbers.app/
+Pages.app/
+Photo Booth.app/
+Photos.app/
+PhpStorm EAP.app/
+Preview.app/
+Python Launcher 3.app@
+Python Launcher.app@
+QuickTime Player.app/
+Reminders.app/
+Safari.app/
+Sequel Pro.app/
+Sip.app/
+Skitch.app/
+Skype.app/
+SourceTree.app/
+Stickies.app/
+System Preferences.app/
+TeX/
+TextEdit.app/
+TextMate.app/
+The Unarchiver.app/
+Time Machine.app/
+TotalSpaces2.app/
+Utilities/
+VLC.app/
+VirtualBox.app/
+VitalSource Bookshelf.app/
+Wunderlist.app/
+Xcode.app/
+iBooks.app/
+iMovie.app/
+iPhoto.app/
+iTerm.app/
+iTunes.app/
+terminal-notifier.app@

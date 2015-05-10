@@ -1,12 +1,14 @@
 # vim: ft=sh
 # macvim: install with arguments --with-cscope --with-lua --with-python3 --override-system-vim
-
-caskroom/cask/brew-cask
+brew-cask
+composer
 ctags
 dos2unix
+exiftool
 ffmpeg
 gist
 git
+libtool
 macvim
 mercurial
 node
@@ -21,8 +23,9 @@ python
 python3
 ruby
 shellcheck
+terminal-notifier
 the_silver_searcher
-tidy
+tmux
 tree
 unrar
 wget

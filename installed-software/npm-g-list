@@ -1,9 +1,10 @@
 /usr/local/lib
+├── browser-sync@2.7.1
 ├── coffee-script@1.9.2
-├── coffeelint@1.9.4
+├── coffeelint@1.9.6
 ├── csslint@0.10.0
 ├── gulp@3.8.11
 ├── jshint@2.7.0
 ├── jsonlint@1.6.2
-└── npm@2.8.4
+└── npm@2.9.1
 
