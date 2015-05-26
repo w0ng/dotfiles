@@ -38,6 +38,7 @@ apt-get install -y \
     mlocate \
     nfs-common \
     python-software-properties \
+    sendmail \
     unzip
 
 # =============================================================================
