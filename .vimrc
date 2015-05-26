@@ -14,6 +14,7 @@ set encoding=utf-8       " always encode in utf
 set runtimepath+=/Users/andrew/.vim/bundle/neobundle.vim/
 call neobundle#begin(expand('/Users/andrew/.vim/bundle'))
 NeoBundleFetch 'Shougo/neobundle.vim'    " Vim package manager
+NeoBundle 'LaTeX-Box-Team/LaTeX-Box'     " Set of LaTeX editing tools
 NeoBundle 'Shougo/neocomplete'           " Automatic keyword completion
 NeoBundle 'Shougo/unite.vim'             " Find files and buffers using ag
 NeoBundle 'Shougo/vimfiler.vim'          " File explorer
@@ -23,14 +24,14 @@ NeoBundle 'godlygeek/tabular'            " Text filtering and alignment
 NeoBundle 'hynek/vim-python-pep8-indent' " PEP8 indentation
 NeoBundle 'kchmck/vim-coffee-script'     " Coffee syntax highlighting
 NeoBundle 'majutsushi/tagbar'            " Display tags in a window
+NeoBundle 'scrooloose/nerdcommenter'     " Syntax aware commenting
 NeoBundle 'scrooloose/syntastic'         " Syntax checking on write
 NeoBundle 'tobyS/pdv'                    " PHP Documenter
 NeoBundle 'tobyS/vmustache'              " Mustache template system
 NeoBundle 'tpope/vim-fugitive'           " Git wrapper
-NeoBundle 'tpope/nerdcommenter'          " Syntax aware commenting
 NeoBundle 'tpope/vim-surround'           " Manipulate quotes and brackets
 NeoBundle 'vim-php/tagbar-phpctags.vim'  " PHP plugin for tagbar
-NeoBundle 'w0ng/vim-hybrid'              " Dark colourscheme
+NeoBundle 'w0ng/vim-hybrid'              " Dark colour scheme
 " Interactive command execution
 NeoBundle 'Shougo/vimproc.vim', {
             \ 'build' : {
@@ -56,7 +57,6 @@ set colorcolumn=80        " visual indicator of column
 set completeopt-=preview  " dont show preview window
 set cursorline            " visual indicator of current line
 set fcs=vert:│,fold:-     " solid instead of broken line for vert splits
-set grepprg=grep\ -nH\ $* " always generate a filename, for vim-latexsuite
 set hidden                " hide when switching buffers, don't unload
 set laststatus=2          " always show status line
 set lazyredraw            " don't update screen when executing macros
@@ -124,6 +124,7 @@ endif
 
 " Map leader
 let mapleader = ','
+let maplocalleader = ','
 
 " Copy to CLIPBOARD
 vnoremap <leader> "*y
@@ -201,7 +202,6 @@ let g:airline_right_sep = ''
 let g:airline_theme = 'hybridline'
 let g:pdv_template_dir = '/Users/andrew/.vim/bundle/pdv/templates'
 let g:tagbar_phpctags_bin='/usr/local/bin/phpctags'
-let g:tex_flavor = 'latex'
 let g:vim_json_syntax_conceal = 0
 let g:vimfiler_as_default_explorer = 1
 
@@ -310,7 +310,7 @@ let g:syntastic_python_python_exec = '/usr/local/bin/python3'
 "let g:syntastic_mode_map = {'passive_filetypes': ['sass', 'scss']}
 
 "}}}
-" Functions {{{
+" Helper Functions {{{
 " -----------------------------------------------------------------------------
 
 function! ToggleColours()
