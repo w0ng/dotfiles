@@ -8,6 +8,8 @@ exiftool
 ffmpeg
 gist
 git
+gmp
+gnupg2
 libtool
 macvim
 mercurial

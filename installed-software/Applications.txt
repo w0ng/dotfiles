@@ -15,7 +15,9 @@ DVD Player.app/
 Dash.app/
 Dashboard.app/
 Dictionary.app/
+Evernote.app/
 FaceTime.app/
+Fantastical 2.app/
 Firefox.app/
 Font Book.app/
 GIMP.app/
@@ -50,7 +52,7 @@ QuickTime Player.app/
 Reminders.app/
 Safari.app/
 Sequel Pro.app/
-Sip.app/
+Skim.app/
 Skitch.app/
 Skype.app/
 SourceTree.app/
@@ -61,9 +63,11 @@ TextEdit.app/
 TextMate.app/
 The Unarchiver.app/
 Time Machine.app/
+TorBrowser.app/
 TotalSpaces2.app/
 Utilities/
 VLC.app/
+VOX.app/
 VirtualBox.app/
 VitalSource Bookshelf.app/
 Wunderlist.app/
