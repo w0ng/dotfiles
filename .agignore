@@ -57,15 +57,3 @@ ehthumbs.db
 .git/
 .hg/
 .svn/
-
-# Project-specific: legacy files #
-##################################
-legacy/
-public/
-
-# Misc settings #
-#################
-.idea/
-.legacy/
-.sass-cache/
-.vagrant/
