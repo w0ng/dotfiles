@@ -192,6 +192,7 @@ nnoremap <leader>d :call pdv#DocumentCurrentLine()<CR>
 "}}}
 " Plugin Settings {{{
 " -----------------------------------------------------------------------------
+let g:LatexBox_latexmk_async = 1
 let g:airline_inactive_collapse = 0
 let g:airline_powerline_fonts = 0
 let g:airline_symbols = {}
@@ -268,7 +269,7 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 " Indent rules
 autocmd FileType c setlocal noet ts=8 sw=8 sts=8
 autocmd FileType cpp,java,markdown,php,python setlocal ts=4 sw=4 sts=4
-autocmd FileType markdown setlocal tw=79
+autocmd FileType markdown,tex setlocal tw=79
 
 " Folding rules
 autocmd FileType c,cpp,java setlocal foldmethod=syntax foldnestmax=5
