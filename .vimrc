@@ -23,6 +23,7 @@ NeoBundle 'elzr/vim-json'                " Nicer JSON syntax highlighting
 NeoBundle 'godlygeek/tabular'            " Text filtering and alignment
 NeoBundle 'hynek/vim-python-pep8-indent' " PEP8 indentation
 NeoBundle 'kchmck/vim-coffee-script'     " Coffee syntax highlighting
+NeoBundle 'maksimr/vim-jsbeautify'       " Beautify JS/HTML/CSS
 NeoBundle 'majutsushi/tagbar'            " Display tags in a window
 NeoBundle 'scrooloose/nerdcommenter'     " Syntax aware commenting
 NeoBundle 'scrooloose/syntastic'         " Syntax checking on write
@@ -119,7 +120,7 @@ if &diff
 endif
 
 "}}}
-" Mappings {{{
+" Vim Mappings {{{
 " -----------------------------------------------------------------------------
 
 " Map leader
@@ -159,40 +160,54 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-nnoremap <SID>disable_imaps.vim_remapping_C-j <Plug>IMAP_JumpForward
 
 " Paste mode for terminals
 nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
 
-" Toggle between light and dark colour schemes
+"}}}
+" Plugin Mappings {{{
+" -----------------------------------------------------------------------------
+
+" Helper function - Toggle between light and dark colour schemes
 nnoremap <F4> :call ToggleColours()<CR>
 
-" Syntastic PHP syntax checkers
+" JS Beautify - Pretty format obfuscated/minified web files
+nnoremap <leader>pc :call CSSBeautify()<cr>
+nnoremap <leader>ph :call HtmlBeautify()<cr>
+nnoremap <leader>pj :call JsBeautify()<cr>
+nnoremap <leader>po :call JsonBeautify()<cr>
+vnoremap <buffer> <leader>pc :call RangeCSSBeautify()<cr>
+vnoremap <buffer> <leader>ph :call RangeHtmlBeautify()<cr>
+vnoremap <buffer> <leader>pj :call RangeJsBeautify()<cr>
+vnoremap <buffer> <leader>po :call RangeJsonBeautify()<cr>
+
+" PDV - Add PHPDoc to the current line
+nnoremap <leader>d :call pdv#DocumentCurrentLine()<CR>
+
+" Syntastic - Call PHP syntax checkers
 nnoremap <leader>se :call ToggleErrors()<CR>
 nnoremap <leader>sc :SyntasticCheck phpcs<CR>
 nnoremap <leader>sm :SyntasticCheck phpmd<CR>
 nnoremap <leader>sr :SyntasticReset<CR>
 nnoremap <leader>st :SyntasticToggleMode<CR>
 
-" Toggle tagbar
+" Tabar - Toggle tagbar
 nnoremap <leader>t :Tagbar<CR>
 
-" Search for files/buffers
+" Unite - Search for files/buffers
 nnoremap <leader>b :<C-u>Unite buffer<CR>
 nnoremap <leader>f :<C-u>Unite file_rec/async:!<CR>
 nnoremap <leader>g :<C-u>Unite grep:.<CR>
 
-" Toggle VimFilerExplorer
+" Vim Filer - Toggle VimFilerExplorer
 nnoremap <leader>e :VimFilerExplorer -parent<CR>
-
-" Document current line
-nnoremap <leader>d :call pdv#DocumentCurrentLine()<CR>
 
 "}}}
 " Plugin Settings {{{
 " -----------------------------------------------------------------------------
-let g:LatexBox_latexmk_async = 1
+
+" Airline settings
 let g:airline_inactive_collapse = 0
 let g:airline_powerline_fonts = 0
 let g:airline_symbols = {}
@@ -201,11 +216,69 @@ let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline_right_sep = ''
 let g:airline_theme = 'hybridline'
+
+" LaTeX Box settings
+let g:LatexBox_latexmk_async = 1
+
+" Neocomplete settings
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+    \ }
+
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+    return neocomplete#close_popup() . "\<CR>"
+endfunction
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplete#close_popup()
+inoremap <expr><C-e>  neocomplete#cancel_popup()
+
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+if !exists('g:neocomplete#force_omni_input_patterns')
+  let g:neocomplete#force_omni_input_patterns = {}
+endif
+
+" PDV settings
 let g:pdv_template_dir = '/Users/andrew/.vim/bundle/pdv/templates'
+
+" Tagbar PHP ctags settings
 let g:tagbar_phpctags_bin='/usr/local/bin/phpctags'
 let g:vim_json_syntax_conceal = 0
 let g:vimfiler_as_default_explorer = 1
 
+" Syntastic settings
+let g:syntastic_coffee_checkers = ['coffeelint']
+let g:syntastic_css_checkers = ['csslint']
+let g:syntastic_html_checkers = ['tidy']
+let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_json_checkers = ['jsonlint']
+"let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
+let g:syntastic_php_checkers = ['php']
+let g:syntastic_python_checkers = ['python', 'flake8']
+"let g:syntastic_sass_checkers = ['sass']
+"let g:syntastic_scss_checkers = ['scss_lint']
+let g:syntastic_sh_checkers = ['sh', 'shellcheck']
+let g:syntastic_zsh_checkers = ['zsh']
+let g:syntastic_python_python_exec = '/usr/local/bin/python3'
+"let g:syntastic_mode_map = {'passive_filetypes': ['sass', 'scss']}
+"
+" Unite settings
 call unite#custom#profile('default', 'context', {
 \   'start_insert': 1,
 \   'winheight': 10,
@@ -220,40 +293,6 @@ if executable('ag')
 endif
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-
-let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-    \ }
-
-if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-    return neocomplete#close_popup() . "\<CR>"
-endfunction
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplete#close_popup()
-inoremap <expr><C-e>  neocomplete#cancel_popup()
-
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-if !exists('g:neocomplete#force_omni_input_patterns')
-  let g:neocomplete#force_omni_input_patterns = {}
-endif
 
 "}}}
 " Autocommands {{{
@@ -288,27 +327,6 @@ autocmd BufNewFile,BufRead *.markdown,*.md,*.mdown,*.mkd,*.mkdn
 " Change refresh bindings for vimfilerexplorer
 autocmd FileType vimfiler nunmap <buffer> <C-l>
 autocmd FileType vimfiler nmap <buffer> <C-R> <Plug>(vimfiler_redraw_screen)
-
-"}}}
-" Syntastic Checkers {{{
-" -----------------------------------------------------------------------------
-
-let g:syntastic_coffee_checkers = ['coffeelint']
-let g:syntastic_css_checkers = ['csslint']
-let g:syntastic_html_checkers = ['tidy']
-let g:syntastic_javascript_checkers = ['jshint']
-let g:syntastic_json_checkers = ['jsonlint']
-"let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
-let g:syntastic_php_checkers = ['php']
-let g:syntastic_python_checkers = ['python', 'flake8']
-"let g:syntastic_sass_checkers = ['sass']
-"let g:syntastic_scss_checkers = ['scss_lint']
-let g:syntastic_sh_checkers = ['sh', 'shellcheck']
-let g:syntastic_zsh_checkers = ['zsh']
-
-let g:syntastic_python_python_exec = '/usr/local/bin/python3'
-
-"let g:syntastic_mode_map = {'passive_filetypes': ['sass', 'scss']}
 
 "}}}
 " Helper Functions {{{
