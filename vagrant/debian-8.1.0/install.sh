@@ -8,22 +8,11 @@
 
 # =============================================================================
 
-echo "--- Adding non-free and Dotdeb repositories ---"
+echo "--- Adding non-free repository ---"
 
-# Non-free
 sed -ri "s/^(deb.* main)$/\1 non-free/" /etc/apt/sources.list
 
-# Dotdeb repos, for MySQL 5.6 and PHP 5.6
-#cat <<EOF >> /etc/apt/sources.list
-#
-## Main Dotdeb repository
-#deb http://packages.dotdeb.org wheezy all
-#deb-src http://packages.dotdeb.org wheezy all
-#EOF
-#
-#wget http://www.dotdeb.org/dotdeb.gpg
-#apt-key add dotdeb.gpg
-#rm dotdeb.gpg
+echo "non-free repository added."
 
 # =============================================================================
 
@@ -32,13 +21,9 @@ echo "--- Installing base packages ---"
 apt-get update
 apt-get upgrade -y
 apt-get install -y \
-    build-essential \
     curl \
     git-core \
-    mlocate \
-    nfs-common \
     python-software-properties \
-    sendmail \
     unzip
 
 # =============================================================================
@@ -153,12 +138,6 @@ echo "--- Configuring MySQL ---"
 # Set strict mode
 sed -i '/\[mysqld\]/a sql_mode = "STRICT_ALL_TABLES,ONLY_FULL_GROUP_BY,NO_ENGINE_SUBSTITUTION"' \
     /etc/mysql/my.cnf
-
-# Fix deprecated defaults for MySQL 5.6
-#sed -i '/\[mysqld\]/a explicit_defaults_for_timestamp = 1' \
-#    /etc/mysql/my.cnf
-#sed -i 's/key_buffer[^_]/key_buffer_size/' \
-#    /etc/mysql/my.cnf
 
 # Fix deprecated defaults for MySQL 5.5
 sed -i 's/key_buffer[^_]/key_buffer_size/' \
