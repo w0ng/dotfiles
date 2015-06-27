@@ -2,6 +2,17 @@
 
 # =============================================================================
 
+echo "--- Installing NodeJS, Python3 and Ruby ---"
+
+curl --silent --location https://deb.nodesource.com/setup_0.12 | bash -
+
+apt-get install -y \
+    nodejs \
+    python3 \
+    ruby
+
+# =============================================================================
+
 echo "--- Configuring inputrc ---"
 
 cat <<'EOF' > /home/vagrant/.inputrc
