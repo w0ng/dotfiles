@@ -17,7 +17,6 @@ Dashboard.app/
 Dictionary.app/
 Evernote.app/
 FaceTime.app/
-Fantastical 2.app/
 Firefox.app/
 Font Book.app/
 GIMP.app/
@@ -28,9 +27,11 @@ Google Drive.app/
 IDLE 3.app@
 IDLE.app@
 Image Capture.app/
+Inkscape.app/
 KeePassX.app/
 Keynote.app/
 Launchpad.app/
+LibreOffice.app/
 LiteIcon.app/
 MacVim.app@
 Mail.app/
@@ -44,7 +45,6 @@ Numbers.app/
 Pages.app/
 Photo Booth.app/
 Photos.app/
-PhpStorm EAP.app/
 Preview.app/
 Python Launcher 3.app@
 Python Launcher.app@
@@ -77,4 +77,5 @@ iMovie.app/
 iPhoto.app/
 iTerm.app/
 iTunes.app/
+phpstorm.app/
 terminal-notifier.app@
