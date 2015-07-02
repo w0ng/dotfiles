@@ -1,0 +1,54 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# =============================================================================
+
+# Set configuration variables here
+project_name = File.basename(Dir.pwd)
+server_ip = "192.168.22.10"
+server_name = "dev.local.192.168.22.10.xip.io"
+server_alias = "dev.local.*.xip.io"
+doc_root = "/vagrant"
+provision_extras = true
+
+# =============================================================================
+
+Vagrant.configure(2) do |config|
+
+    config.vm.box = "govhack"
+
+    config.vm.network "private_network", ip: server_ip
+    config.vm.network "forwarded_port", guest: 80, host: 8000
+
+    # Mount with NFS for speed.
+    config.vm.synced_folder '.', doc_root, :nfs => true, :mount_options => ['actimeo=2']
+
+    # Name the vagrant VM the same as the base directory name.
+    config.vm.define project_name do |appname|
+    end
+
+    config.vm.provider "virtualbox" do |vb|
+        # Name the VirtualBox VM the same as the base directory name.
+        vb.name = project_name
+
+        # Based on: https://stefanwrobel.com/how-to-make-vagrant-performance-not-suck
+        # Give VM 1/4 system memory & access to all cpu cores on the host
+        host = RbConfig::CONFIG['host_os']
+        # OSX.
+        if host =~ /darwin/
+            cpus = `sysctl -n hw.ncpu`.to_i
+            mem = `sysctl -n hw.memsize`.to_i / 1024 / 1024 / 4
+        # Linux.
+        elsif host =~ /linux/
+            cpus = `nproc`.to_i
+            mem = `grep 'MemTotal' /proc/meminfo | sed -e 's/MemTotal://' -e 's/ kB//'`.to_i / 1024 / 4
+        # Windows.
+        else
+            cpus = 2
+            mem = 1024
+        end
+        vb.customize ["modifyvm", :id, "--memory", mem]
+        vb.customize ["modifyvm", :id, "--cpus", cpus]
+    end
+
+end
