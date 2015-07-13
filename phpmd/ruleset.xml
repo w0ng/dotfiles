@@ -11,7 +11,10 @@
     </description>
 
     <!-- Import all default rule sets -->
-    <rule ref="rulesets/cleancode.xml" />
+    <rule ref="rulesets/cleancode.xml">
+        <exclude name="StaticAccess" />
+        <exclude name="ElseExpression" />
+    </rule>
 
     <rule ref="rulesets/controversial.xml" />
 
