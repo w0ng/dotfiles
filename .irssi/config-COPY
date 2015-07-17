@@ -1,10 +1,10 @@
 ###
 
 servers = (
-  { address = "localhost"; chatnet = "bitlbee"; autoconnect = "yes"; },
   {
     #address = "client.oz.org";
     address = "rockhampton.oz.org";
+    #address = "perth.oz.org";
     chatnet = "ozorg";
     port = "6667";
     use_ssl = "no";
@@ -22,6 +22,16 @@ servers = (
     autoconnect = "yes";
   },
   {
+    address = "irc.gitter.im";
+    chatnet = "gitter";
+    port = "6667";
+    nick = "w0ng";
+    password = "XXXXXXXX";
+    use_ssl = "yes";
+    ssl_verify = "yes";
+    autoconnect = "yes";
+  },
+  {
     address = "irc.rizon.net";
     #address = "irc.rizon.us";
     chatnet = "rizon";
@@ -35,24 +45,22 @@ servers = (
 
 
 chatnets = {
-  bitlbee = {
-    type = "IRC";
-    autosendcmd = "/^msg &bitlbee identify XXXXXXXXXXXX;";
-  };
   freenode = { type = "IRC"; };
+  gitter = { type = "IRC"; };
   ozorg = { type = "IRC"; };
   rizon = { type = "IRC"; };
 };
 
 channels = (
   { name = "#archlinux"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#FreeCodeCamp/Sydney"; chatnet = "gitter"; autojoin = "yes"; },
   { name = "#fsc"; chatnet = "rizon"; autojoin = "yes"; },
   { name = "#overclockers"; chatnet = "ozorg"; autojoin = "yes"; },
   { name = "##javascript"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#jquery"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#laravel"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#mysql"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "##php"; chatnet = "freenode"; autojoin = "yes"; }
+  { name = "##php"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#python"; chatnet = "freenode"; autojoin = "yes"; }
 );
 
 aliases = {
@@ -200,8 +208,8 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#fsc";
-        tag = "rizon";
+        name = "#FreeCodeCamp/Sydney";
+        tag = "gitter";
       }
     );
   };
@@ -210,8 +218,8 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#overclockers";
-        tag = "ozorg";
+        name = "#fsc";
+        tag = "rizon";
       }
     );
   };
@@ -220,8 +228,8 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "&bitlbee";
-        tag = "bitlbee";
+        name = "#overclockers";
+        tag = "ozorg";
       }
     );
   };
@@ -261,6 +269,16 @@ windows = {
         type = "CHANNEL";
         chat_type = "IRC";
         name = "##php";
+        tag = "freenode";
+      }
+    );
+  };
+  10 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#python";
         tag = "freenode";
       }
     );
