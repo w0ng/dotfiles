@@ -46,7 +46,6 @@
 Icon?
 Thumbs.db
 ehthumbs.db
-*~
 
 # Temp files #
 ##############
@@ -58,7 +57,9 @@ ehthumbs.db
 .hg/
 .svn/
 
-# ctags           #
-###################
-tags
+# IDE and editor files #
+########################
 *.tags
+*~
+.idea
+tags
