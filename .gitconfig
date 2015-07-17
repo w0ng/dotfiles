@@ -2,6 +2,7 @@
 	name = Andrew Wong
 	email = wongadev@gmail.com
 [core]
+	attributesfile = /Users/andrew/.gitattributes_global
 	excludesfile = /Users/andrew/.gitignore_global
 	editor = vim
 [difftool "sourcetree"]
