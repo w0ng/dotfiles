@@ -11,7 +11,14 @@
 | ⌥L       | Maximise Window to Right       |
 | ⌥F       | Restore Old Window Size        |
 | ⌥M       | Maximise Window                |
-| ⌥`       | ^F4                            |
+| ⌥[       | ⎋                              |
+| ⌥I       | Show/Hide iTerm                |
+| ⌥F       | Show/Hide Firefox              |
+| ⌥C       | Show/Hide Google Chrome        |
+| ⌥D       | Show/Hide Dash                 |
+| ⌥P       | Show/Hide PHPStorm             |
+| ⌥P       | Show/Hide Sequel Pro           |
+| ⌥P       | Show/Hide MacVim               |
 
 ## TotalSpaces2
 
