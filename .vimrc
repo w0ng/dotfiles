@@ -306,9 +306,12 @@ autocmd FileType python setlocal omnifunc=python3complete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 " Indent rules
-autocmd FileType c setlocal noet ts=8 sw=8 sts=8
-autocmd FileType cpp,java,markdown,php,python setlocal ts=4 sw=4 sts=4
-autocmd FileType markdown,tex setlocal tw=79
+" (Default: expandtab, tabstop=4, shiftwidth=4, softtabstop=4, textwidth=0)
+autocmd FileType c,make
+            \ setlocal noexpandtab tabstop=8 shiftwidth=8 softtabstop=8
+autocmd FileType coffee,json,less,sass,scss,sql
+            \ setlocal tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType markdown setlocal textwidth=80
 
 " Folding rules
 autocmd FileType c,cpp,java setlocal foldmethod=syntax foldnestmax=5
