@@ -17,8 +17,8 @@
 | ⌥C       | Show/Hide Google Chrome        |
 | ⌥D       | Show/Hide Dash                 |
 | ⌥P       | Show/Hide PHPStorm             |
-| ⌥P       | Show/Hide Sequel Pro           |
-| ⌥P       | Show/Hide MacVim               |
+| ⌥S       | Show/Hide Sequel Pro           |
+| ⌥V       | Show/Hide MacVim               |
 
 ## TotalSpaces2
 
