@@ -1,5 +1,5 @@
-*-min.css binary
-*-min.js binary
-*.map binary
-*.min.css binary
-*.min.js binary
+*-min.css -diff
+*-min.js -diff
+*.map -diff
+*.min.css -diff
+*.min.js -diff
