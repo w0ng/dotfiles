@@ -1,0 +1,14 @@
+{
+  "env": {
+    "browser": true,
+    "jquery": true,
+    "node": true
+  },
+  "globals": {
+    "google": true
+  },
+  "rules": {
+    "quotes": [2, "single"],
+    "linebreak-style": [2, "unix"]
+  }
+}
