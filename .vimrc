@@ -134,6 +134,9 @@ vnoremap <leader> "*y
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
 
+" Sudo write
+cnoremap w!! w !sudo tee > /dev/null %
+
 " Exit insert mode
 inoremap jj <esc>
 
