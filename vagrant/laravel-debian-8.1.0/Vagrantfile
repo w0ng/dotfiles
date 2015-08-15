@@ -15,7 +15,7 @@ provision_extras = true
 
 Vagrant.configure(2) do |config|
 
-    config.vm.box = "w0ng/debian-8.1.0-amd64"
+    config.vm.box = "w0ng/laravel-debian-8.1.0-amd64"
 
     config.vm.network "private_network", ip: server_ip
     config.vm.network "forwarded_port", guest: 80, host: 8000
@@ -51,12 +51,4 @@ Vagrant.configure(2) do |config|
         vb.customize ["modifyvm", :id, "--cpus", cpus]
     end
 
-    # Provision for a core LAMP stack.
-    config.vm.provision :shell, path: "bootstrap-lamp.sh",
-        args: [server_name, server_alias, doc_root]
-
-    # Provision for some useful Linux tools (Optional).
-    if provision_extras
-        config.vm.provision :shell, path: "bootstrap-extras.sh", args: [server_name]
-    end
 end
