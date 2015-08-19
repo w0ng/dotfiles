@@ -1,12 +1,13 @@
 /usr/local/lib
+├── bless@3.0.3
 ├── bower@1.4.1
-├── browser-sync@2.7.13
+├── browser-sync@2.8.2
 ├── coffee-script@1.9.3
-├── coffeelint@1.10.1
+├── coffeelint@1.11.0
 ├── csslint@0.10.0
+├── eslint@1.2.0
 ├── gulp@3.9.0
 ├── js-beautify@1.5.10
-├── jshint@2.8.0
 ├── jsonlint@1.6.2
-└── npm@2.12.0
+└── npm@2.13.5
 

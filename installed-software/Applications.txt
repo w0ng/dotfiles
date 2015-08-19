@@ -5,6 +5,8 @@ Android File Transfer.app/
 Android Studio.app/
 App Store.app/
 Automator.app/
+Axure RP Pro 7.0.app/
+Balsamiq Mockups 3.app/
 BetterTouchTool.app/
 Calculator.app/
 Calendar.app/
@@ -45,17 +47,23 @@ Numbers.app/
 Pages.app/
 Photo Booth.app/
 Photos.app/
+PhpStorm.app/
 Preview.app/
 Python Launcher 3.app@
 Python Launcher.app@
 QuickTime Player.app/
 Reminders.app/
+Remote Desktop Connection.app/
 Safari.app/
+ScreenFlow.app/
 Sequel Pro.app/
+Sip.app/
 Skim.app/
 Skitch.app/
 Skype.app/
 SourceTree.app/
+Spotify Notifications.app/
+Spotify.app/
 Stickies.app/
 System Preferences.app/
 TeX/
@@ -67,9 +75,7 @@ TorBrowser.app/
 TotalSpaces2.app/
 Utilities/
 VLC.app/
-VOX.app/
 VirtualBox.app/
-VitalSource Bookshelf.app/
 Wunderlist.app/
 Xcode.app/
 iBooks.app/
@@ -77,5 +83,4 @@ iMovie.app/
 iPhoto.app/
 iTerm.app/
 iTunes.app/
-phpstorm.app/
 terminal-notifier.app@

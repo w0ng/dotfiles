@@ -1,14 +1,12 @@
-# vim: ft=sh
 # macvim: install with arguments --with-cscope --with-lua --with-python3 --override-system-vim
-caskroom/cask/brew-cask
+cmake
 ctags
 dos2unix
 exiftool
-ffmpeg
 gist
 git
 gnupg2
-libtool
+goaccess
 macvim
 mercurial
 node
@@ -20,6 +18,8 @@ homebrew/php/php56-xdebug
 homebrew/php/phpmd
 python
 python3
+qt
+reattach-to-user-namespace
 ruby
 shellcheck
 terminal-notifier
@@ -27,5 +27,7 @@ the_silver_searcher
 tmux
 tree
 unrar
+v8
 wget
+homebrew/dupes/zlib
 zsh
