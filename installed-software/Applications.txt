@@ -6,7 +6,6 @@ Android Studio.app/
 App Store.app/
 Automator.app/
 Axure RP Pro 7.0.app/
-Balsamiq Mockups 3.app/
 BetterTouchTool.app/
 Calculator.app/
 Calendar.app/
@@ -29,7 +28,6 @@ Google Drive.app/
 IDLE 3.app@
 IDLE.app@
 Image Capture.app/
-Inkscape.app/
 KeePassX.app/
 Keynote.app/
 Launchpad.app/
@@ -51,6 +49,7 @@ PhpStorm.app/
 Preview.app/
 Python Launcher 3.app@
 Python Launcher.app@
+QGIS.app/
 QuickTime Player.app/
 Reminders.app/
 Remote Desktop Connection.app/
@@ -83,4 +82,5 @@ iMovie.app/
 iPhoto.app/
 iTerm.app/
 iTunes.app/
+pgAdmin3.app/
 terminal-notifier.app@

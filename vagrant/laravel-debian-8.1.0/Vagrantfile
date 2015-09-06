@@ -18,10 +18,10 @@ Vagrant.configure(2) do |config|
     config.vm.box = "w0ng/laravel-debian-8.1.0-amd64"
 
     config.vm.network "private_network", ip: server_ip
-    config.vm.network "forwarded_port", guest: 80, host: 8000
+    config.vm.network "forwarded_port", guest: 80, host: 8080
 
     # Mount with NFS for speed (Linux/OSX hosts)
-    #config.vm.synced_folder '.', doc_root, :nfs => true, :mount_options => ['actimeo=2']
+    config.vm.synced_folder '.', doc_root, :nfs => true, :mount_options => ['actimeo=2']
     # Mount with SMB for speed (Windows hosts)
     #config.vm.synced_folder '.', doc_root, type: 'smb'
 
