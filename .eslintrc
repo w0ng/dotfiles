@@ -9,6 +9,7 @@
     "google": true
   },
   "rules": {
+    "camelcase": [2, {"properties": "always"}],
     "indent": [2, 4],
     "quotes": [2, "single", "avoid-escape"],
     "linebreak-style": [2, "unix"],

@@ -1,3 +1,7 @@
 linters:
-    Indentation:
-        width: 4
+  Comment:
+    enabled: false
+
+  LeadingZero:
+    enabled: true
+    style: include_zero
