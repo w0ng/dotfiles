@@ -27,8 +27,6 @@ NeoBundle 'maksimr/vim-jsbeautify'       " Beautify JS/HTML/CSS
 NeoBundle 'majutsushi/tagbar'            " Display tags in a window
 NeoBundle 'scrooloose/nerdcommenter'     " Syntax aware commenting
 NeoBundle 'scrooloose/syntastic'         " Syntax checking on write
-NeoBundle 'tobyS/pdv'                    " PHP Documenter
-NeoBundle 'tobyS/vmustache'              " Mustache template system
 NeoBundle 'tpope/vim-fugitive'           " Git wrapper
 NeoBundle 'tpope/vim-surround'           " Manipulate quotes and brackets
 NeoBundle 'vim-php/tagbar-phpctags.vim'  " PHP plugin for tagbar
@@ -185,9 +183,6 @@ vnoremap <buffer> <leader>ph :call RangeHtmlBeautify()<cr>
 vnoremap <buffer> <leader>pj :call RangeJsBeautify()<cr>
 vnoremap <buffer> <leader>po :call RangeJsonBeautify()<cr>
 
-" PDV - Add PHPDoc to the current line
-nnoremap <leader>d :call pdv#DocumentCurrentLine()<CR>
-
 " Syntastic - Call PHP syntax checkers
 nnoremap <leader>se :call ToggleErrors()<CR>
 nnoremap <leader>sc :SyntasticCheck phpcs<CR>
@@ -256,9 +251,6 @@ endif
 if !exists('g:neocomplete#force_omni_input_patterns')
   let g:neocomplete#force_omni_input_patterns = {}
 endif
-
-" PDV settings
-let g:pdv_template_dir = '/Users/andrew/.vim/bundle/pdv/templates'
 
 " Tagbar PHP ctags settings
 let g:tagbar_phpctags_bin='/usr/local/bin/phpctags'
