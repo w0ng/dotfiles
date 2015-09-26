@@ -1,5 +1,6 @@
 archey
 cmake
+homebrew/php/composer
 ctags
 dos2unix
 exiftool
@@ -13,10 +14,9 @@ mercurial
 node
 p7zip
 perl
-homebrew/php/php-code-sniffer
-homebrew/php/php-cs-fixer
 homebrew/php/php56-xdebug
-homebrew/php/phpmd
+postgresql
+psqlodbc
 python
 python3
 qt

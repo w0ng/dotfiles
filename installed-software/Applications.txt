@@ -6,6 +6,8 @@ Android Studio.app/
 App Store.app/
 Automator.app/
 Axure RP Pro 7.0.app/
+Bartender.app/
+BetterSnapTool.app/
 BetterTouchTool.app/
 Calculator.app/
 Calendar.app/
@@ -15,7 +17,9 @@ Contacts.app/
 DVD Player.app/
 Dash.app/
 Dashboard.app/
+Dia.app/
 Dictionary.app/
+Disk Inventory X.app/
 Evernote.app/
 FaceTime.app/
 Firefox.app/
@@ -37,7 +41,11 @@ MacVim.app@
 Mail.app/
 Maps.app/
 Messages.app/
-Microsoft Office 2011/
+Microsoft Excel.app/
+Microsoft OneNote.app/
+Microsoft Outlook.app/
+Microsoft PowerPoint.app/
+Microsoft Word.app/
 Mission Control.app/
 MySQLWorkbench.app/
 Notes.app/
@@ -82,5 +90,4 @@ iMovie.app/
 iPhoto.app/
 iTerm.app/
 iTunes.app/
-pgAdmin3.app/
 terminal-notifier.app@
