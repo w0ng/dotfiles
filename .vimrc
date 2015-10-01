@@ -59,6 +59,7 @@ set fcs=vert:│,fold:-     " solid instead of broken line for vert splits
 set hidden                " hide when switching buffers, don't unload
 set laststatus=2          " always show status line
 set lazyredraw            " don't update screen when executing macros
+set linespace=5           " line height spacing between lines, in pixels.
 set mouse=a               " enable mouse in all modes
 set noshowmode            " don't show mode, since I'm already using airline
 set nowrap                " disable word wrap
@@ -95,6 +96,7 @@ set smartcase             " override ignorecase if upper case typed
 
 " Colours
 set t_Co=256
+set background=dark
 let g:hybrid_use_Xresources = 1
 colorscheme hybrid
 
