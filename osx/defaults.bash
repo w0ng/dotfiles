@@ -7,7 +7,7 @@
 # Disable animations, e.g. opening a new window
 defaults write -g NSAutomaticWindowAnimationsEnabled -bool false
 
-# Increase window resize speed for Cocoa applications (-int 0 doesnt work)
+# Reduce window resize time for Cocoa applications (-int 0 doesnt work)
 defaults write -g NSWindowResizeTime -float 0.001
 
 # Disable window animations and Get Info animations
@@ -31,7 +31,14 @@ sudo nvram SystemAudioVolume=%80
 # Disable native full screen for mvim (i.e. don't create a new space)
 defaults write org.vim.MacVim MMNativeFullScreen 0
 
+# Auto-hide menu bar
+defaults write -g _HIHideMenuBar 1
+# TODO:
+# Disable menu bar show/hide animation (???)
+# Remove auto-hide menu bar delay (???)
+
 # Disable send and reply animations in Mail.app (does not work in Yosemite)
+# TODO:
 #defaults write com.apple.mail DisableReplyAnimations -bool true
 #defaults write com.apple.mail DisableSendAnimations -bool true
 
