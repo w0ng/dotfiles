@@ -7,6 +7,7 @@ ctags
 dos2unix
 exiftool
 findutils
+fzf
 gawk
 gist
 git
@@ -38,6 +39,7 @@ ruby
 shellcheck
 terminal-notifier
 the_silver_searcher
+tldr-pages/tldr/tldr
 tmux
 tree
 unrar
