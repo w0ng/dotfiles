@@ -172,9 +172,6 @@ set pastetoggle=<F2>
 " Plugin Mappings {{{
 " -----------------------------------------------------------------------------
 
-" Helper function - Toggle between light and dark colour schemes
-nnoremap <F4> :call ToggleColours()<CR>
-
 " JS Beautify - Pretty format obfuscated/minified web files
 nnoremap <leader>pc :call CSSBeautify()<cr>
 nnoremap <leader>ph :call HtmlBeautify()<cr>
@@ -331,14 +328,6 @@ autocmd FileType vimfiler nmap <buffer> <C-R> <Plug>(vimfiler_redraw_screen)
 "}}}
 " Helper Functions {{{
 " -----------------------------------------------------------------------------
-
-function! ToggleColours()
-    if g:colors_name == 'hybrid'
-        colorscheme hybrid-light
-    else
-        colorscheme hybrid
-    endif
-endfunction
 
 function! ToggleErrors()
     let old_last_winnr = winnr('$')
