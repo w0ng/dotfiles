@@ -4,4 +4,4 @@ bind "^E" ed-move-to-end
 bind "^L" ed-clear-screen
 bind "^N" ed-search-next-history
 bind "^P" ed-search-prev-history
-bind "jj" vi-command-mode
+#bind "jj" vi-command-mode
