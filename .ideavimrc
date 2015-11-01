@@ -1,29 +1,51 @@
-set history=50 " number of command-lines that are remembered
-set hlsearch " highlight matches with last search pattern
-set ignorecase " ignore case in search patterns
-set showmode " message on status line to show current mode
-set smartcase " no ignore case when pattern has uppercase
-set visualbell " use visual bell instead of beeping
+set history=10000 " Number of commands that are remembered.
+set hlsearch      " Highlight search pattern results.
+set ignorecase    " Ignore case of normal letters in a pattern.
+set showmode      " Show current mode on the last line.
+set smartcase     " Override ignorecase if pattern contains upper case.
 
-" Switch tabs
-nnoremap <C-n> gt
-nnoremap <C-p> gT
+" Open one fold under the cursor.
+nnoremap zo :action ExpandRegion<CR>
 
-" Exit insert mode
+" Close one fold under the cursor.
+nnoremap zc :action CollapseRegion<CR>
+
+" Exit insert mode.
 inoremap jj <Esc>
 
-" Toggle hlsearch for current results
-nnoremap ,, :nohlsearch<CR>
-
-" Switch colon and semi-colon
+" Switch colon with semi-colon.
 nnoremap ; :
 nnoremap : ;
 vnoremap ; :
 vnoremap : ;
 
-" Split windows
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-nnoremap <C-c> <C-w>c
+" Stop the highlighting for the current search results.
+nnoremap <Space> :nohlsearch<CR>
+
+" Navigate split windows.
+nnoremap <C-H> <C-W>h
+nnoremap <C-J> <C-W>j
+nnoremap <C-K> <C-W>k
+nnoremap <C-L> <C-W>l
+nnoremap <C-C> <C-W>c
+
+" Search for trailing spaces and tabs.
+nnoremap g/s /\s\+$<CR>
+nnoremap g/t /\t<CR>
+
+" Toggle frequent settings.
+nnoremap cow :action EditorToggleUseSoftWraps<CR>
+
+" Clipboard cut/copy/paste.
+vnoremap ,x "*x
+nnoremap ,x "*x
+vnoremap ,y "*y
+nnoremap ,y "*y
+nnoremap ,p "*p
+vnoremap ,p "*p
+
+" Toggle git-blame window
+nnoremap ,g :action Annotate<CR>
+
+" Find text in path
+nnoremap ,f :action FindInPath<CR>
