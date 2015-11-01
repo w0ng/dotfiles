@@ -197,12 +197,12 @@ vnoremap <Leader>x "*x
 nnoremap <Leader>x "*x
 
 " Yank (copy) to clipboard.
-vnoremap <Leader>c "*y
-nnoremap <Leader>c "*y
+vnoremap <Leader>y "*y
+nnoremap <Leader>y "*y
 
 " Put (paste) from clipboard.
-nnoremap <Leader>v "*p
-vnoremap <Leader>v "*p
+nnoremap <Leader>p "*p
+vnoremap <Leader>p "*p
 
 ""}}}
 " Plugins Install {{{
@@ -284,11 +284,19 @@ let g:fzf_layout = { 'up': '12' } " Position the default fzf window layout.
 let g:fzf_command_prefix = 'Fzf'  " Prefix fzf commands e.g. :FzfFiles.
 
 if exists('plugs') && has_key(plugs, 'fzf.vim')
-  " Open fzf window to search for files, tags and buffer.
+  " Find buffers.
   nnoremap <Leader>e :FzfBuffers<CR>
+
+  " Find files.
   nnoremap <Leader>o :FzfFiles<CR>
+
+  " Find project tags (ctags -R).
   nnoremap <Leader><S-O> :FzfTags<CR>
+
+  " Find tags in current buffer.
   nnoremap <Leader>r :FzfBTags<CR>
+
+  " Find pattern in files with ag.
   nnoremap <Leader>f :FzfAg<CR>
 endif
 
