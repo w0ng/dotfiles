@@ -19,14 +19,15 @@ set background=dark        " Use colours that look good on a dark background.
 set colorcolumn=80         " Show right column in a highlighted colour.
 set completeopt-=preview   " Do not show preview window for ins-completion.
 set diffopt+=foldcolumn:0  " Do not show fold indicator column in diff mode.
+set history=10000          " Number of commands and search patterns to remember.
 set laststatus=2           " Always show status line.
 set linespace=6            " Increase line height spacing by pixels.
 set noshowmode             " Do not show current mode on the last line.
 set number                 " Precede each line with its line number.
 set showcmd                " Show command on last line of screen.
 set showmatch              " Show matching brackets.
-set title                  " Set window title to 'filename [+=-] (path) - VIM'.
 set t_Co=256               " Set the number of supported colours.
+set title                  " Set window title to 'filename [+=-] (path) - VIM'.
 set ttyfast                " Indicate fast terminal more smoother redrawing.
 
 "}}}
