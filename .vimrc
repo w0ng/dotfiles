@@ -120,7 +120,7 @@ set tabstop=4              " Spaces that a <Tab> in file counts for.
 
 " Indent and tab options for specific file types.
 autocmd FileType c,make setlocal noexpandtab shiftwidth=8 softtabstop=8 tabstop=8
-autocmd FileType bash,json,less,sass,scss,sql,vim,zsh setlocal shiftwidth=2 softtabstop=2 tabstop=2
+autocmd FileType json,less,ruby,sass,scss,sh,sql,vim,zsh setlocal shiftwidth=2 softtabstop=2 tabstop=2
 
 "}}}
 " Options - Searching {{{
@@ -161,6 +161,14 @@ nnoremap <C-J> <C-W>j
 nnoremap <C-K> <C-W>k
 nnoremap <C-L> <C-W>l
 
+" Navigate buffers.
+nnoremap ]b :bnext<CR>
+nnoremap [b :bprevious<CR>
+
+" Navigate location list.
+nnoremap ]l :lnext<CR>
+nnoremap [l :lprevious<CR>
+
 " Search for trailing spaces and tabs.
 nnoremap g/s /\s\+$<CR>
 nnoremap g/t /\t<CR>
@@ -169,10 +177,9 @@ nnoremap g/t /\t<CR>
 cnoremap w!! w !sudo tee > /dev/null %
 
 "}}}
-" Mappings - Frequent Settings {{{
+" Mappings - Formatting {{{
 " -----------------------------------------------------------------------------
 
-" Reformat current file.
 nnoremap c=c :set ft=css<CR>gg=G
 nnoremap c=h :set ft=html<CR>gg=G
 nnoremap c=j :set ft=javascript<CR>gg=G
@@ -180,8 +187,10 @@ nnoremap c=o :set ft=json<CR>gg=G
 nnoremap c=p :set ft=php<CR>gg=G
 nnoremap c=s :set ft=sql<CR>gg=G
 
-" Toggle options.
-nnoremap cob :buffer#<CR>
+"}}}
+" Mappings - Toggle Options {{{
+" -----------------------------------------------------------------------------
+
 nnoremap com :set mouse=<C-R>=&mouse == 'a' ? '' : 'a'<CR><CR>
 nnoremap con :set number!<CR>
 nnoremap cop :set paste!<CR>
