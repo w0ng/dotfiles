@@ -8,6 +8,17 @@
 
 # =============================================================================
 
+echo "--- Changing locale to Australia and timezone to Australia/Sydney ---"
+
+export LANG="en_AU.UTF-8"
+sed -ri 's/^([^#].*)/# \1/' /etc/locale.gen
+echo "en_AU.UTF-8 UTF-8" >> /etc/locale.gen
+locale-gen
+
+timedatectl set-timezone "Australia/Sydney"
+
+# =============================================================================
+
 echo "--- Adding non-free repository ---"
 
 sed -ri "s/^(deb.* main)$/\1 non-free/" /etc/apt/sources.list
@@ -65,11 +76,11 @@ openssl x509 \
 
 # =============================================================================
 
-# Set mysql root user password to 'root'
+# Set mysql root user password to 'vagrant'
 debconf-set-selections <<< \
-    'mysql-server mysql-server/root_password password root'
+    'mysql-server mysql-server/root_password password vagrant'
 debconf-set-selections <<< \
-    'mysql-server mysql-server/root_password_again password root'
+    'mysql-server mysql-server/root_password_again password vagrant'
 
 echo "--- Installing Apache, MySQL and PHP ---"
 
@@ -242,14 +253,6 @@ curl -sS https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
 
 echo "Composer installed."
-
-# =============================================================================
-
-echo "--- Finalising installation ---"
-
-updatedb
-
-echo "mlocate DB updated."
 
 # =============================================================================
 

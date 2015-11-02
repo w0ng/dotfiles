@@ -4,53 +4,60 @@
 # =============================================================================
 
 # Set configuration variables here
+
 project_name = File.basename(Dir.pwd)
-server_ip = "192.168.22.10"
-server_name = "dev.local.192.168.22.10.xip.io"
-server_alias = "dev.local.*.xip.io"
-doc_root = "/vagrant"
+
+host_ip = '192.168.22.10'
+host_http_port = 8000
+host_ssh_port = 2222
+
+server_name = 'dev.local.' + host_ip + '.xip.io'
+server_alias = 'dev.local.*.xip.io'
+doc_root = '/home/vagrant/www'
 
 # =============================================================================
 
 Vagrant.configure(2) do |config|
+  config.vm.box = 'debian/jessie64'
 
-    config.vm.box = "w0ng/debian-8.1.0-amd64"
+  config.vm.network 'private_network', ip: host_ip
+  config.vm.network 'forwarded_port', guest: 80, host: host_http_port
+  config.vm.network 'forwarded_port', guest: 22, host: host_ssh_port, id: 'ssh'
 
-    config.vm.network "private_network", ip: server_ip
-    config.vm.network "forwarded_port", guest: 80, host: 8000
+  # Mount with NFS for speed.
+  config.vm.synced_folder '.', doc_root, nfs: true, mount_options: ['actimeo=2']
 
-    # Mount with NFS for speed.
-    config.vm.synced_folder '.', doc_root, :nfs => true, :mount_options => ['actimeo=2']
+  # Name the vagrant VM the same as the base directory name.
+  config.vm.define project_name do |appname|
+  end
 
-    # Name the vagrant VM the same as the base directory name.
-    config.vm.define project_name do |appname|
+  config.vm.provider 'virtualbox' do |vb|
+    # Name the VirtualBox VM the same as the base directory name.
+    vb.name = project_name
+
+    # Based on: https://stefanwrobel.com/how-to-make-vagrant-performance-not-suck
+    # Give VM 1/4 system memory & access to all cpu cores on the host
+    host = RbConfig::CONFIG['host_os']
+
+    if host =~ /darwin/
+      # OSX
+      cpus = `sysctl -n hw.ncpu`.to_i
+      mem = `sysctl -n hw.memsize`.to_i / 1024 / 1024 / 4
+    elsif host =~ /linux/
+      # Linux
+      cpus = `nproc`.to_i
+      mem = `awk '/^MemTotal/{print $2}' /proc/meminfo`.to_i / 1024 / 4
+    else
+      # Windows
+      cpus = 2
+      mem = 1024
     end
 
-    config.vm.provider "virtualbox" do |vb|
-        # Name the VirtualBox VM the same as the base directory name.
-        vb.name = project_name
+    vb.customize ['modifyvm', :id, '--memory', mem]
+    vb.customize ['modifyvm', :id, '--cpus', cpus]
+  end
 
-        # Based on: https://stefanwrobel.com/how-to-make-vagrant-performance-not-suck
-        # Give VM 1/4 system memory & access to all cpu cores on the host
-        host = RbConfig::CONFIG['host_os']
-        # OSX.
-        if host =~ /darwin/
-            cpus = `sysctl -n hw.ncpu`.to_i
-            mem = `sysctl -n hw.memsize`.to_i / 1024 / 1024 / 4
-        # Linux.
-        elsif host =~ /linux/
-            cpus = `nproc`.to_i
-            mem = `grep 'MemTotal' /proc/meminfo | sed -e 's/MemTotal://' -e 's/ kB//'`.to_i / 1024 / 4
-        # Windows.
-        else
-            cpus = 2
-            mem = 1024
-        end
-        vb.customize ["modifyvm", :id, "--memory", mem]
-        vb.customize ["modifyvm", :id, "--cpus", cpus]
-    end
-
-    # Provision for a core LAMP stack.
-    config.vm.provision :shell, path: "bootstrap-lamp.sh",
-        args: [server_name, server_alias, doc_root]
+  # Provision for a core LAMP stack.
+  args = [server_name, server_alias, doc_root]
+  config.vm.provision :shell, path: 'provision.sh', args: args
 end
