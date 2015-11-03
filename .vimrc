@@ -60,50 +60,18 @@ autocmd FileType c,cpp,java setlocal foldmethod=syntax foldnestmax=5
 autocmd FileType markdown setlocal foldmethod=marker
 
 "}}}
-" Options - Formatting {{{
-" -----------------------------------------------------------------------------
-
-" Requires https://github.com/beautify-web/js-beautify
-if executable('js-beautify')
-  autocmd FileType css setlocal equalprg=js-beautify\ --type=css\ -a\ -s\ 2\ -f\ -
-  autocmd FileType html setlocal equalprg=js-beautify\ --type=html\ -a\ -f\ -
-  autocmd FileType javascript setlocal equalprg=js-beautify\ -a\ -f\ -
-  autocmd FileType json setlocal equalprg=js-beautify\ -a\ -s\ 2\ -f\ -
-endif
-
-" Requires https://github.com/phpfmt/php.tools
-" if executable('fmt.phar')
-"    autocmd FileType php setlocal equalprg=fmt.phar\ --psr\ --enable_auto_align\ -o=-\ -
-" endif
-
-" Requires https://github.com/FriendsOfPHP/PHP-CS-Fixer
-" if executable('php-cs-fixer')
-"   autocmd FileType php setlocal equalprg=php-cs-fixer\ fix\ -
-" endif
-
-" Requires https://github.com/hhatto/autopep8
-if executable('autopep8')
-  autocmd FileType python setlocal equalprg=autopep8\ -aa\ -
-endif
-
-" Requires https://github.com/andialbrecht/sqlparse
-if executable('sqlformat')
-  autocmd FileType sql setlocal equalprg=sqlformat\ -r\ -k\ upper\ -i\ lower\ -
-endif
-
-"}}}
 " Options - GUI {{{
 " -----------------------------------------------------------------------------
 
 if has('gui_running')
-  set guifont=Inconsolata:h18     " Set the font to use.
-  set guioptions=                 " Remove all GUI components and options.
-  set guicursor+=a:block-blinkon0 " Use non-blinking block cursor.
+    set guifont=Inconsolata:h18     " Set the font to use.
+    set guioptions=                 " Remove all GUI components and options.
+    set guicursor+=a:block-blinkon0 " Use non-blinking block cursor.
 
-  " Paste from PRIMARY
-  inoremap <silent> <S-Insert> <Esc>"*p`]a
-  " Paste from CLIPBOARD
-  inoremap <silent> <M-v> <Esc>"+p`]a
+    " Paste from PRIMARY
+    inoremap <silent> <S-Insert> <Esc>"*p`]a
+    " Paste from CLIPBOARD
+    inoremap <silent> <M-v> <Esc>"+p`]a
 endif
 
 "}}}
@@ -120,7 +88,7 @@ set tabstop=4              " Spaces that a <Tab> in file counts for.
 
 " Indent and tab options for specific file types.
 autocmd FileType c,make setlocal noexpandtab shiftwidth=8 softtabstop=8 tabstop=8
-autocmd FileType json,less,ruby,sass,scss,sh,sql,vim,zsh setlocal shiftwidth=2 softtabstop=2 tabstop=2
+autocmd FileType json,less,ruby,sass,scss,sql,zsh setlocal shiftwidth=2 softtabstop=2 tabstop=2
 
 "}}}
 " Options - Searching {{{
@@ -169,7 +137,7 @@ nnoremap [b :bprevious<CR>
 nnoremap ]l :lnext<CR>
 nnoremap [l :lprevious<CR>
 
-" Search for trailing spaces and tabs.
+" Search for trailing spaces and tabs (mnemonic: 'g/' = go search).
 nnoremap g/s /\s\+$<CR>
 nnoremap g/t /\t<CR>
 
@@ -177,20 +145,10 @@ nnoremap g/t /\t<CR>
 cnoremap w!! w !sudo tee > /dev/null %
 
 "}}}
-" Mappings - Formatting {{{
-" -----------------------------------------------------------------------------
-
-nnoremap c=c :set ft=css<CR>gg=G
-nnoremap c=h :set ft=html<CR>gg=G
-nnoremap c=j :set ft=javascript<CR>gg=G
-nnoremap c=o :set ft=json<CR>gg=G
-nnoremap c=p :set ft=php<CR>gg=G
-nnoremap c=s :set ft=sql<CR>gg=G
-
-"}}}
 " Mappings - Toggle Options {{{
 " -----------------------------------------------------------------------------
 
+" (mnemonic: 'co' = change option).
 nnoremap com :set mouse=<C-R>=&mouse == 'a' ? '' : 'a'<CR><CR>
 nnoremap con :set number!<CR>
 nnoremap cop :set paste!<CR>
@@ -212,6 +170,8 @@ nnoremap <Leader>y "*y
 " Put (paste) from clipboard.
 nnoremap <Leader>p "*p
 vnoremap <Leader>p "*p
+nnoremap <Leader><S-P> "*P
+vnoremap <Leader><S-P> "*P
 
 ""}}}
 " Plugins Install {{{
@@ -220,10 +180,12 @@ vnoremap <Leader>p "*p
 " Requires https://github.com/junegunn/vim-plug
 call plug#begin('~/.vim/plugged/')
 
+Plug 'Chiel92/vim-autoformat'       " Integrate external code formatters.
 Plug 'LaTeX-Box-Team/LaTeX-Box'     " Set of LaTeX editing tools.
 Plug 'Shougo/context_filetype.vim'  " Get current context for autocompletion.
 Plug 'benekastah/neomake'           " Asynchronous syntax checking with make.
 Plug 'bling/vim-airline'            " Pretty statusline.
+Plug 'milkypostman/vim-togglelist'  " Toggle Location List and Quickfix windows.
 Plug 'tpope/vim-commentary'         " Commenting made simple.
 Plug 'tpope/vim-fugitive'           " Git wrapper.
 Plug 'tpope/vim-repeat'             " Enable repeat for tpope's plugins.
@@ -236,19 +198,19 @@ Plug 'scrooloose/nerdtree'          " File explorer window.
 
 " Plugins to enable only for Neovim.
 if has('nvim')
-  Plug 'Shougo/deoplete.nvim'       " Asynchronous auto completion.
+    Plug 'Shougo/deoplete.nvim'     " Asynchronous auto completion.
 endif
 
-" Plugins to enable only for Vim and GUI Vim.
+" Plugins to enable only on the command line.
 if !has('nvim')
-  Plug 'Shougo/neocomplete.vim'     " Synchronous auto completion.
+    Plug 'Shougo/neocomplete.vim'   " Synchronous auto completion.
 endif
 
 " Plugins to enable only for terminal Vim and Neovim.
 if !has('gui_running')
-  Plug 'junegunn/fzf',              " Command-line fuzzy finder.
-        \ { 'dir': '~/.fzf', 'do': './install --all' }
-  Plug 'junegunn/fzf.vim'           " Set of mappsings and commands for fzf.
+    Plug 'junegunn/fzf',            " Command-line fuzzy finder.
+                \ { 'dir': '~/.fzf', 'do': './install --all' }
+    Plug 'junegunn/fzf.vim'         " Set of mappsings and commands for fzf.
 endif
 
 call plug#end()
@@ -264,19 +226,68 @@ let g:airline_right_alt_sep = ''   " Remove arrow symbols.
 let g:airline_theme = 'hybridline' " Use hybrid theme.
 
 "}}}
+" Plugin Settings - autoformat {{{
+" -----------------------------------------------------------------------------
+
+" CSS - Requires https://github.com/beautify-web/js-beautify
+let g:formatdef_cssbeautify = '"css-beautify -f -"'
+let g:formatters_css = ['cssbeautify']
+
+" HTML - Requires https://github.com/beautify-web/js-beautify
+let g:formatdef_htmlbeautify = '"html-beautify -f -"'
+let g:formatters_html = [ 'htmlbeautify']
+
+" JavaScript - Requires https://github.com/beautify-web/js-beautify
+let g:formatdef_jsbeautify_js = '"js-beautify -a -f -"'
+let g:formatters_javascript = [ 'jsbeautify_js']
+
+" JSON - Requires https://github.com/beautify-web/js-beautify
+let g:formatdef_jsbeautify_json = '"js-beautify -a -s 2 -f -"'
+let g:formatters_json = [ 'jsbeautify_json']
+
+" Python - Requires https://github.com/hhatto/autopep8
+let g:formatdef_autopep8 = '"autopep8 -aa -"'
+let g:formatters_python = ['autopep8']
+
+" Ruby - Requires https://github.com/erniebrodeur/ruby-beautify
+let g:formatdef_rubybeautify = '"rubybeautify -s -c 2"'
+let g:formatters_ruby = ['rubybeautify']
+
+" SCSS - Requires https://github.com/sass/sass
+let g:formatdef_sassconvert = '"sass-convert -F scss -T scss"'
+let g:formatters_scss = ['sassconvert']
+
+" SQL - Requires https://github.com/andialbrecht/sqlparse
+" let g:formatdef_sqlformat = '"sqlformat -r -k upper -"'
+" SQL - Requires https://github.com/jdorn/sql-formatter/
+let g:formatdef_sqlformatter = '"sql-formatter"'
+let g:formatters_sql = ['sqlformatter']
+
+" Run autoformat in current file format.
+nnoremap <Leader>af :Autoformat<CR>
+
+" Run autoformat with a different formatter.
+nnoremap <Leader>ac :set ft=css<CR>:Autoformat<CR>
+nnoremap <Leader>ah :set ft=html<CR>:Autoformat<CR>
+nnoremap <Leader>aj :set ft=javascript<CR>:Autoformat<CR>
+nnoremap <Leader>ao :set ft=json<CR>:Autoformat<CR>
+nnoremap <Leader>ap :set ft=php<CR>:Autoformat<CR>
+nnoremap <Leader>as :set ft=sql<CR>:Autoformat<CR>
+
+"}}}
 " Plugin Settings - deoplete {{{
 " -----------------------------------------------------------------------------
 
 if exists('plugs') && has_key(plugs, 'deoplete.nvim')
-  let g:deoplete#enable_at_startup = 1 " Enable deoplete on startup.
-  let g:deoplete#enable_smart_case = 1 " Enable smart case.
+    let g:deoplete#enable_at_startup = 1 " Enable deoplete on startup.
+    let g:deoplete#enable_smart_case = 1 " Enable smart case.
 
-  " Tab completion.
-  inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+    " Tab completion.
+    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
-  " On backspace, delete previous completion and regenerate popup.
-  inoremap <expr><C-H> deoplete#mappings#smart_close_popup()."\<C-H>"
-  inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-H>"
+    " On backspace, delete previous completion and regenerate popup.
+    inoremap <expr><C-H> deoplete#mappings#smart_close_popup()."\<C-H>"
+    inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-H>"
 endif
 
 "}}}
@@ -293,20 +304,20 @@ let g:fzf_layout = { 'up': '12' } " Position the default fzf window layout.
 let g:fzf_command_prefix = 'Fzf'  " Prefix fzf commands e.g. :FzfFiles.
 
 if exists('plugs') && has_key(plugs, 'fzf.vim')
-  " Find buffers.
-  nnoremap <Leader>e :FzfBuffers<CR>
+    " Find buffers.
+    nnoremap <Leader>e :FzfBuffers<CR>
 
-  " Find files.
-  nnoremap <Leader>o :FzfFiles<CR>
+    " Find files.
+    nnoremap <Leader>o :FzfFiles<CR>
 
-  " Find project tags (ctags -R).
-  nnoremap <Leader><S-O> :FzfTags<CR>
+    " Find project tags (ctags -R).
+    nnoremap <Leader><S-O> :FzfTags<CR>
 
-  " Find tags in current buffer.
-  nnoremap <Leader>r :FzfBTags<CR>
+    " Find tags in current buffer.
+    nnoremap <Leader>r :FzfBTags<CR>
 
-  " Find pattern in files with ag.
-  nnoremap <Leader>f :FzfAg<CR>
+    " Find pattern in files with ag.
+    nnoremap <Leader>f :FzfAg<CR>
 endif
 
 "}}}
@@ -317,9 +328,9 @@ let g:hybrid_use_Xresources = 1   " Use iTerm2 colour palette.
 "let $NVIM_TUI_ENABLE_TRUE_COLOR=1 " Use 24-bit color, supported in iTerm2 2.9.
 
 try
-  colorscheme hybrid
+    colorscheme hybrid
 catch /:E185:/
-  " Silently ignore if colorscheme not found.
+    " Silently ignore if colorscheme not found.
 endtry
 
 "}}}
@@ -333,15 +344,15 @@ let g:LatexBox_latexmk_async = 1 " Enable asynchronous Latex compilation.
 " -----------------------------------------------------------------------------
 
 if exists('plugs') && has_key(plugs, 'neocomplete.vim')
-  let g:neocomplete#enable_at_startup = 1 " Enable neocomplete on startup.
-  let g:neocomplete#enable_smart_case = 1 " Enable smart case.
+    let g:neocomplete#enable_at_startup = 1 " Enable neocomplete on startup.
+    let g:neocomplete#enable_smart_case = 1 " Enable smart case.
 
-  " Tab completion.
-  inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+    " Tab completion.
+    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
-  " On backspace, delete previous completion and regenerate popup.
-  inoremap <expr><C-H> neocomplete#smart_close_popup()."\<C-H>"
-  inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-H>"
+    " On backspace, delete previous completion and regenerate popup.
+    inoremap <expr><C-H> neocomplete#smart_close_popup()."\<C-H>"
+    inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-H>"
 endif
 
 "}}}
@@ -349,10 +360,10 @@ endif
 " -----------------------------------------------------------------------------
 
 if exists('plugs') && has_key(plugs, 'neomake')
-  if has('nvim')
-    " Execute syntax checkers on file save.
-    autocmd! BufWritePost * Neomake
-  endif
+    if has('nvim')
+        " Execute syntax checkers on file save.
+        autocmd! BufWritePost * Neomake
+    endif
 endif
 
 "}}}
@@ -373,8 +384,8 @@ let g:plug_window = 'topleft new' " Open plug window in a horizontal split.
 " -----------------------------------------------------------------------------
 
 " Format lines with Tabular.
-nnoremap c=t :Tabular /
-vnoremap c=t :Tabular /
+nnoremap <Leader>t :Tabular /
+vnoremap <Leader>t :Tabular /
 
 "}}}
 " Plugin Settings - tagbar {{{
@@ -384,5 +395,15 @@ let g:tagbar_left = 1 " Open the Tagbar window on the left side.
 
 " Toggle Tagbar window.
 nnoremap <Leader>2 :TagbarToggle<CR>
+
+"}}}
+" Plugin Settings - togglelist {{{
+" -----------------------------------------------------------------------------
+
+let g:toggle_list_no_mappings = 1 " Disable default mappings.
+
+" Toggle Quickfix and Location List windows.
+nnoremap <Leader>l :call ToggleLocationList()<CR>
+nnoremap <Leader>q :call ToggleQuickfixList()<CR>
 
 "}}}
