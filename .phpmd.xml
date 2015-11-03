@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset name="My first PHPMD rule set"
+<ruleset name="PHPMD rule set for Laravel development"
          xmlns="http://pmd.sf.net/ruleset/1.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0
@@ -7,17 +7,17 @@
          xsi:noNamespaceSchemaLocation="
                      http://pmd.sf.net/ruleset_xml_schema.xsd">
     <description>
-        My custom rule set that checks my code...
+        All rule sets with cherry-picked overrides for Laravel development.
     </description>
 
-    <!-- Import all default rule sets -->
+    <!-- Allow static access e.g. for accessing Laravel facades. -->
     <rule ref="rulesets/cleancode.xml">
         <exclude name="StaticAccess" />
-        <exclude name="ElseExpression" />
     </rule>
 
     <rule ref="rulesets/controversial.xml" />
 
+    <!-- Decrease minimum variable and method length from 3 to 2. -->
     <rule ref="rulesets/naming.xml">
         <exclude name="ShortVariable" />
         <exclude name="ShortMethodName" />
@@ -39,4 +39,3 @@
 
     <rule ref="rulesets/unusedcode.xml" />
 </ruleset>
-
