@@ -201,12 +201,12 @@ if has('nvim')
     Plug 'Shougo/deoplete.nvim'     " Asynchronous auto completion.
 endif
 
-" Plugins to enable only on the command line.
+" Plugins to enable only for Vim.
 if !has('nvim')
     Plug 'Shougo/neocomplete.vim'   " Synchronous auto completion.
 endif
 
-" Plugins to enable only for terminal Vim and Neovim.
+" Plugins to enable only on the command line.
 if !has('gui_running')
     Plug 'junegunn/fzf',            " Command-line fuzzy finder.
                 \ { 'dir': '~/.fzf', 'do': './install --all' }
@@ -229,37 +229,41 @@ let g:airline_theme = 'hybridline' " Use hybrid theme.
 " Plugin Settings - autoformat {{{
 " -----------------------------------------------------------------------------
 
-" CSS - Requires https://github.com/beautify-web/js-beautify
+" CSS Formatter - Requires https://github.com/beautify-web/js-beautify
 let g:formatdef_cssbeautify = '"css-beautify -f -"'
 let g:formatters_css = ['cssbeautify']
 
-" HTML - Requires https://github.com/beautify-web/js-beautify
+" HTML Formatter - Requires https://github.com/beautify-web/js-beautify
 let g:formatdef_htmlbeautify = '"html-beautify -f -"'
 let g:formatters_html = [ 'htmlbeautify']
 
-" JavaScript - Requires https://github.com/beautify-web/js-beautify
+" JavaScript Formatter - Requires https://github.com/beautify-web/js-beautify
 let g:formatdef_jsbeautify_js = '"js-beautify -a -f -"'
 let g:formatters_javascript = [ 'jsbeautify_js']
 
-" JSON - Requires https://github.com/beautify-web/js-beautify
+" JSON Formatter - Requires https://github.com/beautify-web/js-beautify
 let g:formatdef_jsbeautify_json = '"js-beautify -a -s 2 -f -"'
 let g:formatters_json = [ 'jsbeautify_json']
 
-" Python - Requires https://github.com/hhatto/autopep8
+" PHP Formatter - Requires https://github.com/phpfmt/php.tools
+let g:formatdef_fmtphar = '"fmt.phar --psr -o=- -"'
+let g:formatters_php = ['fmtphar']
+
+" Python Formatter - Requires https://github.com/hhatto/autopep8
 let g:formatdef_autopep8 = '"autopep8 -aa -"'
 let g:formatters_python = ['autopep8']
 
-" Ruby - Requires https://github.com/erniebrodeur/ruby-beautify
+" Ruby Formatter - Requires https://github.com/erniebrodeur/ruby-beautify
 let g:formatdef_rubybeautify = '"rubybeautify -s -c 2"'
 let g:formatters_ruby = ['rubybeautify']
 
-" SCSS - Requires https://github.com/sass/sass
+" SCSS Formatter - Requires https://github.com/sass/sass
 let g:formatdef_sassconvert = '"sass-convert -F scss -T scss"'
 let g:formatters_scss = ['sassconvert']
 
-" SQL - Requires https://github.com/andialbrecht/sqlparse
+" SQL Formatter - Requires https://github.com/andialbrecht/sqlparse
 " let g:formatdef_sqlformat = '"sqlformat -r -k upper -"'
-" SQL - Requires https://github.com/jdorn/sql-formatter/
+" SQL Formatter - Requires https://github.com/jdorn/sql-formatter/
 let g:formatdef_sqlformatter = '"sql-formatter"'
 let g:formatters_sql = ['sqlformatter']
 
@@ -358,6 +362,24 @@ endif
 "}}}
 " Plugin Settings - neomake {{{
 " -----------------------------------------------------------------------------
+
+" Use custom configuration file with ESLint:
+" https://github.com/w0ng/dotfiles/blob/master/.eslintrc
+let g:neomake_javascript_eslint_maker = {
+            \ 'args': ['-c', '~/.eslintrc', '-f', 'compact'],
+            \ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
+            \ '%W%f: line %l\, col %c\, Warning - %m'
+            \ }
+
+" Use PSR2 standard with PHP CodeSniffer.
+let g:neomake_php_phpcs_args_standard = 'PSR2'
+
+" Use custom rule set with PHP Mess Detector:
+" https://github.com/w0ng/dotfiles/blob/master/.phpmd.xml
+let g:neomake_php_phpmd_maker = {
+            \ 'args': ['%:p', 'text', '~/.phpmd.xml'],
+            \ 'errorformat': '%E%f:%l%\s%m'
+            \ }
 
 if exists('plugs') && has_key(plugs, 'neomake')
     if has('nvim')
