@@ -185,16 +185,23 @@ Plug 'LaTeX-Box-Team/LaTeX-Box'     " Set of LaTeX editing tools.
 Plug 'Shougo/context_filetype.vim'  " Get current context for autocompletion.
 Plug 'benekastah/neomake'           " Asynchronous syntax checking with make.
 Plug 'bling/vim-airline'            " Pretty statusline.
+Plug 'cakebaker/scss-syntax.vim'    " Improved SCSS syntax.
+Plug 'godlygeek/tabular'            " Text filtering and alignment.
+Plug 'hail2u/vim-css3-syntax'       " Syntax for CSS3.
+Plug 'hynek/vim-python-pep8-indent' " PEP8 compliant indentation.
+Plug 'jelera/vim-javascript-syntax' " Improved JavaScript syntax.
+Plug 'majutsushi/tagbar'            " Display tags in a split window.
 Plug 'milkypostman/vim-togglelist'  " Toggle Location List and Quickfix windows.
+Plug 'othree/html5.vim'             " Improved HTML5 syntax and omni completion.
+Plug 'othree/javascript-libraries-syntax.vim' " Syntax for JS libraries.
+Plug 'scrooloose/nerdtree'          " File explorer window.
+Plug 'shawncplus/phpcomplete.vim'   " Improved PHP omni completion.
+Plug 'ternjs/tern_for_vim', { 'do': 'npm install' } " Improved JavaScript omni completion.
 Plug 'tpope/vim-commentary'         " Commenting made simple.
 Plug 'tpope/vim-fugitive'           " Git wrapper.
 Plug 'tpope/vim-repeat'             " Enable repeat for tpope's plugins.
 Plug 'tpope/vim-surround'           " Quoting/parenthesizing made simple.
 Plug 'w0ng/vim-hybrid'              " Dark colorscheme.
-Plug 'godlygeek/tabular'            " Text filtering and alignment.
-Plug 'hynek/vim-python-pep8-indent' " PEP8 compliant indentation.
-Plug 'majutsushi/tagbar'            " Display tags in a split window.
-Plug 'scrooloose/nerdtree'          " File explorer window.
 
 " Plugins to enable only for Neovim.
 if has('nvim')
@@ -208,9 +215,9 @@ endif
 
 " Plugins to enable only on the command line.
 if !has('gui_running')
-    Plug 'junegunn/fzf',            " Command-line fuzzy finder.
-                \ { 'dir': '~/.fzf', 'do': './install --all' }
-    Plug 'junegunn/fzf.vim'         " Set of mappsings and commands for fzf.
+    " Command-line fuzzy finder.
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+    Plug 'junegunn/fzf.vim'
 endif
 
 call plug#end()
