@@ -32,16 +32,17 @@ sudo nvram SystemAudioVolume=%80
 defaults write org.vim.MacVim MMNativeFullScreen 0
 
 # Auto-hide menu bar
-defaults write -g _HIHideMenuBar 1
-# TODO:
+# defaults write -g _HIHideMenuBar 1
+# TODO: useless until we can remove animation speed/delay.
 # Disable menu bar show/hide animation (???)
 # Remove auto-hide menu bar delay (???)
 
-# Disable send and reply animations in Mail.app (does not work in Yosemite)
+# Disable send and reply animations in Mail.app (does not work in El Capitan)
 # TODO:
 #defaults write com.apple.mail DisableReplyAnimations -bool true
 #defaults write com.apple.mail DisableSendAnimations -bool true
 
 # TODO:
-# Disable desktop switching animation: pay $25 for TotalSpaces2, because Apple
-# Disable full screen animation: install Linux, because Apple
+# Disable full screen animation: install Linux, because Apple.
+# Disable desktop switching animation: pay $25 for TotalSpaces2, because Apple 
+# (NOTE: no longer works since SIP was introduced in El Capitan)
