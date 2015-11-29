@@ -186,10 +186,10 @@ Plug 'Shougo/context_filetype.vim'  " Get current context for autocompletion.
 Plug 'benekastah/neomake'           " Asynchronous syntax checking with make.
 Plug 'bling/vim-airline'            " Pretty statusline.
 Plug 'cakebaker/scss-syntax.vim'    " Improved SCSS syntax.
-Plug 'godlygeek/tabular'            " Text filtering and alignment.
 Plug 'hail2u/vim-css3-syntax'       " Syntax for CSS3.
 Plug 'hynek/vim-python-pep8-indent' " PEP8 compliant indentation.
 Plug 'jelera/vim-javascript-syntax' " Improved JavaScript syntax.
+Plug 'junegunn/vim-easy-align'      " Text alignment by characters.
 Plug 'majutsushi/tagbar'            " Display tags in a split window.
 Plug 'milkypostman/vim-togglelist'  " Toggle Location List and Quickfix windows.
 Plug 'othree/html5.vim'             " Improved HTML5 syntax and omni completion.
@@ -302,6 +302,15 @@ if exists('plugs') && has_key(plugs, 'deoplete.nvim')
 endif
 
 "}}}
+" Plugin Settings - easy-align {{{
+" -----------------------------------------------------------------------------
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+"}}}
 " Plugin Settings - fugitive {{{
 " -----------------------------------------------------------------------------
 
@@ -407,14 +416,6 @@ nnoremap <Leader>1 :NERDTreeToggle<CR>
 " -----------------------------------------------------------------------------
 
 let g:plug_window = 'topleft new' " Open plug window in a horizontal split.
-
-"}}}
-" Plugin Settings - tabular {{{
-" -----------------------------------------------------------------------------
-
-" Format lines with Tabular.
-nnoremap <Leader>t :Tabular /
-vnoremap <Leader>t :Tabular /
 
 "}}}
 " Plugin Settings - tagbar {{{
