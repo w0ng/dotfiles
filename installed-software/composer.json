@@ -1,0 +1,13 @@
+{
+    "require": {
+        "fabpot/php-cs-fixer": "~1.10",
+        "jdorn/sql-formatter": "dev-master",
+        "phpfmt/fmt": "~17.3",
+        "phpmd/phpmd": "~2.3",
+        "phpunit/phpunit": "~4.8",
+        "psy/psysh": "0.4.*",
+        "squizlabs/php_codesniffer": "~2.3",
+        "techlivezheng/phpctags": "0.6.*",
+        "zendframework/zendframework1": "~1.12"
+    }
+}

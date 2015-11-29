@@ -1,12 +1,11 @@
+1Password 5.app/
 Adium.app/
 Adobe Acrobat Reader DC.app/
 Alfred 2.app/
 Android File Transfer.app/
-Android Studio.app/
 App Store.app/
 Automator.app/
 Axure RP Pro 7.0.app/
-Bartender.app/
 BetterSnapTool.app/
 BetterTouchTool.app/
 Calculator.app/
@@ -23,21 +22,20 @@ Disk Inventory X.app/
 Evernote.app/
 FaceTime.app/
 Firefox.app/
+Flux.app/
 Font Book.app/
 GIMP.app/
 Game Center.app/
 GarageBand.app/
 Google Chrome.app/
 Google Drive.app/
-IDLE 3.app@
-IDLE.app@
 Image Capture.app/
 KeePassX.app/
 Keynote.app/
+LICEcap.app/
 Launchpad.app/
 LibreOffice.app/
 LiteIcon.app/
-MacVim.app@
 Mail.app/
 Maps.app/
 Messages.app/
@@ -54,9 +52,8 @@ Pages.app/
 Photo Booth.app/
 Photos.app/
 PhpStorm.app/
+Postico.app/
 Preview.app/
-Python Launcher 3.app@
-Python Launcher.app@
 QGIS.app/
 QuickTime Player.app/
 Reminders.app/
@@ -79,10 +76,10 @@ TextMate.app/
 The Unarchiver.app/
 Time Machine.app/
 TorBrowser.app/
-TotalSpaces2.app/
 Utilities/
 VLC.app/
 VirtualBox.app/
+Wireshark.app/
 Wunderlist.app/
 Xcode.app/
 iBooks.app/
@@ -90,4 +87,14 @@ iMovie.app/
 iPhoto.app/
 iTerm.app/
 iTunes.app/
+Assistant.app@
+Designer.app@
+IDLE 3.app@
+IDLE.app@
+Linguist.app@
+MacVim.app@
+Python Launcher 3.app@
+Python Launcher.app@
+QMLViewer.app@
+qttracereplay.app@
 terminal-notifier.app@

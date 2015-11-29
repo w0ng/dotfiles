@@ -1,13 +1,12 @@
 archey
 binutils
-cmake
 homebrew/php/composer
 coreutils
 ctags
 dos2unix
 exiftool
+ffmpeg
 findutils
-fzf
 gawk
 gist
 git
@@ -22,9 +21,12 @@ gnupg2
 gnutls
 goaccess
 homebrew/dupes/grep
+highlight
 imagemagick
 macvim
 mercurial
+neovim/neovim/neovim
+nmap
 node
 p7zip
 perl
@@ -37,6 +39,7 @@ qt
 reattach-to-user-namespace
 ruby
 shellcheck
+ravenac95/sudolikeaboss/sudolikeaboss
 terminal-notifier
 the_silver_searcher
 tldr-pages/tldr/tldr
