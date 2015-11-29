@@ -1,35 +1,35 @@
 autopep8==1.2.1
-    pep8==1.5.7
-flake8==2.4.1
-    mccabe==0.3.1
-    pyflakes==0.8.1
-    pep8==1.5.7
-grip==4.0.0
-    docopt==0.6.2
-    Markdown==2.6.4
-    requests==2.8.1
-    path-and-address==1.0.0
-    Pygments==2.0.2
-    Flask==0.10.1
-      itsdangerous==0.24
-      Jinja2==2.8
-        MarkupSafe==0.23
-      Werkzeug==0.11.2
-ipython==4.0.0
-    appnope==0.1.0
-    pexpect==4.0.1
-      ptyprocess==0.5
-    simplegeneric==0.8.1
-    decorator==4.0.4
-    gnureadline==6.3.3
-    pickleshare==0.5
-      path.py==8.1.2
-    traitlets==4.0.0
-      decorator==4.0.4
-      ipython-genutils==0.1.0
+    pep8==1.6.2
 neovim==0.0.38
     greenlet==0.4.9
     msgpack-python==0.4.6
+flake8==2.5.0
+    pyflakes==1.0.0
+    mccabe==0.3.1
+    pep8==1.6.2
 pip-autoremove==0.9.0
+grip==4.0.0
+    path-and-address==1.0.0
+    requests==2.8.1
+    Flask==0.10.1
+      Jinja2==2.8
+        MarkupSafe==0.23
+      itsdangerous==0.24
+      Werkzeug==0.11.2
+    Pygments==2.0.2
+    Markdown==2.6.5
+    docopt==0.6.2
+ipython==4.0.1
+    simplegeneric==0.8.1
+    gnureadline==6.3.3
+    appnope==0.1.0
+    decorator==4.0.4
+    pickleshare==0.5
+      path.py==8.1.2
+    pexpect==4.0.1
+      ptyprocess==0.5
+    traitlets==4.0.0
+      decorator==4.0.4
+      ipython-genutils==0.1.0
 sqlparse==0.1.18
 wheel==0.26.0
