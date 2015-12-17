@@ -194,6 +194,7 @@ Plug 'majutsushi/tagbar'            " Display tags in a split window.
 Plug 'milkypostman/vim-togglelist'  " Toggle Location List and Quickfix windows.
 Plug 'othree/html5.vim'             " Improved HTML5 syntax and omni completion.
 Plug 'othree/javascript-libraries-syntax.vim' " Syntax for JS libraries.
+Plug 'plasticboy/vim-markdown'      " Markdown Vim Mode.
 Plug 'scrooloose/nerdtree'          " File explorer window.
 Plug 'shawncplus/phpcomplete.vim'   " Improved PHP omni completion.
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install' } " Improved JavaScript omni completion.
