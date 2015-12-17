@@ -8,6 +8,7 @@
     "phpfmt/fmt": "^18.2",
     "techlivezheng/phpctags": "^0.6.0",
     "jdorn/sql-formatter": "dev-master",
-    "zendframework/zendframework1": "^1.12"
+    "zendframework/zendframework1": "^1.12",
+    "laravel/homestead": "dev-php-7"
   }
 }
