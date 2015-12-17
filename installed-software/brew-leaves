@@ -31,6 +31,7 @@ node
 p7zip
 perl
 homebrew/php/php56-xdebug
+homebrew/php/php70-xdebug
 postgresql
 psqlodbc
 python

@@ -5,9 +5,9 @@
     "fabpot/php-cs-fixer": "^1.10",
     "phpmd/phpmd": "^2.3",
     "psy/psysh": "^0.6.1",
-    "zendframework/zendframework1": "^1.12",
     "phpfmt/fmt": "^18.2",
     "techlivezheng/phpctags": "^0.6.0",
-    "jdorn/sql-formatter": "dev-master"
+    "jdorn/sql-formatter": "dev-master",
+    "zendframework/zendframework1": "^1.12"
   }
 }
