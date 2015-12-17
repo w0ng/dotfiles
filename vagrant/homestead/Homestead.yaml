@@ -1,7 +1,7 @@
 ---
 ip: "192.168.10.10"
-memory: 2048
-cpus: 1
+memory: 8192
+cpus: 8
 hostname: www
 name: www
 provider: virtualbox
@@ -14,10 +14,11 @@ keys:
 folders:
     - map: "/Users/andrew/dev/www"
       to: "/home/vagrant/www"
+      type: "nfs"
 
 sites:
     - map: homestead.app
-      to: "/home/vagrant/www/public"
+      to: "/home/vagrant/www"
 
 databases:
     - homestead
