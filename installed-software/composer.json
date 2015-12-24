@@ -9,6 +9,6 @@
     "techlivezheng/phpctags": "^0.6.0",
     "jdorn/sql-formatter": "dev-master",
     "zendframework/zendframework1": "^1.12",
-    "laravel/homestead": "dev-php-7"
+    "laravel/homestead": "^3.0"
   }
 }
