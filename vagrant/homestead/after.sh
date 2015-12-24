@@ -27,5 +27,22 @@ xdebug.profiler_enable_trigger = 1
 xdebug.profiler_output_dir = /tmp
 EOF
 
+# Do not enable xdebug extension by default.
+sed -ri 's/^(zend_extension=)/;\1/' "$(find /etc/php -name xdebug.ini)"
+
+# Add aliases
+cat > /home/vagrant/.bash_aliases <<EOF
+# Load xdebug Zend extension with php command
+alias php='php -dzend_extension=xdebug.so'
+# PHPUnit needs xdebug for coverage. In this case, just make an alias with php command prefix.
+alias phpunit='php $(which phpunit)'
+
+# Shortcuts to common artisan commands (Laravel)
+alias pa='php artisan'
+alias pat='php artisan tinker'
+EOF
+
+chown vagrant:vagrant /home/vagrant/.bash_aliases
+
 # Restart PHP FPM for xdebug installation to take effect.
 service php7.0-fpm restart
