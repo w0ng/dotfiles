@@ -345,7 +345,8 @@ endif
 " Plugin Settings - hybrid {{{
 " -----------------------------------------------------------------------------
 
-let g:hybrid_use_Xresources = 1   " Use iTerm2 colour palette.
+let g:hybrid_custom_term_colors = 1
+let g:hybrid_reduced_contrast = 1
 "let $NVIM_TUI_ENABLE_TRUE_COLOR=1 " Use 24-bit color, supported in iTerm2 2.9.
 
 try
