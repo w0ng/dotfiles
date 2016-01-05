@@ -64,14 +64,14 @@ autocmd FileType markdown setlocal foldmethod=marker
 " -----------------------------------------------------------------------------
 
 if has('gui_running')
-    set guifont=Inconsolata:h18     " Set the font to use.
-    set guioptions=                 " Remove all GUI components and options.
-    set guicursor+=a:block-blinkon0 " Use non-blinking block cursor.
+  set guifont=Inconsolata:h18     " Set the font to use.
+  set guioptions=                 " Remove all GUI components and options.
+  set guicursor+=a:block-blinkon0 " Use non-blinking block cursor.
 
-    " Paste from PRIMARY
-    inoremap <silent> <S-Insert> <Esc>"*p`]a
-    " Paste from CLIPBOARD
-    inoremap <silent> <M-v> <Esc>"+p`]a
+  " Paste from PRIMARY
+  inoremap <silent> <S-Insert> <Esc>"*p`]a
+  " Paste from CLIPBOARD
+  inoremap <silent> <M-v> <Esc>"+p`]a
 endif
 
 "}}}
@@ -88,7 +88,7 @@ set tabstop=4              " Spaces that a <Tab> in file counts for.
 
 " Indent and tab options for specific file types.
 autocmd FileType c,make setlocal noexpandtab shiftwidth=8 softtabstop=8 tabstop=8
-autocmd FileType json,less,ruby,sass,scss,sql,zsh setlocal shiftwidth=2 softtabstop=2 tabstop=2
+autocmd FileType json,less,ruby,sass,scss,sql,vim,zsh setlocal shiftwidth=2 softtabstop=2 tabstop=2
 
 "}}}
 " Options - Searching {{{
@@ -206,19 +206,19 @@ Plug 'w0ng/vim-hybrid'              " Dark colorscheme.
 
 " Plugins to enable only for Neovim.
 if has('nvim')
-    Plug 'Shougo/deoplete.nvim'     " Asynchronous auto completion.
+  Plug 'Shougo/deoplete.nvim'     " Asynchronous auto completion.
 endif
 
 " Plugins to enable only for Vim.
 if !has('nvim')
-    Plug 'Shougo/neocomplete.vim'   " Synchronous auto completion.
+  Plug 'Shougo/neocomplete.vim'   " Synchronous auto completion.
 endif
 
 " Plugins to enable only on the command line.
 if !has('gui_running')
-    " Command-line fuzzy finder.
-    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-    Plug 'junegunn/fzf.vim'
+  " Command-line fuzzy finder.
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug 'junegunn/fzf.vim'
 endif
 
 call plug#end()
@@ -291,15 +291,15 @@ nnoremap <Leader>as :set ft=sql<CR>:Autoformat<CR>
 " -----------------------------------------------------------------------------
 
 if exists('plugs') && has_key(plugs, 'deoplete.nvim')
-    let g:deoplete#enable_at_startup = 1 " Enable deoplete on startup.
-    let g:deoplete#enable_smart_case = 1 " Enable smart case.
+  let g:deoplete#enable_at_startup = 1 " Enable deoplete on startup.
+  let g:deoplete#enable_smart_case = 1 " Enable smart case.
 
-    " Tab completion.
-    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+  " Tab completion.
+  inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
-    " On backspace, delete previous completion and regenerate popup.
-    inoremap <expr><C-H> deoplete#mappings#smart_close_popup()."\<C-H>"
-    inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-H>"
+  " On backspace, delete previous completion and regenerate popup.
+  inoremap <expr><C-H> deoplete#mappings#smart_close_popup()."\<C-H>"
+  inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-H>"
 endif
 
 "}}}
@@ -325,20 +325,20 @@ let g:fzf_layout = { 'up': '12' } " Position the default fzf window layout.
 let g:fzf_command_prefix = 'Fzf'  " Prefix fzf commands e.g. :FzfFiles.
 
 if exists('plugs') && has_key(plugs, 'fzf.vim')
-    " Find buffers.
-    nnoremap <Leader>e :FzfBuffers<CR>
+  " Find buffers.
+  nnoremap <Leader>e :FzfBuffers<CR>
 
-    " Find files.
-    nnoremap <Leader>o :FzfFiles<CR>
+  " Find files.
+  nnoremap <Leader>o :FzfFiles<CR>
 
-    " Find project tags (ctags -R).
-    nnoremap <Leader><S-O> :FzfTags<CR>
+  " Find project tags (ctags -R).
+  nnoremap <Leader><S-O> :FzfTags<CR>
 
-    " Find tags in current buffer.
-    nnoremap <Leader>r :FzfBTags<CR>
+  " Find tags in current buffer.
+  nnoremap <Leader>r :FzfBTags<CR>
 
-    " Find pattern in files with ag.
-    nnoremap <Leader>f :FzfAg<CR>
+  " Find pattern in files with ag.
+  nnoremap <Leader>f :FzfAg<CR>
 endif
 
 "}}}
@@ -350,9 +350,9 @@ let g:hybrid_reduced_contrast = 1
 "let $NVIM_TUI_ENABLE_TRUE_COLOR=1 " Use 24-bit color, supported in iTerm2 2.9.
 
 try
-    colorscheme hybrid
+  colorscheme hybrid
 catch /:E185:/
-    " Silently ignore if colorscheme not found.
+  " Silently ignore if colorscheme not found.
 endtry
 
 "}}}
@@ -366,15 +366,15 @@ let g:LatexBox_latexmk_async = 1 " Enable asynchronous Latex compilation.
 " -----------------------------------------------------------------------------
 
 if exists('plugs') && has_key(plugs, 'neocomplete.vim')
-    let g:neocomplete#enable_at_startup = 1 " Enable neocomplete on startup.
-    let g:neocomplete#enable_smart_case = 1 " Enable smart case.
+  let g:neocomplete#enable_at_startup = 1 " Enable neocomplete on startup.
+  let g:neocomplete#enable_smart_case = 1 " Enable smart case.
 
-    " Tab completion.
-    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+  " Tab completion.
+  inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
-    " On backspace, delete previous completion and regenerate popup.
-    inoremap <expr><C-H> neocomplete#smart_close_popup()."\<C-H>"
-    inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-H>"
+  " On backspace, delete previous completion and regenerate popup.
+  inoremap <expr><C-H> neocomplete#smart_close_popup()."\<C-H>"
+  inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-H>"
 endif
 
 "}}}
@@ -384,10 +384,10 @@ endif
 " Use custom configuration file with ESLint:
 " https://github.com/w0ng/dotfiles/blob/master/.eslintrc
 let g:neomake_javascript_eslint_maker = {
-            \ 'args': ['-c', '~/.eslintrc', '-f', 'compact'],
-            \ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
-            \ '%W%f: line %l\, col %c\, Warning - %m'
-            \ }
+      \ 'args': ['-c', '~/.eslintrc', '-f', 'compact'],
+      \ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
+      \ '%W%f: line %l\, col %c\, Warning - %m'
+      \ }
 
 " Use PSR2 standard with PHP CodeSniffer.
 let g:neomake_php_phpcs_args_standard = 'PSR2'
@@ -395,15 +395,15 @@ let g:neomake_php_phpcs_args_standard = 'PSR2'
 " Use custom rule set with PHP Mess Detector:
 " https://github.com/w0ng/dotfiles/blob/master/.phpmd.xml
 let g:neomake_php_phpmd_maker = {
-            \ 'args': ['%:p', 'text', '~/.phpmd.xml'],
-            \ 'errorformat': '%E%f:%l%\s%m'
-            \ }
+      \ 'args': ['%:p', 'text', '~/.phpmd.xml'],
+      \ 'errorformat': '%E%f:%l%\s%m'
+      \ }
 
 if exists('plugs') && has_key(plugs, 'neomake')
-    if has('nvim')
-        " Execute syntax checkers on file save.
-        autocmd! BufWritePost * Neomake
-    endif
+  if has('nvim')
+    " Execute syntax checkers on file save.
+    autocmd! BufWritePost * Neomake
+  endif
 endif
 
 "}}}
