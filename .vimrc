@@ -64,7 +64,7 @@ autocmd FileType markdown setlocal foldmethod=marker
 " -----------------------------------------------------------------------------
 
 if has('gui_running')
-  set guifont=Inconsolata:h18     " Set the font to use.
+  set guifont=InconsolataGo:h18   " Set the font to use.
   set guioptions=                 " Remove all GUI components and options.
   set guicursor+=a:block-blinkon0 " Use non-blinking block cursor.
 
