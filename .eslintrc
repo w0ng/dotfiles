@@ -10,9 +10,10 @@
   },
   "rules": {
     "camelcase": [2, {"properties": "always"}],
+    "comma-dangle": [2, "always-multiline"],
     "indent": [2, 4],
-    "quotes": [2, "single", "avoid-escape"],
     "linebreak-style": [2, "unix"],
+    "quotes": [2, "single", "avoid-escape"],
     "semi": [2, "always"],
     "strict": [2, "global"]
   }
