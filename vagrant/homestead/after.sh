@@ -7,6 +7,9 @@
 # Set the timezone
 timedatectl set-timezone 'Australia/Sydney'
 
+sed -i "s/^;\?date.timezone =.*/date.timezone = \"Australia\/Sydney\"/" \
+    $(find /etc/php -name php.ini)
+
 # Update Laravel Installer
 sudo -H -u vagrant sh -c 'composer global require laravel/installer'
 
