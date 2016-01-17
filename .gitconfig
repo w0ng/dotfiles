@@ -2,8 +2,8 @@
     name = Andrew Wong
     email = wongadev@gmail.com
 [core]
-    attributesfile = /Users/andrew/.gitattributes_global
-    excludesfile = /Users/andrew/.gitignore_global
+    attributesfile = ~/.gitattributes_global
+    excludesfile = ~/.gitignore_global
     editor = vim
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
@@ -42,4 +42,4 @@
 [mergetool]
     keepBackup = false
 [mailmap]
-    file = /Users/andrew/.mailmap
+    file = ~/.mailmap
