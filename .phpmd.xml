@@ -10,14 +10,34 @@
         All rule sets with cherry-picked overrides for Laravel development.
     </description>
 
-    <!-- Allow static access e.g. for accessing Laravel facades. -->
-    <rule ref="rulesets/cleancode.xml">
-        <exclude name="StaticAccess" />
-    </rule>
+    <!--
+        The Clean Code ruleset contains rules that enforce a clean code base.
+        This includes rules from SOLID and object calisthenics.
+    -->
+    <rule ref="rulesets/cleancode.xml" />
 
+    <!--
+        The Code Size Ruleset contains a collection of rules that find code
+        size related problems.
+    -->
+    <rule ref="rulesets/codesize.xml" />
+
+    <!--
+         This ruleset contains a collection of controversial rules.
+     -->
     <rule ref="rulesets/controversial.xml" />
 
-    <!-- Decrease minimum variable and method length from 3 to 2. -->
+    <!--
+        The Code Size Ruleset contains a collection of rules that find software
+        design related problems.
+    -->
+    <rule ref="rulesets/design.xml" />
+
+    <!--
+        The Naming Ruleset contains a collection of rules about names - too
+        long, too short, and so forth.
+        The minimum variable and method length is decreased from 3 to 2.
+     -->
     <rule ref="rulesets/naming.xml">
         <exclude name="ShortVariable" />
         <exclude name="ShortMethodName" />
@@ -33,9 +53,9 @@
         </properties>
     </rule>
 
-    <rule ref="rulesets/codesize.xml" />
-
-    <rule ref="rulesets/design.xml" />
-
+    <!--
+        The Unused Code Ruleset contains a collection of rules that find unused
+        code.
+    -->
     <rule ref="rulesets/unusedcode.xml" />
 </ruleset>
