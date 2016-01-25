@@ -183,6 +183,7 @@ call plug#begin('~/.vim/plugged/')
 Plug 'Chiel92/vim-autoformat'       " Integrate external code formatters.
 Plug 'LaTeX-Box-Team/LaTeX-Box'     " Set of LaTeX editing tools.
 Plug 'Shougo/context_filetype.vim'  " Get current context for autocompletion.
+Plug 'StanAngeloff/php.vim'         " Updated PHP syntax highlighting.
 Plug 'benekastah/neomake'           " Asynchronous syntax checking with make.
 Plug 'bling/vim-airline'            " Pretty statusline.
 Plug 'cakebaker/scss-syntax.vim'    " Improved SCSS syntax.
@@ -351,6 +352,7 @@ let g:hybrid_reduced_contrast = 1
 
 try
   colorscheme hybrid
+  hi! Cursor guibg=#00ffff
 catch /:E185:/
   " Silently ignore if colorscheme not found.
 endtry
@@ -412,6 +414,13 @@ endif
 
 " Toggle NERD tree window.
 nnoremap <Leader>1 :NERDTreeToggle<CR>
+
+""}}}
+" Plugin Settings - php.vim {{{
+" -----------------------------------------------------------------------------
+
+" Link highlighting of PHPDoc tags to Preprocessor highlighting.
+hi! link phpDocTags PreProc
 
 ""}}}
 " Plugin Settings - plug {{{
