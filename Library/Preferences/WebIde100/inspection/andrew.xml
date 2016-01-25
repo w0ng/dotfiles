@@ -1,0 +1,19 @@
+<inspections profile_name="andrew" version="1.0">
+  <option name="myName" value="andrew" />
+  <inspection_tool class="Eslint" enabled="true" level="ERROR" enabled_by_default="true" />
+  <inspection_tool class="JSLastCommaInArrayLiteral" enabled="false" level="WARNING" enabled_by_default="false" />
+  <inspection_tool class="JSLastCommaInObjectLiteral" enabled="false" level="WARNING" enabled_by_default="false" />
+  <inspection_tool class="MessDetectorValidationInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+    <option name="customRulesets">
+      <list>
+        <RulesetDescriptor>
+          <option name="name" value="PHPMD rule set for Laravel development" />
+          <option name="path" value="/Users/andrew/.phpmd.xml" />
+        </RulesetDescriptor>
+      </list>
+    </option>
+  </inspection_tool>
+  <inspection_tool class="PhpCSValidationInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+    <option name="CODING_STANDARD" value="PSR2" />
+  </inspection_tool>
+</inspections>

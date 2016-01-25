@@ -1,0 +1,9 @@
+<application>
+  <component name="UISettings">
+    <option name="FONT_FACE" value="Helvetica Neue" />
+    <option name="ANIMATE_WINDOWS" value="false" />
+    <option name="SHOW_EDITOR_TOOLTIP" value="false" />
+    <option name="SHOW_NAVIGATION_BAR" value="false" />
+    <option name="EDITOR_TAB_PLACEMENT" value="0" />
+  </component>
+</application>

@@ -1,0 +1,6 @@
+IdeaVIM
+com.chrisrm.idea.MaterialThemeUI
+mobi.hsz.idea.gitignore
+nl.jworks.intellij.bootstrap3
+de.espend.idea.laravel
+com.wix.scss.lint

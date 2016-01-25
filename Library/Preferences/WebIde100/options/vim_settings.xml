@@ -1,0 +1,157 @@
+<application>
+  <component name="VimSettings">
+    <state version="4" enabled="true" />
+    <globalmarks />
+    <filemarks>
+    </filemarks>
+    <jumps>
+    </jumps>
+    <registers>
+      <register name="&quot;" type="4">
+        <text>:</text>
+      </register>
+      <register name="-" type="4">
+        <text>:</text>
+      </register>
+      <register name="/" type="4">
+        <text>abstract</text>
+      </register>
+      <register name="0" type="2">
+        <text encoding="base64">ICAgICAgICAkcm91dGVyLT5tb2RlbCgndXNlcnMnLCAnQXBwXHVzZXInKTsK</text>
+      </register>
+      <register name="1" type="4">
+        <text>:</text>
+      </register>
+      <register name="2" type="4">
+        <text>:</text>
+      </register>
+      <register name="3" type="4">
+        <text>test</text>
+      </register>
+      <register name="4" type="4">
+        <text>d</text>
+      </register>
+      <register name="5" type="4">
+        <text>i</text>
+      </register>
+      <register name="6" type="2">
+        <text encoding="base64">ICAgICAqIEBwYXJhbSAgQXJ0aWNsZSAkYXJ0aWNsZQo=</text>
+      </register>
+      <register name="7" type="4">
+        <text>id</text>
+      </register>
+      <register name="8" type="4">
+        <text encoding="base64">aW50IA==</text>
+      </register>
+      <register name="9" type="4">
+        <text>id</text>
+      </register>
+      <register name=":" type="4">
+        <text>q</text>
+      </register>
+    </registers>
+    <search>
+      <last-search>abstract</last-search>
+      <last-offset />
+      <last-pattern>abstract</last-pattern>
+      <last-replace>published_at</last-replace>
+      <last-substitute>title</last-substitute>
+      <last-dir>1</last-dir>
+      <show-last>true</show-last>
+    </search>
+    <history>
+      <history-search>
+        <entry>fluent</entry>
+        <entry>Body</entry>
+        <entry>body</entry>
+        <entry>title</entry>
+        <entry>require</entry>
+        <entry>null</entry>
+        <entry>timestamp</entry>
+        <entry>bags</entry>
+        <entry>close</entry>
+        <entry>erro</entry>
+        <entry>attributes</entry>
+        <entry>carbon</entry>
+        <entry>mutat</entry>
+        <entry>query</entry>
+        <entry>query scope</entry>
+        <entry>scope</entry>
+        <entry>valida</entry>
+        <entry>redirect</entry>
+        <entry>toarray</entry>
+        <entry>abstract</entry>
+      </history-search>
+      <history-cmd>
+        <entry encoding="base64">JzwsJz5zL2Fib3V0L2NvbnRhY3QvZw==</entry>
+        <entry encoding="base64">JzwsJz5zL3VybC9yb3V0ZS9n</entry>
+        <entry>action ExpandRegion</entry>
+        <entry encoding="base64">JzwsJz5zL0JvZHkvRXhjZXJwdC9n</entry>
+        <entry encoding="base64">JzwsJz5zL2JvZHkvZXhjZXJwdC9n</entry>
+        <entry encoding="base64">JzwsJz5zL3RpdGxlL3B1Ymxpc2hlZF9hdC9n</entry>
+        <entry>;w</entry>
+        <entry>nohlsearch</entry>
+        <entry>w</entry>
+        <entry>q</entry>
+      </history-cmd>
+      <history-expr />
+      <history-input />
+    </history>
+    <shortcut-conflicts>
+      <shortcut-conflict owner="vim">
+        <text>ctrl pressed D</text>
+      </shortcut-conflict>
+      <shortcut-conflict owner="vim">
+        <text>ctrl pressed H</text>
+      </shortcut-conflict>
+      <shortcut-conflict owner="vim">
+        <text>ctrl pressed 2</text>
+      </shortcut-conflict>
+      <shortcut-conflict owner="vim">
+        <text>ctrl pressed E</text>
+      </shortcut-conflict>
+      <shortcut-conflict owner="vim">
+        <text>ctrl pressed R</text>
+      </shortcut-conflict>
+      <shortcut-conflict owner="vim">
+        <text>ctrl pressed T</text>
+      </shortcut-conflict>
+      <shortcut-conflict owner="vim">
+        <text>ctrl pressed I</text>
+      </shortcut-conflict>
+      <shortcut-conflict owner="vim">
+        <text>ctrl pressed O</text>
+      </shortcut-conflict>
+      <shortcut-conflict owner="vim">
+        <text>ctrl pressed P</text>
+      </shortcut-conflict>
+      <shortcut-conflict owner="vim">
+        <text>ctrl pressed A</text>
+      </shortcut-conflict>
+      <shortcut-conflict owner="vim">
+        <text>ctrl pressed F</text>
+      </shortcut-conflict>
+      <shortcut-conflict owner="vim">
+        <text>ctrl pressed G</text>
+      </shortcut-conflict>
+      <shortcut-conflict owner="vim">
+        <text>ctrl pressed J</text>
+      </shortcut-conflict>
+      <shortcut-conflict owner="vim">
+        <text>ctrl pressed K</text>
+      </shortcut-conflict>
+      <shortcut-conflict owner="vim">
+        <text>ctrl pressed V</text>
+      </shortcut-conflict>
+      <shortcut-conflict owner="vim">
+        <text>ctrl pressed B</text>
+      </shortcut-conflict>
+      <shortcut-conflict owner="vim">
+        <text>ctrl pressed N</text>
+      </shortcut-conflict>
+      <shortcut-conflict owner="vim">
+        <text>ctrl pressed M</text>
+      </shortcut-conflict>
+    </shortcut-conflicts>
+  </component>
+</application>
