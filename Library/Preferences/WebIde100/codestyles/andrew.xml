@@ -4,6 +4,7 @@
   <option name="HTML_TEXT_WRAP" value="0" />
   <option name="HTML_ALIGN_ATTRIBUTES" value="false" />
   <option name="HTML_SPACE_INSIDE_EMPTY_TAG" value="true" />
+  <option name="HTML_DO_NOT_INDENT_CHILDREN_OF" value="html" />
   <CssCodeStyleSettings>
     <option name="HEX_COLOR_LOWER_CASE" value="true" />
     <option name="HEX_COLOR_SHORT_FORMAT" value="true" />
