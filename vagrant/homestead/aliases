@@ -1,0 +1,2 @@
+alias pa='php artisan'
+alias pat='php artisan tinker'

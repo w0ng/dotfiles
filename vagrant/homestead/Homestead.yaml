@@ -2,8 +2,8 @@
 ip: "192.168.10.10"
 memory: 8192
 cpus: 8
-hostname: www
-name: www
+hostname: homestead
+name: homestead
 provider: virtualbox
 
 authorize: ~/.ssh/id_rsa.pub
@@ -12,13 +12,13 @@ keys:
     - ~/.ssh/id_rsa
 
 folders:
-    - map: "/Users/andrew/dev/www"
-      to: "/home/vagrant/www"
+    - map: "/Users/andrew/dev/www/homestead"
+      to: "/home/vagrant/www/homestead"
       type: "nfs"
 
 sites:
     - map: homestead.app
-      to: "/home/vagrant/www"
+      to: "/home/vagrant/www/homestead/public"
 
 databases:
     - homestead
