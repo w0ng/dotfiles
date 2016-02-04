@@ -1,2 +1,7 @@
 alias pa='php artisan'
 alias pat='php artisan tinker'
+alias pac='php artisan clear-compiled && \
+    php artisan ide-helper:generate && \
+    php artisan ide-helper:models --nowrite && \
+    php artisan ide-helper:meta && \
+    php artisan optimize'
