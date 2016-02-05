@@ -17,7 +17,7 @@
   <component name="PhpInterpretersPhpInfoCache">
     <phpInfoCache>
       <interpreter name="PHP">
-        <phpinfo binary_type="PHP" php_cgi="/usr/local/Cellar/php70/7.0.1/bin/php-cgi" php_cli="/usr/local/Cellar/php70/7.0.1/bin/php" path_separator=":" remote_host="127.0.0.1" version="7.0.1">
+        <phpinfo binary_type="PHP" php_cgi="/usr/local/Cellar/php70/7.0.2/bin/php-cgi" php_cli="/usr/local/Cellar/php70/7.0.2/bin/php" path_separator=":" remote_host="127.0.0.1" version="7.0.2">
           <additional_php_ini />
           <configuration_file>/usr/local/etc/php/7.0/php.ini</configuration_file>
           <configuration_options>
@@ -71,7 +71,7 @@
             <configuration_option name="exif.encode_unicode" value="ISO-8859-15" />
             <configuration_option name="exit_on_timeout" value="0" />
             <configuration_option name="expose_php" value="1" />
-            <configuration_option name="extension_dir" value="/usr/local/Cellar/php70/7.0.1/lib/php/extensions/no-debug-non-zts-20151012" />
+            <configuration_option name="extension_dir" value="/usr/local/Cellar/php70/7.0.2/lib/php/extensions/no-debug-non-zts-20151012" />
             <configuration_option name="file_uploads" value="1" />
             <configuration_option name="filter.default" value="unsafe_raw" />
             <configuration_option name="filter.default_flags" value="" />
