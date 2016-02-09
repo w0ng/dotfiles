@@ -5,12 +5,7 @@
     attributesfile = ~/.gitattributes_global
     excludesfile = ~/.gitignore_global
     editor = vim
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
+    pager = diff-highlight | diff-so-fancy | less -r
 [color]
     ui = true
 [color "branch"]
@@ -32,8 +27,7 @@
 [difftool]
     prompt = false
 [alias]
-    l = log --pretty=format:'%C(yellow)%h%C(magenta)%d%C(reset) %s %C(cyan)%cN %C(blue)(%cr)%C(reset)' --graph --use-mailmap
-    ll = log --pretty=format:'%C(yellow)%h%C(magenta)%d%C(reset) %s %C(cyan)%cN %C(blue)(%cD)%C(reset)' --graph --use-mailmap
+    l = log --pretty=format:'%C(yellow)%h%C(magenta)%d%C(reset) %s %C(cyan)%cN %C(blue)(%cd)%C(reset)' --date=format:'%a %F %R' --graph --use-mailmap
     s = status -sb
 [push]
     default = simple
@@ -43,3 +37,8 @@
     keepBackup = false
 [mailmap]
     file = ~/.mailmap
+[color "diff-highlight"]
+    oldNormal = red bold
+    oldHighlight = red bold 52
+    newNormal = green bold
+    newHighlight = green bold 22
