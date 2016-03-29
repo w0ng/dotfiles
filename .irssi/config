@@ -3,8 +3,13 @@
 servers = (
   {
     #address = "client.oz.org";
-    address = "rockhampton.oz.org";
+    #address = "rockhampton.oz.org";
     #address = "perth.oz.org";
+    #address = "waix.oz.org";
+    #address = "wollongong.oz.org";
+    address = "irc.oz.org";
+    password = "ohcock";
+    nick = "w0ng_";
     chatnet = "ozorg";
     port = "6667";
     use_ssl = "no";
@@ -17,18 +22,8 @@ servers = (
     chatnet = "freenode";
     port = "6697";
     use_ssl = "yes";
-    ssl_verify = "yes";
-    ssl_capath = "/etc/ssl/certs";
-    autoconnect = "yes";
-  },
-  {
-    address = "irc.gitter.im";
-    chatnet = "gitter";
-    port = "6667";
-    nick = "w0ng";
-    password = "XXXXXXXX";
-    use_ssl = "yes";
-    ssl_verify = "yes";
+    ssl_cert = "~/.irssi/certs/freenode.pem";
+    ssl_verify = "no";
     autoconnect = "yes";
   },
   {
@@ -46,21 +41,24 @@ servers = (
 
 chatnets = {
   freenode = { type = "IRC"; };
-  gitter = { type = "IRC"; };
   ozorg = { type = "IRC"; };
   rizon = { type = "IRC"; };
 };
 
 channels = (
   { name = "#archlinux"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#FreeCodeCamp/Sydney"; chatnet = "gitter"; autojoin = "yes"; },
   { name = "#fsc"; chatnet = "rizon"; autojoin = "yes"; },
-  { name = "#overclockers"; chatnet = "ozorg"; autojoin = "yes"; },
+  {
+    name = "#overclockers";
+    chatnet = "ozorg";
+    autojoin = "yes";
+    password = "ohcock";
+  },
+  { name = "#bash"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "##javascript"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#jquery"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#laravel"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "##php"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#python"; chatnet = "freenode"; autojoin = "yes"; }
+  { name = "##php"; chatnet = "freenode"; autojoin = "yes"; }
 );
 
 aliases = {
@@ -117,7 +115,8 @@ statusbar = {
 
     prompt = {
       items = {
-        uberprompt = { priority = "-1"; };
+        prompt = { priority = "-1"; };
+        prompt_empty = { priority = "-1"; };
         input = { priority = "10"; };
       };
       position = "100";
@@ -158,31 +157,30 @@ settings = {
   };
 
   "perl/core/scripts" = {
-    neat_maxlength = "10";
     awl_display_key = "%w$N.$H$C$S ";
     awl_display_key_active = "%Y$N.$H$C$S ";
+    awl_maxlines = "3";
     awl_position = "0";
     awl_sbar_maxlength = "no";
-    awl_maxlines = "3";
-    screen_away_message = "away";
+    awl_shared_sbar = "OFF";
+    awl_viewer = "no";
     hilightwin_showprivmsg = "no";
-    bitlbee_send_typing = "yes";
     lt_in_queries = "yes";
+    neat_maxlength = "10";
+    screen_away_message = "away";
     uberprompt_format = "$vim_cmd_mode$uber%c :: %n";
+    uberprompt_format_empty = "$vim_cmd_mode$uber%c :: %n";
     vim_mode_cmd_seq = "j";
   };
 
   "irc/core" = { alternate_nick = "w0ng_"; };
 };
 
-ignores = (
-  { level = "JOINS PARTS QUITS NICKS"; },
-  { level = "MODES"; channels = ( "&bitlbee" ); }
-);
+ignores = ( { level = "JOINS PARTS QUITS NICKS"; } );
 
 hilights = (
   {
-    text = "w(0|o)ng_?";
+    text = "w0ng_?";
     nick = "no";
     word = "no";
     fullword = "yes";
@@ -208,8 +206,8 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#FreeCodeCamp/Sydney";
-        tag = "gitter";
+        name = "#fsc";
+        tag = "rizon";
       }
     );
   };
@@ -218,8 +216,8 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#fsc";
-        tag = "rizon";
+        name = "#overclockers";
+        tag = "ozorg";
       }
     );
   };
@@ -228,8 +226,8 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#overclockers";
-        tag = "ozorg";
+        name = "#bash";
+        tag = "freenode";
       }
     );
   };
@@ -273,19 +271,9 @@ windows = {
       }
     );
   };
-  10 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#python";
-        tag = "freenode";
-      }
-    );
-  };
   99 = { name = "hilight"; sticky = "yes"; };
 };
 mainwindows = {
-  8 = { first_line = "4"; lines = "41"; };
+  1 = { first_line = "4"; lines = "42"; };
   99 = { first_line = "1"; lines = "3"; };
 };

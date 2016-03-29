@@ -278,7 +278,7 @@ use Data::Dumper;
 
 { package Irssi::Nick } # magic.
 
-our $VERSION = "0.2";
+our $VERSION = "0.2"; # 255b35bb44161e0
 our %IRSSI =
   (
    authors         => "shabble",
@@ -297,12 +297,14 @@ sub DEBUG { $DEBUG_ENABLED }
 my $prompt_data     = '';
 my $prompt_data_pos = 'UP_INNER';
 
-my $prompt_last     = '';
-my $prompt_format   = '';
+my $prompt_last         = '';
+my $prompt_format       = '';
+my $prompt_format_empty = '';
 
 # flag to indicate whether rendering of hte prompt should allow the replaces
 # theme formats to be applied to the content.
 my $use_replaces = 0;
+my $trim_data    = 0;
 
 my $emit_request = 0;
 
@@ -314,7 +316,7 @@ my $init_callbacks = {load => '', unload => ''};
 pre_init();
 
 sub pre_init {
-    Irssi::command('statusbar prompt reset');
+    `stty -ixon`;
     init();
 }
 
@@ -363,12 +365,15 @@ sub _print_help {
            "",
            "See Also:",
            '',
-           '/SET uberprompt_format    -- defaults to [$*$uber]',
-           "/SET uberprompt_autostart -- determines whether /PROMPT ON is run",
-           "                             automatically when the script loads",
-           "/set uberprompt_use_replaces -- toggles the use of the current theme",
+           '/SET uberprompt_format       -- defaults to "[$*$uber] "',
+           '/SET uberprompt_format_empty -- defaults to "[$*] "',
+           "/SET uberprompt_autostart    -- determines whether /PROMPT ON is run",
+           "                                automatically when the script loads",
+           "/SET uberprompt_use_replaces -- toggles the use of the current theme",
            "                                \"replaces\" setting. Especially",
            "                                noticeable on brackets \"[ ]\" ",
+           "/SET uberprompt_trim_data    -- defaults to off. Removes whitespace from",
+           "                                both sides of the \$uber result.",
            "",
           );
 
@@ -389,7 +394,11 @@ sub deinit {
     Irssi::expando_destroy('rbrace');
 
     # remove uberprompt and return the original ones.
-    print "Removing uberprompt and restoring original";
+    #print "Removing uberprompt and restoring original";
+    restore_prompt_items();
+}
+
+sub gui_exit {
     restore_prompt_items();
 }
 
@@ -401,14 +410,16 @@ sub init {
     Irssi::expando_create('rbrace', \&exp_rbrace, {});
 
     Irssi::settings_add_str ('uberprompt', 'uberprompt_format', '[$*$uber] ');
+    Irssi::settings_add_str ('uberprompt', 'uberprompt_format_empty', '[$*] ');
 
     Irssi::settings_add_str ('uberprompt', 'uberprompt_load_hook',   '');
     Irssi::settings_add_str ('uberprompt', 'uberprompt_unload_hook', '');
 
     Irssi::settings_add_bool('uberprompt', 'uberprompt_debug', 0);
     Irssi::settings_add_bool('uberprompt', 'uberprompt_autostart', 1);
-    Irssi::settings_add_bool('uberprompt', 'uberprompt_use_replaces', 0);
 
+    Irssi::settings_add_bool('uberprompt', 'uberprompt_use_replaces', 0);
+    Irssi::settings_add_bool('uberprompt', 'uberprompt_trim_data', 0);
 
     Irssi::command_bind("prompt",     \&prompt_subcmd_handler);
     Irssi::command_bind('prompt on',  \&replace_prompt_items);
@@ -424,6 +435,7 @@ sub init {
 
     Irssi::command_bind('help', \&_print_help);
 
+    Irssi::signal_add_first('gui exit', \&gui_exit);
     Irssi::signal_add('setup changed', \&reload_settings);
 
     # intialise the prompt format.
@@ -545,6 +557,28 @@ sub reload_settings {
             $expando_vars->{$var_name} = Irssi::parse_special($1);
         }
     }
+
+    $new = Irssi::settings_get_str('uberprompt_format_empty');
+
+    if ($prompt_format_empty ne $new) {
+        _debug_print("Updated prompt format");
+        $prompt_format_empty = $new;
+        $prompt_format_empty =~ s/\$uber/\$\$uber/;
+        Irssi::abstracts_register(['uberprompt_empty', $prompt_format_empty]);
+
+        $expando_vars = {};
+
+        # TODO: something clever here to check if we need to schedule
+        # an update timer or something, rather than just refreshing on
+        # every possible activity in init()
+        while ($prompt_format_empty =~ m/(?<!\$)(\$[A-Za-z,.:;][a-z_]*)/g) {
+            _debug_print("Detected Irssi expando variable $1");
+            my $var_name = substr $1, 1; # strip the $
+            $expando_vars->{$var_name} = Irssi::parse_special($1);
+        }
+    }
+
+    $trim_data = Irssi::settings_get_bool('uberprompt_trim_data');
 }
 
 sub debug_prompt_changed {
@@ -603,7 +637,13 @@ sub uberprompt_render_prompt {
     my $theme  = Irssi::current_theme;
 
     my $arg = $use_replaces ? 0 : Irssi::EXPAND_FLAG_IGNORE_REPLACES;
-    $prompt = $theme->format_expand("{uberprompt $prompt_arg}", $arg);
+
+    if ($prompt_data && (!$trim_data || trim($prompt_data))) {
+      $prompt = $theme->format_expand("{uberprompt $prompt_arg}", $arg);
+    }
+    else {
+      $prompt = $theme->format_expand("{uberprompt_empty $prompt_arg}", $arg);
+    }
 
     if ($prompt_data_pos eq 'UP_ONLY') {
         $prompt =~ s/\$\$uber//; # no need for recursive prompting, I hope.
@@ -622,6 +662,7 @@ sub uberprompt_render_prompt {
     } elsif ($prompt_data_pos eq 'UP_INNER' && defined $prompt_data) {
 
         my $esc = _escape_prompt_special($prompt_data);
+        $esc = $trim_data ? trim($esc) : $esc;
         $prompt =~ s/\$\$uber/$esc/;
 
     } else {
@@ -665,19 +706,23 @@ sub uberprompt_refresh {
     Irssi::statusbar_items_redraw('uberprompt');
 }
 
+my $prompt_items_replaced;
+
 sub replace_prompt_items {
+    unless ($prompt_items_replaced) {
+    $prompt_items_replaced = 1;
+
+    # add the new one.
+    _sbar_command('prompt', 'add', 'uberprompt',
+                  qw/-alignment left -after prompt_empty -priority '-1'/);
+
     # remove existing ones.
     _debug_print("Removing original prompt");
 
     _sbar_command('prompt', 'remove', 'prompt');
     _sbar_command('prompt', 'remove', 'prompt_empty');
 
-    # add the new one.
-
-    _sbar_command('prompt', 'add', 'uberprompt',
-                  qw/-alignment left -before input -priority '-1'/);
-
-    _sbar_command('prompt', 'position', '100');
+    }
 
     my $load_hook = $init_callbacks->{load};
     if (defined $load_hook and length $load_hook) {
@@ -692,12 +737,19 @@ sub replace_prompt_items {
 }
 
 sub restore_prompt_items {
-
-    _sbar_command('prompt', 'remove', 'uberprompt');
+    if ($prompt_items_replaced) {
+    $prompt_items_replaced = undef;
 
     _debug_print("Restoring original prompt");
 
-    _sbar_command('prompt', 'reset');
+    _sbar_command('prompt', 'add', 'prompt',
+                  qw/-alignment left -after uberprompt -priority '-1'/);
+    _sbar_command('prompt', 'add', 'prompt_empty',
+                  qw/-alignment left -after prompt -priority '-1'/);
+
+    _sbar_command('prompt', 'remove', 'uberprompt');
+
+    }
 
     my $unload_hook = $init_callbacks->{unload};
 
@@ -725,3 +777,11 @@ sub _sbar_command {
     Irssi::command($command);
 }
 
+sub trim {
+    my $string = shift;
+
+    $string =~ s/^\s*//;
+    $string =~ s/\s*$//;
+
+    return $string;
+}

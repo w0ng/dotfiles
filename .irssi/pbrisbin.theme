@@ -161,8 +161,8 @@ formats = {
     pubmsg_me_channel = "{pubmsgmenick {menick $[-10]0$3}{msgchannel $1}}$2";
     pubmsg_hilight = "{pubmsghinick $0 $0 $[-10]1$3%n}$2";
     pubmsg_hilight_channel = "{pubmsghinick $0 $[-10]1$4{msgchannel $2}}$3";
-    pubmsg = "{pubmsgnick {pubnick %m$[-10]0}$2}$1";
-    pubmsg_channel = "{pubmsgnick {pubnick %m$[-10]0}$2}$1";
+    pubmsg = "{pubmsgnick {pubnick %C$[-10]0}$2}$1";
+    pubmsg_channel = "{pubmsgnick {pubnick %C$[-10]0}$2}$1";
     msg_private_query = "{privmsgnick $[-10]0}$2";
   };
   "fe-common/irc" = {
@@ -170,5 +170,14 @@ formats = {
     action_private = "{pvtaction $[-8]0}$1";
     action_private_query = "{pvtaction_query $[-8]0} $2";
     action_public = "{pubaction $[-8]0}$1";
+  };
+  "Irssi::Script::adv_windowlist" = {
+    awl_display_nokey = "%w$N.$H$C$S";
+    awl_display_key = "%w$N.$H$C$S ";
+    awl_display_nokey_visible = "";
+    awl_display_key_visible = "";
+    awl_display_nokey_active = "%Y$N.$H$C$S";
+    awl_display_key_active = "%Y$N.$H$C$S ";
+    awl_display_header = "";
   };
 };
