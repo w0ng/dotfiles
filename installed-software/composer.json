@@ -1,14 +1,14 @@
 {
-  "require": {
-    "phpunit/phpunit": "^5.0",
-    "squizlabs/php_codesniffer": "^2.4",
-    "fabpot/php-cs-fixer": "^1.10",
-    "phpmd/phpmd": "^2.3",
-    "psy/psysh": "^0.6.1",
-    "phpfmt/fmt": "^18.2",
-    "techlivezheng/phpctags": "^0.6.0",
-    "jdorn/sql-formatter": "dev-master",
-    "zendframework/zendframework1": "^1.12",
-    "laravel/homestead": "^3.0"
-  }
+    "require": {
+        "phpunit/phpunit": "^5.3",
+        "squizlabs/php_codesniffer": "^2.6",
+        "phpmd/phpmd": "^2.4",
+        "psy/psysh": "^0.7.2",
+        "laravel/homestead": "^3.0",
+        "fabpot/php-cs-fixer": "^1.11",
+        "phpfmt/fmt": "^19.1",
+        "jdorn/sql-formatter": "dev-master",
+        "techlivezheng/phpctags": "^0.6.0",
+        "laravel/installer": "^1.3"
+    }
 }

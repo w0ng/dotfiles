@@ -12,7 +12,7 @@ sed -i 's/^;\?date.timezone =.*/date.timezone = "Australia\/Sydney"/' \
 
 # Configure Xdebug
 [ ! -d "/vagrant/tmp" ] && mkdir -p "/vagrant/tmp"
-cat <<'EOF' >> /etc/php/mods-available/xdebug.ini
+cat <<'EOF' >> /etc/php/7.0/mods-available/xdebug.ini
 xdebug.remote_enable = 1
 xdebug.remote_connect_back = 1
 xdebug.cli_color = 1
@@ -25,9 +25,6 @@ EOF
 
 # Restart PHP
 service php7.0-fpm restart
-
-# Update Laravel Installer
-sudo -H -u vagrant sh -c 'composer global require laravel/installer'
 
 # Use vi editing mode for readline and editline libraries.
 cat <<'EOF' | sudo -u vagrant tee /home/vagrant/.inputrc

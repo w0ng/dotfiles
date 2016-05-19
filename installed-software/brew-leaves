@@ -1,3 +1,4 @@
+archey
 argyll-cms
 autotrace
 binutils
@@ -31,6 +32,7 @@ httpie
 libvo-aacenc
 macvim
 mercurial
+mupdf-tools
 neovim/neovim/neovim
 nmap
 node
@@ -41,6 +43,7 @@ potrace
 python
 python3
 reattach-to-user-namespace
+redis
 ruby
 shellcheck
 ssh-copy-id

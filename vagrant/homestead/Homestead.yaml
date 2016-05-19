@@ -1,7 +1,7 @@
 ---
 ip: "192.168.10.10"
-memory: 8192
-cpus: 8
+memory: 5120
+cpus: 4
 hostname: homestead
 name: homestead
 provider: virtualbox
