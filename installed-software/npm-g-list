@@ -1,10 +1,13 @@
-/usr/local/lib
-├── bower@1.7.9
-├── csslint@0.10.0
-├── eslint@2.10.2
-├── grunt-cli@1.2.0
-├── gulp@3.9.1
-├── js-beautify@1.6.2
+/Users/andrew/.nvm/versions/node/v7.7.1/lib
+├── create-react-app@1.2.1
+├── eslint@3.17.0
+├── eslint-config-airbnb@14.1.0
+├── eslint-plugin-import@2.2.0
+├── eslint-plugin-jsx-a11y@4.0.0
+├── eslint-plugin-react@6.10.0
+├── js-beautify@1.6.11
 ├── jsonlint@1.6.2
-└── npm@3.9.0
+├── npm@4.4.0
+├── stylelint@7.8.0
+└── stylelint-config-standard@16.0.0
 

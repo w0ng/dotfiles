@@ -1,6 +1,7 @@
 1Password 6.app/
 Adobe Acrobat Reader DC.app/
-Alfred 2.app/
+Alfred 3.app/
+Android File Transfer.app/
 App Store.app/
 Automator.app/
 BetterSnapTool.app/
@@ -23,14 +24,14 @@ Firefox.app/
 Flux.app/
 Font Book.app/
 GIMP.app/
-Game Center.app/
+Gapplin.app/
+Google Chrome Canary.app/
 Google Chrome.app/
 Google Drive.app/
 Image Capture.app/
 KeePassX.app/
 LICEcap.app/
 Launchpad.app/
-LibreOffice.app/
 Mail.app/
 Maps.app/
 Messages.app/
@@ -44,7 +45,6 @@ Mission Control.app/
 Notes.app/
 Photo Booth.app/
 Photos.app/
-PhpStorm 2016.1.1 EAP.app/
 PhpStorm.app/
 Postico.app/
 Preview.app/
@@ -56,6 +56,7 @@ Safari.app/
 ScreenFlow.app/
 Sequel Pro.app/
 Sip.app/
+Siri.app/
 Sketch.app/
 Skitch.app/
 Skype.app/
@@ -66,7 +67,6 @@ Stickies.app/
 System Preferences.app/
 TeX/
 TextEdit.app/
-TextMate.app/
 The Unarchiver.app/
 Time Machine.app/
 TorBrowser.app/
@@ -74,8 +74,10 @@ Twitter.app/
 Utilities/
 VLC.app/
 VirtualBox.app/
+WhatsApp.app/
 Wunderlist.app/
 Xcode.app/
+calibre.app/
 iBooks.app/
 iTerm.app/
 iTunes.app/
@@ -84,3 +86,4 @@ IDLE.app@
 MacVim.app@
 Python Launcher 3.app@
 Python Launcher.app@
+terminal-notifier.app@

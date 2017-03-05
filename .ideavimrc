@@ -4,6 +4,9 @@ set ignorecase    " Ignore case of normal letters in a pattern.
 set showmode      " Show current mode on the last line.
 set smartcase     " Override ignorecase if pattern contains upper case.
 
+" Emulated Vim Plugins
+set surround      " Emulates vim-surround
+
 " Open one fold under the cursor.
 nnoremap zo :action ExpandRegion<CR>
 

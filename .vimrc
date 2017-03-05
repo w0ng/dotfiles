@@ -7,7 +7,6 @@
 
 set nocompatible           " Prefer Vim defaults over Vi-compatible defaults.
 set encoding=utf-8         " Set the character encoding to UTF-8.
-
 filetype plugin indent on  " Enable file type detection.
 syntax on                  " Enable syntax highlighting.
 
@@ -16,12 +15,12 @@ syntax on                  " Enable syntax highlighting.
 " -----------------------------------------------------------------------------
 
 set background=dark        " Use colours that look good on a dark background.
-set colorcolumn=80         " Show right column in a highlighted colour.
+set colorcolumn=100        " Show right column in a highlighted colour.
 set completeopt-=preview   " Do not show preview window for ins-completion.
 set diffopt+=foldcolumn:0  " Do not show fold indicator column in diff mode.
 set history=10000          " Number of commands and search patterns to remember.
 set laststatus=2           " Always show status line.
-set linespace=8            " Increase line height spacing by pixels.
+set linespace=9            " Increase line height spacing by pixels.
 set noshowmode             " Do not show current mode on the last line.
 set number                 " Precede each line with its line number.
 set showcmd                " Show command on last line of screen.
@@ -41,8 +40,6 @@ set nowrap                 " Disable word wrap.
 set spelllang=en_au        " Check spelling in Australian English
 set textwidth=0            " Do not break lines after a maximum width.
 set wildmenu               " Use enhanced command-line completion.
-
-let g:tex_flavor = 'latex' " Treat *.tex file extensions as LaTeX files.
 
 "}}}
 " Options - Folding {{{
@@ -64,9 +61,9 @@ autocmd FileType markdown setlocal foldmethod=marker
 " -----------------------------------------------------------------------------
 
 if has('gui_running')
-  set guifont=InconsolataGo:h18   " Set the font to use.
-  set guioptions=                 " Remove all GUI components and options.
-  set guicursor+=a:block-blinkon0 " Use non-blinking block cursor.
+  set guifont=Operator\ Mono\ Book:h17 " Set the font to use.
+  set guioptions=                      " Remove all GUI components and options.
+  set guicursor+=a:block-blinkon0      " Use non-blinking block cursor.
 
   " Paste from PRIMARY
   inoremap <silent> <S-Insert> <Esc>"*p`]a
@@ -81,14 +78,14 @@ endif
 " Default indent and tab options.
 set autoindent             " Copy indent from previous line.
 set expandtab              " Replace tabs with spaces in Insert mode.
-set shiftwidth=4           " Spaces for each (auto)indent.
+set shiftwidth=2           " Spaces for each (auto)indent.
 set smarttab               " Insert and delete sw blanks in the front of a line.
-set softtabstop=4          " Spaces for tabs when inserting <Tab> or <BS>.
-set tabstop=4              " Spaces that a <Tab> in file counts for.
+set softtabstop=2          " Spaces for tabs when inserting <Tab> or <BS>.
+set tabstop=2              " Spaces that a <Tab> in file counts for.
 
 " Indent and tab options for specific file types.
 autocmd FileType c,make setlocal noexpandtab shiftwidth=8 softtabstop=8 tabstop=8
-autocmd FileType json,less,ruby,sass,scss,sql,vim,zsh setlocal shiftwidth=2 softtabstop=2 tabstop=2
+autocmd FileType markdown,python,php setlocal shiftwidth=4 softtabstop=4 tabstop=4
 
 "}}}
 " Options - Searching {{{
@@ -98,6 +95,11 @@ set hlsearch               " Highlight search pattern results.
 set ignorecase             " Ignore case of normal letters in a pattern.
 set incsearch              " Highlight search pattern as it is typed.
 set smartcase              " Override ignorecase if pattern contains upper case.
+
+" Use Ag over Grep
+if executable('ag')
+  set grepprg=ag\ --nogroup\ --nocolor
+endif
 
 "}}}
 " Mappings - General {{{
@@ -159,126 +161,90 @@ nnoremap cow :set wrap!<CR>
 " Mappings - Clipboard {{{
 " -----------------------------------------------------------------------------
 
-" Delete (cut) to clipboard.
+" Cut to clipboard.
 vnoremap <Leader>x "*x
 nnoremap <Leader>x "*x
 
-" Yank (copy) to clipboard.
-vnoremap <Leader>y "*y
-nnoremap <Leader>y "*y
+" Copy to clipboard.
+vnoremap <Leader>c "*y
+nnoremap <Leader>c "*y
 
-" Put (paste) from clipboard.
-nnoremap <Leader>p "*p
-vnoremap <Leader>p "*p
-nnoremap <Leader><S-P> "*P
-vnoremap <Leader><S-P> "*P
+" Paste from clipboard.
+nnoremap <Leader>v "*p
+vnoremap <Leader>v "*p
+nnoremap <Leader><S-V> "*P
+vnoremap <Leader><S-V> "*P
 
 ""}}}
-" Plugins Install {{{
-" -----------------------------------------------------------------------------
-
-" Requires https://github.com/junegunn/vim-plug
-call plug#begin('~/.vim/plugged/')
-
-Plug 'Chiel92/vim-autoformat'       " Integrate external code formatters.
-Plug 'LaTeX-Box-Team/LaTeX-Box'     " Set of LaTeX editing tools.
-Plug 'Shougo/context_filetype.vim'  " Get current context for autocompletion.
-Plug 'benekastah/neomake'           " Asynchronous syntax checking with make.
-Plug 'bling/vim-airline'            " Pretty statusline.
-Plug 'cakebaker/scss-syntax.vim'    " Improved SCSS syntax.
-Plug 'hail2u/vim-css3-syntax'       " Syntax for CSS3.
-Plug 'hynek/vim-python-pep8-indent' " PEP8 compliant indentation.
-Plug 'jelera/vim-javascript-syntax' " Improved JavaScript syntax.
-Plug 'junegunn/vim-easy-align'      " Text alignment by characters.
-Plug 'majutsushi/tagbar'            " Display tags in a split window.
-Plug 'milkypostman/vim-togglelist'  " Toggle Location List and Quickfix windows.
-Plug 'othree/html5.vim'             " Improved HTML5 syntax and omni completion.
-Plug 'othree/javascript-libraries-syntax.vim' " Syntax for JS libraries.
-Plug 'plasticboy/vim-markdown'      " Markdown Vim Mode.
-Plug 'scrooloose/nerdtree'          " File explorer window.
-Plug 'shawncplus/phpcomplete.vim'   " Improved PHP omni completion.
-Plug 'ternjs/tern_for_vim', { 'do': 'npm install' } " Improved JavaScript omni completion.
-Plug 'tpope/vim-commentary'         " Commenting made simple.
-Plug 'tpope/vim-fugitive'           " Git wrapper.
-Plug 'tpope/vim-repeat'             " Enable repeat for tpope's plugins.
-Plug 'tpope/vim-surround'           " Quoting/parenthesizing made simple.
-Plug 'w0ng/vim-hybrid'              " Dark colorscheme.
-
-" Plugins to enable only for Neovim.
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim'     " Asynchronous auto completion.
-endif
-
-" Plugins to enable only for Vim.
-if !has('nvim')
-  Plug 'Shougo/neocomplete.vim'   " Synchronous auto completion.
-endif
-
-" Plugins to enable only on the command line.
-if !has('gui_running')
-  " Command-line fuzzy finder.
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-  Plug 'junegunn/fzf.vim'
-endif
-
-call plug#end()
-
-"}}}
 " Plugin Settings - airline {{{
 " -----------------------------------------------------------------------------
 
-let g:airline_left_sep = ''        " Remove arrow symbols.
-let g:airline_left_alt_sep = ''    " Remove arrow symbols.
-let g:airline_right_sep = ''       " Remove arrow symbols.
-let g:airline_right_alt_sep = ''   " Remove arrow symbols.
-let g:airline_theme = 'hybridline' " Use hybrid theme.
+" Remove powerline separators.
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+
+ " Use hybrid theme.
+let g:airline_theme = 'hybridline'
+
+"}}}
+" Plugins - Install {{{
+" -----------------------------------------------------------------------------
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'Chiel92/vim-autoformat'         " Integrate external file formatters.
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --tern-completer' } " Code-completion maanger.
+Plug 'benekastah/neomake'             " Asynchronous syntax checking with make.
+Plug 'cakebaker/scss-syntax.vim'      " Improved SCSS syntax.
+Plug 'ctrlpvim/ctrlp.vim'             " Fuzzy file, buffer, mru, tag finder.
+Plug 'hail2u/vim-css3-syntax'         " Syntax for CSS3.
+Plug 'jiangmiao/auto-pairs'           " Insert or delete brackets, parens, quotes in pair.
+Plug 'junegunn/vim-easy-align'        " Text alignment by characters.
+Plug 'mxw/vim-jsx'                    " React JSX syntax and indent.
+Plug 'mattn/emmet-vim'                " HTML abbreviations.
+Plug 'othree/html5.vim'               " Improved HTML5 syntax and omni completion.
+Plug 'pangloss/vim-javascript'        " Improved JavaScript syntax and indents.
+Plug 'plasticboy/vim-markdown'        " Markdown Vim Mode.
+Plug 'scrooloose/nerdtree'            " File explorer window.
+Plug 'ternjs/tern_for_vim', { 'do': 'npm install' } " Improved JavaScript omni completion.
+Plug 'tpope/vim-commentary'           " Commenting made simple.
+Plug 'tpope/vim-fugitive'             " Git wrapper.
+Plug 'tpope/vim-repeat'               " Enable repeat for tpope's plugins.
+Plug 'tpope/vim-surround'             " Quoting/parenthesizing made simple.
+Plug 'vim-airline/vim-airline'        " Pretty statusline.
+Plug 'vim-airline/vim-airline-themes' " Pretty statusline.
+Plug 'w0ng/vim-hybrid'                " Dark colorscheme.
+
+call plug#end()
 
 "}}}
 " Plugin Settings - autoformat {{{
 " -----------------------------------------------------------------------------
 
-" CSS Formatter - Requires https://github.com/beautify-web/js-beautify
-let g:formatdef_cssbeautify = '"css-beautify -f -"'
-let g:formatters_css = ['cssbeautify']
-
-" HTML Formatter - Requires https://github.com/beautify-web/js-beautify
-let g:formatdef_htmlbeautify = '"html-beautify -f -"'
-let g:formatters_html = [ 'htmlbeautify']
-
-" JavaScript Formatter - Requires https://github.com/beautify-web/js-beautify
-let g:formatdef_jsbeautify_js = '"js-beautify -a -f -"'
-let g:formatters_javascript = [ 'jsbeautify_js']
-
-" JSON Formatter - Requires https://github.com/beautify-web/js-beautify
-let g:formatdef_jsbeautify_json = '"js-beautify -a -s 2 -f -"'
-let g:formatters_json = [ 'jsbeautify_json']
-
-" PHP Formatter - Requires https://github.com/phpfmt/php.tools
+" Set format programs:
+" - https://github.com/beautify-web/js-beautify
+" - https://github.com/jdorn/sql-formatter
+" - https://github.com/phpfmt/php.tools
+" - https://github.com/sass/sass
+let g:formatdef_cssbeautify = '"css-beautify -s 2 -"'
 let g:formatdef_fmtphar = '"fmt.phar --psr -o=- -"'
-let g:formatters_php = ['fmtphar']
-
-" Python Formatter - Requires https://github.com/hhatto/autopep8
-let g:formatdef_autopep8 = '"autopep8 -aa -"'
-let g:formatters_python = ['autopep8']
-
-" Ruby Formatter - Requires https://github.com/erniebrodeur/ruby-beautify
-let g:formatdef_rubybeautify = '"rubybeautify -s -c 2"'
-let g:formatters_ruby = ['rubybeautify']
-
-" SCSS Formatter - Requires https://github.com/sass/sass
+let g:formatdef_htmlbeautify = '"html-beautify -s 2 -"'
+let g:formatdef_jsbeautify_js = '"js-beautify -a -s 2 -"'
+let g:formatdef_jsbeautify_json = '"js-beautify -a -s 2 -b expand -"'
 let g:formatdef_sassconvert = '"sass-convert -F scss -T scss"'
-let g:formatters_scss = ['sassconvert']
-
-" SQL Formatter - Requires https://github.com/andialbrecht/sqlparse
-" let g:formatdef_sqlformat = '"sqlformat -r -k upper -"'
-" SQL Formatter - Requires https://github.com/jdorn/sql-formatter/
 let g:formatdef_sqlformatter = '"sql-formatter"'
+let g:formatters_css = ['cssbeautify']
+let g:formatters_html = [ 'htmlbeautify']
+let g:formatters_javascript = [ 'jsbeautify_js']
+let g:formatters_json = [ 'jsbeautify_json']
+let g:formatters_php = ['fmtphar']
+let g:formatters_scss = ['sassconvert']
 let g:formatters_sql = ['sqlformatter']
 
-" Run autoformat in current file format.
+" Set file type and format file.
 nnoremap <Leader>af :Autoformat<CR>
-
-" Run autoformat with a different formatter.
 nnoremap <Leader>ac :set ft=css<CR>:Autoformat<CR>
 nnoremap <Leader>ah :set ft=html<CR>:Autoformat<CR>
 nnoremap <Leader>aj :set ft=javascript<CR>:Autoformat<CR>
@@ -287,20 +253,25 @@ nnoremap <Leader>ap :set ft=php<CR>:Autoformat<CR>
 nnoremap <Leader>as :set ft=sql<CR>:Autoformat<CR>
 
 "}}}
-" Plugin Settings - deoplete {{{
+" Plugin Settings - ctrlp {{{
 " -----------------------------------------------------------------------------
 
-if exists('plugs') && has_key(plugs, 'deoplete.nvim')
-  let g:deoplete#enable_at_startup = 1 " Enable deoplete on startup.
-  let g:deoplete#enable_smart_case = 1 " Enable smart case.
-
-  " Tab completion.
-  inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
-  " On backspace, delete previous completion and regenerate popup.
-  inoremap <expr><C-H> deoplete#mappings#smart_close_popup()."\<C-H>"
-  inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-H>"
+" Use Ag over Grep
+if executable('ag')
+  let g:ctrlp_use_caching = 0
+  let g:ctrlp_user_command = 'ag %s --follow --nocolor --nogroup -g ""'
+  " let g:ctrlp_user_command_async = 1
 endif
+
+  let g:ctrlp_prompt_mappings = {
+    \ 'PrtSelectMove("j")':   ['<c-n>'],
+    \ 'PrtSelectMove("k")':   ['<c-p>'],
+    \ 'PrtHistory(-1)':       ['<c-j>'],
+    \ 'PrtHistory(1)':        ['<c-k>']
+    \ }
+
+let g:ctrlp_map  = '<Leader>p'
+nnoremap <Leader>e :CtrlPBuffer<CR>
 
 "}}}
 " Plugin Settings - easy-align {{{
@@ -308,8 +279,19 @@ endif
 
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
+
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
+
+"}}}
+" Plugin Settings - emmet {{{
+" -----------------------------------------------------------------------------
+
+" Enable just for HTML, CSS, and JavaScript
+let g:user_emmet_install_global = 0
+autocmd FileType css,html,javascript,javascript.jsx EmmetInstall
+let g:user_emmet_expandabbr_key = '<C-e>'
+
 
 "}}}
 " Plugin Settings - fugitive {{{
@@ -319,79 +301,25 @@ nmap ga <Plug>(EasyAlign)
 nnoremap <Leader>g :Gblame!<CR>
 
 "}}}
-" Plugin Settings - fzf {{{
-" -----------------------------------------------------------------------------
-let g:fzf_layout = { 'up': '12' } " Position the default fzf window layout.
-let g:fzf_command_prefix = 'Fzf'  " Prefix fzf commands e.g. :FzfFiles.
-
-if exists('plugs') && has_key(plugs, 'fzf.vim')
-  " Find buffers.
-  nnoremap <Leader>e :FzfBuffers<CR>
-
-  " Find files.
-  nnoremap <Leader>o :FzfFiles<CR>
-
-  " Find project tags (ctags -R).
-  nnoremap <Leader><S-O> :FzfTags<CR>
-
-  " Find tags in current buffer.
-  nnoremap <Leader>r :FzfBTags<CR>
-
-  " Find pattern in files with ag.
-  nnoremap <Leader>f :FzfAg<CR>
-endif
-
-"}}}
 " Plugin Settings - hybrid {{{
 " -----------------------------------------------------------------------------
 
 let g:hybrid_custom_term_colors = 1
 let g:hybrid_reduced_contrast = 1
-"let $NVIM_TUI_ENABLE_TRUE_COLOR=1 " Use 24-bit color, supported in iTerm2 2.9.
-
 try
   colorscheme hybrid
 catch /:E185:/
-  " Silently ignore if colorscheme not found.
+  " Silently fail if hybrid theme is not installed.
 endtry
 
-" Additional syntax highlighting
-let php_special_functions = 0
-hi! Cursor guibg=#00ffff
-
-"}}}
-" Plugin Settings - latex-box {{{
-" -----------------------------------------------------------------------------
-
-let g:LatexBox_latexmk_async = 1 " Enable asynchronous Latex compilation.
-
-""}}}
-" Plugin Settings - neocomplete {{{
-" -----------------------------------------------------------------------------
-
-if exists('plugs') && has_key(plugs, 'neocomplete.vim')
-  let g:neocomplete#enable_at_startup = 1 " Enable neocomplete on startup.
-  let g:neocomplete#enable_smart_case = 1 " Enable smart case.
-
-  " Tab completion.
-  inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
-  " On backspace, delete previous completion and regenerate popup.
-  inoremap <expr><C-H> neocomplete#smart_close_popup()."\<C-H>"
-  inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-H>"
-endif
+" Custom gui highlights when using Operator Mono font
+highlight Cursor guibg=#00ffff
+highlight Comment gui=italic
+highlight Type gui=italic
 
 "}}}
 " Plugin Settings - neomake {{{
 " -----------------------------------------------------------------------------
-
-" Use custom configuration file with ESLint:
-" https://github.com/w0ng/dotfiles/blob/master/.eslintrc
-let g:neomake_javascript_eslint_maker = {
-      \ 'args': ['-c', '~/.eslintrc', '-f', 'compact'],
-      \ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
-      \ '%W%f: line %l\, col %c\, Warning - %m'
-      \ }
 
 " Use PSR2 standard with PHP CodeSniffer.
 let g:neomake_php_phpcs_args_standard = 'PSR2'
@@ -403,12 +331,8 @@ let g:neomake_php_phpmd_maker = {
       \ 'errorformat': '%E%f:%l%\s%m'
       \ }
 
-if exists('plugs') && has_key(plugs, 'neomake')
-  if has('nvim')
-    " Execute syntax checkers on file save.
-    autocmd! BufWritePost * Neomake
-  endif
-endif
+" Execute syntax checkers on file save.
+autocmd! BufWritePost * Neomake
 
 "}}}
 " Plugin Settings - nerdtree {{{
@@ -422,24 +346,5 @@ nnoremap <Leader>1 :NERDTreeToggle<CR>
 " -----------------------------------------------------------------------------
 
 let g:plug_window = 'topleft new' " Open plug window in a horizontal split.
-
-"}}}
-" Plugin Settings - tagbar {{{
-" -----------------------------------------------------------------------------
-
-let g:tagbar_left = 1 " Open the Tagbar window on the left side.
-
-" Toggle Tagbar window.
-nnoremap <Leader>2 :TagbarToggle<CR>
-
-"}}}
-" Plugin Settings - togglelist {{{
-" -----------------------------------------------------------------------------
-
-let g:toggle_list_no_mappings = 1 " Disable default mappings.
-
-" Toggle Quickfix and Location List windows.
-nnoremap <Leader>l :call ToggleLocationList()<CR>
-nnoremap <Leader>q :call ToggleQuickfixList()<CR>
 
 "}}}
