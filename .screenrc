@@ -1,0 +1,13 @@
+# Use 256 colors instead of 8
+term 'screen-256color'
+
+# Start at window 1 instead of 0
+bind c screen 1
+bind ^c screen 1
+bind 0 select 10
+screen 1
+
+# Informative statusbar
+hardstatus off
+hardstatus alwayslastline
+hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %m-%d %{W} %c %{g}]'
