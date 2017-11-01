@@ -1,0 +1,279 @@
+###
+
+servers = (
+  {
+    #address = "client.oz.org";
+    #address = "rockhampton.oz.org";
+    #address = "perth.oz.org";
+    #address = "waix.oz.org";
+    #address = "wollongong.oz.org";
+    address = "irc.oz.org";
+    password = "ohcock";
+    nick = "w0ng_";
+    chatnet = "ozorg";
+    port = "6667";
+    use_ssl = "no";
+    ssl_verify = "no";
+    autoconnect = "yes";
+  },
+  {
+    address = "irc.freenode.net";
+    #address = "roddenberry.freenode.net";
+    chatnet = "freenode";
+    port = "6697";
+    use_ssl = "yes";
+    ssl_cert = "~/.irssi/certs/freenode.pem";
+    ssl_verify = "no";
+    autoconnect = "yes";
+  },
+  {
+    address = "irc.rizon.net";
+    #address = "irc.rizon.us";
+    chatnet = "rizon";
+    port = "6697";
+    use_ssl = "yes";
+    ssl_cert = "~/.irssi/certs/rizon.pem";
+    ssl_verify = "no";
+    autoconnect = "yes";
+  }
+);
+
+
+chatnets = {
+  freenode = { type = "IRC"; };
+  ozorg = { type = "IRC"; };
+  rizon = { type = "IRC"; };
+};
+
+channels = (
+  { name = "#archlinux"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#fsc"; chatnet = "rizon"; autojoin = "yes"; },
+  {
+    name = "#overclockers";
+    chatnet = "ozorg";
+    autojoin = "yes";
+    password = "ohcock";
+  },
+  { name = "#bash"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "##javascript"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#jquery"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#laravel"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "##php"; chatnet = "freenode"; autojoin = "yes"; }
+);
+
+aliases = {
+  J = "join";
+  LEAVE = "part";
+  E = "exec - runz";
+  EO = "exec - -o runz";
+  EXIT = "quit";
+  LL = "lastlog";
+  W = "window";
+  M = "mark";
+  WC = "window close";
+  WK = "window kill";
+  WN = "window new hide";
+  WA = "window goto active";
+  RUN = "SCRIPT LOAD";
+  Q = "QUERY";
+};
+
+statusbar = {
+  items = {
+    time = "{sb $Z}       ";
+    window = ":: {sb [$winref] $tag $itemname} ";
+    window_empty = ":: {sb [$winref] $tag $itemname} ";
+
+    prompt = "{prompt}";
+    prompt_empty = "{prompt}";
+  };
+
+  default = {
+    window = {
+      type = "window";
+      placement = "top";
+      visible = "active";
+      items = { window = { }; window_empty = { }; typing_notice = { }; };
+    };
+
+    window_inact = {
+      type = "window";
+      disabled = "yes";
+      placement = "top";
+      visible = "inactive";
+      items = { window = { }; window_empty = { }; };
+    };
+
+
+    topic = {
+      type = "root";
+      placement = "bottom";
+      position = "1";
+      visible = "always";
+      items = { topic = { }; topic_empty = { }; };
+    };
+
+    prompt = {
+      items = {
+        prompt = { priority = "-1"; };
+        prompt_empty = { priority = "-1"; };
+        input = { priority = "10"; };
+      };
+      position = "100";
+    };
+    awl_0 = {
+      items = {
+        barstart = { priority = "100"; };
+        awl_0 = { };
+        barend = { priority = "100"; alignment = "right"; };
+      };
+    };
+  };
+};
+
+settings = {
+  core = {
+    real_name = "Andrew Wong";
+    user_name = "w0ng";
+    nick = "w0ng";
+    awaylog_file = "/dev/null";
+    recode_autodetect_utf8 = "yes";
+    recode_fallback = "CP1252";
+  };
+
+  "fe-text" = { actlist_sort = "refnum"; };
+
+  "fe-common/core" = {
+    emphasis = "yes";
+    theme = "pbrisbin";
+    beep_msg_level = "NOTICE MSGS HILIGHT";
+    bell_beeps = "no";
+    hilight_nick_matches = "no";
+    hilight_act_color = "%R";
+    hilight_color = "%Y";
+    autolog_path = "~/.logs/irc/$tag/${0}-%Y-%m.log";
+    autolog = "yes";
+    show_names_on_join = "no";
+  };
+
+  "perl/core/scripts" = {
+    awl_display_key = "%w$N.$H$C$S ";
+    awl_display_key_active = "%Y$N.$H$C$S ";
+    awl_maxlines = "3";
+    awl_position = "0";
+    awl_sbar_maxlength = "no";
+    awl_shared_sbar = "OFF";
+    awl_viewer = "no";
+    hilightwin_showprivmsg = "no";
+    lt_in_queries = "yes";
+    neat_maxlength = "10";
+    screen_away_message = "away";
+    uberprompt_format = "$vim_cmd_mode$uber%c :: %n";
+    uberprompt_format_empty = "$vim_cmd_mode$uber%c :: %n";
+    vim_mode_cmd_seq = "j";
+  };
+
+  "irc/core" = { alternate_nick = "w0ng_"; };
+};
+
+ignores = ( { level = "JOINS PARTS QUITS NICKS"; } );
+
+hilights = (
+  {
+    text = "w0ng_?";
+    nick = "no";
+    word = "no";
+    fullword = "yes";
+    regexp = "yes";
+  }
+);
+
+logs = { };
+windows = {
+  1 = { immortal = "yes"; name = "(status)"; level = "ALL"; };
+  2 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#archlinux";
+        tag = "freenode";
+      }
+    );
+  };
+  3 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#fsc";
+        tag = "rizon";
+      }
+    );
+  };
+  4 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#overclockers";
+        tag = "ozorg";
+      }
+    );
+  };
+  5 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#bash";
+        tag = "freenode";
+      }
+    );
+  };
+  6 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "##javascript";
+        tag = "freenode";
+      }
+    );
+  };
+  7 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#jquery";
+        tag = "freenode";
+      }
+    );
+  };
+  8 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#laravel";
+        tag = "freenode";
+      }
+    );
+  };
+  9 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "##php";
+        tag = "freenode";
+      }
+    );
+  };
+  99 = { name = "hilight"; sticky = "yes"; };
+};
+mainwindows = {
+  1 = { first_line = "4"; lines = "42"; };
+  99 = { first_line = "1"; lines = "3"; };
+};
