@@ -15,7 +15,7 @@ syntax on                  " Enable syntax highlighting.
 " -----------------------------------------------------------------------------
 
 set background=dark        " Use colours that look good on a dark background.
-set colorcolumn=100        " Show right column in a highlighted colour.
+set colorcolumn=80         " Show right column in a highlighted colour.
 set completeopt-=preview   " Do not show preview window for ins-completion.
 set diffopt+=foldcolumn:0  " Do not show fold indicator column in diff mode.
 set history=10000          " Number of commands and search patterns to remember.
@@ -134,6 +134,7 @@ nnoremap <C-L> <C-W>l
 " Navigate buffers.
 nnoremap ]b :bnext<CR>
 nnoremap [b :bprevious<CR>
+nnoremap <leader><Tab> :b#<CR>
 
 " Navigate location list.
 nnoremap ]l :lnext<CR>
@@ -176,31 +177,17 @@ nnoremap <Leader><S-V> "*P
 vnoremap <Leader><S-V> "*P
 
 ""}}}
-" Plugin Settings - airline {{{
-" -----------------------------------------------------------------------------
-
-" Remove powerline separators.
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-
- " Use hybrid theme.
-let g:airline_theme = 'hybridline'
-
-"}}}
 " Plugins - Install {{{
 " -----------------------------------------------------------------------------
 
 call plug#begin('~/.vim/plugged')
 
 Plug 'Chiel92/vim-autoformat'         " Integrate external file formatters.
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --tern-completer' } " Code-completion maanger.
-Plug 'benekastah/neomake'             " Asynchronous syntax checking with make.
-Plug 'cakebaker/scss-syntax.vim'      " Improved SCSS syntax.
-Plug 'ctrlpvim/ctrlp.vim'             " Fuzzy file, buffer, mru, tag finder.
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --tern-completer' } " Code-completion manager.
 Plug 'hail2u/vim-css3-syntax'         " Syntax for CSS3.
-Plug 'jiangmiao/auto-pairs'           " Insert or delete brackets, parens, quotes in pair.
+Plug 'heavenshell/vim-jsdoc'          " JSDoc generator.
+Plug '/usr/local/opt/fzf'             " CLI fuzzy finder.
+Plug 'junegunn/fzf.vim'               " CLI fuzzy finder.
 Plug 'junegunn/vim-easy-align'        " Text alignment by characters.
 Plug 'mxw/vim-jsx'                    " React JSX syntax and indent.
 Plug 'mattn/emmet-vim'                " HTML abbreviations.
@@ -215,9 +202,30 @@ Plug 'tpope/vim-repeat'               " Enable repeat for tpope's plugins.
 Plug 'tpope/vim-surround'             " Quoting/parenthesizing made simple.
 Plug 'vim-airline/vim-airline'        " Pretty statusline.
 Plug 'vim-airline/vim-airline-themes' " Pretty statusline.
+Plug 'w0rp/ale'                       " Asynchronous lint engine.
 Plug 'w0ng/vim-hybrid'                " Dark colorscheme.
 
 call plug#end()
+
+"}}}
+" Plugin Settings - airline {{{
+" -----------------------------------------------------------------------------
+
+" Remove powerline separators.
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+
+ " Use hybrid theme.
+let g:airline_theme = 'hybridline'
+
+"}}}
+" Plugin Settings - ale {{{
+" -----------------------------------------------------------------------------
+
+let g:ale_sign_column_always = 1
+nnoremap <Leader>l :ALEToggle<CR>
 
 "}}}
 " Plugin Settings - autoformat {{{
@@ -225,23 +233,14 @@ call plug#end()
 
 " Set format programs:
 " - https://github.com/beautify-web/js-beautify
-" - https://github.com/jdorn/sql-formatter
-" - https://github.com/phpfmt/php.tools
-" - https://github.com/sass/sass
 let g:formatdef_cssbeautify = '"css-beautify -s 2 -"'
-let g:formatdef_fmtphar = '"fmt.phar --psr -o=- -"'
-let g:formatdef_htmlbeautify = '"html-beautify -s 2 -"'
-let g:formatdef_jsbeautify_js = '"js-beautify -a -s 2 -"'
-let g:formatdef_jsbeautify_json = '"js-beautify -a -s 2 -b expand -"'
-let g:formatdef_sassconvert = '"sass-convert -F scss -T scss"'
-let g:formatdef_sqlformatter = '"sql-formatter"'
 let g:formatters_css = ['cssbeautify']
-let g:formatters_html = [ 'htmlbeautify']
+let g:formatdef_htmlbeautify = '"html-beautify -s 2 -"'
+let g:formatters_html = ['htmlbeautify']
+let g:formatdef_jsbeautify_js = '"js-beautify -a -s 2 -"'
 let g:formatters_javascript = [ 'jsbeautify_js']
+let g:formatdef_jsbeautify_json = '"js-beautify -a -s 2 -b expand -"'
 let g:formatters_json = [ 'jsbeautify_json']
-let g:formatters_php = ['fmtphar']
-let g:formatters_scss = ['sassconvert']
-let g:formatters_sql = ['sqlformatter']
 
 " Set file type and format file.
 nnoremap <Leader>af :Autoformat<CR>
@@ -249,29 +248,6 @@ nnoremap <Leader>ac :set ft=css<CR>:Autoformat<CR>
 nnoremap <Leader>ah :set ft=html<CR>:Autoformat<CR>
 nnoremap <Leader>aj :set ft=javascript<CR>:Autoformat<CR>
 nnoremap <Leader>ao :set ft=json<CR>:Autoformat<CR>
-nnoremap <Leader>ap :set ft=php<CR>:Autoformat<CR>
-nnoremap <Leader>as :set ft=sql<CR>:Autoformat<CR>
-
-"}}}
-" Plugin Settings - ctrlp {{{
-" -----------------------------------------------------------------------------
-
-" Use Ag over Grep
-if executable('ag')
-  let g:ctrlp_use_caching = 0
-  let g:ctrlp_user_command = 'ag %s --follow --nocolor --nogroup -g ""'
-  " let g:ctrlp_user_command_async = 1
-endif
-
-  let g:ctrlp_prompt_mappings = {
-    \ 'PrtSelectMove("j")':   ['<c-n>'],
-    \ 'PrtSelectMove("k")':   ['<c-p>'],
-    \ 'PrtHistory(-1)':       ['<c-j>'],
-    \ 'PrtHistory(1)':        ['<c-k>']
-    \ }
-
-let g:ctrlp_map  = '<Leader>p'
-nnoremap <Leader>e :CtrlPBuffer<CR>
 
 "}}}
 " Plugin Settings - easy-align {{{
@@ -301,6 +277,16 @@ let g:user_emmet_expandabbr_key = '<C-e>'
 nnoremap <Leader>g :Gblame!<CR>
 
 "}}}
+" Plugin Settings - fzf {{{
+" -----------------------------------------------------------------------------
+
+let g:fzf_layout = { 'down': '10' }
+
+nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>f :Ag<CR>
+nnoremap <Leader>p :Files<CR>
+
+"}}}
 " Plugin Settings - hybrid {{{
 " -----------------------------------------------------------------------------
 
@@ -313,26 +299,23 @@ catch /:E185:/
 endtry
 
 " Custom gui highlights when using Operator Mono font
-highlight Cursor guibg=#00ffff
-highlight Comment gui=italic
-highlight Type gui=italic
+highlight! Cursor guibg=#00ffff
+highlight! Comment gui=italic
+highlight! Type gui=italic
+highlight! link SignColumn Normal
 
 "}}}
-" Plugin Settings - neomake {{{
+" Plugin Settings - jsdoc {{{
 " -----------------------------------------------------------------------------
 
-" Use PSR2 standard with PHP CodeSniffer.
-let g:neomake_php_phpcs_args_standard = 'PSR2'
+let g:jsdoc_enable_es6 = 1
+nnoremap <Leader>d :JsDoc<CR>
 
-" Use custom rule set with PHP Mess Detector:
-" https://github.com/w0ng/dotfiles/blob/master/.phpmd.xml
-let g:neomake_php_phpmd_maker = {
-      \ 'args': ['%:p', 'text', '~/.phpmd.xml'],
-      \ 'errorformat': '%E%f:%l%\s%m'
-      \ }
+"}}}
+" Plugin Settings - jsx {{{
+" -----------------------------------------------------------------------------
 
-" Execute syntax checkers on file save.
-autocmd! BufWritePost * Neomake
+let g:jsx_ext_required = 0
 
 "}}}
 " Plugin Settings - nerdtree {{{
