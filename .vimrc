@@ -5,7 +5,9 @@
 " Options - Compatibility {{{
 " -----------------------------------------------------------------------------
 
-set nocompatible           " Prefer Vim defaults over Vi-compatible defaults.
+if !has('nvim')
+  set nocompatible           " Prefer Vim defaults over Vi-compatible defaults.
+endif
 set encoding=utf-8         " Set the character encoding to UTF-8.
 filetype plugin indent on  " Enable file type detection.
 syntax on                  " Enable syntax highlighting.
@@ -20,14 +22,13 @@ set completeopt-=preview   " Do not show preview window for ins-completion.
 set diffopt+=foldcolumn:0  " Do not show fold indicator column in diff mode.
 set history=10000          " Number of commands and search patterns to remember.
 set laststatus=2           " Always show status line.
-set linespace=9            " Increase line height spacing by pixels.
 set noshowmode             " Do not show current mode on the last line.
-set number                 " Precede each line with its line number.
+set number                 " Show the line number.
+set relativenumber         " Show the line number relative to the cursorline.
 set showcmd                " Show command on last line of screen.
 set showmatch              " Show matching brackets.
-set t_Co=256               " Set the number of supported colours.
+set termguicolors          " Use gui vim colors in terminal vim.
 set title                  " Set window title to 'filename [+=-] (path) - VIM'.
-set ttyfast                " Indicate fast terminal more smoother redrawing.
 
 "}}}
 " Options - Behaviour {{{
@@ -61,9 +62,10 @@ autocmd FileType markdown setlocal foldmethod=marker
 " -----------------------------------------------------------------------------
 
 if has('gui_running')
-  set guifont=Operator\ Mono\ Book:h17 " Set the font to use.
+  set guifont=Inconsolata\ Regular:h20 " Set the font to use.
   set guioptions=                      " Remove all GUI components and options.
   set guicursor+=a:block-blinkon0      " Use non-blinking block cursor.
+  set linespace=8                      " Increase line height spacing by pixels.
 
   " Paste from PRIMARY
   inoremap <silent> <S-Insert> <Esc>"*p`]a
@@ -96,9 +98,9 @@ set ignorecase             " Ignore case of normal letters in a pattern.
 set incsearch              " Highlight search pattern as it is typed.
 set smartcase              " Override ignorecase if pattern contains upper case.
 
-" Use Ag over Grep
-if executable('ag')
-  set grepprg=ag\ --nogroup\ --nocolor
+" Use ripgrep over grep
+if executable('rg')
+  set grepprg=set grepprg=rg\ --no-heading\ --vimgrep
 endif
 
 "}}}
@@ -182,28 +184,33 @@ vnoremap <Leader><S-V> "*P
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'Chiel92/vim-autoformat'         " Integrate external file formatters.
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --tern-completer' } " Code-completion manager.
 Plug 'hail2u/vim-css3-syntax'         " Syntax for CSS3.
-Plug 'heavenshell/vim-jsdoc'          " JSDoc generator.
 Plug '/usr/local/opt/fzf'             " CLI fuzzy finder.
 Plug 'junegunn/fzf.vim'               " CLI fuzzy finder.
 Plug 'junegunn/vim-easy-align'        " Text alignment by characters.
 Plug 'mxw/vim-jsx'                    " React JSX syntax and indent.
 Plug 'mattn/emmet-vim'                " HTML abbreviations.
+Plug 'morhetz/gruvbox'                " Dark colorscheme.
 Plug 'othree/html5.vim'               " Improved HTML5 syntax and omni completion.
 Plug 'pangloss/vim-javascript'        " Improved JavaScript syntax and indents.
 Plug 'plasticboy/vim-markdown'        " Markdown Vim Mode.
 Plug 'scrooloose/nerdtree'            " File explorer window.
-Plug 'ternjs/tern_for_vim', { 'do': 'npm install' } " Improved JavaScript omni completion.
 Plug 'tpope/vim-commentary'           " Commenting made simple.
 Plug 'tpope/vim-fugitive'             " Git wrapper.
 Plug 'tpope/vim-repeat'               " Enable repeat for tpope's plugins.
 Plug 'tpope/vim-surround'             " Quoting/parenthesizing made simple.
 Plug 'vim-airline/vim-airline'        " Pretty statusline.
-Plug 'vim-airline/vim-airline-themes' " Pretty statusline.
 Plug 'w0rp/ale'                       " Asynchronous lint engine.
-Plug 'w0ng/vim-hybrid'                " Dark colorscheme.
+
+" Async autocompletion.
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
 
 call plug#end()
 
@@ -217,37 +224,57 @@ let g:airline_left_alt_sep = ''
 let g:airline_right_sep = ''
 let g:airline_right_alt_sep = ''
 
- " Use hybrid theme.
-let g:airline_theme = 'hybridline'
-
 "}}}
 " Plugin Settings - ale {{{
 " -----------------------------------------------------------------------------
 
 let g:ale_sign_column_always = 1
+
+let g:ale_linters = {
+  \   'graphql': ['eslint'],
+  \   'javascript': ['eslint'],
+  \   'typescript': ['eslint'],
+  \   'css': ['stylelint'],
+  \   'scss': ['stylelint']
+\}
+
+let g:ale_fixers = {
+  \   'css': ['prettier'],
+  \   'graphql': ['prettier'],
+  \   'javascript': ['prettier'],
+  \   'json': ['prettier'],
+  \   'markdown': ['prettier'],
+  \   'scss': ['prettier'],
+  \   'typescript': ['prettier']
+\}
+
+nnoremap <Leader>af :ALEFix<CR>
+nnoremap <Leader>ac :set ft=css<CR>:ALEFix<CR>
+nnoremap <Leader>ah :set ft=html<CR>:ALEFix<CR>
+nnoremap <Leader>aj :set ft=javascript<CR>:ALEFix<CR>
+nnoremap <Leader>ao :set ft=json<CR>:ALEFix<CR>
+nnoremap <Leader>as :set ft=scss<CR>:ALEFix<CR>
 nnoremap <Leader>l :ALEToggle<CR>
 
 "}}}
-" Plugin Settings - autoformat {{{
+" Plugin Settings - deoplete {{{
 " -----------------------------------------------------------------------------
 
-" Set format programs:
-" - https://github.com/beautify-web/js-beautify
-let g:formatdef_cssbeautify = '"css-beautify -s 2 -"'
-let g:formatters_css = ['cssbeautify']
-let g:formatdef_htmlbeautify = '"html-beautify -s 2 -"'
-let g:formatters_html = ['htmlbeautify']
-let g:formatdef_jsbeautify_js = '"js-beautify -a -s 2 -"'
-let g:formatters_javascript = [ 'jsbeautify_js']
-let g:formatdef_jsbeautify_json = '"js-beautify -a -s 2 -b expand -"'
-let g:formatters_json = [ 'jsbeautify_json']
+" Use deoplete.
+let g:deoplete#enable_at_startup = 1
 
-" Set file type and format file.
-nnoremap <Leader>af :Autoformat<CR>
-nnoremap <Leader>ac :set ft=css<CR>:Autoformat<CR>
-nnoremap <Leader>ah :set ft=html<CR>:Autoformat<CR>
-nnoremap <Leader>aj :set ft=javascript<CR>:Autoformat<CR>
-nnoremap <Leader>ao :set ft=json<CR>:Autoformat<CR>
+" Use smartcase.
+call deoplete#custom#option('smart_case', v:true)
+
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
+
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function() abort
+  return deoplete#close_popup() . "\<CR>"
+endfunction
 
 "}}}
 " Plugin Settings - easy-align {{{
@@ -282,40 +309,56 @@ nnoremap <Leader>g :Gblame!<CR>
 
 let g:fzf_layout = { 'down': '10' }
 
+" Use ripgrep instead of ag:
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
 nnoremap <Leader>b :Buffers<CR>
-nnoremap <Leader>f :Ag<CR>
+nnoremap <Leader>f :Rg<CR>
 nnoremap <Leader>p :Files<CR>
 
 "}}}
-" Plugin Settings - hybrid {{{
+" Plugin Settings - gruvbox {{{
 " -----------------------------------------------------------------------------
 
-let g:hybrid_custom_term_colors = 1
-let g:hybrid_reduced_contrast = 1
 try
-  colorscheme hybrid
+  colorscheme gruvbox
+  highlight! link SignColumn Normal
 catch /:E185:/
-  " Silently fail if hybrid theme is not installed.
+  " Silently fail if gruvbox theme is not installed.
 endtry
-
-" Custom gui highlights when using Operator Mono font
-highlight! Cursor guibg=#00ffff
-highlight! Comment gui=italic
-highlight! Type gui=italic
-highlight! link SignColumn Normal
-
-"}}}
-" Plugin Settings - jsdoc {{{
-" -----------------------------------------------------------------------------
-
-let g:jsdoc_enable_es6 = 1
-nnoremap <Leader>d :JsDoc<CR>
 
 "}}}
 " Plugin Settings - jsx {{{
 " -----------------------------------------------------------------------------
 
-let g:jsx_ext_required = 0
+let g:jsx_ext_required = 1
+
+"}}}
+" Plugin Settings - LanguageServer {{{
+" -----------------------------------------------------------------------------
+
+let g:LanguageClient_autoStart = 1
+let g:LanguageClient_serverCommands = {}
+
+if executable('css-languageserver')
+  let g:LanguageClient_serverCommands.css = ['css-languageserver', '--stdio']
+  autocmd FileType css setlocal omnifunc=LanguageClient#complete
+endif
+
+if executable('html-languageserver')
+  let g:LanguageClient_serverCommands.html = ['html-languageserver', '--stdio']
+  autocmd FileType html setlocal omnifunc=LanguageClient#complete
+endif
+
+if executable('javascript-typescript-stdio')
+  let g:LanguageClient_serverCommands.javascript = ['javascript-typescript-stdio']
+  autocmd FileType javascript setlocal omnifunc=LanguageClient#complete
+endif
 
 "}}}
 " Plugin Settings - nerdtree {{{
