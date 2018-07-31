@@ -1,5 +1,10 @@
 {
-  "extends": ["airbnb", "prettier"],
+  "plugins": ["jest"],
+  "extends": [
+    "airbnb-base",
+    // override airbnb rules that prettier formatting
+    "prettier"
+  ],
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module"
@@ -7,7 +12,9 @@
   "env": {
     "browser": true,
     "es6": true,
-    "node": true
+    "node": true,
+    "jest": true
   },
-  "rules": {}
+  "rules": {
+  }
 }

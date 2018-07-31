@@ -20,11 +20,12 @@ set background=dark        " Use colours that look good on a dark background.
 set colorcolumn=80         " Show right column in a highlighted colour.
 set completeopt-=preview   " Do not show preview window for ins-completion.
 set diffopt+=foldcolumn:0  " Do not show fold indicator column in diff mode.
+set fillchars+=vert:│      " Use full height bar char as vertical separator.
 set history=10000          " Number of commands and search patterns to remember.
 set laststatus=2           " Always show status line.
 set noshowmode             " Do not show current mode on the last line.
 set number                 " Show the line number.
-set relativenumber         " Show the line number relative to the cursorline.
+" set relativenumber         " Show the line number relative to the cursorline.
 set showcmd                " Show command on last line of screen.
 set showmatch              " Show matching brackets.
 set termguicolors          " Use gui vim colors in terminal vim.
@@ -166,11 +167,10 @@ nnoremap cow :set wrap!<CR>
 
 " Cut to clipboard.
 vnoremap <Leader>x "*x
-nnoremap <Leader>x "*x
 
 " Copy to clipboard.
 vnoremap <Leader>c "*y
-nnoremap <Leader>c "*y
+nnoremap <Leader>c :let @*=expand("%:p")<CR>
 
 " Paste from clipboard.
 nnoremap <Leader>v "*p
@@ -230,23 +230,22 @@ let g:airline_right_alt_sep = ''
 
 let g:ale_sign_column_always = 1
 
-let g:ale_linters = {
-  \   'graphql': ['eslint'],
-  \   'javascript': ['eslint'],
-  \   'typescript': ['eslint'],
-  \   'css': ['stylelint'],
-  \   'scss': ['stylelint']
-\}
+let g:ale_linters = {}
+let g:ale_linters.css = ['stylelint']
+let g:ale_linters.graphql = ['eslint']
+let g:ale_linters.javascript = ['eslint']
+let g:ale_linters.scss = ['stylelint']
+let g:ale_linters.typescript = ['eslint']
 
-let g:ale_fixers = {
-  \   'css': ['prettier'],
-  \   'graphql': ['prettier'],
-  \   'javascript': ['prettier'],
-  \   'json': ['prettier'],
-  \   'markdown': ['prettier'],
-  \   'scss': ['prettier'],
-  \   'typescript': ['prettier']
-\}
+let g:ale_fixers = {}
+let g:ale_fixers.css = ['prettier']
+let g:ale_fixers.graphql = ['prettier']
+let g:ale_fixers.html = ['tidy']
+let g:ale_fixers.javascript = ['prettier']
+let g:ale_fixers.json = ['prettier']
+let g:ale_fixers.markdown = ['prettier']
+let g:ale_fixers.scss = ['prettier']
+let g:ale_fixers.typescript = ['prettier']
 
 nnoremap <Leader>af :ALEFix<CR>
 nnoremap <Leader>ac :set ft=css<CR>:ALEFix<CR>
@@ -275,6 +274,16 @@ inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function() abort
   return deoplete#close_popup() . "\<CR>"
 endfunction
+
+" <TAB>: call completion.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ deoplete#mappings#manual_complete()
+function! s:check_back_space() abort "{{{
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction"}}}
 
 "}}}
 " Plugin Settings - easy-align {{{
@@ -347,7 +356,9 @@ let g:LanguageClient_serverCommands = {}
 
 if executable('css-languageserver')
   let g:LanguageClient_serverCommands.css = ['css-languageserver', '--stdio']
+  let g:LanguageClient_serverCommands.scss = ['css-languageserver', '--stdio']
   autocmd FileType css setlocal omnifunc=LanguageClient#complete
+  autocmd FileType scss setlocal omnifunc=LanguageClient#complete
 endif
 
 if executable('html-languageserver')
