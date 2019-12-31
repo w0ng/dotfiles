@@ -63,7 +63,7 @@ autocmd FileType markdown setlocal foldmethod=marker
 " -----------------------------------------------------------------------------
 
 if has('gui_running')
-  set guifont=Inconsolata\ Regular:h20 " Set the font to use.
+  set guifont=OperatorMonoSSm-Book:h16 " Set the font to use.
   set guioptions=                      " Remove all GUI components and options.
   set guicursor+=a:block-blinkon0      " Use non-blinking block cursor.
   set linespace=8                      " Increase line height spacing by pixels.
@@ -184,12 +184,12 @@ vnoremap <Leader><S-V> "*P
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'hail2u/vim-css3-syntax'         " Syntax for CSS3.
+Plug 'MaxMEllon/vim-jsx-pretty'       " JSX and TSX syntax.
 Plug '/usr/local/opt/fzf'             " CLI fuzzy finder.
+Plug 'hashivim/vim-terraform'         " vim/terraform integration.
 Plug 'junegunn/fzf.vim'               " CLI fuzzy finder.
 Plug 'junegunn/vim-easy-align'        " Text alignment by characters.
-Plug 'mxw/vim-jsx'                    " React JSX syntax and indent.
-Plug 'mattn/emmet-vim'                " HTML abbreviations.
+Plug 'leafgarland/typescript-vim'     " Typescript syntax
 Plug 'morhetz/gruvbox'                " Dark colorscheme.
 Plug 'othree/html5.vim'               " Improved HTML5 syntax and omni completion.
 Plug 'pangloss/vim-javascript'        " Improved JavaScript syntax and indents.
@@ -203,14 +203,7 @@ Plug 'vim-airline/vim-airline'        " Pretty statusline.
 Plug 'w0rp/ale'                       " Asynchronous lint engine.
 
 " Async autocompletion.
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 
 call plug#end()
 
@@ -230,22 +223,29 @@ let g:airline_right_alt_sep = ''
 
 let g:ale_sign_column_always = 1
 
+let g:ale_linters_explicit = 1
+" let g:ale_fix_on_save = 1
+
 let g:ale_linters = {}
 let g:ale_linters.css = ['stylelint']
 let g:ale_linters.graphql = ['eslint']
 let g:ale_linters.javascript = ['eslint']
-let g:ale_linters.scss = ['stylelint']
-let g:ale_linters.typescript = ['eslint']
+" let g:ale_linters.scss = ['stylelint']
+let g:ale_linters.typescript = ['tslint']
+" let g:ale_linters.typescript = ['eslint']
+let g:ale_linter_aliases = {'typescript.tsx': 'typescript'}
 
 let g:ale_fixers = {}
 let g:ale_fixers.css = ['prettier']
 let g:ale_fixers.graphql = ['prettier']
-let g:ale_fixers.html = ['tidy']
+let g:ale_fixers.html = ['prettier']
 let g:ale_fixers.javascript = ['prettier']
 let g:ale_fixers.json = ['prettier']
 let g:ale_fixers.markdown = ['prettier']
 let g:ale_fixers.scss = ['prettier']
-let g:ale_fixers.typescript = ['prettier']
+let g:ale_fixers.typescript = ['prettier', 'tslint']
+
+" let g:ale_typescript_tslint_config_path = '~/'
 
 nnoremap <Leader>af :ALEFix<CR>
 nnoremap <Leader>ac :set ft=css<CR>:ALEFix<CR>
@@ -256,34 +256,120 @@ nnoremap <Leader>as :set ft=scss<CR>:ALEFix<CR>
 nnoremap <Leader>l :ALEToggle<CR>
 
 "}}}
-" Plugin Settings - deoplete {{{
+" Plugin Settings - coc {{{
 " -----------------------------------------------------------------------------
 
-" Use deoplete.
-let g:deoplete#enable_at_startup = 1
+" if hidden is not set, TextEdit might fail.
+set hidden
 
-" Use smartcase.
-call deoplete#custom#option('smart_case', v:true)
+" Some server have issues with backup files, see #649
+set nobackup
+set nowritebackup
 
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
+" Better display for messages
+" set cmdheight=2
 
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function() abort
-  return deoplete#close_popup() . "\<CR>"
-endfunction
+" Smaller updatetime for CursorHold & CursorHoldI
+set updatetime=300
 
-" <TAB>: call completion.
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
-      \ deoplete#mappings#manual_complete()
-function! s:check_back_space() abort "{{{
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
   let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction"}}}
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> for trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[c` and `]c` for navigate diagnostics
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> <C-]> <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K for show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+vmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+vmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Use `:Format` for format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` for fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" " Using CocList
+" " Show all diagnostics
+" nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" " Manage extensions
+" nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" " Show commands
+" nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" " Find symbol of current document
+" nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" " Search workspace symbols
+" nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" " Do default action for next item.
+" nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" " Do default action for previous item.
+" nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" " Resume latest coc list
+" nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 "}}}
 " Plugin Settings - easy-align {{{
@@ -296,21 +382,11 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 "}}}
-" Plugin Settings - emmet {{{
-" -----------------------------------------------------------------------------
-
-" Enable just for HTML, CSS, and JavaScript
-let g:user_emmet_install_global = 0
-autocmd FileType css,html,javascript,javascript.jsx EmmetInstall
-let g:user_emmet_expandabbr_key = '<C-e>'
-
-
-"}}}
 " Plugin Settings - fugitive {{{
 " -----------------------------------------------------------------------------
 
 " Toggle git-blame window
-nnoremap <Leader>g :Gblame!<CR>
+nnoremap <Leader>g :Gblame<CR>
 
 "}}}
 " Plugin Settings - fzf {{{
@@ -334,42 +410,56 @@ nnoremap <Leader>p :Files<CR>
 " Plugin Settings - gruvbox {{{
 " -----------------------------------------------------------------------------
 
+let g:gruvbox_italic = 1
+
 try
   colorscheme gruvbox
-  highlight! link SignColumn Normal
+  hi! GruvboxAquaItalic cterm=italic ctermfg=108 gui=italic guifg=#8ec07c
+  hi! GruvboxOrangeItalic cterm=italic ctermfg=208 gui=italic guifg=#fe8019
+
+  hi! link SignColumn Normal
+
+  hi! link cssProp GruvboxOrangeItalic
+  hi! link cssTextProp cssProp
+  hi! link cssAnimationProp cssProp
+  hi! link cssUIProp cssProp
+  hi! link cssTransformProp cssProp
+  hi! link cssTransitionProp cssProp
+  hi! link cssPrintProp cssProp
+  hi! link cssPositioningProp cssProp
+  hi! link cssBoxProp cssProp
+  hi! link cssFontDescriptorProp cssProp
+  hi! link cssFlexibleBoxProp cssProp
+  hi! link cssBorderOutlineProp cssProp
+  hi! link cssBackgroundProp cssProp
+  hi! link cssMarginProp cssProp
+  hi! link cssListProp cssProp
+  hi! link cssTableProp cssProp
+  hi! link cssFontProp cssProp
+  hi! link cssPaddingProp cssProp
+  hi! link cssDimensionProp cssProp
+  hi! link cssRenderProp cssProp
+  hi! link cssColorProp cssProp
+  hi! link cssGeneratedContentProp cssProp
+
+  hi! link htmlArg GruvboxAquaItalic
 catch /:E185:/
   " Silently fail if gruvbox theme is not installed.
 endtry
 
 "}}}
-" Plugin Settings - jsx {{{
+" Plugin Settings - javascript {{{
 " -----------------------------------------------------------------------------
 
-let g:jsx_ext_required = 1
+let g:javascript_plugin_jsdoc = 1
 
-"}}}
-" Plugin Settings - LanguageServer {{{
+" Plugin Settings - jsx-pretty {{{
 " -----------------------------------------------------------------------------
 
-let g:LanguageClient_autoStart = 1
-let g:LanguageClient_serverCommands = {}
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
 
-if executable('css-languageserver')
-  let g:LanguageClient_serverCommands.css = ['css-languageserver', '--stdio']
-  let g:LanguageClient_serverCommands.scss = ['css-languageserver', '--stdio']
-  autocmd FileType css setlocal omnifunc=LanguageClient#complete
-  autocmd FileType scss setlocal omnifunc=LanguageClient#complete
-endif
-
-if executable('html-languageserver')
-  let g:LanguageClient_serverCommands.html = ['html-languageserver', '--stdio']
-  autocmd FileType html setlocal omnifunc=LanguageClient#complete
-endif
-
-if executable('javascript-typescript-stdio')
-  let g:LanguageClient_serverCommands.javascript = ['javascript-typescript-stdio']
-  autocmd FileType javascript setlocal omnifunc=LanguageClient#complete
-endif
+hi! link jsxAttrib htmlArg
+hi! link jsxComponentName jsxTagName
 
 "}}}
 " Plugin Settings - nerdtree {{{
@@ -377,6 +467,7 @@ endif
 
 " Toggle NERD tree window.
 nnoremap <Leader>1 :NERDTreeToggle<CR>
+nnoremap <Leader>2 :NERDTreeFind<CR>
 
 "}}}
 " Plugin Settings - plug {{{

@@ -1,10 +1,10 @@
 #
 # System environment variables
 #
-export EDITOR='/usr/local/bin/vim'
+export EDITOR='/usr/local/bin/nvim'
 export LESS='-i -R'
 export PAGER='less'
-export VISUAL='/usr/local/bin/vim'
+export VISUAL='/usr/local/bin/nvim'
 
 if [[ "$OSTYPE" == darwin* ]]; then
   export BROWSER='open'

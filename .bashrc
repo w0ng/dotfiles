@@ -32,5 +32,5 @@ alias ls='ls -hFG'
 
 # Always use vim from brew
 alias ctags='/usr/local/bin/ctags'
-alias vim='/usr/local/bin/vim'
-alias vimdiff='/usr/local/bin/vimdiff'
+alias vim='/usr/local/bin/nvim'
+alias vimdiff='/usr/local/bin/nvim -d'

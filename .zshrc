@@ -56,10 +56,13 @@ fi
 
 alias cdd="cd $HOME/dev"
 alias dc="docker-compose"
+alias gcM='git commit --amend --message'
 alias gist="gist -p"
 #alias ls='/usr/local/bin/gls --group-directories-first --color=auto --classify --human-readable'
 alias ssh='TERM=xterm-256color ssh'
 alias tm="tmux attach-session -d -t 0"
+alias vim="nvim"
+alias vimdiff="nvim -d"
 
 #
 # Additional vi keybindings

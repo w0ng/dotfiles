@@ -1,48 +1,61 @@
 [user]
-    name = Andrew Wong
-    email = wongadev@gmail.com
+  name = Andrew Wong
+  email = wongadev@gmail.com
 [core]
-    attributesfile = ~/.gitattributes_global
-    excludesfile = ~/.gitignore_global
-    editor = vim
+  attributesfile = ~/.gitattributes_global
+  excludesfile = ~/.gitignore_global
+  editor = nvim
 [color]
-    ui = true
+  ui = true
 [color "branch"]
-    current = green bold
-    remote = red bold
+  current = green bold
+  remote = red bold
 [color "diff"]
-    meta = yellow bold
-    commit = green bold
-    frag = magenta bold
-    old = red bold
-    new = green bold
-    whitespace = red reverse
+  meta = yellow bold
+  commit = green bold
+  frag = magenta bold
+  old = red bold
+  new = green bold
+  whitespace = red reverse
 [color "diff-highlight"]
-    oldNormal = red bold
-    oldHighlight = red bold 52
-    newNormal = green bold
-    newHighlight = green bold 22
+  oldNormal = red bold
+  oldHighlight = red bold 52
+  newNormal = green bold
+  newHighlight = green bold 22
 [color "status"]
-    added = green bold
-    changed = red bold
-    untracked = red bold
+  added = green bold
+  changed = red bold
+  untracked = red bold
 [github]
-    user = w0ng
+  user = w0ng
 [diff]
-    tool = vimdiff
+  tool = nvim -d
 [difftool]
-    prompt = false
+  prompt = false
 [alias]
-    l = log --pretty=format:'%C(yellow)%h%C(magenta)%d%C(reset) %s %C(cyan)%cN %C(blue)(%cd)%C(reset)' --date=format:'%a %F %R' --graph --use-mailmap
-    s = status -sb
+  l = log --pretty=format:'%C(yellow)%h%C(magenta)%d%C(reset) %s %C(cyan)%aN %C(blue)(%cd)%C(reset)' --date=format:'%a %F %R' --graph --use-mailmap
+  s = status -sb
 [push]
-    default = simple
+  default = simple
 [merge]
-    tool = vimdiff
+  tool = nvim -d
 [mergetool]
-    keepBackup = false
+  keepBackup = false
 [mailmap]
-    file = ~/.mailmap
+  file = ~/.mailmap
 [pager]
-	diff = diff-so-fancy | less --tabs=4 -RFX
-	show = diff-so-fancy | less --tabs=4 -RFX
+  diff = diff-so-fancy | less --tabs=4 -RFX
+  show = diff-so-fancy | less --tabs=4 -RFX
+[difftool "sourcetree"]
+  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+  path = 
+[mergetool "sourcetree"]
+  cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+  trustExitCode = true
+[filter "lfs"]
+  process = git-lfs filter-process
+  required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+[protocol]
+  version = 2
