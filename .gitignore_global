@@ -10,6 +10,7 @@
 *.exe
 *.o
 *.so
+*.zwc
 
 # Packages #
 ############
@@ -56,6 +57,11 @@ ehthumbs.db
 ###################
 .hg/
 .svn/
+
+# Vendor directories #
+######################
+node_modules
+vendor
 
 # IDE and editor files #
 ########################
