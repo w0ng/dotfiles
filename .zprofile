@@ -23,9 +23,9 @@ fi
 #
 typeset -gU cdpath fpath mailpath path
 
-if [[ -d $HOME/code/bin ]]; then
+if [[ -d $HOME/dev/bin ]]; then
   path=(
-    $HOME/code/bin
+    $HOME/dev/bin
     $path
   )
 fi
