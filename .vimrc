@@ -231,6 +231,7 @@ let g:ale_linters.css = ['stylelint']
 let g:ale_linters.graphql = ['eslint']
 let g:ale_linters.javascript = ['eslint']
 " let g:ale_linters.scss = ['stylelint']
+let g:ale_linters.sh = ['shellcheck']
 let g:ale_linters.typescript = ['tslint']
 " let g:ale_linters.typescript = ['eslint']
 let g:ale_linter_aliases = {'typescript.tsx': 'typescript'}
