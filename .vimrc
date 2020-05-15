@@ -28,6 +28,8 @@ set number                 " Show the line number.
 " set relativenumber         " Show the line number relative to the cursorline.
 set showcmd                " Show command on last line of screen.
 set showmatch              " Show matching brackets.
+let &t_8f="\<Esc>[38;2;%lu;%lu;%lum" " Enable italics in terminal vim.
+let &t_8b="\<Esc>[48;2;%lu;%lu;%lum" " Enable italics in terminal vim.
 set termguicolors          " Use gui vim colors in terminal vim.
 set title                  " Set window title to 'filename [+=-] (path) - VIM'.
 
@@ -88,7 +90,7 @@ set tabstop=2              " Spaces that a <Tab> in file counts for.
 
 " Indent and tab options for specific file types.
 autocmd FileType c,make setlocal noexpandtab shiftwidth=8 softtabstop=8 tabstop=8
-autocmd FileType markdown,python,php setlocal shiftwidth=4 softtabstop=4 tabstop=4
+autocmd FileType css,markdown,python,php setlocal shiftwidth=4 softtabstop=4 tabstop=4
 
 "}}}
 " Options - Searching {{{
@@ -200,7 +202,6 @@ Plug 'tpope/vim-fugitive'             " Git wrapper.
 Plug 'tpope/vim-repeat'               " Enable repeat for tpope's plugins.
 Plug 'tpope/vim-surround'             " Quoting/parenthesizing made simple.
 Plug 'vim-airline/vim-airline'        " Pretty statusline.
-Plug 'w0rp/ale'                       " Asynchronous lint engine.
 
 " Async autocompletion.
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
@@ -216,45 +217,6 @@ let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
 let g:airline_right_sep = ''
 let g:airline_right_alt_sep = ''
-
-"}}}
-" Plugin Settings - ale {{{
-" -----------------------------------------------------------------------------
-
-let g:ale_sign_column_always = 1
-
-let g:ale_linters_explicit = 1
-" let g:ale_fix_on_save = 1
-
-let g:ale_linters = {}
-let g:ale_linters.css = ['stylelint']
-let g:ale_linters.graphql = ['eslint']
-let g:ale_linters.javascript = ['eslint']
-" let g:ale_linters.scss = ['stylelint']
-let g:ale_linters.sh = ['shellcheck']
-let g:ale_linters.typescript = ['tslint']
-" let g:ale_linters.typescript = ['eslint']
-let g:ale_linter_aliases = {'typescript.tsx': 'typescript'}
-
-let g:ale_fixers = {}
-let g:ale_fixers.css = ['prettier']
-let g:ale_fixers.graphql = ['prettier']
-let g:ale_fixers.html = ['prettier']
-let g:ale_fixers.javascript = ['prettier']
-let g:ale_fixers.json = ['prettier']
-let g:ale_fixers.markdown = ['prettier']
-let g:ale_fixers.scss = ['prettier']
-let g:ale_fixers.typescript = ['prettier', 'tslint']
-
-" let g:ale_typescript_tslint_config_path = '~/'
-
-nnoremap <Leader>af :ALEFix<CR>
-nnoremap <Leader>ac :set ft=css<CR>:ALEFix<CR>
-nnoremap <Leader>ah :set ft=html<CR>:ALEFix<CR>
-nnoremap <Leader>aj :set ft=javascript<CR>:ALEFix<CR>
-nnoremap <Leader>ao :set ft=json<CR>:ALEFix<CR>
-nnoremap <Leader>as :set ft=scss<CR>:ALEFix<CR>
-nnoremap <Leader>l :ALEToggle<CR>
 
 "}}}
 " Plugin Settings - coc {{{
@@ -371,6 +333,28 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 " nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " " Resume latest coc list
 " nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+" coc-extensions
+let g:coc_global_extensions = [
+      \ 'coc-tsserver',
+      \ 'coc-html',
+      \ 'coc-css',
+      \ 'coc-json',
+      \ 'coc-cssmodules',
+      \ 'coc-prettier',
+      \ 'coc-eslint',
+      \ 'coc-stylelint'
+      \ ]
+
+" Auto format file with prettier
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+" vmap <leader>af  <Plug>(coc-format-selected)
+" nmap <leader>af  <Plug>(coc-format-selected)
+nnoremap <leader>af :Prettier<CR>
+nnoremap <Leader>ac :set ft=css<CR>:Prettier<CR>
+nnoremap <Leader>ah :set ft=html<CR>:Prettier<CR>
+nnoremap <Leader>aj :set ft=javascript<CR>:Prettier<CR>
+nnoremap <Leader>ao :set ft=json<CR>:Prettier<CR>
 
 "}}}
 " Plugin Settings - easy-align {{{
