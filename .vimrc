@@ -336,6 +336,7 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
 " coc-extensions
 let g:coc_global_extensions = [
+      \ 'coc-diagnostic',
       \ 'coc-tsserver',
       \ 'coc-html',
       \ 'coc-css',
