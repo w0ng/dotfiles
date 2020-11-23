@@ -43,12 +43,16 @@ zinit snippet PZT::modules/completion
 zinit ice wait'0' lucid
 zinit light zdharma/fast-syntax-highlighting
 
-if [[ -f $HOME/.zsh_prompt/prompt_w0ng_setup ]]; then
-  fpath=($HOME/.zsh_prompt $fpath)
-  autoload -Uz $HOME/.zsh_prompt/prompt_w0ng_setup
-  autoload -Uz promptinit && promptinit
-  prompt w0ng
-fi
+PURE_GIT_DOWN_ARROW="⬇"
+PURE_GIT_UP_ARROW="⬆"
+zstyle :prompt:pure:git:stash show yes
+zstyle :prompt:pure:path color yellow
+zstyle :prompt:pure:git:branch color magenta
+zstyle :prompt:pure:git:arrow color 218
+zstyle :prompt:pure:git:stash color 218
+zstyle :prompt:pure:git:action color 218
+zinit ice pick"async.zsh" src"pure.zsh"
+zinit light sindresorhus/pure
 
 #
 # Aliases
