@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Custom defaults on OS X El Capitan 10.11.2
-# Source: https://github.com/mathiasbynens/dotfiles/blob/master/.osx
+# Source: https://github.com/mathiasbynens/dotfiles/blob/main/.macos
 # Execute `defaults delete [domain [key]]` to revert changes
 
 # Disable animations, e.g. opening and closing a new window
@@ -19,6 +19,9 @@ defaults write -g QLPanelAnimationDuration -int 0
 # Disable window animations and Get Info animations
 defaults write com.apple.finder DisableAllAnimations -bool true
 
+# Don’t animate opening applications from the Dock
+defaults write com.apple.dock launchanim -bool false
+
 # Disable Mission Control animations
 defaults write com.apple.dock expose-animation-duration -int 0
 
@@ -28,8 +31,9 @@ defaults write com.apple.dock autohide-delay -int 0
 # Remove the animation when hiding/showing the Dock
 defaults write com.apple.dock autohide-time-modifier -int 0
 
-# Show the ~/Library folder
-chflags nohidden ~/Library
+# Disable send and reply animations in Mail.app
+defaults write com.apple.mail DisableReplyAnimations -bool true
+defaults write com.apple.mail DisableSendAnimations -bool true
 
-# Disable native full screen for mvim (i.e. don't create a new space)
-defaults write org.vim.MacVim MMNativeFullScreen 0
+# Show the ~/Library folder
+chflags nohidden ~/Library && xattr -d com.apple.FinderInfo ~/Library

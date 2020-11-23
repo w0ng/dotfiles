@@ -1,89 +1,58 @@
-1Password 6.app/
-Adobe Acrobat Reader DC.app/
-Alfred 3.app/
-Android File Transfer.app/
-App Store.app/
-Automator.app/
-BetterSnapTool.app/
+./
+../
+1Password 7.app/
+Alfred 4.app/
 BetterTouchTool.app/
-Calculator.app/
-Calendar.app/
-Chess.app/
-CodeKit.app/
-ColorMunki Display.app/
-Contacts.app/
-DVD Player.app/
+Brother/
+Brother iPrint&Scan.app/
+Charles.app/
 Dash.app/
-Dashboard.app/
-Dia.app/
-Dictionary.app/
-DisplayCAL.app/
-Evernote.app/
-FaceTime.app/
+DisplayCAL/
+Docker.app/
+ExpressVPN.app/
 Firefox.app/
-Flux.app/
-Font Book.app/
-GIMP.app/
+Fleetsmith.app/
 Gapplin.app/
+Garmin Express.app/
+GitHub Desktop.app/
 Google Chrome Canary.app/
 Google Chrome.app/
-Google Drive.app/
-Image Capture.app/
-KeePassX.app/
+ImageAlpha.app/
+ImageOptim.app/
+Insomnia.app/
+IntelliJ IDEA.app/
+KeyCastr.app/
+Keynote.app/
 LICEcap.app/
-Launchpad.app/
-Mail.app/
-Maps.app/
-Messages.app/
-Microsoft Excel.app/
-Microsoft OneNote.app/
-Microsoft Outlook.app/
-Microsoft PowerPoint.app/
-Microsoft Remote Desktop.app/
-Microsoft Word.app/
-Mission Control.app/
-Notes.app/
-Photo Booth.app/
-Photos.app/
+Logi Options.app/
+Microsoft Edge.app/
+NordVPN.app/
+Notion.app/
+Numbers.app/
+PSequel.app/
+Pages.app/
 PhpStorm.app/
-Postico.app/
-Preview.app/
-Private Internet Access.app/
-QGIS.app/
-QuickTime Player.app/
-Reminders.app/
+Postman.app/
 Safari.app/
+Santa.app/
 ScreenFlow.app/
 Sequel Pro.app/
-Sip.app/
-Siri.app/
 Sketch.app/
 Skitch.app/
-Skype.app/
-SourceTree.app/
+Slack.app/
+Sourcetree.app/
 Spotify Notifications.app/
 Spotify.app/
-Stickies.app/
-System Preferences.app/
-TeX/
-TextEdit.app/
-The Unarchiver.app/
-Time Machine.app/
-TorBrowser.app/
-Twitter.app/
+Todoist.app/
 Utilities/
 VLC.app/
+Vagrant Manager.app/
 VirtualBox.app/
+Visual Studio Code.app/
 WhatsApp.app/
-Wunderlist.app/
 Xcode.app/
-calibre.app/
-iBooks.app/
+YubiKey Manager.app/
+iMovie.app/
 iTerm.app/
-iTunes.app/
-IDLE 3.app@
-IDLE.app@
-MacVim.app@
-Python Launcher 3.app@
-Python Launcher.app@
-terminal-notifier.app@
+pgAdmin 4.app/
+zoom.us.app/

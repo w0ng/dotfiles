@@ -1,3 +1,5 @@
 {
-  "extends": "/Users/andrew/.nvm/versions/node/v8.11.1/lib/node_modules/stylelint-config-standard"
+  "rules": {
+    "at-rule-no-unknown": null,
+  }
 }

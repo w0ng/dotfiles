@@ -1,19 +1,10 @@
 {
-  "coc.preferences.formatOnSaveFiletypes": [
-    "css",
-    "graphql",
-    "javascript",
-    "javascriptreact",
-    "json",
-    "markdown",
-    "typescript",
-    "typescriptreact"
-  ],
   "css.lint.unknownAtRules": "ignore",
   "css.lint.unknownProperties": "ignore",
   "diagnostic-languageserver.filetypes": {
-    "sh": "shellcheck"
+    "sh": "shellcheck",
+    "vim": "vint"
   },
   "eslint.autoFixOnSave": true,
-  "tsserver.maxTsServerMemory": 6144
+  "tsserver.maxTsServerMemory": 4096
 }

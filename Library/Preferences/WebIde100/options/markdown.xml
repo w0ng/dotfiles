@@ -1,6 +1,0 @@
-<application>
-  <component name="MarkdownApplicationSettings">
-    <MarkdownCssSettings StylesheetUri="file:$USER_HOME$/Library/Application%20Support/WebIde100/markdown/lib/darcula.css" />
-    <MarkdownPreviewSettings DefaultSplitLayout="Show editor only" />
-  </component>
-</application>

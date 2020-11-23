@@ -1,14 +1,8 @@
-/Users/andrew/.nvm/versions/node/v8.11.1/lib
-├── eslint@4.19.1
-├── eslint-config-airbnb@16.1.0
-├── eslint-config-prettier@2.9.0
-├── eslint-plugin-import@2.12.0
-├── eslint-plugin-jsx-a11y@6.0.3
-├── eslint-plugin-react@7.9.1
-├── javascript-typescript-langserver@2.9.2
-├── npm@6.1.0
-├── prettier@1.13.5
-├── stylelint@9.2.1
-├── stylelint-config-standard@18.2.0
-├── vscode-css-languageserver-bin@1.4.0
-└── vscode-html-languageserver-bin@1.4.0
+/Users/andrew.w/.nvm/versions/node/v12.16.1/lib
+├── @prettier/plugin-xml@0.11.0
+├── csvtojson@2.0.10
+├── imageoptim-cli@3.0.2
+├── json2csv@4.5.4
+├── npm@6.13.7
+└── prettier@1.19.1
+

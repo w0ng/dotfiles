@@ -1,7 +1,0 @@
-linters:
-  Comment:
-    enabled: false
-
-  LeadingZero:
-    enabled: true
-    style: include_zero

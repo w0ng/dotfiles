@@ -25,7 +25,6 @@ set history=10000          " Number of commands and search patterns to remember.
 set laststatus=2           " Always show status line.
 set noshowmode             " Do not show current mode on the last line.
 set number                 " Show the line number.
-" set relativenumber         " Show the line number relative to the cursorline.
 set showcmd                " Show command on last line of screen.
 set showmatch              " Show matching brackets.
 let &t_8f="\<Esc>[38;2;%lu;%lu;%lum" " Enable italics in terminal vim.
@@ -188,15 +187,9 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'MaxMEllon/vim-jsx-pretty'       " JSX and TSX syntax.
 Plug '/usr/local/opt/fzf'             " CLI fuzzy finder.
-Plug 'chr4/nginx.vim'                 " nginx vim syntax highlighting
-Plug 'hashivim/vim-terraform'         " vim/terraform integration.
-Plug 'jparise/vim-graphql'            " GraphQL ft, syntax, and indent
 Plug 'junegunn/fzf.vim'               " CLI fuzzy finder.
 Plug 'junegunn/vim-easy-align'        " Text alignment by characters.
-Plug 'leafgarland/typescript-vim'     " Typescript syntax
 Plug 'morhetz/gruvbox'                " Dark colorscheme.
-Plug 'othree/html5.vim'               " Improved HTML5 syntax and omni completion.
-Plug 'pangloss/vim-javascript'        " Improved JavaScript syntax and indents.
 Plug 'plasticboy/vim-markdown'        " Markdown Vim Mode.
 Plug 'scrooloose/nerdtree'            " File explorer window.
 Plug 'tpope/vim-commentary'           " Commenting made simple.
@@ -204,7 +197,7 @@ Plug 'tpope/vim-fugitive'             " Git wrapper.
 Plug 'tpope/vim-repeat'               " Enable repeat for tpope's plugins.
 Plug 'tpope/vim-surround'             " Quoting/parenthesizing made simple.
 Plug 'itchyny/lightline.vim'          " Pretty statusline.
-Plug 'ryanoasis/vim-devicons'         "Adds dev icons to plugins 
+Plug 'ryanoasis/vim-devicons'         " Adds dev icons to plugins 
 
 " Async autocompletion.
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -360,6 +353,8 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 " coc-extensions
+" \ 'coc-graphql',
+" \ 'coc-java',
 let g:coc_global_extensions = [
       \ 'coc-diagnostic',
       \ 'coc-tsserver',
@@ -405,13 +400,18 @@ nnoremap <Leader>g :Gblame<CR>
 
 let g:fzf_layout = { 'down': '10' }
 
-" Use ripgrep instead of ag:
+" no color, don't match filename/line num/column num
+" command! -bang -nargs=* Rg
+"       \ call fzf#vim#grep(
+"       \   'rg --column --line-number --no-heading --color=never --smart-case -- '.shellescape(<q-args>), 1,
+"       \   fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
+
+" no color
 command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
+      \ call fzf#vim#grep(
+      \   'rg --column --line-number --no-heading --color=never --smart-case -- '.shellescape(<q-args>), 1,
+      \   fzf#vim#with_preview(), <bang>0)
+
 
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>f :Rg<CR>
@@ -493,9 +493,15 @@ let g:lightline.subseparator.right = ''
 " Plugin Settings - nerdtree {{{
 " -----------------------------------------------------------------------------
 
+" Increase default width
+let g:NERDTreeWinSize=51
+
 " Toggle NERD tree window.
 nnoremap <Leader>1 :NERDTreeToggle<CR>
 nnoremap <Leader>2 :NERDTreeFind<CR>
+
+" NERDTree devicons color
+highlight! link NERDTreeFlags Special
 
 "}}}
 " Plugin Settings - plug {{{
