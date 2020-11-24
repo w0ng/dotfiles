@@ -6,5 +6,5 @@
     "vim": "vint"
   },
   "eslint.autoFixOnSave": true,
-  "tsserver.maxTsServerMemory": 4096
+  "tsserver.maxTsServerMemory": 8192
 }
