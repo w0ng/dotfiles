@@ -43,16 +43,31 @@ zinit snippet PZT::modules/completion
 zinit ice wait'0' lucid
 zinit light zdharma/fast-syntax-highlighting
 
+PURE_CMD_MAX_EXEC_TIME=0
+PURE_GIT_COMBINED_DIRTY=0
 PURE_GIT_DOWN_ARROW="⬇"
 PURE_GIT_UP_ARROW="⬆"
+PURE_GIT_STASH_SYMBOL="✭"
+PURE_GIT_ADDED_SYMBOL="✚"
+PURE_GIT_DELETED_SYMBOL="✖"
+PURE_GIT_MODIFIED_SYMBOL="✱"
+PURE_GIT_RENAMED_SYMBOL="➜"
+PURE_GIT_UNMERGED_SYMBOL="═"
+PURE_GIT_UNTRACKED_SYMBOL="◼"
 zstyle :prompt:pure:git:stash show yes
 zstyle :prompt:pure:path color yellow
 zstyle :prompt:pure:git:branch color magenta
-zstyle :prompt:pure:git:arrow color 218
-zstyle :prompt:pure:git:stash color 218
-zstyle :prompt:pure:git:action color 218
-zinit ice pick"async.zsh" src"pure.zsh"
-zinit light sindresorhus/pure
+zstyle :prompt:pure:git:action color 218 # very bright magenta
+zstyle :prompt:pure:git:arrow color 11 # bright yellow
+zstyle :prompt:pure:git:stash color 14 # bright cyan
+zstyle :prompt:pure:git:added color 10 # bright green
+zstyle :prompt:pure:git:deleted color 9 # bright red
+zstyle :prompt:pure:git:modified color 12 # bright blue
+zstyle :prompt:pure:git:renamed color 13 # bright magenta
+zstyle :prompt:pure:git:unmerged color 11 # bright yellow
+zstyle :prompt:pure:git:untracked color 15 # white
+zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh'
+zinit light w0ng/pure
 
 #
 # Aliases
@@ -61,6 +76,7 @@ zinit light sindresorhus/pure
 alias cdd="cd $HOME/dev"
 alias cdr="cd $HOME/dev/phoenix/renderer"
 alias cdw="cd $HOME/dev/canva/web"
+alias cdm="cd $HOME/dev/canva/web/src/pages/marketplace"
 alias dc="docker-compose"
 alias gcM='git commit --amend --message'
 alias gist="gist -p"
