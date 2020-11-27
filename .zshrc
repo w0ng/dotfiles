@@ -43,17 +43,18 @@ zinit snippet PZT::modules/completion
 zinit ice wait'0' lucid
 zinit light zdharma/fast-syntax-highlighting
 
-PURE_CMD_MAX_EXEC_TIME=0
-PURE_GIT_COMBINED_DIRTY=0
-PURE_GIT_DOWN_ARROW="⬇"
-PURE_GIT_UP_ARROW="⬆"
-PURE_GIT_STASH_SYMBOL="✭"
-PURE_GIT_ADDED_SYMBOL="✚"
-PURE_GIT_DELETED_SYMBOL="✖"
-PURE_GIT_MODIFIED_SYMBOL="✱"
-PURE_GIT_RENAMED_SYMBOL="➜"
-PURE_GIT_UNMERGED_SYMBOL="═"
-PURE_GIT_UNTRACKED_SYMBOL="◼"
+export PURE_CMD_MAX_EXEC_TIME=0
+export PURE_GIT_DELAY_DIRTY_CHECK=0
+export PURE_GIT_COMBINED_DIRTY=0
+export PURE_GIT_DOWN_ARROW="⬇"
+export PURE_GIT_UP_ARROW="⬆"
+export PURE_GIT_STASH_SYMBOL="✭"
+export PURE_GIT_ADDED_SYMBOL="✚"
+export PURE_GIT_DELETED_SYMBOL="✖"
+export PURE_GIT_MODIFIED_SYMBOL="✱"
+export PURE_GIT_RENAMED_SYMBOL="➜"
+export PURE_GIT_UNMERGED_SYMBOL="═"
+export PURE_GIT_UNTRACKED_SYMBOL="◼"
 zstyle :prompt:pure:git:stash show yes
 zstyle :prompt:pure:path color yellow
 zstyle :prompt:pure:git:branch color magenta
