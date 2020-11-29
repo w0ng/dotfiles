@@ -6,43 +6,18 @@ source "$HOME/.zinit/bin/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
+# Extension to load submodules in github repos
+zinit light zinit-zsh/z-a-submods
+
+# Prezto config
 zstyle ':prezto:*:*' case-sensitive 'yes'
 zstyle ':prezto:*:*' color 'yes'
-
-zinit snippet PZT::modules/environment/init.zsh
-
-zinit snippet PZT::modules/helper/init.zsh
-
 zstyle ':prezto:module:terminal' auto-title 'yes'
 zstyle ':prezto:module:terminal:window-title' format '%n@%m: %s'
 zstyle ':prezto:module:terminal:tab-title' format '%m: %s'
-zinit snippet PZT::modules/terminal/init.zsh
-
 zstyle ':prezto:module:editor' key-bindings 'vi'
-zinit snippet PZT::modules/editor/init.zsh
 
-zinit snippet PZT::modules/history/init.zsh
-
-zinit snippet PZT::modules/directory/init.zsh
-
-zinit snippet PZT::modules/spectrum/init.zsh
-
-zinit ice svn
-zinit snippet PZT::modules/utility
-
-zinit ice svn
-zinit snippet PZT::modules/git
-# gls is Used for GNU ls from coreutils brew package on OSX
-unalias gls
-
-zinit ice svn \
-atclone'git clone https://github.com/zsh-users/zsh-completions external; for i in external/*.zsh; do zcompile $i; done;' \
-atpull'cd ./external; git reset --hard HEAD; git pull; for i in ./*.zsh; do zcompile $i; done;' wait'0' lucid
-zinit snippet PZT::modules/completion
-
-zinit ice wait'0' lucid
-zinit light zdharma/fast-syntax-highlighting
-
+# Pure prompt config
 export PURE_CMD_MAX_EXEC_TIME=0
 export PURE_GIT_DELAY_DIRTY_CHECK=0
 export PURE_GIT_COMBINED_DIRTY=0
@@ -67,8 +42,21 @@ zstyle :prompt:pure:git:modified color 12 # bright blue
 zstyle :prompt:pure:git:renamed color 13 # bright magenta
 zstyle :prompt:pure:git:unmerged color 11 # bright yellow
 zstyle :prompt:pure:git:untracked color 15 # white
-zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh'
-zinit light w0ng/pure
+
+# Load plugins
+zinit for \
+  PZT::modules/environment/init.zsh \
+  PZT::modules/helper/init.zsh \
+  PZT::modules/terminal/init.zsh \
+  PZT::modules/editor/init.zsh \
+  PZT::modules/history/init.zsh \
+  PZT::modules/directory/init.zsh \
+  PZT::modules/utility \
+  wait lucid svn atload'unalias gls' PZT::modules/git \
+  wait lucid svn submods'zsh-users/zsh-completions -> external' PZT::modules/completion \
+  wait lucid svn submods'zsh-users/zsh-autosuggestions -> external' PZT::modules/autosuggestions \
+  wait lucid light-mode zdharma/fast-syntax-highlighting \
+  compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh' light-mode w0ng/pure
 
 #
 # Aliases
