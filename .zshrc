@@ -17,32 +17,6 @@ zstyle ':prezto:module:terminal:window-title' format '%n@%m: %s'
 zstyle ':prezto:module:terminal:tab-title' format '%m: %s'
 zstyle ':prezto:module:editor' key-bindings 'vi'
 
-# Pure prompt config
-export PURE_CMD_MAX_EXEC_TIME=0
-export PURE_GIT_DELAY_DIRTY_CHECK=0
-export PURE_GIT_COMBINED_DIRTY=0
-export PURE_GIT_DOWN_ARROW="⬇"
-export PURE_GIT_UP_ARROW="⬆"
-export PURE_GIT_STASH_SYMBOL="✭"
-export PURE_GIT_ADDED_SYMBOL="✚"
-export PURE_GIT_DELETED_SYMBOL="✖"
-export PURE_GIT_MODIFIED_SYMBOL="✱"
-export PURE_GIT_RENAMED_SYMBOL="➜"
-export PURE_GIT_UNMERGED_SYMBOL="═"
-export PURE_GIT_UNTRACKED_SYMBOL="◼"
-zstyle :prompt:pure:git:stash show yes
-zstyle :prompt:pure:path color yellow
-zstyle :prompt:pure:git:branch color magenta
-zstyle :prompt:pure:git:action color 218 # very bright magenta
-zstyle :prompt:pure:git:arrow color 11 # bright yellow
-zstyle :prompt:pure:git:stash color 14 # bright cyan
-zstyle :prompt:pure:git:added color 10 # bright green
-zstyle :prompt:pure:git:deleted color 9 # bright red
-zstyle :prompt:pure:git:modified color 12 # bright blue
-zstyle :prompt:pure:git:renamed color 13 # bright magenta
-zstyle :prompt:pure:git:unmerged color 11 # bright yellow
-zstyle :prompt:pure:git:untracked color 15 # white
-
 # Load plugins
 zinit for \
   PZT::modules/environment/init.zsh \
@@ -52,11 +26,11 @@ zinit for \
   PZT::modules/history/init.zsh \
   PZT::modules/directory/init.zsh \
   PZT::modules/utility \
-  wait lucid svn atload'unalias gls' PZT::modules/git \
-  wait lucid svn submods'zsh-users/zsh-completions -> external' PZT::modules/completion \
-  wait lucid svn submods'zsh-users/zsh-autosuggestions -> external' PZT::modules/autosuggestions \
-  wait lucid light-mode zdharma/fast-syntax-highlighting \
-  compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh' light-mode w0ng/pure
+  svn atload'unalias gls' PZT::modules/git \
+  svn silent submods'mafredri/zsh-async -> external/async' atload'prompt w0ng' https://github.com/w0ng/prezto/trunk/modules/prompt \
+  svn wait lucid submods'zsh-users/zsh-completions -> external'  PZT::modules/completion \
+  svn wait lucid submods'zsh-users/zsh-autosuggestions -> external' atload'_zsh_autosuggest_start' PZT::modules/autosuggestions \
+  light-mode wait lucid zdharma/fast-syntax-highlighting \
 
 #
 # Aliases
