@@ -26,7 +26,7 @@ zinit for \
   PZT::modules/history/init.zsh \
   PZT::modules/directory/init.zsh \
   PZT::modules/utility \
-  svn atload'unalias gls' PZT::modules/git \
+  svn atload'unalias gls' https://github.com/w0ng/prezto/trunk/modules/git \
   svn silent submods'mafredri/zsh-async -> external/async' atload'prompt w0ng' https://github.com/w0ng/prezto/trunk/modules/prompt \
   svn wait lucid submods'zsh-users/zsh-completions -> external'  PZT::modules/completion \
   svn wait lucid submods'zsh-users/zsh-autosuggestions -> external' atload'_zsh_autosuggest_start' PZT::modules/autosuggestions \
