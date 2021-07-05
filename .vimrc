@@ -64,7 +64,7 @@ autocmd FileType markdown setlocal foldmethod=marker
 " -----------------------------------------------------------------------------
 
 if has('gui_running')
-  set guifont=FiraCodeNerdFontComplete-Regular:h16 " Set the font to use.
+  set guifont=FiraCodeNerdFontComplete-Regular:h18 " Set the font to use.
   set guioptions=                      " Remove all GUI components and options.
   set guicursor+=a:block-blinkon0      " Use non-blinking block cursor.
   set linespace=8                      " Increase line height spacing by pixels.
@@ -392,7 +392,7 @@ nmap ga <Plug>(EasyAlign)
 " -----------------------------------------------------------------------------
 
 " Toggle git-blame window
-nnoremap <Leader>g :Gblame<CR>
+nnoremap <Leader>g :Git blame<CR>
 
 "}}}
 " Plugin Settings - fzf {{{
