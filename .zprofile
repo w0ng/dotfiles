@@ -30,3 +30,10 @@ if [[ -d $HOME/Library/Python/3.7/bin ]]; then
     $path
   )
 fi
+
+if [[ -d /usr/local/share/android-sdk/platform-tools ]]; then
+  path=(
+    /usr/local/share/android-sdk/platform-tools
+    $path
+  )
+fi
