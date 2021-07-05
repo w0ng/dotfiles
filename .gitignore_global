@@ -69,3 +69,4 @@ vendor
 *~
 .idea
 tags
+*.xlf
