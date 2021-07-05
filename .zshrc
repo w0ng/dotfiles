@@ -96,3 +96,5 @@ fi
 if [[ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]]; then
   source "$HOME/.nix-profile/etc/profile.d/nix.sh"
 fi
+
+if [ -e /Users/andrew.w/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/andrew.w/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
