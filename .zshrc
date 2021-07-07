@@ -98,3 +98,5 @@ if [[ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]]; then
 fi
 
 if [ -e /Users/andrew.w/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/andrew.w/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+
+alias luamake=/Users/andrew.w/repos/lua-language-server/3rd/luamake/luamake

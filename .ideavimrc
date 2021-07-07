@@ -3,6 +3,7 @@ set hlsearch      " Highlight search pattern results.
 set ignorecase    " Ignore case of normal letters in a pattern.
 set showmode      " Show current mode on the last line.
 set smartcase     " Override ignorecase if pattern contains upper case.
+set visualbell    " use visual bell instead of beeping
 
 " Emulated Vim Plugins
 set surround      " Emulates vim-surround
