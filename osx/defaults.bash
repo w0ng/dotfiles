@@ -37,3 +37,6 @@ defaults write com.apple.mail DisableSendAnimations -bool true
 
 # Show the ~/Library folder
 chflags nohidden ~/Library && xattr -d com.apple.FinderInfo ~/Library
+
+# Use dark mode for menu and dock, but keep everything else light
+defaults write -g NSRequiresAquaSystemAppearance -bool Yes
