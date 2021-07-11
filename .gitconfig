@@ -8,24 +8,24 @@
 [color]
     ui = true
 [color "branch"]
-    current = green bold
-    remote = red bold
+    current = brightgreen bold
+    remote = brightred bold
 [color "diff"]
-    meta = yellow bold
-    commit = green bold
-    frag = magenta bold
-    old = red bold
-    new = green bold
-    whitespace = red reverse
+    meta = brightyellow bold
+    commit = brightgreen bold
+    frag = brightmagenta bold
+    old = brightred bold
+    new = brightgreen bold
+    whitespace = brightred reverse
 [color "diff-highlight"]
-    oldNormal = red bold
-    oldHighlight = red bold 52
-    newNormal = green bold
-    newHighlight = green bold 22
+    oldNormal = brightred bold
+    oldHighlight = brightred bold 52
+    newNormal = brightgreen bold
+    newHighlight = brightgreen bold 22
 [color "status"]
-    added = green bold
-    changed = red bold
-    untracked = red bold
+    added = brightgreen bold
+    changed = brightred bold
+    untracked = brightred bold
 [github]
     user = w0ng
 [diff]

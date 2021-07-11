@@ -109,7 +109,7 @@ table.insert(galaxyline.section.left, {
 table.insert(galaxyline.section.left, {
   FileName = {
     provider = filename_provider,
-    highlight = {colors.magenta,colors.bg,'bold'}
+    highlight = {colors.yellow,colors.bg,'bold'}
   }
 })
 
