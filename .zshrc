@@ -36,6 +36,7 @@ zinit for \
 # Aliases
 #
 
+alias d='cd $(fd --type directory | fzf)'
 alias cdd="cd $HOME/dev"
 alias cdr="cd $HOME/dev/phoenix/renderer"
 alias cdw="cd $HOME/dev/canva/web"

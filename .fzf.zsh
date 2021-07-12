@@ -19,4 +19,7 @@ export FZF_DEFAULT_OPTS='
 '
 
 # Use ripgrep for file searches
-export FZF_DEFAULT_COMMAND='rg --files --hidden --smart-case --color="never"'
+# export FZF_DEFAULT_COMMAND='rg --files --hidden --smart-case --color="never"'
+# Use fd for file searches
+export FZF_DEFAULT_COMMAND='fd --type file --hidden'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
