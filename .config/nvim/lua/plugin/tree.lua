@@ -18,7 +18,7 @@ vim.api.nvim_set_keymap('n', '<Leader>1', ':NvimTreeToggle<CR>', { noremap = tru
 -- toggle tree with current file highlighted
 vim.api.nvim_set_keymap('n', '<Leader>2', ':NvimTreeFindFile<CR>', { noremap = true })
 -- folder name color blue when gruvbox colortheme installed
-vim.cmd([[
+vim.api.nvim_command([[
   highlight! link NvimTreeFolderName Identifier
   highlight! link NvimTreeEmptyFolderName Identifier
   highlight! link NvimTreeOpenedFolderName Identifier

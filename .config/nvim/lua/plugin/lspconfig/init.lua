@@ -1,4 +1,5 @@
 local lspconfig = require('lspconfig')
+local utils = require('plugin/lspconfig/utils')
 
 -- Always show sign column
 vim.opt.signcolumn = 'yes'
@@ -11,10 +12,11 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
 )
 
 -- Replace sign column diagnostic letters with nerdfonts icons
-local signs = { Error = " ", Warning = " ", Hint = " ", Information = " " }
+-- (default { Error = 'E', Warning = 'W', Hint = 'H', Information = 'I' })
+local signs = { Error = ' ', Warning = ' ', Hint = ' ', Information = ' ' }
 for type, icon in pairs(signs) do
-  local hl = "LspDiagnosticsSign" .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+  local hl = 'LspDiagnosticsSign' .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
 end
 
 -- Use an on_attach function to only map the following keys
@@ -22,6 +24,10 @@ end
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+  -- Print first diagnostic message for the current cursor line
+  _G.print_first_cursor_diagnostic = utils.print_first_cursor_diagnostic
+  vim.api.nvim_command('autocmd CursorMoveD <buffer> lua print_first_cursor_diagnostic()')
 
   --Enable completion triggered by <c-x><c-o>
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -34,7 +40,8 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
   buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_set_keymap('n', '<LocalLeader>k', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('n', 'gk', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('i', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   buf_set_keymap('n', '<LocalLeader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
   buf_set_keymap('n', '<LocalLeader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
   buf_set_keymap('n', '<LocalLeader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
@@ -68,7 +75,7 @@ lspconfig.util.default_config = vim.tbl_extend(
   }
 )
 
--- Setup LSP servers
+-- Setup servers
 require('plugin/lspconfig/tsserver')
 require('plugin/lspconfig/cssls')
 require('plugin/lspconfig/html')

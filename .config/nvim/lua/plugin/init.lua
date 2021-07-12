@@ -46,7 +46,7 @@ packer.startup(function()
   })
 
 
-  -- compl: autocompletion plugin for LSP
+  -- compe: autocompletion plugin for LSP
   use({
     'hrsh7th/nvim-compe',
     config = function()

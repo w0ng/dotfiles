@@ -4,37 +4,34 @@ local provider_fileinfo = require('galaxyline.provider_fileinfo')
 local provider_vcs = require('galaxyline.provider_vcs')
 
 -- Gruvbox colorscheme: https://github.com/morhetz/gruvbox
+-- dark0_hard = hsl("#1d2021"),
+-- dark0 = hsl("#282828"),
+-- dark0_soft = hsl("#32302f"),
+-- dark1 = hsl("#3c3836"),
+-- dark2 = hsl("#504945"),
+-- dark3 = hsl("#665c54"),
+-- dark4 = hsl("#7c6f64"),
+-- light0_hard = hsl("#f9f5d7"),
+-- light0 = hsl("#fbf1c7"),
+-- light0_soft = hsl("#f2e5bc"),
+-- light1 = hsl("#ebdbb2"),
+-- light2 = hsl("#d5c4a1"),
+-- light3 = hsl("#bdae93"),
+-- light4 = hsl("#a89984"),
+-- statusline: bg=#4F4945 fg=#ebdbb2
+-- statuslinenc: bg=#3B3735 fg=#A89985
 local colors = {
-  -- dark0_hard = hsl("#1d2021"),
-  -- dark0 = hsl("#282828"),
-  -- dark0_soft = hsl("#32302f"),
-  -- dark1 = hsl("#3c3836"),
-  -- dark2 = hsl("#504945"),
-  -- dark3 = hsl("#665c54"),
-  -- dark4 = hsl("#7c6f64"),
-  -- light0_hard = hsl("#f9f5d7"),
-  -- light0 = hsl("#fbf1c7"),
-  -- light0_soft = hsl("#f2e5bc"),
-  -- light1 = hsl("#ebdbb2"),
-  -- light2 = hsl("#d5c4a1"),
-  -- light3 = hsl("#bdae93"),
-  -- light4 = hsl("#a89984"),
-  -- statusline: bg=#4F4945 fg=#ebdbb2
-  -- statuslinenc: bg=#3B3735 fg=#A89985
   bg = '#1d2021',
-  fg = '#ebdbb2',
-  yellow = '#fabd2f',
-  cyan = '#8ec07c',
-  darkblue = '#458588',
-  green = '#b8bb26',
-  orange = '#fe8019',
-  violet = '#d3869b',
-  magenta = '#b16286',
-  blue = '#83a598';
-  red = '#fb4934';
   bg_inactive = '#32302f',
+  fg = '#ebdbb2',
   fg_inactive = '#a89984',
-
+  red = '#fb4934';
+  green = '#b8bb26',
+  yellow = '#fabd2f',
+  blue = '#83a598';
+  purple = '#d3869b',
+  aqua = '#8ec07c',
+  orange = '#fe8019',
 }
 
 local function filename_provider()
@@ -53,10 +50,6 @@ local function filetype_provider()
   return filetype
 end
 
-local function winwidth_condition()
-  return vim.fn.winwidth(0) / 2 > 40
-end
-
 table.insert(galaxyline.section.left, {
   SpacerLeft = {
     provider = function()
@@ -70,30 +63,24 @@ table.insert(galaxyline.section.left, {
   ViMode = {
     provider = function()
       -- auto change color according the vim mode
-      local mode_color = {
+      local mode_colors = {
         n = colors.red,
-        i = colors.green,
-        v=colors.blue,
+        v = colors.blue,
+        V = colors.blue,
         [''] = colors.blue,
-        V=colors.blue,
-        c = colors.magenta,
-        no = colors.red,
         s = colors.orange,
-        S=colors.orange,
+        S = colors.orange,
         [''] = colors.orange,
-        ic = colors.yellow,
-        R = colors.violet,
-        Rv = colors.violet,
-        cv = colors.red,
-        ce=colors.red,
-        r = colors.cyan,
-        rm = colors.cyan,
-        ['r?'] = colors.cyan,
+        i = colors.green,
+        R = colors.purple,
+        c = colors.purple,
+        r = colors.aqua,
         ['!']  = colors.red,
-        t = colors.red
+        t = colors.red,
       }
-      vim.api.nvim_command('hi GalaxyViMode guifg='..mode_color[vim.fn.mode()])
-      return '  '
+      local mode_char = vim.fn.mode():sub(1, 1)
+      vim.api.nvim_command('hi GalaxyViMode guifg=' .. mode_colors[mode_char])
+      return '  '
     end,
     highlight = {colors.red,colors.bg,'bold'},
   },
@@ -117,7 +104,7 @@ table.insert(galaxyline.section.left, {
   DiagnosticHint = {
     provider = 'DiagnosticHint',
     icon = '  ',
-    highlight = {colors.cyan,colors.bg},
+    highlight = {colors.aqua,colors.bg},
   }
 })
 
@@ -151,7 +138,7 @@ table.insert(galaxyline.section.right, {
     condition = condition.check_git_workspace,
     separator = ' ',
     separator_highlight = {'NONE',colors.bg},
-    highlight = {colors.violet,colors.bg,'bold'},
+    highlight = {colors.purple,colors.bg,'bold'},
   }
 })
 
@@ -164,15 +151,14 @@ table.insert(galaxyline.section.right, {
       end
       return branch .. ' '
     end,
-    condition = condition.check_git_workspace and winwidth_condition,
-    highlight = {colors.violet,colors.bg,'bold'},
+    condition = condition.hide_in_width,
+    highlight = {colors.purple,colors.bg,'bold'},
   }
 })
 
 table.insert(galaxyline.section.right, {
   DiffAdd = {
     provider = 'DiffAdd',
-    condition = winwidth_condition,
     icon = ' ',
     highlight = {colors.green,colors.bg},
   }
@@ -181,7 +167,6 @@ table.insert(galaxyline.section.right, {
 table.insert(galaxyline.section.right, {
   DiffModified = {
     provider = 'DiffModified',
-    condition = winwidth_condition,
     icon = '柳',
     highlight = {colors.orange,colors.bg},
   }
@@ -190,7 +175,6 @@ table.insert(galaxyline.section.right, {
 table.insert(galaxyline.section.right, {
   DiffRemove = {
     provider = 'DiffRemove',
-    condition = winwidth_condition,
     icon = ' ',
     separator_highlight = {'NONE',colors.bg},
     highlight = {colors.red,colors.bg},
