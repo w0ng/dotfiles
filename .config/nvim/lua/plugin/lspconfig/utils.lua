@@ -44,10 +44,9 @@ M.print_first_cursor_diagnostic = function()
     end
 
     -- Truncate msg to one line
-    msg = vim.fn.strtrans(msg)
-    msg = msg:sub(1, vim.fn.winwidth(0) - 15)
+    local truncated_msg = msg:gsub('[\n\r]', ' '):sub(1, vim.fn.winwidth(0) - 15)
 
-    vim.api.nvim_echo({{ msg, 'None' }}, false, {})
+    vim.api.nvim_echo({{ truncated_msg, 'None' }}, false, {})
     prev_diagnostic = { bufnr = bufnr, linenr = linenr, msg_printed = true }
   end, timeout)
 end
