@@ -45,10 +45,20 @@ packer.startup(function()
     end,
   })
 
+  -- vim-vsnip: enable vscode-style snippets
+  -- friendly-snippets: collection of preconfigured snippets
+  use({
+    'hrsh7th/vim-vsnip',
+    requires = 'rafamadriz/friendly-snippets',
+    config = function()
+      require('plugin/vsnip')
+    end,
+  })
 
   -- compe: autocompletion plugin for LSP
   use({
     'hrsh7th/nvim-compe',
+    requires = 'hrsh7th/vim-vsnip',
     config = function()
       require('plugin/compe')
     end,
