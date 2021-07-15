@@ -5,16 +5,34 @@
     ],
     "body": "console.log(${1:$TM_SELECTED_TEXT});"
   },
+  "console.log a variable parsed": {
+    "prefix": [
+      "cj"
+    ],
+    "body": "console.log('${1:$TM_SELECTED_TEXT}:', JSON.parse(JSON.stringify(${1:$TM_SELECTED_TEXT})));"
+  },
   "console.log a variable": {
     "prefix": [
       "cv"
     ],
     "body": "console.log('${1:$TM_SELECTED_TEXT}:', ${1:$TM_SELECTED_TEXT});"
   },
-  "console.log a variable parsed": {
+  "todo": {
     "prefix": [
-      "cj"
+      "td"
     ],
-    "body": "console.log('${1:$TM_SELECTED_TEXT}:', JSON.parse(JSON.stringify(${1:$TM_SELECTED_TEXT})));"
+    "body": "// TODO(andrew.w): "
+  },
+  "ts-ignore": {
+    "prefix": [
+      "tsi"
+    ],
+    "body": "// @ts-ignore"
+  },
+  "ts-nocheck": {
+    "prefix": [
+      "tsn"
+    ],
+    "body": "// @ts-nocheck"
   }
 }

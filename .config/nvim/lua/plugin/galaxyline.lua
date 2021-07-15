@@ -34,12 +34,21 @@ local colors = {
   orange = '#fe8019',
 }
 
+local function spacer_provider()
+  return ' '
+end
+
 local function filename_provider()
-  local filename = provider_fileinfo.get_current_file_name();
-  if filename == '' then
-    return '[No Name]'
+  local filename
+  if vim.fn.winwidth(0) > 150 and vim.bo.filetype ~= 'help' then
+    filename = vim.fn.expand('%:~:.')
+  else
+    filename = vim.fn.expand('%:t')
   end
-  return filename
+  if filename == '' then return '[No Name]' end
+  if vim.bo.readonly then return filename .. '  ' end
+  if vim.bo.modified then return filename .. '   ' end
+  return filename .. ' '
 end
 
 local function filetype_provider()
@@ -52,9 +61,7 @@ end
 
 table.insert(galaxyline.section.left, {
   SpacerLeft = {
-    provider = function()
-      return ' '
-    end,
+    provider = spacer_provider,
     highlight = {colors.fg,colors.bg}
   }
 })
@@ -201,9 +208,7 @@ table.insert(galaxyline.section.right, {
 
 table.insert(galaxyline.section.right, {
   SpacerRight = {
-    provider = function()
-      return ' '
-    end,
+    provider = spacer_provider,
     highlight = {colors.fg,colors.bg}
   }
 })
@@ -212,9 +217,7 @@ galaxyline.short_line_list = { 'NvimTree', 'fzf', 'packer' }
 
 table.insert(galaxyline.section.short_line_left, {
   SpacerShortLeft = {
-    provider = function()
-      return ' '
-    end,
+    provider = spacer_provider,
     highlight = {colors.fg_inactive,colors.bg}
   }
 })
@@ -228,9 +231,7 @@ table.insert(galaxyline.section.short_line_left, {
 
 table.insert(galaxyline.section.short_line_right, {
   SpacerShortRight = {
-    provider = function()
-      return ' '
-    end,
+    provider = spacer_provider,
     highlight = {colors.fg_inactive,colors.bg}
   }
 })
