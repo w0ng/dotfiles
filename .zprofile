@@ -37,3 +37,10 @@ if [[ -d /usr/local/share/android-sdk/platform-tools ]]; then
     $path
   )
 fi
+
+if [[ -d $HOME/bin ]]; then
+  path=(
+    $HOME/bin
+    $path
+  )
+fi

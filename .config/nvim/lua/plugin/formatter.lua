@@ -4,20 +4,34 @@ local filetype = {}
 
 -- brew install dprint
 if vim.fn.executable('dprint') then
-  local dprint_filetypes = {
-    markdown = 'md',
+  local ts_filetypes = {
     javascript = 'js',
     javascriptreact = 'jsx',
-    json = 'json',
     typescript = 'ts',
     typescriptreact = 'tsx'
   }
-  for ft, ext in pairs(dprint_filetypes) do
+  for ft, ext in pairs(ts_filetypes) do
     filetype[ft] = {
       function()
         return {
           exe = 'dprint',
-          args = { 'fmt', '--config', '~/.config/dprint.json', '--stdin', ext },
+          args = { 'fmt', '--config', '~/dprint.json', '--stdin', ext },
+          stdin = true
+        }
+      end
+    }
+  end
+
+  local other_filetypes = {
+    markdown = 'md',
+    json = 'json',
+  }
+  for ft, ext in pairs(other_filetypes) do
+    filetype[ft] = {
+      function()
+        return {
+          exe = 'dprint',
+          args = { 'fmt', '--config', '~/.config/dprint/dprint.json', '--stdin', ext },
           stdin = true
         }
       end
@@ -34,6 +48,7 @@ formatter.setup({
 
 -- auto format <current filetype>
 vim.api.nvim_set_keymap('n', '<Leader>af', ':Format<CR>', { noremap = true })
+vim.api.nvim_set_keymap('v', '<Leader>af', ':Format<CR>', { noremap = true })
 -- auto format css
 vim.api.nvim_set_keymap('n', '<Leader>ac', ':set ft=css<CR>:Format<CR>', { noremap = true })
 -- auto format html
