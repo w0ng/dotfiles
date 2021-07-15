@@ -19,7 +19,6 @@ nvim_set_keymap('v', ':', ';', { noremap = true })
 -- Toggle options ([c]hange [o]ption [<key>])
 nvim_set_keymap('n', 'com', ":set mouse=<C-R>=&mouse == 'a' ? '' : 'a'<CR><CR>", { noremap = true })
 nvim_set_keymap('n', 'con', ':set number!<CR>', { noremap = true })
-nvim_set_keymap('n', 'cop', ':set paste!<CR>', { noremap = true })
 nvim_set_keymap('n', 'cos', ':set spell!<CR>', { noremap = true })
 nvim_set_keymap('n', 'cow', ':set wrap!<CR>', { noremap = true })
 -- Navigate split windows with one key combo instead of two

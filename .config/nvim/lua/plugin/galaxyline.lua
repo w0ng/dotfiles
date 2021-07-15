@@ -71,22 +71,38 @@ table.insert(galaxyline.section.left, {
     provider = function()
       -- auto change color according the vim mode
       local mode_colors = {
-        n = colors.red,
-        v = colors.blue,
-        V = colors.blue,
-        [''] = colors.blue,
-        s = colors.orange,
-        S = colors.orange,
-        [''] = colors.orange,
-        i = colors.green,
-        R = colors.purple,
-        c = colors.purple,
-        r = colors.aqua,
-        ['!']  = colors.red,
-        t = colors.red,
+        -- 'n' NORMAL
+        [110] = colors.red,
+        -- 'v' VISUAL
+        [118] = colors.blue,
+        -- 'V' V-LINE
+        [86] = colors.blue,
+        -- Ctrl+v ctrl+v V-BLOCK
+        [22] = colors.blue,
+        -- 's' SELECT
+        [115] = colors.orange,
+        -- 'S' S-LINE
+        [83] = colors.orange,
+        -- Ctrl+v Ctrl+s S-BLOCK
+        [19] = colors.orange,
+        -- 'i' INSERT
+        [105] = colors.green,
+        -- 'R' REPLACE
+        [82] = colors.purple,
+        -- 'c' COMMAND
+        [99] = colors.purple,
+        -- 'r' Hit enter prompt
+        [114] = colors.aqua,
+        -- '!' SHELL
+        [33]  = colors.red,
+        -- t TERMINAL
+        [116] = colors.red,
       }
-      local mode_char = vim.fn.mode():sub(1, 1)
-      vim.api.nvim_command('hi GalaxyViMode guifg=' .. mode_colors[mode_char])
+      local mode_char = vim.fn.mode():byte()
+      local color = mode_colors[mode_char]
+      if color then
+        vim.api.nvim_command('hi GalaxyViMode guifg=' .. color)
+      end
       return '  '
     end,
     highlight = {colors.red,colors.bg,'bold'},
