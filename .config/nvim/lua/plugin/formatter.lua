@@ -2,8 +2,7 @@ local formatter = require('formatter')
 
 local filetype = {}
 
--- brew install dprint
-if vim.fn.executable('dprint') then
+if vim.fn.executable('custom_dprint') then
   local ts_filetypes = {
     javascript = 'js',
     javascriptreact = 'jsx',
@@ -14,14 +13,17 @@ if vim.fn.executable('dprint') then
     filetype[ft] = {
       function()
         return {
-          exe = 'dprint',
+          exe = 'custom_dprint',
           args = { 'fmt', '--config', '~/dprint.json', '--stdin', ext },
           stdin = true
         }
       end
     }
   end
+end
 
+-- brew install dprint
+if vim.fn.executable('dprint') then
   local other_filetypes = {
     markdown = 'md',
     json = 'json',
