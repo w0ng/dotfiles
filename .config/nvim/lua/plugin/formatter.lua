@@ -42,6 +42,19 @@ if vim.fn.executable('dprint') then
   end
 end
 
+-- luarocks install --server=https://luarocks.org/dev luaformatter
+if vim.fn.executable('lua-format') then
+  filetype.lua = {
+    function()
+      return {
+        exe = 'lua-format',
+        args = { '-c', '~/.config/luaformatter/luaformat.conf', '-i' },
+        stdin = true,
+      }
+    end,
+  }
+end
+
 -- Add filetypes to formatter config
 formatter.setup({
   logging = false,
@@ -52,7 +65,7 @@ formatter.setup({
 vim.api.nvim_set_keymap('n', '<Leader>af', ':Format<CR>', { noremap = true })
 vim.api.nvim_set_keymap('v', '<Leader>af', ':Format<CR>', { noremap = true })
 -- auto format css
-vim.api.nvim_set_keymap('n', '<Leader>ac', ':set ft=css<CR>:Format<CR>', { noremap = true })
+-- vim.api.nvim_set_keymap('n', '<Leader>ac', ':set ft=css<CR>:Format<CR>', { noremap = true })
 -- auto format html
 -- vim.api.nvim_set_keymap('n', '<Leader>ah', ':set ft=css<CR>:Format<CR>', { noremap = true })
 -- auto format js
