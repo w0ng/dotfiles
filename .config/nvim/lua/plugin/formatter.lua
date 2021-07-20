@@ -37,22 +37,8 @@ if vim.fn.executable('dprint') then
           stdin = true,
         }
       end,
-
     }
   end
-end
-
--- luarocks install --server=https://luarocks.org/dev luaformatter
-if vim.fn.executable('lua-format') then
-  filetype.lua = {
-    function()
-      return {
-        exe = 'lua-format',
-        args = { '-c', '~/.config/luaformatter/luaformat.conf', '-i' },
-        stdin = true,
-      }
-    end,
-  }
 end
 
 -- Add filetypes to formatter config

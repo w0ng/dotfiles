@@ -84,14 +84,12 @@ table.insert(galaxyline.section.left, {
       }
       local mode = modes[vim.fn.mode():byte()]
       if mode then
-        vim.api.nvim_command(
-          'hi GalaxyViMode guifg=' .. mode.fg .. ' guibg=' .. mode.bg
-        )
+        vim.api.nvim_command('hi GalaxyViMode guifg=' .. mode.fg .. ' guibg=' .. mode.bg)
       end
       if mode and (mode.char == 'i' or mode.char == 'R') then
-        return '   ';
+        return '   '
       end
-      return '   ';
+      return '   '
     end,
     separator = ' ',
     separator_highlight = { 'NONE', colors.dark0_hard },

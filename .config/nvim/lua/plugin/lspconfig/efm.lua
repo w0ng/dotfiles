@@ -26,6 +26,15 @@ local eslint = {
   },
 }
 
+-- cargo install stylua
+local stylua = {
+  formatCommand = 'stylua --config-path ~/.config/stylua/stylua.toml -',
+  formatStdin = true,
+  rootMarkers = {
+    '.git',
+  },
+}
+
 lspconfig.efm.setup({
   root_dir = lspconfig.util.root_pattern('package.json', '.git') or vim.fn.getcwd(),
   init_options = {
@@ -35,6 +44,7 @@ lspconfig.efm.setup({
     languages = {
       javascript = { eslint },
       javascriptreact = { eslint },
+      lua = { stylua },
       typescript = { eslint },
       typescriptreact = { eslint },
     },
@@ -42,6 +52,7 @@ lspconfig.efm.setup({
   filetypes = {
     'javascript',
     'javascriptreact',
+    'lua',
     'typescript',
     'typescriptreact',
   },

@@ -125,7 +125,7 @@ packer.startup(function()
   -- vim-repeat: allows repeatable surround edits using '.'
   use({
     'tpope/vim-surround',
-    requires = 'tpope/vim-repeat'
+    requires = 'tpope/vim-repeat',
   })
 
   -- vim-easy-align: text alignment by character
