@@ -2,58 +2,43 @@
 
 servers = (
   {
-    address = "client.oz.org";
-    #address = "irc.oz.org";
-    #address = "wollongong.oz.org"; # nsw
-    #address = "rockhampton.oz.org"; # qld
-    #address = "perth.oz.org"; # wa
-    #address = "waix.oz.org"; # wa
+    address = "irc.ozorg.net";
     nick = "w0ng_";
     chatnet = "ozorg";
     port = "6667";
     use_ssl = "no";
     ssl_verify = "no";
+    #use_ssl = "yes";
+    #ssl_verify = "yes";
     autoconnect = "yes";
   },
   {
-    address = "chat.freenode.net";
-    #address = "irc.freenode.net";
-    #address = "roddenberry.freenode.net"; # qld
-    #address = "banks.freenode.net"; # wa
-    #address = "bradbury.freenode.net"; # wa
-    chatnet = "freenode";
+    #address = "irc.libera.chat";
+    address = "irc.au.libera.chat";
+    chatnet = "libera";
     port = "6697";
-    use_ssl = "yes";
-    ssl_verify = "yes";
+    use_tls = "yes";
+    tls_cert = "~/.irssi/certs/libera.pem";
+    tls_verify = "no";
     autoconnect = "yes";
   }
 );
 
 
 chatnets = {
-  freenode = {
-    type = "IRC";
-    sasl_mechanism = "PLAIN";
-    sasl_username = "w0ng";
-    sasl_password = "XXXXXXXXXXXX";
-  };
-  ozorg = { type = "IRC"; };
+  ozorg = { type = "IRC"; autosendcmd = "/msg Zauth login w0ng XXXXXXXXXXXX"; };
+  libera = { type = "IRC"; };
 };
 
 channels = (
-  {
-    name = "#overclockers";
-    chatnet = "ozorg";
-    password = "XXXXXXXXXXXX";
-    autojoin = "yes";
-  },
-  { name = "#bash"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#git"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "##javascript"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#Node.js"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "##programming"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#reactjs"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#vim"; chatnet = "freenode"; autojoin = "yes"; }
+  { name = "#overclockers"; chatnet = "ozorg"; autojoin = "yes"; },
+  { name = "#bitcoin"; chatnet = "libera"; autojoin = "yes"; },
+  { name = "#java"; chatnet = "libera"; autojoin = "yes"; },
+  { name = "#javascript"; chatnet = "libera"; autojoin = "yes"; },
+  { name = "#lua"; chatnet = "libera"; autojoin = "yes"; },
+  { name = "#neovim"; chatnet = "libera"; autojoin = "yes"; },
+  { name = "#node.js"; chatnet = "libera"; autojoin = "yes"; },
+  { name = "##rust"; chatnet = "libera"; autojoin = "yes"; }
 );
 
 aliases = {
@@ -187,86 +172,14 @@ hilights = (
 logs = { };
 windows = {
   1 = { immortal = "yes"; name = "(status)"; level = "ALL"; };
-  2 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#overclockers";
-        tag = "ozorg";
-      }
-    );
-  };
-  3 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#bash";
-        tag = "freenode";
-      }
-    );
-  };
-  4 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#git";
-        tag = "freenode";
-      }
-    );
-  };
-  5 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "##javascript";
-        tag = "freenode";
-      }
-    );
-  };
-  6 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#Node.js";
-        tag = "freenode";
-      }
-    );
-  };
-  7 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "##programming";
-        tag = "freenode";
-      }
-    );
-  };
-  8 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#reactjs";
-        tag = "freenode";
-      }
-    );
-  };
-  9 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#vim";
-        tag = "freenode";
-      }
-    );
-  };
+  2 = { items = ( { type = "CHANNEL"; chat_type = "IRC"; name = "#overclockers"; tag = "ozorg"; }); };
+  3 = { items = ( { type = "CHANNEL"; chat_type = "IRC"; name = "#bitcoin"; tag = "libera"; }); };
+  4 = { items = ( { type = "CHANNEL"; chat_type = "IRC"; name = "#java"; tag = "libera"; }); };
+  5 = { items = ( { type = "CHANNEL"; chat_type = "IRC"; name = "#javascript"; tag = "libera"; }); };
+  6 = { items = ( { type = "CHANNEL"; chat_type = "IRC"; name = "#lua"; tag = "libera"; }); };
+  7 = { items = ( { type = "CHANNEL"; chat_type = "IRC"; name = "#neovim"; tag = "libera"; }); };
+  8 = { items = ( { type = "CHANNEL"; chat_type = "IRC"; name = "#node.js"; tag = "libera"; }); };
+  9 = { items = ( { type = "CHANNEL"; chat_type = "IRC"; name = "##rust"; tag = "libera"; }); };
   99 = { name = "hilight"; sticky = "yes"; };
 };
 mainwindows = {
