@@ -6,14 +6,20 @@ vim.opt.signcolumn = 'yes'
 
 -- Disable inline buffer error messages
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = false
+  vim.lsp.diagnostic.on_publish_diagnostics,
+  {
+    virtual_text = false,
   }
 )
 
 -- Replace sign column diagnostic letters with nerdfonts icons
 -- (default { Error = 'E', Warning = 'W', Hint = 'H', Information = 'I' })
-local signs = { Error = ' ', Warning = ' ', Hint = ' ', Information = ' ' }
+local signs = {
+  Error = ' ',
+  Warning = ' ',
+  Hint = ' ',
+  Information = ' ',
+}
 for type, icon in pairs(signs) do
   local hl = 'LspDiagnosticsSign' .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
@@ -22,18 +28,24 @@ end
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+  local function buf_set_keymap(...)
+    vim.api.nvim_buf_set_keymap(bufnr, ...)
+  end
+  local function buf_set_option(...)
+    vim.api.nvim_buf_set_option(bufnr, ...)
+  end
 
   -- Print first diagnostic message for the current cursor line
   _G.print_first_cursor_diagnostic = utils.print_first_cursor_diagnostic
-  vim.api.nvim_command('autocmd CursorMoveD <buffer> lua print_first_cursor_diagnostic()')
+  vim.api.nvim_command(
+    'autocmd CursorMoveD <buffer> lua print_first_cursor_diagnostic()'
+  )
 
-  --Enable completion triggered by <c-x><c-o>
+  -- Enable completion triggered by <c-x><c-o>
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   -- Mappings.
-  local opts = { noremap=true, silent=true }
+  local opts = { noremap = true, silent = true }
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
@@ -58,7 +70,7 @@ local on_attach = function(client, bufnr)
   -- Format file in buffer on save
   if client.resolved_capabilities.document_formatting then
     vim.api.nvim_command(
-    'autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()'
+      'autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()'
     )
   end
 end

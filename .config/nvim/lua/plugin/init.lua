@@ -72,7 +72,7 @@ packer.startup(function()
       config = function()
         require('plugin/fzf')
       end,
-    }
+    },
   })
 
   -- nvim-tree.lua: file explorer sidebar

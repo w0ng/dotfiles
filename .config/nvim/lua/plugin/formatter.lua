@@ -7,7 +7,7 @@ if vim.fn.executable('custom_dprint') then
     javascript = 'js',
     javascriptreact = 'jsx',
     typescript = 'ts',
-    typescriptreact = 'tsx'
+    typescriptreact = 'tsx',
   }
   for ft, ext in pairs(ts_filetypes) do
     filetype[ft] = {
@@ -15,9 +15,9 @@ if vim.fn.executable('custom_dprint') then
         return {
           exe = 'custom_dprint',
           args = { 'fmt', '--config', '~/dprint.json', '--stdin', ext },
-          stdin = true
+          stdin = true,
         }
-      end
+      end,
     }
   end
 end
@@ -34,9 +34,9 @@ if vim.fn.executable('dprint') then
         return {
           exe = 'dprint',
           args = { 'fmt', '--config', '~/.config/dprint/dprint.json', '--stdin', ext },
-          stdin = true
+          stdin = true,
         }
-      end
+      end,
 
     }
   end

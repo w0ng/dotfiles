@@ -8,7 +8,6 @@ Default Values:
   cmd = { "efm-langserver" }
   root_dir = util.root_pattern(".git")(fname) or util.path.dirname(fname)
 --]]
-
 local lspconfig = require('lspconfig')
 
 -- npm install -g eslint_d
@@ -16,7 +15,7 @@ local eslint = {
   lintCommand = 'eslint_d -f unix --stdin --stdin-filename ${INPUT}',
   prefix = 'eslint',
   lintStdin = true,
-  lintFormats = {'%f:%l:%c: %m'},
+  lintFormats = { '%f:%l:%c: %m' },
   lintIgnoreExitCode = true,
   formatCommand = 'eslint_d --fix-to-stdout --stdin --stdin-filename=${INPUT}',
   formatStdin = true,

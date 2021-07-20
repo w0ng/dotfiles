@@ -1,5 +1,4 @@
 -- `:RG` - delegate search to ripgrep for faster grepping code
-
 -- `--colors  "match:fg:250,189,47"` -> yellow matching text
 vim.cmd([[
 function! RipgrepFzf(query, fullscreen)
@@ -15,7 +14,7 @@ command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 
 -- Size and position of fzf window
 -- Hide preview window by default, ctrl+/ to toggle.
-vim.g.fzf_preview_window = {'right:50%:hidden', 'ctrl-/' }
+vim.g.fzf_preview_window = { 'right:50%:hidden', 'ctrl-/' }
 -- Navigate current buffers
 vim.api.nvim_set_keymap('n', '<Leader>b', ':Buffers<CR>', { noremap = true })
 -- Navigate by text search

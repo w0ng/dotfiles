@@ -12,5 +12,4 @@ Default Values:
   }
   root_dir = root_pattern(".git", vim.fn.getcwd())
 --]]
-
 require('lspconfig').jsonls.setup({})

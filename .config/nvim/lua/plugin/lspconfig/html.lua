@@ -19,5 +19,4 @@ Default Values:
   end,
   settings = {}
 --]]
-
 require('lspconfig').html.setup({})

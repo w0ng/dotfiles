@@ -38,7 +38,11 @@ M.print_first_cursor_diagnostic = function()
       if prev_diagnostic.msg_printed then
         -- Clear previously printed message
         vim.api.nvim_echo({{ '', 'None' }}, false, {})
-        prev_diagnostic = { bufnr = bufnr, linenr = linenr, msg_printed = false }
+        prev_diagnostic = {
+          bufnr = bufnr,
+          linenr = linenr,
+          msg_printed = false,
+        }
       end
       return
     end

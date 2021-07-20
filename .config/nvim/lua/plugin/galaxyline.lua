@@ -1,7 +1,6 @@
 local galaxyline = require('galaxyline')
 local condition = require('galaxyline.condition')
 local provider_fileinfo = require('galaxyline.provider_fileinfo')
-local provider_vcs = require('galaxyline.provider_vcs')
 
 -- https://github.com/npxbr/gruvbox.nvim/blob/main/lua/gruvbox/colors.lua
 local colors = {
@@ -45,9 +44,15 @@ local function filename_provider()
   else
     filename = vim.fn.expand('%:t')
   end
-  if filename == '' then return '[No Name]' end
-  if vim.bo.readonly then return filename .. '  ' end
-  if vim.bo.modified then return filename .. '   ' end
+  if filename == '' then
+    return '[No Name]'
+  end
+  if vim.bo.readonly then
+    return filename .. '  '
+  end
+  if vim.bo.modified then
+    return filename .. '   '
+  end
   return filename .. ' '
 end
 
@@ -71,7 +76,7 @@ table.insert(galaxyline.section.left, {
         [83] = { char = 'S', fg = system_colors.orange, bg = colors.orange },
         [19] = { char = 'CTRL-S', fg = system_colors.orange, bg = colors.orange },
         [105] = { char = 'i', fg = system_colors.green, bg = colors.green },
-        [82] = { char = 'R', fg = system_colors.blue, bg = colors.blue  },
+        [82] = { char = 'R', fg = system_colors.blue, bg = colors.blue },
         -- [99] = { char = 'c', fg = system_colors.purple, bg = colors.purple },
         -- [114] = { char = 'r', fg = system_colors.purple, bg = colors.purple },
         -- [33]  = { char = '!', fg = system_colors.red, bg = colors.red },
@@ -90,64 +95,66 @@ table.insert(galaxyline.section.left, {
     end,
     separator = ' ',
     separator_highlight = { 'NONE', colors.dark0_hard },
-    highlight = {colors.red,colors.dark0_hard,'bold'},
+    highlight = { colors.red, colors.dark0_hard, 'bold' },
   },
 })
 
 table.insert(galaxyline.section.left, {
   FileIcon = {
-   provider = 'FileIcon',
-    highlight = { provider_fileinfo.get_file_icon_color,colors.dark0_hard },
+    provider = 'FileIcon',
+    highlight = { provider_fileinfo.get_file_icon_color, colors.dark0_hard },
   },
 })
 
 table.insert(galaxyline.section.left, {
   FileName = {
     provider = filename_provider,
-    highlight = {colors.yellow,colors.dark0_hard,'bold'}
-  }
+    highlight = { colors.yellow, colors.dark0_hard, 'bold' },
+  },
 })
 
 table.insert(galaxyline.section.left, {
   DiagnosticHint = {
     provider = 'DiagnosticHint',
     icon = '  ',
-    highlight = {colors.aqua,colors.dark0_hard},
-  }
+    highlight = { colors.aqua, colors.dark0_hard },
+  },
 })
 
 table.insert(galaxyline.section.left, {
   DiagnosticInfo = {
     provider = 'DiagnosticInfo',
     icon = '  ',
-    highlight = {colors.blue,colors.dark0_hard},
-  }
+    highlight = { colors.blue, colors.dark0_hard },
+  },
 })
 
 table.insert(galaxyline.section.left, {
   DiagnosticWarn = {
     provider = 'DiagnosticWarn',
     icon = '  ',
-    highlight = {colors.yellow,colors.dark0_hard},
-  }
+    highlight = { colors.yellow, colors.dark0_hard },
+  },
 })
 
 table.insert(galaxyline.section.left, {
   DiagnosticError = {
     provider = 'DiagnosticError',
     icon = '  ',
-    highlight = {colors.red,colors.dark0_hard}
-  }
+    highlight = { colors.red, colors.dark0_hard },
+  },
 })
 
 table.insert(galaxyline.section.right, {
   GitIcon = {
-    provider = function() return '  ' end,
+    provider = function()
+      return '  '
+    end,
     condition = condition.check_git_workspace,
     separator = ' ',
-    separator_highlight = {'NONE',colors.dark0_hard},
-    highlight = {colors.purple,colors.dark0_hard,'bold'},
-  }
+    separator_highlight = { 'NONE', colors.dark0_hard },
+    highlight = { colors.purple, colors.dark0_hard, 'bold' },
+  },
 })
 
 table.insert(galaxyline.section.right, {
@@ -161,50 +168,50 @@ table.insert(galaxyline.section.right, {
       end
     end,
     condition = condition.hide_in_width,
-    highlight = {colors.purple,colors.dark0_hard,'bold'},
-  }
+    highlight = { colors.purple, colors.dark0_hard, 'bold' },
+  },
 })
 
 table.insert(galaxyline.section.right, {
   DiffAdd = {
     provider = 'DiffAdd',
     icon = ' ',
-    highlight = {colors.green,colors.dark0_hard},
-  }
+    highlight = { colors.green, colors.dark0_hard },
+  },
 })
 
 table.insert(galaxyline.section.right, {
   DiffModified = {
     provider = 'DiffModified',
     icon = '柳',
-    highlight = {colors.orange,colors.dark0_hard},
-  }
+    highlight = { colors.orange, colors.dark0_hard },
+  },
 })
 
 table.insert(galaxyline.section.right, {
   DiffRemove = {
     provider = 'DiffRemove',
     icon = ' ',
-    highlight = {colors.red,colors.dark0_hard},
-  }
+    highlight = { colors.red, colors.dark0_hard },
+  },
 })
 
 table.insert(galaxyline.section.right, {
   FileType = {
     provider = filetype_provider,
     separator = ' ',
-    separator_highlight = {'NONE',colors.dark0_hard},
-    highlight = {colors.blue,colors.dark0_hard,'bold'}
-  }
+    separator_highlight = { 'NONE', colors.dark0_hard },
+    highlight = { colors.blue, colors.dark0_hard, 'bold' },
+  },
 })
 
 table.insert(galaxyline.section.right, {
   LineColumn = {
     provider = 'LineColumn',
     separator = ' ',
-    separator_highlight = {'NONE',colors.dark0_hard},
-    highlight = {colors.blue,colors.dark0_hard,'bold'}
-  }
+    separator_highlight = { 'NONE', colors.dark0_hard },
+    highlight = { colors.blue, colors.dark0_hard, 'bold' },
+  },
 })
 
 galaxyline.short_line_list = { 'NvimTree', 'fzf', 'packer' }
@@ -214,38 +221,38 @@ table.insert(galaxyline.section.short_line_left, {
     provider = function()
       return ' '
     end,
-    highlight = {colors.light4,colors.dark0_hard}
-  }
+    highlight = { colors.light4, colors.dark0_hard },
+  },
 })
 
 table.insert(galaxyline.section.short_line_left, {
   FileNameInactive = {
     provider = filename_provider,
-    highlight = {colors.light4,colors.dark0_hard}
-  }
+    highlight = { colors.light4, colors.dark0_hard },
+  },
 })
 
 table.insert(galaxyline.section.short_line_right, {
   BufferIconInactive = {
-    provider= 'BufferIcon',
-    highlight = {colors.light4,colors.dark0_hard}
-  }
+    provider = 'BufferIcon',
+    highlight = { colors.light4, colors.dark0_hard },
+  },
 })
 
 table.insert(galaxyline.section.short_line_right, {
   FileTypeInactive = {
     provider = filetype_provider,
     separator = ' ',
-    separator_highlight = {'NONE',colors.dark0_hard},
-    highlight = {colors.light4,colors.dark0_hard}
-  }
+    separator_highlight = { 'NONE', colors.dark0_hard },
+    highlight = { colors.light4, colors.dark0_hard },
+  },
 })
 
 table.insert(galaxyline.section.short_line_right, {
   LineColumnInactive = {
     provider = 'LineColumn',
     separator = ' ',
-    separator_highlight = {'NONE',colors.dark0_hard},
-    highlight = {colors.light4,colors.dark0_hard}
-  }
+    separator_highlight = { 'NONE', colors.dark0_hard },
+    highlight = { colors.light4, colors.dark0_hard },
+  },
 })

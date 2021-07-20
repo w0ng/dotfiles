@@ -10,13 +10,12 @@ Default Values:
   root_dir =  root_pattern('.stylelintrc', 'package.json') 
   settings = {}
 --]]
-
 require('lspconfig').stylelint_lsp.setup({
   settings = {
     stylelintplus = {
       autoFixOnFormat = true,
-      autoFixOnSave = true
-    }
+      autoFixOnSave = true,
+    },
   },
   filetypes = {
     'css',
