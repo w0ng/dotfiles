@@ -36,6 +36,7 @@ zinit for \
 # Aliases
 #
 
+alias icat="kitty +kitten icat"
 alias d='cd $(fd --type directory | fzf)'
 alias cdd="cd $HOME/dev"
 alias cdr="cd $HOME/dev/phoenix/renderer"
@@ -45,7 +46,8 @@ alias dc="docker-compose"
 alias gcM='git commit --amend --message'
 alias gist="gist -p"
 alias ls='/usr/local/bin/gls --group-directories-first --color=auto --classify --human-readable'
-alias ssh='TERM=xterm-256color ssh'
+#alias ssh='TERM=xterm-256color ssh'
+alias ssh='kitty +kitten ssh'
 alias tm="tmux attach-session -d -t 0"
 alias vim="nvim"
 alias vimdiff="nvim -d"
