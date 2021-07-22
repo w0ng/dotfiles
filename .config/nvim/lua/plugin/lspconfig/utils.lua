@@ -37,7 +37,7 @@ M.print_first_cursor_diagnostic = function()
     if not msg then
       if prev_diagnostic.msg_printed then
         -- Clear previously printed message
-        vim.api.nvim_echo({{ '', 'None' }}, false, {})
+        vim.api.nvim_echo({ { '', 'None' } }, false, {})
         prev_diagnostic = {
           bufnr = bufnr,
           linenr = linenr,
@@ -51,9 +51,9 @@ M.print_first_cursor_diagnostic = function()
     local width = vim.api.nvim_get_option('columns') - 15
     local truncated_msg = msg:gsub('[\n\r]', ' '):sub(1, width)
 
-    vim.api.nvim_echo({{ truncated_msg, 'None' }}, false, {})
+    vim.api.nvim_echo({ { truncated_msg, 'None' } }, false, {})
     prev_diagnostic = { bufnr = bufnr, linenr = linenr, msg_printed = true }
   end, timeout)
 end
 
-return M;
+return M

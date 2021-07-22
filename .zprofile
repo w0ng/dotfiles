@@ -24,23 +24,16 @@ fi
 typeset -gU cdpath fpath mailpath path
 
 # Python
-if [[ -d $HOME/Library/Python/3.7/bin ]]; then
-  path=(
-    $HOME/Library/Python/3.7/bin
-    $path
-  )
-fi
-
-if [[ -d /usr/local/share/android-sdk/platform-tools ]]; then
-  path=(
-    /usr/local/share/android-sdk/platform-tools
-    $path
-  )
-fi
-
-if [[ -d $HOME/bin ]]; then
-  path=(
-    $HOME/bin
-    $path
-  )
-fi
+for dir (
+  "/usr/local/share/android-sdk/platform-tools"
+  "$HOME/Library/Python/3.7/bin"
+  "$HOME/.cargo/bin"
+  "$HOME/bin"
+); do
+  if [[ -d "$dir" ]]; then
+    path=(
+      "$dir"
+      $path
+    )
+  fi
+done
