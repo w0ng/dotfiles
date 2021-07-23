@@ -1,49 +1,54 @@
-local nvim_set_keymap = vim.api.nvim_set_keymap
-
 -- Define <Leader> key (default nil)
 vim.g.mapleader = ','
 -- Set <LocalLeader> key (default nil)
 vim.g.maplocalleader = ','
 
+---@param mode string
+---@param lhs string
+---@param rhs string
+local function noremap(mode, lhs, rhs)
+  vim.api.nvim_set_keymap(mode, lhs, rhs, { noremap = true })
+end
+
 -- Map 'jj' to Escape key
-nvim_set_keymap('i', 'jj', '<Esc>', { noremap = true })
+noremap('i', 'jj', '<Esc>')
 -- Write file as superuser
-nvim_set_keymap('c', 'w!!', 'w !sudo tee > /dev/null %', { noremap = true })
+noremap('c', 'w!!', 'w !sudo tee > /dev/null %')
 -- Stop highlighting current 'hlsearch' results until next search
-nvim_set_keymap('n', '<Space>', ':nohlsearch<CR>', { noremap = true })
+noremap('n', '<Space>', ':nohlsearch<CR>')
 -- Switch ';' with ':'
-nvim_set_keymap('n', ';', ':', { noremap = true })
-nvim_set_keymap('n', ':', ';', { noremap = true })
-nvim_set_keymap('v', ';', ':', { noremap = true })
-nvim_set_keymap('v', ':', ';', { noremap = true })
+noremap('n', ';', ':')
+noremap('n', ':', ';')
+noremap('v', ';', ':')
+noremap('v', ':', ';')
 -- Toggle options ([c]hange [o]ption [<key>])
-nvim_set_keymap('n', 'com', ':set mouse=<C-R>=&mouse == "a" ? "" : "a"<CR><CR>', { noremap = true })
-nvim_set_keymap('n', 'con', ':set number!<CR>', { noremap = true })
-nvim_set_keymap('n', 'cos', ':set spell!<CR>', { noremap = true })
-nvim_set_keymap('n', 'cow', ':set wrap!<CR>', { noremap = true })
+noremap('n', 'com', ':set mouse=<C-R>=&mouse == "a" ? "" : "a"<CR><CR>')
+noremap('n', 'con', ':set number!<CR>')
+noremap('n', 'cos', ':set spell!<CR>')
+noremap('n', 'cow', ':set wrap!<CR>')
 -- Navigate split windows with one key combo instead of two
-nvim_set_keymap('n', '<C-h>', '<C-w>h', { noremap = true })
-nvim_set_keymap('n', '<C-j>', '<C-w>j', { noremap = true })
-nvim_set_keymap('n', '<C-k>', '<C-w>k', { noremap = true })
-nvim_set_keymap('n', '<C-l>', '<C-w>l', { noremap = true })
+noremap('n', '<C-h>', '<C-w>h')
+noremap('n', '<C-j>', '<C-w>j')
+noremap('n', '<C-k>', '<C-w>k')
+noremap('n', '<C-l>', '<C-w>l')
 -- Navigate next and previous commands starting with current input
-nvim_set_keymap('c', '<C-n>', '<Down>', { noremap = true })
-nvim_set_keymap('c', '<C-p>', '<Up>', { noremap = true })
+noremap('c', '<C-n>', '<Down>')
+noremap('c', '<C-p>', '<Up>')
 -- Navigate next and previous buffers
-nvim_set_keymap('n', ']b', ':bnext<CR>', { noremap = true })
-nvim_set_keymap('n', '[b', ':bprevious<CR>', { noremap = true })
-nvim_set_keymap('n', '<Leader><Tab>', ':b#<CR>', { noremap = true })
+noremap('n', ']b', ':bnext<CR>')
+noremap('n', '[b', ':bprevious<CR>')
+noremap('n', '<Leader><Tab>', ':b#<CR>')
 -- Navigate next and previous location lists
-nvim_set_keymap('n', ']l', ':lnext<CR>', { noremap = true })
-nvim_set_keymap('n', '[l', ':lprevious<CR>', { noremap = true })
+noremap('n', ']l', ':lnext<CR>')
+noremap('n', '[l', ':lprevious<CR>')
 -- Close the quickfix or location list window
-nvim_set_keymap('n', '<Leader><Leader>', ':cclose|lclose<CR>', { noremap = true })
+noremap('n', '<Leader><Leader>', ':cclose|lclose<CR>')
 -- Clipboard: cut/copy/paste
-nvim_set_keymap('v', '<Leader>x', '"*x', { noremap = true })
-nvim_set_keymap('v', '<Leader>c', '"*y', { noremap = true })
-nvim_set_keymap('n', '<Leader>v', '"*p', { noremap = true })
-nvim_set_keymap('v', '<Leader>v', '"*p', { noremap = true })
-nvim_set_keymap('n', '<Leader><S-v>', '"*P', { noremap = true })
-nvim_set_keymap('v', '<Leader><S-v>', '"*P', { noremap = true })
+noremap('v', '<Leader>x', '"*x')
+noremap('v', '<Leader>c', '"*y')
+noremap('n', '<Leader>v', '"*p')
+noremap('v', '<Leader>v', '"*p')
+noremap('n', '<Leader><S-v>', '"*P')
+noremap('v', '<Leader><S-v>', '"*P')
 -- Copy current file path to clipboard
-nvim_set_keymap('n', '<Leader>c', ':let @*=expand("%:p")<CR>', { noremap = true })
+noremap('n', '<Leader>c', ':let @*=expand("%:p")<CR>')

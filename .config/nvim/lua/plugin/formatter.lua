@@ -1,15 +1,13 @@
 local formatter = require('formatter')
-
 local filetype = {}
 
-if vim.fn.executable('custom_dprint') then
-  local ts_filetypes = {
+if vim.fn.executable('custom_dprint') == 1 then
+  for ft, ext in pairs({
     javascript = 'js',
     javascriptreact = 'jsx',
     typescript = 'ts',
     typescriptreact = 'tsx',
-  }
-  for ft, ext in pairs(ts_filetypes) do
+  }) do
     filetype[ft] = {
       function()
         return {
@@ -23,12 +21,11 @@ if vim.fn.executable('custom_dprint') then
 end
 
 -- brew install dprint
-if vim.fn.executable('dprint') then
-  local other_filetypes = {
+if vim.fn.executable('dprint') == 1 then
+  for ft, ext in pairs({
     markdown = 'md',
     json = 'json',
-  }
-  for ft, ext in pairs(other_filetypes) do
+  }) do
     filetype[ft] = {
       function()
         return {
@@ -47,16 +44,13 @@ formatter.setup({
   filetype = filetype,
 })
 
+local map = vim.api.nvim_set_keymap
 -- auto format <current filetype>
-vim.api.nvim_set_keymap('n', '<Leader>af', ':Format<CR>', { noremap = true })
-vim.api.nvim_set_keymap('v', '<Leader>af', ':Format<CR>', { noremap = true })
--- auto format css
--- vim.api.nvim_set_keymap('n', '<Leader>ac', ':set ft=css<CR>:Format<CR>', { noremap = true })
--- auto format html
--- vim.api.nvim_set_keymap('n', '<Leader>ah', ':set ft=css<CR>:Format<CR>', { noremap = true })
+map('n', '<Leader>af', ':Format<CR>', { noremap = true })
+map('v', '<Leader>af', ':Format<CR>', { noremap = true })
 -- auto format js
-vim.api.nvim_set_keymap('n', '<Leader>aj', ':set ft=javascript<CR>:Format<CR>', { noremap = true })
+map('n', '<Leader>aj', ':set ft=javascript<CR>:Format<CR>', { noremap = true })
 -- auto format markdown
-vim.api.nvim_set_keymap('n', '<Leader>am', ':set ft=markdown<CR>:Format<CR>', { noremap = true })
+map('n', '<Leader>am', ':set ft=markdown<CR>:Format<CR>', { noremap = true })
 -- auto format json
-vim.api.nvim_set_keymap('n', '<Leader>ao', ':set ft=json<CR>:Format<CR>', { noremap = true })
+map('n', '<Leader>ao', ':set ft=json<CR>:Format<CR>', { noremap = true })

@@ -1,5 +1,3 @@
-require('general')
-require('indent')
-require('search')
+require('option')
 require('keymap')
 require('plugin')

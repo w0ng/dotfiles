@@ -1,7 +1,7 @@
--- (Note: vsnip <Tab>/<S-Tab> completion integrated in plugin/compe.lua)
-
-local map = vim.api.nvim_set_keymap
 vim.g.vsnip_snippet_dir = '~/.config/nvim/snippets'
+
+-- (Note: vsnip <Tab>/<S-Tab> completion integrated in plugin/compe.lua)
+local map = vim.api.nvim_set_keymap
 -- Expand
 map('i', '<C-j>', 'vsnip#expandable() ? "<Plug>(vsnip-expand)" : ""', { expr = true })
 map('s', '<C-j>', 'vsnip#expandable() ? "<Plug>(vsnip-expand)" : ""', { expr = true })

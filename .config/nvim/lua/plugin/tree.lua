@@ -13,10 +13,13 @@ vim.g.nvim_tree_show_icons = {
 }
 -- increase sidebar width (default: 30)
 vim.g.nvim_tree_width = 51
+
+local map = vim.api.nvim_set_keymap
 -- toggle tree
-vim.api.nvim_set_keymap('n', '<Leader>1', ':NvimTreeToggle<CR>', { noremap = true })
+map('n', '<Leader>1', ':NvimTreeToggle<CR>', { noremap = true })
 -- toggle tree with current file highlighted
-vim.api.nvim_set_keymap('n', '<Leader>2', ':NvimTreeFindFile<CR>', { noremap = true })
+map('n', '<Leader>2', ':NvimTreeFindFile<CR>', { noremap = true })
+
 -- folder name color blue when gruvbox colortheme installed
 vim.api.nvim_command([[
   highlight! link NvimTreeFolderName Identifier

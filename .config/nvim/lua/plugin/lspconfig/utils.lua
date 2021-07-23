@@ -12,6 +12,9 @@ local prev_diagnostic = {
   msg_printed = false,
 }
 
+---@param bufnr number
+---@param linenr number
+---@return boolean
 local function is_same_diagnostic(bufnr, linenr)
   return bufnr == prev_diagnostic.bufnr
     and linenr == prev_diagnostic.linenr

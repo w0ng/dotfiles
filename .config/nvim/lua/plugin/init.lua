@@ -1,5 +1,4 @@
 local packer = require('packer')
-
 local use = packer.use
 
 packer.startup(function()
@@ -128,13 +127,5 @@ packer.startup(function()
   use({
     'tpope/vim-surround',
     requires = 'tpope/vim-repeat',
-  })
-
-  -- vim-easy-align: text alignment by character
-  use({
-    'junegunn/vim-easy-align',
-    config = function()
-      require('plugin/easy_align')
-    end,
   })
 end)

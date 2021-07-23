@@ -37,6 +37,7 @@ local system_colors = {
   orange = 'DarkRed',
 }
 
+---@return string
 local function filename_provider()
   local filename
   if vim.fn.winwidth(0) > 150 and vim.bo.filetype ~= 'help' then
@@ -56,6 +57,7 @@ local function filename_provider()
   return filename .. ' '
 end
 
+---@return string
 local function filetype_provider()
   local filetype = vim.bo.filetype
   if filetype == '' then
@@ -66,6 +68,7 @@ end
 
 table.insert(galaxyline.section.left, {
   ViMode = {
+    ---@return string
     provider = function()
       local modes = {
         [110] = { char = 'n', fg = colors.dark0_hard, bg = colors.dark4 },
@@ -145,6 +148,7 @@ table.insert(galaxyline.section.left, {
 
 table.insert(galaxyline.section.right, {
   GitIcon = {
+    ---@return string
     provider = function()
       return '  '
     end,
@@ -157,13 +161,15 @@ table.insert(galaxyline.section.right, {
 
 table.insert(galaxyline.section.right, {
   GitBranch = {
-    -- Default GitBranch provider is mega slow during rebases
+    -- galaxyline's GitBranch provider is mega slow during rebases
     -- Use git signs instead
+    ---@return string
     provider = function()
       local branch = vim.b.gitsigns_head
       if branch and branch ~= '' then
         return branch .. ' '
       end
+      return ''
     end,
     condition = condition.hide_in_width,
     highlight = { colors.purple, colors.dark0_hard, 'bold' },
@@ -216,6 +222,7 @@ galaxyline.short_line_list = { 'NvimTree', 'fzf', 'packer' }
 
 table.insert(galaxyline.section.short_line_left, {
   SpacerInactiveLeft = {
+    ---@return string
     provider = function()
       return ' '
     end,
