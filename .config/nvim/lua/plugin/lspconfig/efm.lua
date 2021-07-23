@@ -1,13 +1,4 @@
---[[
-Install:
-  brew install efm-langserver
-
-Commands:
-
-Default Values:
-  cmd = { "efm-langserver" }
-  root_dir = util.root_pattern(".git")(fname) or util.path.dirname(fname)
---]]
+-- brew install efm-langserver
 local lspconfig = require('lspconfig')
 
 -- npm install -g eslint_d

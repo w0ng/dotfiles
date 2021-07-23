@@ -38,8 +38,10 @@ packer.startup(function()
   })
 
   -- nvim-lspconfig: common configs for built-in LSP
+  -- lua-dev.nvim: better neovim completion (see plugin/lspconfig/sumneko_lua)
   use({
     'neovim/nvim-lspconfig',
+    requires = 'folke/lua-dev.nvim',
     config = function()
       require('plugin/lspconfig')
     end,
