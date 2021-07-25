@@ -28,9 +28,15 @@ packer.startup(function()
   use('MaxMEllon/vim-jsx-pretty')
 
   -- nvim-treesitter: code parser and syntax highlighting
+  -- nvim-treesitter-textobjects: per-language text objects
+  -- nvim-ts-context-commentstring: per-language comments for React files
   use({
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
+    requires = {
+      'nvim-treesitter/nvim-treesitter-textobjects',
+      'JoosepAlviste/nvim-ts-context-commentstring',
+    },
     config = function()
       require('plugin/treesitter')
     end,
