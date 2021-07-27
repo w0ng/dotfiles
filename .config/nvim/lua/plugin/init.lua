@@ -82,6 +82,14 @@ packer.startup(function()
     },
   })
 
+  -- nvim-bqf: better quickfix windows
+  use({
+    'kevinhwang91/nvim-bqf',
+    config = function()
+      require('plugin/bqf')
+    end,
+  })
+
   -- nvim-tree.lua: file explorer sidebar
   -- nvim-web-devicons: icons in sidebar
   use({

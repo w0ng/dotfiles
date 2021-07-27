@@ -12,4 +12,5 @@ nvim_command([[
   highlight! PmenuSbar guibg=#504945
   highlight! PmenuThumb guibg=#665c54
   highlight! FloatBorder guifg=#665c54 guibg=#32302f
+  highlight! QuickFixLine guifg=#FABD2E guibg=none
 ]])
