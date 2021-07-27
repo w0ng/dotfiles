@@ -40,7 +40,9 @@ local system_colors = {
 ---@return string
 local function filename_provider()
   local filename
-  if vim.fn.winwidth(0) > 150 and vim.bo.filetype ~= 'help' then
+  if vim.bo.filetype == 'qf' then
+    filename = vim.w.quickfix_title or 'Quickfix'
+  elseif vim.fn.winwidth(0) > 150 and vim.bo.filetype ~= 'help' then
     filename = vim.fn.expand('%:~:.')
   else
     filename = vim.fn.expand('%:t')

@@ -84,6 +84,38 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
   { virtual_text = false }
 )
 
+---Jumps to a location. Used as a handler for multiple LSP methods.
+---@param _ any not used
+---@param method string LSP method name
+---@param result table result of LSP method; a location or a list of locations.
+---(`textDocument/definition` can return `Location` or `Location[]`
+local function location_handler(_, method, result)
+  local log = require('vim.lsp.log')
+  local util = vim.lsp.util
+  local api = vim.api
+  if result == nil or vim.tbl_isempty(result) then
+    local _ = log.info() and log.info(method, 'No location found')
+    return nil
+  end
+  if vim.tbl_islist(result) then
+    if #result > 1 then
+      util.set_qflist(util.locations_to_items(result))
+      api.nvim_command('copen')
+    else
+      util.jump_to_location(result[1])
+    end
+  else
+    util.jump_to_location(result)
+  end
+end
+
+-- Prevent switching buffer to first location on multiple results
+-- See https://github.com/neovim/neovim/blob/3e00d4f01cebedb758050e2e3faf065036fcfdc2/runtime/lua/vim/lsp/handlers.lua#L308
+vim.lsp.handlers['textDocument/declaration'] = location_handler
+vim.lsp.handlers['textDocument/definition'] = location_handler
+vim.lsp.handlers['textDocument/typeDefinition'] = location_handler
+vim.lsp.handlers['textDocument/implementation'] = location_handler
+
 -- Replace sign column diagnostic letters with nerdfonts icons
 -- (default { Error = 'E', Warning = 'W', Hint = 'H', Information = 'I' })
 for type, icon in pairs({
