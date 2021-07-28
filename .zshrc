@@ -37,11 +37,7 @@ zinit for \
 #
 
 alias icat="kitty +kitten icat"
-alias d='cd $(fd --type directory | fzf)'
-alias cdd="cd $HOME/dev"
-alias cdr="cd $HOME/dev/phoenix/renderer"
-alias cdw="cd $HOME/dev/canva/web"
-alias cdm="cd $HOME/dev/canva/web/src/pages/marketplace"
+alias cf='cd $(fd --type directory | fzf)'
 alias dc="docker-compose"
 alias gcM='git commit --amend --message'
 alias gist="gist -p"
