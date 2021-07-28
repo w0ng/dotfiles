@@ -1,16 +1,33 @@
 -- `:RG` - delegate search to ripgrep for faster grepping code
--- `--colors  "match:fg:250,189,47"` -> yellow matching text
-vim.cmd([[
-function! RipgrepFzf(query, fullscreen)
-  let command_fmt = 'rg --column --line-number --no-heading --color=always --colors  "match:fg:250,189,47" --smart-case -- %s || true'
-  let initial_command = printf(command_fmt, shellescape(a:query))
-  let reload_command = printf(command_fmt, '{q}')
-  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
-  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
-endfunction
+function _G.ripgrep_fzf(query, fullscreen)
+  local command = table.concat({
+    'rg',
+    '--column',
+    '--line-number',
+    '--no-heading',
+    '--color=always',
+    -- yellow matching text
+    '--colors match:fg:250,189,47',
+    '--smart-case',
+    '-- %s',
+    '|| true',
+  }, ' ')
+  local initial_command = command:format(vim.fn.shellescape(query))
+  local reload_command = command:format('{q}')
+  local spec = vim.fn['fzf#vim#with_preview']({
+    options = {
+      '--phony',
+      '--query',
+      query,
+      '--bind change:reload:' .. reload_command,
+      -- Add all results to quickfix
+      '--bind ctrl-q:select-all+accept',
+    },
+  })
+  vim.fn['fzf#vim#grep'](initial_command, 1, spec, fullscreen)
+end
 
-command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
-]])
+vim.cmd('command! -nargs=* -bang RG call v:lua.ripgrep_fzf(<q-args>, <bang>0)')
 
 -- Size and position of fzf window
 -- Hide preview window by default, ctrl+/ to toggle.

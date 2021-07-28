@@ -94,7 +94,10 @@ packer.startup(function()
   -- nvim-web-devicons: icons in sidebar
   use({
     'kyazdani42/nvim-tree.lua',
-    requires = 'kyazdani42/nvim-web-devicons',
+    requires = {
+      'kyazdani42/nvim-web-devicons',
+      'npxbr/gruvbox.nvim',
+    },
     config = function()
       require('plugin/tree')
     end,
@@ -105,7 +108,7 @@ packer.startup(function()
     'lewis6991/gitsigns.nvim',
     requires = 'nvim-lua/plenary.nvim',
     config = function()
-      require('gitsigns').setup()
+      require('plugin/gitsigns')
     end,
   })
 

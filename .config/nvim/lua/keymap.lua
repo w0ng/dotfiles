@@ -1,7 +1,7 @@
 -- Define <Leader> key (default nil)
-vim.g.mapleader = ','
+vim.g.mapleader = ' '
 -- Set <LocalLeader> key (default nil)
-vim.g.maplocalleader = ','
+vim.g.maplocalleader = ' '
 
 ---@param mode string
 ---@param lhs string
@@ -15,7 +15,7 @@ noremap('i', 'jj', '<Esc>')
 -- Write file as superuser
 noremap('c', 'w!!', 'w !sudo tee > /dev/null %')
 -- Stop highlighting current 'hlsearch' results until next search
-noremap('n', '<Space>', ':nohlsearch<CR>')
+noremap('n', '<Leader>n', ':nohlsearch<CR>')
 -- Switch ';' with ':'
 noremap('n', ';', ':')
 noremap('n', ':', ';')
@@ -38,11 +38,14 @@ noremap('c', '<C-p>', '<Up>')
 noremap('n', ']b', ':bnext<CR>')
 noremap('n', '[b', ':bprevious<CR>')
 noremap('n', '<Leader><Tab>', ':b#<CR>')
--- Navigate next and previous location lists
+-- Navigate next and previous quickfix list items
+noremap('n', ']c', ':cnext<CR>')
+noremap('n', '[c', ':cprevious<CR>')
+-- Navigate next and previous location list items
 noremap('n', ']l', ':lnext<CR>')
 noremap('n', '[l', ':lprevious<CR>')
 -- Close the quickfix or location list window
-noremap('n', '<Leader><Leader>', ':cclose|lclose<CR>')
+noremap('n', '<Leader>l', ':cclose|lclose<CR>')
 -- Clipboard: cut/copy/paste
 noremap('v', '<Leader>x', '"*x')
 noremap('v', '<Leader>c', '"*y')
