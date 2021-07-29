@@ -112,6 +112,22 @@ packer.startup(function()
     end,
   })
 
+  -- diffview.nvim: single view for all file diffs
+  use({
+    'sindrets/diffview.nvim',
+    config = function()
+      require('plugin/diffview')
+    end,
+  })
+
+  -- vim-fugitive: git wrapper (only still using this for :Git blame)
+  use({
+    'tpope/vim-fugitive',
+    config = function()
+      require('plugin/fugitive')
+    end,
+  })
+
   -- formatter.nvim: run external code formatters
   use({
     'mhartington/formatter.nvim',
@@ -130,14 +146,6 @@ packer.startup(function()
 
   -- vim-commentary: shortcuts for commenting code
   use('tpope/vim-commentary')
-
-  -- vim-fugitive: git wrapper
-  use({
-    'tpope/vim-fugitive',
-    config = function()
-      require('plugin/fugitive')
-    end,
-  })
 
   -- vim-surround: mappings to edit surroundings
   -- vim-repeat: allows repeatable surround edits using '.'

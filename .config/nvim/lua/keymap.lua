@@ -39,8 +39,8 @@ noremap('n', ']b', ':bnext<CR>')
 noremap('n', '[b', ':bprevious<CR>')
 noremap('n', '<Leader><Tab>', ':b#<CR>')
 -- Navigate next and previous quickfix list items
-noremap('n', ']c', ':cnext<CR>')
-noremap('n', '[c', ':cprevious<CR>')
+noremap('n', ']q', ':cnext<CR>')
+noremap('n', '[q', ':cprevious<CR>')
 -- Navigate next and previous location list items
 noremap('n', ']l', ':lnext<CR>')
 noremap('n', '[l', ':lprevious<CR>')

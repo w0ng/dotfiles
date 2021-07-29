@@ -29,16 +29,18 @@
 [github]
     user = w0ng
 [diff]
-    tool = nvim -d
+    tool = nvimdiff
 [difftool]
     prompt = false
+[difftool "nvimdiff"]
+    cmd = nvim -d "$LOCAL" "$REMOTE"
 [alias]
     l = log --pretty=format:'%C(yellow)%h%C(magenta)%d%C(reset) %s %C(cyan)%aN %C(blue)(%cd)%C(reset)' --date=format:'%a %F %R' --graph --use-mailmap
     s = status -sb
 [push]
     default = simple
 [merge]
-    tool = nvim -d
+    tool = nvimdiff
     renameLimit = 999999
 [mergetool]
     keepBackup = false
@@ -47,12 +49,6 @@
 [pager]
 	diff = diff-so-fancy | less --tabs=4 -RFX
 	show = diff-so-fancy | less --tabs=4 -RFX
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
 [commit]
 	template = ~/.stCommitMsg
 [filter "lfs"]

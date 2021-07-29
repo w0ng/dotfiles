@@ -220,7 +220,7 @@ table.insert(galaxyline.section.right, {
   },
 })
 
-galaxyline.short_line_list = { 'NvimTree', 'fzf', 'packer' }
+galaxyline.short_line_list = { 'DiffviewFiles', 'NvimTree', 'fzf', 'packer' }
 
 table.insert(galaxyline.section.short_line_left, {
   SpacerInactiveLeft = {

@@ -52,6 +52,8 @@ alias vimdiff="nvim -d"
 # Additional vi keybindings
 #
 
+bindkey -M viins '^A' beginning-of-line
+
 autoload -Uz up-line-or-beginning-search
 zle -N up-line-or-beginning-search
 bindkey -M viins '^P' up-line-or-beginning-search
