@@ -7,10 +7,13 @@ function _G.ripgrep_fzf(query, fullscreen)
     '--no-heading',
     '--color=always',
     -- yellow matching text
-    '--colors match:fg:250,189,47',
+    '--colors',
+    'match:fg:250,189,47',
     '--smart-case',
-    '-- %s',
-    '|| true',
+    '--',
+    '%s',
+    '||',
+    'true',
   }, ' ')
   local initial_command = command:format(vim.fn.shellescape(query))
   local reload_command = command:format('{q}')
@@ -19,9 +22,11 @@ function _G.ripgrep_fzf(query, fullscreen)
       '--phony',
       '--query',
       query,
-      '--bind change:reload:' .. reload_command,
+      '--bind',
+      'change:reload:' .. reload_command,
       -- Add all results to quickfix
-      '--bind ctrl-q:select-all+accept',
+      '--bind',
+      'ctrl-q:select-all+accept',
     },
   })
   vim.fn['fzf#vim#grep'](initial_command, 1, spec, fullscreen)
