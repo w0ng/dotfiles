@@ -120,6 +120,15 @@ packer.startup(function()
     end,
   })
 
+  -- neogit: git interface (using this for everything except :Git blame)
+  use({
+    'TimUntersberger/neogit',
+    requires = 'sindrets/diffview.nvim',
+    config = function()
+      require('plugin/neogit')
+    end,
+  })
+
   -- vim-fugitive: git wrapper (only still using this for :Git blame)
   use({
     'tpope/vim-fugitive',
