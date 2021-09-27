@@ -1,5 +1,9 @@
 -- Make signcolumn same color as regular background
 vim.g.gruvbox_sign_column = 'bg0'
+vim.g.gruvbox_bold = false
+vim.g.gruvbox_italic = false
+vim.g.gruvbox_italicize_comments = false
+vim.g.gruvbox_italicize_strings = false
 
 local nvim_command = vim.api.nvim_command
 -- Set colorscheme, make statusline and pop-up menu darker

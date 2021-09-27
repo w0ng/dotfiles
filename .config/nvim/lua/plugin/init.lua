@@ -120,14 +120,14 @@ packer.startup(function()
     end,
   })
 
-  -- neogit: git interface (using this for everything except :Git blame)
-  use({
-    'TimUntersberger/neogit',
-    requires = 'sindrets/diffview.nvim',
-    config = function()
-      require('plugin/neogit')
-    end,
-  })
+  -- -- neogit: git interface (using this for everything except :Git blame)
+  -- use({
+  --   'TimUntersberger/neogit',
+  --   requires = 'sindrets/diffview.nvim',
+  --   config = function()
+  --     require('plugin/neogit')
+  --   end,
+  -- })
 
   -- vim-fugitive: git wrapper (only still using this for :Git blame)
   use({
@@ -161,5 +161,11 @@ packer.startup(function()
   use({
     'tpope/vim-surround',
     requires = 'tpope/vim-repeat',
+  })
+
+  -- iamcco/markdown-preview.nvim: markdown preview in browser
+  use({
+    'iamcco/markdown-preview.nvim',
+    run = 'cd app && yarn install',
   })
 end)
