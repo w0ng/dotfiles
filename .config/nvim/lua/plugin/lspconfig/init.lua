@@ -87,17 +87,18 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
   { virtual_text = false }
 )
 
----Jumps to a location. Used as a handler for multiple LSP methods.
----@param _ any not used
----@param method string LSP method name
+--@private
+--- Jumps to a location. Used as a handler for multiple LSP methods.
+---@param _ any (not used)
 ---@param result table result of LSP method; a location or a list of locations.
+---@param ctx table table containing the context of the request, including the method
 ---(`textDocument/definition` can return `Location` or `Location[]`
-local function location_handler(_, method, result)
+local function location_handler(_, result, ctx, _)
   local log = require('vim.lsp.log')
   local util = vim.lsp.util
   local api = vim.api
   if result == nil or vim.tbl_isempty(result) then
-    local _ = log.info() and log.info(method, 'No location found')
+    local _ = log.info() and log.info(ctx.method, 'No location found')
     return nil
   end
   if vim.tbl_islist(result) then
