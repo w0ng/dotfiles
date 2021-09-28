@@ -1,4 +1,5 @@
 local lspconfig = require('lspconfig')
+local cmp_nvim_lsp = require('cmp_nvim_lsp')
 local utils = require('plugin/lspconfig/utils')
 
 -- Use an on_attach function to only map the following keys
@@ -69,10 +70,12 @@ end
 
 -- Extend default config for all servers
 lspconfig.util.default_config = vim.tbl_deep_extend('force', lspconfig.util.default_config, {
-  on_attach = on_attach,
   flags = {
     debounce_text_changes = 150,
   },
+  on_attach = on_attach,
+  -- Setup integration with cmp for autocompletion
+  capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities()),
 })
 
 -- Always show sign column
@@ -126,38 +129,6 @@ for type, icon in pairs({
 }) do
   local hl = 'LspDiagnosticsSign' .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
-end
-
--- Prefix completion kinds with icons (default: just the words)
-local kind_icons = {
-  Class = ' ',
-  Color = ' ',
-  Constant = ' ',
-  Constructor = ' ',
-  Enum = '了 ',
-  EnumMember = ' ',
-  Field = ' ',
-  File = ' ',
-  Folder = ' ',
-  Function = ' ',
-  Interface = 'ﰮ ',
-  Keyword = ' ',
-  Method = 'ƒ ',
-  Module = ' ',
-  Property = ' ',
-  Snippet = '﬌ ',
-  Struct = ' ',
-  Text = ' ',
-  Unit = ' ',
-  Value = ' ',
-  Variable = ' ',
-}
-local kinds = vim.lsp.protocol.CompletionItemKind
-for i, kind in ipairs(kinds) do
-  local icon = kind_icons[kind]
-  if icon then
-    kinds[i] = kind_icons[kind] .. kind
-  end
 end
 
 -- Add border to popup menus (default: none)

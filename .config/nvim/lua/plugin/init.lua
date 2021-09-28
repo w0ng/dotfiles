@@ -43,10 +43,14 @@ packer.startup(function()
   })
 
   -- nvim-lspconfig: common configs for built-in LSP
+  -- cmp-nvim-lsp: nvim-cmp source for neovim builtin LSP client
   -- lua-dev.nvim: better neovim completion (see plugin/lspconfig/sumneko_lua)
   use({
     'neovim/nvim-lspconfig',
-    requires = 'folke/lua-dev.nvim',
+    requires = {
+      'hrsh7th/cmp-nvim-lsp',
+      'folke/lua-dev.nvim',
+    },
     config = function()
       require('plugin/lspconfig')
     end,
@@ -62,12 +66,24 @@ packer.startup(function()
     end,
   })
 
-  -- compe: autocompletion plugin for LSP
+  -- cmp: autocompletion plugin
+  -- cmp-buffer: nvim-cmp source for buffer words.
+  -- cmp-nvim-lsp: nvim-cmp source for neovim builtin LSP client
+  -- cmp-path: nvim-cmp source for filesystem paths
+  -- cmp-vsnip: nvim-cmp source for vim-vsnip
+  -- lspkind: pictograms to neovim built-in lsp kinds
   use({
-    'hrsh7th/nvim-compe',
-    requires = 'hrsh7th/vim-vsnip',
+    'hrsh7th/nvim-cmp',
+    requires = {
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-path',
+      'hrsh7th/cmp-vsnip',
+      'hrsh7th/vim-vsnip',
+      'onsails/lspkind-nvim',
+    },
     config = function()
-      require('plugin/compe')
+      require('plugin/cmp')
     end,
   })
 
