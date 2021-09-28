@@ -1,7 +1,5 @@
 -- append a trailing slash to folder names (default 0)
 vim.g.nvim_tree_add_trailing = 1
--- closes the tree when it's the last window (default 0)
-vim.g.nvim_tree_auto_close = 1
 -- disable window picker when multiple splits open (default 0)
 vim.g.nvim_tree_disable_window_picker = 1
 -- hide git icons (default git = 1)
@@ -11,14 +9,15 @@ vim.g.nvim_tree_show_icons = {
   files = 1,
   folder_arrows = 1,
 }
--- increase sidebar width (default: 30)
-vim.g.nvim_tree_width = 51
 
-local map = vim.api.nvim_set_keymap
--- toggle tree
-map('n', '<Leader>1', ':NvimTreeToggle<CR>', { noremap = true })
--- toggle tree with current file highlighted
-map('n', '<Leader>2', ':NvimTreeFindFile<CR>', { noremap = true })
+require('nvim-tree').setup({
+  -- closes the tree when it's the last window (default 0)
+  auto_close = true,
+  view = {
+    -- increase sidebar width (default: 30)
+    width = 51,
+  },
+})
 
 -- folder name color blue when gruvbox colortheme installed
 vim.api.nvim_command([[
@@ -26,3 +25,9 @@ vim.api.nvim_command([[
   highlight! link NvimTreeEmptyFolderName Identifier
   highlight! link NvimTreeOpenedFolderName Identifier
 ]])
+
+local map = vim.api.nvim_set_keymap
+-- toggle tree
+map('n', '<Leader>1', ':NvimTreeToggle<CR>', { noremap = true })
+-- toggle tree with current file highlighted
+map('n', '<Leader>2', ':NvimTreeFindFile<CR>', { noremap = true })
