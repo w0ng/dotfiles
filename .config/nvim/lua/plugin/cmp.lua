@@ -29,12 +29,12 @@ cmp.setup({
   documentation = {
     border = 'rounded',
   },
-  -- Completion sources
+  -- Completion sources (ordered by priority)
   sources = {
-    -- { name = 'buffer' },
     { name = 'nvim_lsp' },
-    { name = 'path' },
     { name = 'vsnip' },
+    { name = 'path' },
+    { name = 'buffer' },
   },
   -- VSnip completion
   snippet = {
