@@ -1,43 +1,33 @@
 local formatter = require('formatter')
 
-local work_dprint_exe = vim.fn.getenv('WORK_DPRINT_EXE')
-local work_dprint_config = vim.fn.getenv('WORK_DPRINT_CONFIG')
-local dprint_ft_ext = {
-  javascript = 'js',
-  javascriptreact = 'jsx',
-  json = 'json',
-  jsonc = 'jsonc',
-  markdown = 'md',
-  typescript = 'ts',
-  typescriptreact = 'tsx',
-}
+-- brew install dprint
+-- local dprint_exe = 'dprint'
+-- local dprint_config = '~/.config/dprint/dprint.json'
+local dprint_exe = vim.fn.getenv('WORK_DPRINT_EXE')
+local dprint_config = vim.fn.getenv('WORK_DPRINT_CONFIG')
 
 local filetype = {}
 
 if
-  work_dprint_exe ~= vim.NIL
-  and work_dprint_config ~= vim.NIL
-  and vim.fn.executable(work_dprint_exe) == 1
+  vim.fn.empty(dprint_exe) == 0
+  and vim.fn.empty(dprint_config) == 0
+  and vim.fn.executable(dprint_exe) == 1
+  and vim.fn.filereadable(vim.fn.expand(dprint_config)) == 1
 then
-  for ft, ext in pairs(dprint_ft_ext) do
+  for ft, ext in pairs({
+    javascript = 'js',
+    javascriptreact = 'jsx',
+    json = 'json',
+    jsonc = 'jsonc',
+    markdown = 'md',
+    typescript = 'ts',
+    typescriptreact = 'tsx',
+  }) do
     filetype[ft] = {
       function()
         return {
-          exe = work_dprint_exe,
-          args = { 'fmt', '--config', work_dprint_config, '--stdin', ext },
-          stdin = true,
-        }
-      end,
-    }
-  end
-elseif vim.fn.executable('dprint') == 1 then
-  -- brew install dprint
-  for ft, ext in pairs(dprint_ft_ext) do
-    filetype[ft] = {
-      function()
-        return {
-          exe = 'dprint',
-          args = { 'fmt', '--config', '~/.config/dprint/dprint.json', '--stdin', ext },
+          exe = dprint_exe,
+          args = { 'fmt', '--config', dprint_config, '--stdin', ext },
           stdin = true,
         }
       end,
