@@ -27,6 +27,9 @@ packer.startup(function()
   -- vim-jsx-pretty: react syntax highlighting and indenting
   use('MaxMEllon/vim-jsx-pretty')
 
+  -- jsonc.vim: syntax highlighting for json with comments
+  use('neoclide/jsonc.vim')
+
   -- nvim-treesitter: code parser and syntax highlighting
   -- nvim-treesitter-textobjects: per-language text objects
   -- nvim-ts-context-commentstring: per-language comments for React files

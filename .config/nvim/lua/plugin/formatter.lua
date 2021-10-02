@@ -6,6 +6,7 @@ local dprint_ft_ext = {
   javascript = 'js',
   javascriptreact = 'jsx',
   json = 'json',
+  jsonc = 'jsonc',
   markdown = 'md',
   typescript = 'ts',
   typescriptreact = 'tsx',
