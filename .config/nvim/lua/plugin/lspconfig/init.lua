@@ -64,7 +64,7 @@ local on_attach = function(client, bufnr)
 
   -- Format file in buffer on save
   if client.resolved_capabilities.document_formatting then
-    vim.api.nvim_command('autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()')
+    vim.api.nvim_command('autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting()')
   end
 end
 

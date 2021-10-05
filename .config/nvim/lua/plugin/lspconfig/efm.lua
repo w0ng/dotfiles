@@ -17,6 +17,14 @@ local eslint = {
   },
 }
 
+-- brew install dprint
+-- local dprint_exe = 'dprint'
+local dprint_exe = vim.fn.getenv('WORK_DPRINT_EXE')
+local dprint = {
+  formatCommand = dprint_exe .. ' fmt --stdin ${INPUT}',
+  formatStdin = true,
+}
+
 -- cargo install stylua
 local stylua = {
   formatCommand = 'stylua --config-path ~/.config/stylua/stylua.toml -',
@@ -33,11 +41,11 @@ lspconfig.efm.setup({
   },
   settings = {
     languages = {
-      javascript = { eslint },
-      javascriptreact = { eslint },
+      javascript = { eslint, dprint },
+      javascriptreact = { eslint, dprint },
       lua = { stylua },
-      typescript = { eslint },
-      typescriptreact = { eslint },
+      typescript = { eslint, dprint },
+      typescriptreact = { eslint, dprint },
     },
   },
   filetypes = {
