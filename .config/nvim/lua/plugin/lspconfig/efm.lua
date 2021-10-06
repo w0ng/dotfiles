@@ -8,8 +8,6 @@ local eslint = {
   lintStdin = true,
   lintFormats = { '%f:%l:%c: %m' },
   lintIgnoreExitCode = true,
-  formatCommand = 'eslint_d --fix-to-stdout --stdin --stdin-filename=${INPUT}',
-  formatStdin = true,
   rootMarkers = {
     '.eslintrc.js',
     '.eslintrc',
@@ -17,41 +15,22 @@ local eslint = {
   },
 }
 
--- brew install dprint
--- local dprint_exe = 'dprint'
-local dprint_exe = vim.fn.getenv('WORK_DPRINT_EXE')
-local dprint = {
-  formatCommand = dprint_exe .. ' fmt --stdin ${INPUT}',
-  formatStdin = true,
-}
-
--- cargo install stylua
-local stylua = {
-  formatCommand = 'stylua --config-path ~/.config/stylua/stylua.toml -',
-  formatStdin = true,
-  rootMarkers = {
-    '.git',
-  },
-}
-
 lspconfig.efm.setup({
   root_dir = lspconfig.util.root_pattern('package.json', '.git') or vim.fn.getcwd(),
   init_options = {
-    documentFormatting = true,
+    documentFormatting = false,
   },
   settings = {
     languages = {
-      javascript = { eslint, dprint },
-      javascriptreact = { eslint, dprint },
-      lua = { stylua },
-      typescript = { eslint, dprint },
-      typescriptreact = { eslint, dprint },
+      javascript = { eslint },
+      javascriptreact = { eslint },
+      typescript = { eslint },
+      typescriptreact = { eslint },
     },
   },
   filetypes = {
     'javascript',
     'javascriptreact',
-    'lua',
     'typescript',
     'typescriptreact',
   },
