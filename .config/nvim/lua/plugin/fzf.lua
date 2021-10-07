@@ -45,5 +45,3 @@ map('n', '<Leader>b', ':Buffers<CR>', { noremap = true })
 map('n', '<Leader>f', ':RG<CR>', { noremap = true })
 -- Navigate by filename search
 map('n', '<Leader>p', ':Files<CR>', { noremap = true })
--- Toggle git-blame sidebar
-map('n', '<Leader>g', ':Git blame<CR>', { noremap = true })

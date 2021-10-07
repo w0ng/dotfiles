@@ -60,11 +60,11 @@ local on_attach = function(client, bufnr)
     opts
   )
   buf_set_keymap('n', '<LocalLeader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-  buf_set_keymap('n', '<LocalLeader>m', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  -- buf_set_keymap('n', '<LocalLeader>m', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
   -- Format file in buffer on save
   if client.resolved_capabilities.document_formatting then
-    vim.api.nvim_command('autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting()')
+    vim.api.nvim_command('autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()')
   end
 end
 
@@ -119,6 +119,17 @@ vim.lsp.handlers['textDocument/declaration'] = location_handler
 vim.lsp.handlers['textDocument/definition'] = location_handler
 vim.lsp.handlers['textDocument/typeDefinition'] = location_handler
 vim.lsp.handlers['textDocument/implementation'] = location_handler
+
+-- Add command to save file after formatting response
+-- See https://github.com/neovim/neovim/blob/ec4731d982031e363a59efd4566fc72234bb43c8/runtime/lua/vim/lsp/handlers.lua#L217-L220
+vim.lsp.handlers['textDocument/formatting'] = function(_, result, ctx, _)
+  if not result then
+    return
+  end
+  vim.lsp.util.apply_text_edits(result, ctx.bufnr)
+  -- save without triggering BufWritePost autocmd
+  vim.api.nvim_command('noautocmd write')
+end
 
 -- Replace sign column diagnostic letters with nerdfonts icons
 -- (default { Error = 'E', Warning = 'W', Hint = 'H', Information = 'I' })
