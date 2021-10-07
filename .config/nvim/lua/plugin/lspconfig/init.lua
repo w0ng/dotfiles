@@ -60,6 +60,12 @@ local on_attach = function(client, bufnr)
     opts
   )
   buf_set_keymap('n', '<LocalLeader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  buf_set_keymap('n', '<LocalLeader>m', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+
+  -- Format file in buffer on save
+  if client.resolved_capabilities.document_formatting then
+    vim.api.nvim_command('autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting()')
+  end
 end
 
 -- Extend default config for all servers
