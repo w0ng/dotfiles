@@ -87,6 +87,8 @@ augroup END
 -- require('formatter.util').print = function() end
 
 local map = vim.api.nvim_set_keymap
+-- :ww to save file without formatting
+map('c', 'ww', 'noautocmd w', { noremap = true })
 -- auto format <current filetype>
 map('n', '<Leader>af', ':Format<CR>', { noremap = true })
 map('v', '<Leader>af', ':Format<CR>', { noremap = true })
