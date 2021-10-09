@@ -51,6 +51,7 @@ packer.startup(function()
   use({
     'neovim/nvim-lspconfig',
     requires = {
+      'npxbr/gruvbox.nvim',
       'hrsh7th/cmp-nvim-lsp',
       'folke/lua-dev.nvim',
     },

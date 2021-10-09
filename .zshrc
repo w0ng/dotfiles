@@ -41,6 +41,7 @@ alias cf='cd $(fd --type directory | fzf)'
 alias dc="docker-compose"
 alias gcM='git commit --amend --message'
 alias gist="gist -p"
+alias g='git add . && git commit -m "WIP: $(date)"'
 alias ls='/usr/local/bin/gls --group-directories-first --color=auto --classify --human-readable'
 #alias ssh='TERM=xterm-256color ssh'
 alias ssh='kitty +kitten ssh'

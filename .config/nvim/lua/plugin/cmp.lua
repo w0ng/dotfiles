@@ -64,8 +64,8 @@ cmp.setup({
     ['<CR>'] = cmp.mapping.confirm({ select = true }),
     -- Tab completion with vsnip
     ['<Tab>'] = cmp.mapping(function(fallback)
-      if vim.fn.pumvisible() == 1 then
-        feedkey('<C-n>', 'n')
+      if cmp.visible() then
+        cmp.select_next_item()
       elseif vim.fn['vsnip#available']() == 1 then
         feedkey('<Plug>(vsnip-expand-or-jump)', '')
       elseif has_words_before() then
@@ -79,8 +79,8 @@ cmp.setup({
     }),
     -- S-Tab completion with vsnip
     ['<S-Tab>'] = cmp.mapping(function()
-      if vim.fn.pumvisible() == 1 then
-        feedkey('<C-p>', 'n')
+      if cmp.visible() then
+        cmp.select_prev_item()
       elseif vim.fn['vsnip#jumpable'](-1) == 1 then
         feedkey('<Plug>(vsnip-jump-prev)', '')
       end
@@ -90,3 +90,7 @@ cmp.setup({
     }),
   },
 })
+
+-- Override highlights
+vim.cmd([[ highlight! default CmpItemKind guifg=#EBDBB2 ]])
+vim.cmd([[ highlight! default CmpItemMenu guifg=#EBDBB2 ]])
