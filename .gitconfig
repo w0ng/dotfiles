@@ -47,8 +47,25 @@
 [mailmap]
     file = ~/.mailmap
 [pager]
-	diff = diff-so-fancy | less --tabs=4 -RFX
-	show = diff-so-fancy | less --tabs=4 -RFX
+  ; diff = diff-so-fancy | less --tabs=4 -RFX
+  ; show = diff-so-fancy | less --tabs=4 -RFX
+  diff = delta
+  log = delta
+  reflog = delta
+  show = delta
+[interactive]
+  diffFilter = delta --color-only --features=interactive
+[delta]
+  syntax-theme = gruvbox-dark
+  file-style = brightyellow bold
+  file-decoration-style = yellow ol ul
+  hunk-header-style = brightmagenta line-number
+  hunk-header-line-number-style = magenta
+  hunk-header-decoration-style = magenta box
+  line-numbers = true
+  line-numbers-left-style = brightblack
+  line-numbers-right-style = brightblack
+  ; side-by-side = true
 [commit]
 	template = ~/.stCommitMsg
 [filter "lfs"]
