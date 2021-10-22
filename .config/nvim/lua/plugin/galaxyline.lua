@@ -161,22 +161,22 @@ table.insert(galaxyline.section.right, {
   },
 })
 
-table.insert(galaxyline.section.right, {
-  GitBranch = {
-    -- galaxyline's GitBranch provider is mega slow during rebases
-    -- Use git signs instead
-    ---@return string
-    provider = function()
-      local branch = vim.b.gitsigns_head
-      if branch and branch ~= '' then
-        return branch .. ' '
-      end
-      return ''
-    end,
-    condition = condition.hide_in_width,
-    highlight = { colors.purple, colors.dark0_hard, 'bold' },
-  },
-})
+--table.insert(galaxyline.section.right, {
+--  GitBranch = {
+--    -- galaxyline's GitBranch provider is mega slow during rebases
+--    -- Use git signs instead
+--    ---@return string
+--    provider = function()
+--      local branch = vim.b.gitsigns_head
+--      if branch and branch ~= '' then
+--        return branch .. ' '
+--      end
+--      return ''
+--    end,
+--    condition = condition.hide_in_width,
+--    highlight = { colors.purple, colors.dark0_hard, 'bold' },
+--  },
+--})
 
 table.insert(galaxyline.section.right, {
   DiffAdd = {

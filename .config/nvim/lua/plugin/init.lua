@@ -123,14 +123,14 @@ packer.startup(function()
     end,
   })
 
-  -- gitsigns.nvim: git decorators for git modified lines
-  use({
-    'lewis6991/gitsigns.nvim',
-    requires = 'nvim-lua/plenary.nvim',
-    config = function()
-      require('plugin/gitsigns')
-    end,
-  })
+  -- -- gitsigns.nvim: git decorators for git modified lines
+  -- use({
+  --   'lewis6991/gitsigns.nvim',
+  --   requires = 'nvim-lua/plenary.nvim',
+  --   config = function()
+  --     require('plugin/gitsigns')
+  --   end,
+  -- })
 
   -- diffview.nvim: single view for all file diffs
   use({
