@@ -59,8 +59,7 @@
   syntax-theme = gruvbox-dark
   file-style = brightyellow bold
   file-decoration-style = yellow ol ul
-  hunk-header-style = brightmagenta line-number
-  hunk-header-line-number-style = magenta
+  hunk-header-style = syntax
   hunk-header-decoration-style = magenta box
   line-numbers = true
   line-numbers-left-style = brightblack
