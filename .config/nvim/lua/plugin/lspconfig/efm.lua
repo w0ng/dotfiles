@@ -1,14 +1,17 @@
 -- brew install efm-langserver
 local lspconfig = require('lspconfig')
 
+-- npm install -g eslint
 -- npm install -g eslint_d
 local eslint = {
-  lintCommand = 'eslint_d -f unix --stdin --stdin-filename ${INPUT}',
+  -- lintCommand = 'eslint_d -f unix --stdin --stdin-filename ${INPUT}',
+  lintCommand = 'eslint -f unix --stdin --stdin-filename ${INPUT}',
   prefix = 'eslint',
   lintStdin = true,
   lintFormats = { '%f:%l:%c: %m' },
   lintIgnoreExitCode = true,
-  formatCommand = 'eslint_d --fix-to-stdout --stdin --stdin-filename=${INPUT}',
+  -- formatCommand = 'eslint_d --fix-to-stdout --stdin --stdin-filename=${INPUT}',
+  -- formatCommand = 'eslint --fix ${INPUT}',
   formatStdin = true,
   rootMarkers = {
     '.eslintrc.js',
@@ -35,7 +38,7 @@ local stylua = {
 }
 
 lspconfig.efm.setup({
-  root_dir = lspconfig.util.root_pattern('package.json', '.git') or vim.fn.getcwd(),
+  root_dir = lspconfig.util.root_pattern('package.json', '.git', '.'),
   init_options = {
     documentFormatting = true,
   },

@@ -135,6 +135,7 @@ packer.startup(function()
   -- diffview.nvim: single view for all file diffs
   use({
     'sindrets/diffview.nvim',
+    requires = 'nvim-lua/plenary.nvim',
     config = function()
       require('plugin/diffview')
     end,
