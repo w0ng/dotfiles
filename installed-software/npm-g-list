@@ -1,8 +1,13 @@
-/Users/andrew.w/.nvm/versions/node/v12.16.1/lib
-├── @prettier/plugin-xml@0.11.0
-├── csvtojson@2.0.10
-├── imageoptim-cli@3.0.2
-├── json2csv@4.5.4
-├── npm@6.13.7
-└── prettier@1.19.1
+/usr/local/lib
+├── @fsouza/prettierd@0.18.0
+├── bash-language-server@2.0.0
+├── eslint@8.3.0
+├── eslint_d@11.1.1
+├── npm@6.14.15
+├── stylelint-lsp@1.2.4
+├── typescript@4.5.2
+├── typescript-language-server@0.8.1
+├── vscode-langservers-extracted@3.0.2
+├── yaml-language-server@1.2.2
+└── yarn@1.22.17
 
