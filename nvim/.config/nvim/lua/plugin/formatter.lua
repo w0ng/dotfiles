@@ -11,6 +11,15 @@ local dprint = function(ext)
   end
 end
 
+-- cargo install stylua
+local stylua = function()
+  return {
+    exe = 'stylua',
+    args = { '--config-path', '~/.config/stylua/stylua.toml', '-' },
+    stdin = true,
+  }
+end
+
 -- Add filetypes to formatter config
 formatter.setup({
   logging = false,
@@ -19,6 +28,7 @@ formatter.setup({
     javascriptreact = { dprint('jsx') },
     json = { dprint('json') },
     jsonc = { dprint('jsonc') },
+    lua = { stylua },
     markdown = { dprint('md') },
     typescript = { dprint('ts') },
     typescriptreact = { dprint('tsx') },

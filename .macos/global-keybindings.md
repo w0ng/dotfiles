@@ -12,8 +12,7 @@
 | ⌥F         | Restore Old Window Size          |
 | ⌥M         | Maximise Window                  |
 | ⌥[         | ⎋                                |
-| ⌥I         | Show/Hide iTerm                  |
+| ⌥I         | Show/Hide kitty                  |
 | ⌥C         | Show/Hide Google Chrome          |
 | ⌥D         | Show/Hide Dash                   |
 | ⌥O         | Show/Hide 1Password              |
-| ⌥V         | Show/Hide MacVim                 |

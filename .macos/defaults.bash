@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Custom defaults on OS X El Capitan 10.11.2
+# Custom defaults on macOS Moneterey 12.0.1
 # Source: https://github.com/mathiasbynens/dotfiles/blob/main/.macos
 # Execute `defaults delete [domain [key]]` to revert changes
 
@@ -39,4 +39,5 @@ defaults write com.apple.mail DisableSendAnimations -bool true
 chflags nohidden ~/Library && xattr -d com.apple.FinderInfo ~/Library
 
 # Use dark mode for menu and dock, but keep everything else light
-defaults write -g NSRequiresAquaSystemAppearance -bool Yes
+# (note: this makes volume/brightness slider values not visible)
+#defaults write -g NSRequiresAquaSystemAppearance -bool Yes

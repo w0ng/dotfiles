@@ -1,39 +1,22 @@
 -- brew install efm-langserver
 local lspconfig = require('lspconfig')
 
--- npm install -g eslint
--- npm install -g eslint_d
-local eslint = {
-  -- lintCommand = 'eslint_d -f unix --stdin --stdin-filename ${INPUT}',
-  lintCommand = 'eslint -f unix --stdin --stdin-filename ${INPUT}',
-  prefix = 'eslint',
-  lintStdin = true,
-  lintFormats = { '%f:%l:%c: %m' },
-  lintIgnoreExitCode = true,
-  -- formatCommand = 'eslint_d --fix-to-stdout --stdin --stdin-filename=${INPUT}',
-  -- formatCommand = 'eslint --fix ${INPUT}',
+-- brew install dprint
+local dprint = {
+  formatCommand = 'dprint fmt --stdin ${INPUT}',
   formatStdin = true,
   rootMarkers = {
-    '.eslintrc.js',
-    '.eslintrc',
-    'package.json',
+    'dprint.json',
   },
-}
-
--- brew install dprint
--- local dprint_exe = 'dprint'
-local dprint_exe = vim.fn.getenv('WORK_DPRINT_EXE')
-local dprint = {
-  formatCommand = dprint_exe .. ' fmt --stdin ${INPUT}',
-  formatStdin = true,
 }
 
 -- cargo install stylua
 local stylua = {
-  formatCommand = 'stylua --config-path ~/.config/stylua/stylua.toml -',
+  formatCommand = 'stylua -',
   formatStdin = true,
   rootMarkers = {
-    '.git',
+    '.stylua.toml',
+    'stylua.toml',
   },
 }
 
@@ -44,11 +27,11 @@ lspconfig.efm.setup({
   },
   settings = {
     languages = {
-      javascript = { eslint, dprint },
-      javascriptreact = { eslint, dprint },
+      javascript = { dprint },
+      javascriptreact = { dprint },
       lua = { stylua },
-      typescript = { eslint, dprint },
-      typescriptreact = { eslint, dprint },
+      typescript = { dprint },
+      typescriptreact = { dprint },
     },
   },
   filetypes = {

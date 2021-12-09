@@ -2,12 +2,20 @@
 # Zinit: https://github.com/zdharma/zinit
 #
 
-source "$HOME/.zinit/bin/zinit.zsh"
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+source "${ZINIT_HOME}/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
-# Extension to load submodules in github repos
-zinit light zinit-zsh/z-a-submods
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+# submods extension loads submodules in github repos
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust \
+    zdharma-continuum/zinit-annex-submods
 
 # Prezto config
 zstyle ':prezto:*:*' case-sensitive 'yes'
@@ -30,7 +38,7 @@ zinit for \
   svn silent submods'mafredri/zsh-async -> external/async' atload'prompt w0ng' https://github.com/w0ng/prezto/trunk/modules/prompt \
   svn wait lucid submods'zsh-users/zsh-completions -> external'  PZT::modules/completion \
   svn wait lucid submods'zsh-users/zsh-autosuggestions -> external' atload'_zsh_autosuggest_start' PZT::modules/autosuggestions \
-  light-mode wait lucid zdharma/fast-syntax-highlighting \
+  light-mode wait lucid zdharma-continuum/fast-syntax-highlighting \
 
 #
 # Aliases
@@ -38,11 +46,14 @@ zinit for \
 
 alias icat="kitty +kitten icat"
 alias cf='cd $(fd --type directory | fzf)'
+alias d="cd $HOME/dev"
 alias dc="docker-compose"
 alias gcM='git commit --amend --message'
 alias gist="gist -p"
 alias g='git add . && git commit -m "WIP: $(date)"'
-alias ls='/usr/local/bin/gls --group-directories-first --color=auto --classify --human-readable'
+alias ls='/opt/homebrew/bin/gls --group-directories-first --color=auto --classify --human-readable'
+alias luamake=$HOME/dev/lua-language-server/3rd/luamake/luamake
+alias s="cd $HOME/dev/scratch"
 #alias ssh='TERM=xterm-256color ssh'
 alias ssh='kitty +kitten ssh'
 alias tm="tmux attach-session -d -t 0"
@@ -96,12 +107,3 @@ fi
 if [[ -r "$HOME/.tokens" ]]; then
   source "$HOME/.tokens"
 fi
-
-# Nix
-if [[ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]]; then
-  source "$HOME/.nix-profile/etc/profile.d/nix.sh"
-fi
-
-if [ -e /Users/andrew.w/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/andrew.w/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-
-alias luamake=/Users/andrew.w/repos/lua-language-server/3rd/luamake/luamake

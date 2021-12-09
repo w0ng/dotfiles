@@ -1,10 +1,10 @@
 #
 # System environment variables
 #
-export EDITOR='/usr/local/bin/nvim'
+export EDITOR='/opt/homebrew/bin/nvim'
 export LESS='-i -R'
 export PAGER='less'
-export VISUAL='/usr/local/bin/nvim'
+export VISUAL='/opt/homebrew/bin/nvim'
 
 if [[ "$OSTYPE" == darwin* ]]; then
   export BROWSER='open'
@@ -23,10 +23,8 @@ fi
 #
 typeset -gU cdpath fpath mailpath path
 
-# Python
 for dir (
-  "/usr/local/share/android-sdk/platform-tools"
-  "$HOME/Library/Python/3.7/bin"
+  "/opt/homebrew/opt/node@16/bin"
   "$HOME/.cargo/bin"
   "$HOME/bin"
 ); do
@@ -37,3 +35,6 @@ for dir (
     )
   fi
 done
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
+

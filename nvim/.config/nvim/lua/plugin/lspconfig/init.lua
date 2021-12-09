@@ -103,7 +103,7 @@ local function location_handler(_, result, ctx, _)
   end
   if vim.tbl_islist(result) then
     if #result > 1 then
-      util.set_qflist(util.locations_to_items(result))
+      vim.fn.setqflist(util.locations_to_items(result))
       api.nvim_command('copen')
     else
       util.jump_to_location(result[1])
