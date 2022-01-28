@@ -14,13 +14,24 @@ packer.startup(function()
     end,
   })
 
-  -- galaxyline.nvim: conigurable statusline
+  -- gitsigns.nvim: git decorators for git modified lines
   use({
-    'glepnir/galaxyline.nvim',
-    branch = 'main',
-    requires = { 'kyazdani42/nvim-web-devicons' },
+    'lewis6991/gitsigns.nvim',
+    requires = 'nvim-lua/plenary.nvim',
     config = function()
-      require('plugin/galaxyline')
+      require('plugin/gitsigns')
+    end,
+  })
+
+  -- feline.nvim: conigurable statusline
+  use({
+    'feline-nvim/feline.nvim',
+    requires = {
+      'kyazdani42/nvim-web-devicons',
+      'lewis6991/gitsigns.nvim',
+    },
+    config = function()
+      require('plugin/feline')
     end,
   })
 
@@ -120,15 +131,6 @@ packer.startup(function()
     },
     config = function()
       require('plugin/tree')
-    end,
-  })
-
-  -- gitsigns.nvim: git decorators for git modified lines
-  use({
-    'lewis6991/gitsigns.nvim',
-    requires = 'nvim-lua/plenary.nvim',
-    config = function()
-      require('plugin/gitsigns')
     end,
   })
 

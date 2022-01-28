@@ -27,5 +27,7 @@ vim.cmd([[ highlight! link NvimTreeOpenedFolderName Identifier ]])
 local map = vim.api.nvim_set_keymap
 -- toggle tree
 map('n', '<Leader>1', ':NvimTreeToggle<CR>', { noremap = true })
+map('n', '<Leader>t', ':NvimTreeToggle<CR>', { noremap = true })
 -- toggle tree with current file highlighted
 map('n', '<Leader>2', ':NvimTreeFindFile<CR>', { noremap = true })
+map('n', '<Leader>T', ':NvimTreeFindFile<CR>', { noremap = true })

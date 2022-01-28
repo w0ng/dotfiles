@@ -52,6 +52,7 @@ alias gcM='git commit --amend --message'
 alias gist="gist -p"
 alias g='git add . && git commit -m "WIP: $(date)"'
 alias ls='/opt/homebrew/bin/gls --group-directories-first --color=auto --classify --human-readable'
+alias n='/usr/bin/ssh nas'
 alias luamake=$HOME/dev/lua-language-server/3rd/luamake/luamake
 alias s="cd $HOME/dev/scratch"
 #alias ssh='TERM=xterm-256color ssh'
