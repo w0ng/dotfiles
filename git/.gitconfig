@@ -59,11 +59,8 @@
   syntax-theme = gruvbox-dark
   file-style = brightyellow bold
   file-decoration-style = yellow ol ul
-  hunk-header-style = syntax
+  hunk-header-style = line-number syntax
   hunk-header-decoration-style = magenta box
-  line-numbers = true
-  line-numbers-left-style = brightblack
-  line-numbers-right-style = brightblack
   ; side-by-side = true
 [commit]
 	template = ~/.stCommitMsg
