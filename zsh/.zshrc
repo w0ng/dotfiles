@@ -82,9 +82,9 @@ bindkey -M viins 'jj' vi-cmd-mode
 #
 
 if (( $+commands[gdircolors] )); then
-  if  [[ $COLORTERM =~ ^(truecolor|24bit) && -s "$HOME/.config/dircolors/dircolors-jellybeans" ]]; then
-    # `vivid generate jellybeans > dircolors-jellybeans`
-    export LS_COLORS="$(cat "$HOME/.config/dircolors/dircolors-jellybeans")"
+  if  [[ $COLORTERM =~ ^(truecolor|24bit) && -s "$HOME/.config/dircolors/dircolors-grubox-dark" ]]; then
+    # `vivid generate gruvbox-dark > dircolors-gruvbox-dark`
+    export LS_COLORS="$(cat "$HOME/.config/dircolors/dircolors-gruvbox-dark")"
   elif [[ -s "$HOME/.config/dircolors/dircolors-256color" ]]; then
     eval "$(gdircolors --sh "$HOME/.config/dircolors/dircolors-256color")"
   else
