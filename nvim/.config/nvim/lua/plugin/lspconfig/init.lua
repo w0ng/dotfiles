@@ -37,7 +37,7 @@ local on_attach = function(client, bufnr)
     '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>',
     opts
   )
-  buf_set_keymap('n', '<LocalLeader>d', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  buf_set_keymap('n', '<LocalLeader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
   buf_set_keymap('n', '<LocalLeader>r', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   buf_set_keymap('n', 'ga', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
@@ -101,15 +101,17 @@ local function location_handler(_, result, ctx, _)
     local _ = log.info() and log.info(ctx.method, 'No location found')
     return nil
   end
+  local client = vim.lsp.get_client_by_id(ctx.client_id)
   if vim.tbl_islist(result) then
     if #result > 1 then
-      vim.fn.setqflist(util.locations_to_items(result))
-      api.nvim_command('copen')
-    else
-      util.jump_to_location(result[1])
+      vim.fn.setqflist({}, ' ', {
+        title = 'LSP locations',
+        items = util.locations_to_items(result, client.offset_encoding),
+      })
+      api.nvim_command('botright copen')
     end
   else
-    util.jump_to_location(result)
+    util.jump_to_location(result, client.offset_encoding)
   end
 end
 

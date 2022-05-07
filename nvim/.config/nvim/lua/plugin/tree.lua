@@ -1,18 +1,22 @@
 -- append a trailing slash to folder names (default 0)
 vim.g.nvim_tree_add_trailing = 1
--- disable window picker when multiple splits open (default 0)
-vim.g.nvim_tree_disable_window_picker = 1
 -- hide git icons (default git = 1)
 vim.g.nvim_tree_show_icons = {
-  git = 0,
+  git = 1,
   folders = 1,
   files = 1,
   folder_arrows = 1,
 }
 
 require('nvim-tree').setup({
-  -- closes the tree when it's the last window (default 0)
-  auto_close = true,
+  actions = {
+    open_file = {
+      window_picker = {
+        -- disable window picker when multiple splits open (default true)
+        enable = false,
+      },
+    },
+  },
   view = {
     -- increase sidebar width (default: 30)
     width = 51,

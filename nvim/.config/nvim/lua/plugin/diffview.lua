@@ -9,5 +9,5 @@ require('diffview').setup({
 })
 
 local map = vim.api.nvim_set_keymap
-map('n', '<Leader>gd', ':DiffviewOpen<CR>', { noremap = true })
-map('n', '<Leader>gD', ':DiffviewClose<CR>', { noremap = true })
+map('n', '<Leader>do', ':DiffviewOpen<CR>', { noremap = true })
+map('n', '<Leader>dc', ':DiffviewClose<CR>', { noremap = true })

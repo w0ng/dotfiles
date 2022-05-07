@@ -26,8 +26,10 @@ end
 
 cmp.setup({
   -- Rounded outline for documentation windows
-  documentation = {
-    border = 'rounded',
+  window = {
+    documentation = {
+      border = 'rounded',
+    },
   },
   -- Completion sources (ordered by priority)
   sources = {
