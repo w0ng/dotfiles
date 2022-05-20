@@ -96,6 +96,8 @@ local function location_handler(_, result, ctx, _)
         items = util.locations_to_items(result, client.offset_encoding),
       })
       api.nvim_command('botright copen')
+    else
+      util.jump_to_location(result[1], client.offset_encoding)
     end
   else
     util.jump_to_location(result, client.offset_encoding)

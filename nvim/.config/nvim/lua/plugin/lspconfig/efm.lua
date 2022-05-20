@@ -21,7 +21,7 @@ local stylua = {
 }
 
 lspconfig.efm.setup({
-  root_dir = lspconfig.util.root_pattern('package.json', '.git', '.'),
+  root_dir = lspconfig.util.root_pattern('package.json', '.git'),
   init_options = {
     documentFormatting = true,
   },
