@@ -4,8 +4,6 @@ local lspkind = require('lspkind')
 
 -- Pre-requisite for autocompletion window
 vim.opt.completeopt = 'menu,menuone,noselect'
--- Ignore ins-completion-menu messages in cmdline e.g. 'Pattern not found'
-vim.opt.shortmess:append('c')
 
 ---@return boolean
 local has_words_before = function()
@@ -32,12 +30,12 @@ cmp.setup({
     },
   },
   -- Completion sources (ordered by priority)
-  sources = {
+  sources = cmp.config.sources({
     { name = 'nvim_lsp' },
     { name = 'vsnip' },
     { name = 'path' },
     { name = 'buffer' },
-  },
+  }),
   -- VSnip completion
   snippet = {
     expand = function(args)
@@ -58,7 +56,7 @@ cmp.setup({
     end,
   },
   -- Keymaps
-  mapping = {
+  mapping = cmp.mapping.preset.insert({
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
@@ -75,10 +73,7 @@ cmp.setup({
       else
         fallback()
       end
-    end, {
-      'i',
-      's',
-    }),
+    end, { 'i', 's' }),
     -- S-Tab completion with vsnip
     ['<S-Tab>'] = cmp.mapping(function()
       if cmp.visible() then
@@ -86,11 +81,8 @@ cmp.setup({
       elseif vim.fn['vsnip#jumpable'](-1) == 1 then
         feedkey('<Plug>(vsnip-jump-prev)', '')
       end
-    end, {
-      'i',
-      's',
-    }),
-  },
+    end, { 'i', 's' }),
+  }),
 })
 
 -- Override highlights
