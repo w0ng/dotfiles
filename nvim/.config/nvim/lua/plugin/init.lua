@@ -186,6 +186,9 @@ packer.startup(function()
     requires = 'tpope/vim-repeat',
   })
 
+  -- pantharshit00/vim-prisma: Prisma2 syntax highlighting
+  use('pantharshit00/vim-prisma')
+
   -- iamcco/markdown-preview.nvim: markdown preview in browser
   use({
     'iamcco/markdown-preview.nvim',
