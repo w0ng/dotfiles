@@ -124,12 +124,14 @@ for type, icon in pairs({
 end
 
 -- Setup servers
-require('plugin/lspconfig/tsserver')
-require('plugin/lspconfig/eslint')
 require('plugin/lspconfig/cssls')
+require('plugin/lspconfig/cssmodules_ls')
+require('plugin/lspconfig/efm')
+require('plugin/lspconfig/eslint')
+require('plugin/lspconfig/graphql')
 require('plugin/lspconfig/html')
 require('plugin/lspconfig/jsonls')
-require('plugin/lspconfig/stylelint_lsp')
-require('plugin/lspconfig/efm')
 require('plugin/lspconfig/prismals')
+require('plugin/lspconfig/stylelint_lsp')
 require('plugin/lspconfig/sumneko_lua')
+require('plugin/lspconfig/tsserver')
