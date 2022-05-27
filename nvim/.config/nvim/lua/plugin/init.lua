@@ -7,8 +7,7 @@ packer.startup(function()
 
   -- gruvbox: dark colorscheme
   use({
-    'npxbr/gruvbox.nvim',
-    requires = 'rktjmp/lush.nvim',
+    'ellisonleao/gruvbox.nvim',
     config = function()
       require('plugin/gruvbox')
     end,
@@ -17,7 +16,6 @@ packer.startup(function()
   -- gitsigns.nvim: git decorators for git modified lines
   use({
     'lewis6991/gitsigns.nvim',
-    requires = 'nvim-lua/plenary.nvim',
     config = function()
       require('plugin/gitsigns')
     end,
