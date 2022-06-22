@@ -1,13 +1,3 @@
--- append a trailing slash to folder names (default 0)
-vim.g.nvim_tree_add_trailing = 1
--- hide git icons (default git = 1)
-vim.g.nvim_tree_show_icons = {
-  git = 1,
-  folders = 1,
-  files = 1,
-  folder_arrows = 1,
-}
-
 require('nvim-tree').setup({
   actions = {
     open_file = {
@@ -16,6 +6,10 @@ require('nvim-tree').setup({
         enable = false,
       },
     },
+  },
+  renderer = {
+    -- append a trailing slash to folder names (default false)
+    add_trailing = true,
   },
   view = {
     -- increase sidebar width (default: 30)
