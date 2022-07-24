@@ -1,17 +1,32 @@
--- Make signcolumn same color as regular background
-vim.g.gruvbox_sign_column = 'bg0'
-vim.g.gruvbox_bold = false
-vim.g.gruvbox_italic = false
-vim.g.gruvbox_italicize_comments = false
-vim.g.gruvbox_italicize_strings = false
+local colors = require('gruvbox.palette')
+
+require('gruvbox').setup({
+  bold = false,
+  italic = false,
+  overrides = {
+    -- Transparent SignColumn
+    SignColumn = { bg = colors.dark0 },
+    GruvboxRedSign = { fg = colors.red, bg = colors.dark0, reverse = false },
+    GruvboxGreenSign = { fg = colors.green, bg = colors.dark0, reverse = false },
+    GruvboxYellowSign = { fg = colors.yellow, bg = colors.dark0, reverse = false },
+    GruvboxBlueSign = { fg = colors.blue, bg = colors.dark0, reverse = false },
+    GruvboxPurpleSign = { fg = colors.purple, bg = colors.dark0, reverse = false },
+    GruvboxAquaSign = { fg = colors.aqua, bg = colors.dark0, reverse = false },
+    GruvboxOrangeSign = { fg = colors.orange, bg = colors.dark0, reverse = false },
+
+    -- Darker StatusLine
+    StatusLine = { fg = colors.dark0_hard, bg = colors.light1, reverse = true },
+    StatusLineNC = { fg = colors.dark0_hard, bg = colors.light4, reverse = true },
+
+    -- Darker LSP popup menu
+    Pmenu = { fg = colors.light1, bg = colors.dark0_soft },
+    PmenuSel = { fg = colors.dark0_soft, bg = colors.bright_blue },
+    PmenuSbar = { bg = colors.dark2 },
+    PmenuThumb = { bg = colors.dark3 },
+    FloatBorder = { fg = colors.dark3, bg = colors.dark0_soft },
+    QuickFixLine = { fg = colors.bright_yellow, bg = 'none' },
+  },
+})
 
 -- Set colorscheme, make statusline and pop-up menu darker
 vim.cmd([[ colorscheme gruvbox ]])
-vim.cmd([[ highlight! StatusLine gui=reverse guifg=#1d2021 guibg=#ebdbb2 ]])
-vim.cmd([[ highlight! StatusLineNC cterm=reverse gui=reverse guifg=#1d2021 guibg=#A89985 ]])
-vim.cmd([[ highlight! Pmenu guifg=#ebdbb2 guibg=#32302f ]])
-vim.cmd([[ highlight! PmenuSel guifg=#32302f guibg=#83a598 ]])
-vim.cmd([[ highlight! PmenuSbar guibg=#504945 ]])
-vim.cmd([[ highlight! PmenuThumb guibg=#665c54 ]])
-vim.cmd([[ highlight! FloatBorder guifg=#665c54 guibg=#32302f ]])
-vim.cmd([[ highlight! QuickFixLine guifg=#FABD2E guibg=none ]])

@@ -25,6 +25,7 @@ packer.startup(function()
   use({
     'feline-nvim/feline.nvim',
     requires = {
+      'ellisonleao/gruvbox.nvim',
       'kyazdani42/nvim-web-devicons',
       'lewis6991/gitsigns.nvim',
     },
