@@ -1,10 +1,10 @@
 #
 # System environment variables
 #
-export EDITOR='/opt/homebrew/bin/nvim'
+export EDITOR='/usr/local/bin/nvim'
 export LESS='-i -R'
 export PAGER='less'
-export VISUAL='/opt/homebrew/bin/nvim'
+export VISUAL='/usr/local/bin/nvim'
 
 if [[ "$OSTYPE" == darwin* ]]; then
   export BROWSER='open'
@@ -24,7 +24,7 @@ fi
 typeset -gU cdpath fpath mailpath path
 
 for dir (
-  "/opt/homebrew/opt/node@16/bin"
+  "/usr/local/share/android-sdk/platform-tools"
   "$HOME/.cargo/bin"
   "$HOME/bin"
 ); do
@@ -35,6 +35,3 @@ for dir (
     )
   fi
 done
-
-eval "$(/opt/homebrew/bin/brew shellenv)"
-

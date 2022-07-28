@@ -103,7 +103,7 @@ packer.startup(function()
 
   -- fzf.vim: fuzzy finder
   use({
-    '/opt/homebrew/opt/fzf',
+    '/usr/local/opt/fzf',
     {
       'junegunn/fzf.vim',
       config = function()

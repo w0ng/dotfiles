@@ -1,6 +1,6 @@
 [user]
 	name = Andrew Wong
-	email = wongadev@gmail.com
+	email = andrew.w@canva.com
 [core]
     attributesfile = ~/.gitattributes_global
     excludesfile = ~/.gitignore_global
