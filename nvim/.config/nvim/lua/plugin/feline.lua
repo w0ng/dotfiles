@@ -111,46 +111,46 @@ table.insert(components.active[SECTION.LEFT], {
   },
 })
 
-table.insert(components.active[SECTION.RIGHT], {
-  provider = {
-    name = 'git_branch',
-  },
-  hl = {
-    fg = gruvbox_colors.bright_purple,
-  },
-  left_sep = ' ',
-  truncate_hide = true,
-})
+-- table.insert(components.active[SECTION.RIGHT], {
+--   provider = {
+--     name = 'git_branch',
+--   },
+--   hl = {
+--     fg = gruvbox_colors.bright_purple,
+--   },
+--   left_sep = ' ',
+--   truncate_hide = true,
+-- })
 
-table.insert(components.active[SECTION.RIGHT], {
-  provider = {
-    name = 'git_diff_added',
-  },
-  hl = {
-    fg = gruvbox_colors.bright_green,
-  },
-  truncate_hide = true,
-})
+-- table.insert(components.active[SECTION.RIGHT], {
+--   provider = {
+--     name = 'git_diff_added',
+--   },
+--   hl = {
+--     fg = gruvbox_colors.bright_green,
+--   },
+--   truncate_hide = true,
+-- })
 
-table.insert(components.active[SECTION.RIGHT], {
-  provider = {
-    name = 'git_diff_removed',
-  },
-  hl = {
-    fg = gruvbox_colors.bright_red,
-  },
-  truncate_hide = true,
-})
+-- table.insert(components.active[SECTION.RIGHT], {
+--   provider = {
+--     name = 'git_diff_removed',
+--   },
+--   hl = {
+--     fg = gruvbox_colors.bright_red,
+--   },
+--   truncate_hide = true,
+-- })
 
-table.insert(components.active[SECTION.RIGHT], {
-  provider = {
-    name = 'git_diff_changed',
-  },
-  hl = {
-    fg = gruvbox_colors.bright_orange,
-  },
-  truncate_hide = true,
-})
+-- table.insert(components.active[SECTION.RIGHT], {
+--   provider = {
+--     name = 'git_diff_changed',
+--   },
+--   hl = {
+--     fg = gruvbox_colors.bright_orange,
+--   },
+--   truncate_hide = true,
+-- })
 
 table.insert(components.active[SECTION.RIGHT], {
   provider = function()

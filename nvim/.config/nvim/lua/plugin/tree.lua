@@ -7,6 +7,9 @@ require('nvim-tree').setup({
       },
     },
   },
+  git = {
+    enable = false,
+  },
   renderer = {
     -- append a trailing slash to folder names (default false)
     add_trailing = true,

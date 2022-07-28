@@ -27,18 +27,18 @@ lspconfig.efm.setup({
   },
   settings = {
     languages = {
-      javascript = { dprint },
-      javascriptreact = { dprint },
+      -- javascript = { dprint },
+      -- javascriptreact = { dprint },
       lua = { stylua },
-      typescript = { dprint },
-      typescriptreact = { dprint },
+      -- typescript = { dprint },
+      -- typescriptreact = { dprint },
     },
   },
   filetypes = {
-    'javascript',
-    'javascriptreact',
+    -- 'javascript',
+    -- 'javascriptreact',
     'lua',
-    'typescript',
-    'typescriptreact',
+    -- 'typescript',
+    -- 'typescriptreact',
   },
 })

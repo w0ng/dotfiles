@@ -14,12 +14,12 @@ packer.startup(function()
   })
 
   -- gitsigns.nvim: git decorators for git modified lines
-  use({
-    'lewis6991/gitsigns.nvim',
-    config = function()
-      require('plugin/gitsigns')
-    end,
-  })
+  -- use({
+  --   'lewis6991/gitsigns.nvim',
+  --   config = function()
+  --     require('plugin/gitsigns')
+  --   end,
+  -- })
 
   -- feline.nvim: conigurable statusline
   use({
@@ -27,7 +27,7 @@ packer.startup(function()
     requires = {
       'ellisonleao/gruvbox.nvim',
       'kyazdani42/nvim-web-devicons',
-      'lewis6991/gitsigns.nvim',
+      -- 'lewis6991/gitsigns.nvim',
     },
     config = function()
       require('plugin/feline')
@@ -43,17 +43,17 @@ packer.startup(function()
   -- nvim-treesitter: code parser and syntax highlighting
   -- nvim-treesitter-textobjects: per-language text objects
   -- nvim-ts-context-commentstring: per-language comments for React files
-  use({
-    'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate',
-    requires = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
-      'JoosepAlviste/nvim-ts-context-commentstring',
-    },
-    config = function()
-      require('plugin/treesitter')
-    end,
-  })
+  -- use({
+  --   'nvim-treesitter/nvim-treesitter',
+  --   run = ':TSUpdate',
+  --   requires = {
+  --     'nvim-treesitter/nvim-treesitter-textobjects',
+  --     'JoosepAlviste/nvim-ts-context-commentstring',
+  --   },
+  --   config = function()
+  --     require('plugin/treesitter')
+  --   end,
+  -- })
 
   -- nvim-lspconfig: common configs for built-in LSP
   -- cmp-nvim-lsp: nvim-cmp source for neovim builtin LSP client
@@ -134,13 +134,13 @@ packer.startup(function()
   })
 
   -- diffview.nvim: single view for all file diffs
-  use({
-    'sindrets/diffview.nvim',
-    requires = 'nvim-lua/plenary.nvim',
-    config = function()
-      require('plugin/diffview')
-    end,
-  })
+  -- use({
+  --   'sindrets/diffview.nvim',
+  --   requires = 'nvim-lua/plenary.nvim',
+  --   config = function()
+  --     require('plugin/diffview')
+  --   end,
+  -- })
 
   -- -- neogit: git interface (using this for everything except :Git blame)
   -- use({
@@ -192,5 +192,14 @@ packer.startup(function()
   use({
     'iamcco/markdown-preview.nvim',
     run = 'cd app && yarn install',
+  })
+
+  -- dprint
+  use({
+    'Canva/dprint-vim-plugin',
+    config = function()
+      vim.g.dprint_dir = vim.fn.expand('~/dev/canva/tools/dprint')
+      vim.g.dprint_format_on_save = 1
+    end,
   })
 end)
