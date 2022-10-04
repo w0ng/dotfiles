@@ -41,3 +41,7 @@ chflags nohidden ~/Library && xattr -d com.apple.FinderInfo ~/Library
 # Use dark mode for menu and dock, but keep everything else light
 # (note: this makes volume/brightness slider values not visible)
 #defaults write -g NSRequiresAquaSystemAppearance -bool Yes
+
+# Disable mouse acceleration
+# To revert, change sensitivity: System Preferences > Mouse > Tracking speed
+defaults write .GlobalPreferences com.apple.mouse.scaling -1
