@@ -34,6 +34,14 @@ packer.startup(function()
     end,
   })
 
+  -- incline.nvim: floating buffer statusline
+  use({
+    'b0o/incline.nvim',
+    config = function()
+      require('plugin/incline')
+    end,
+  })
+
   -- vim-jsx-pretty: react syntax highlighting and indenting
   use('MaxMEllon/vim-jsx-pretty')
 
