@@ -29,4 +29,4 @@ require('gruvbox').setup({
 })
 
 -- Set colorscheme, make statusline and pop-up menu darker
-vim.cmd([[ colorscheme gruvbox ]])
+vim.cmd.colorscheme('gruvbox')

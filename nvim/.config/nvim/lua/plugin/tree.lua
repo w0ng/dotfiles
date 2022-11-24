@@ -18,9 +18,9 @@ require('nvim-tree').setup({
 })
 
 -- folder name color blue when gruvbox colortheme installed
-vim.cmd([[ highlight! link NvimTreeFolderName Identifier ]])
-vim.cmd([[ highlight! link NvimTreeEmptyFolderName Identifier ]])
-vim.cmd([[ highlight! link NvimTreeOpenedFolderName Identifier ]])
+vim.api.nvim_set_hl(0, 'NvimTreeFolderName', { link = 'Identifier' })
+vim.api.nvim_set_hl(0, 'NvimTreeEmptyFolderName', { link = 'Identifier' })
+vim.api.nvim_set_hl(0, 'NvimTreeOpenedFolderName', { link = 'Identifier' })
 
 local map = vim.api.nvim_set_keymap
 -- toggle tree

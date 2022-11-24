@@ -1,10 +1,10 @@
--- https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#sumneko_lua
--- https://github.com/folke/lua-dev.nvim
+-- brew install lua-language-server
+-- https://github.com/folke/neodev.nvim
 local lspconfig = require('lspconfig')
-local luadev = require('lua-dev').setup({
-  lspconfig = {
-    cmd = { 'lua-language-server' },
-  },
-})
 
-lspconfig.sumneko_lua.setup(luadev)
+lspconfig.sumneko_lua.setup({
+  on_attach = function(client)
+    -- Disable formatting with sumneko_lua. Use stylua in efm instead
+    client.server_capabilities.documentFormattingProvider = false
+  end,
+})

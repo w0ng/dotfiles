@@ -58,14 +58,16 @@ packer.startup(function()
   -- nvim-lspconfig: common configs for built-in LSP
   -- cmp-nvim-lsp: nvim-cmp source for neovim builtin LSP client
   -- lua-dev.nvim: better neovim completion (see plugin/lspconfig/sumneko_lua)
+  -- neodev.nvim: better neovim completion (see plugin/lspconfig/sumneko_lua)
   use({
     'neovim/nvim-lspconfig',
     requires = {
       'npxbr/gruvbox.nvim',
       'hrsh7th/cmp-nvim-lsp',
-      'folke/lua-dev.nvim',
+      'folke/neodev.nvim',
     },
     config = function()
+      require('neodev').setup({})
       require('plugin/lspconfig')
     end,
   })

@@ -17,52 +17,56 @@ vim.diagnostic.config({
 -- Always show sign column
 vim.opt.signcolumn = 'yes'
 
+-- Mappings.
+-- See `:help vim.diagnostic.*` for documentation on any of the below functions
+local opts = { noremap = true, silent = true }
+vim.keymap.set('n', '<LocalLeader>e', vim.diagnostic.open_float, opts)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-  local function buf_set_keymap(...)
-    vim.api.nvim_buf_set_keymap(bufnr, ...)
-  end
-  local function buf_set_option(...)
-    vim.api.nvim_buf_set_option(bufnr, ...)
-  end
-
   -- Enable completion triggered by <c-x><c-o>
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   -- Mappings.
-  local opts = { noremap = true, silent = true }
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  local bufopts = { noremap = true, silent = true, buffer = bufnr }
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_set_keymap('n', 'gk', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_set_keymap('i', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_set_keymap('n', '<LocalLeader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<LocalLeader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  buf_set_keymap(
-    'n',
-    '<LocalLeader>wl',
-    '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>',
-    opts
-  )
-  buf_set_keymap('n', '<LocalLeader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  buf_set_keymap('n', '<LocalLeader>r', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', 'ga', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap('n', '<LocalLeader>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-  buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap('n', '<LocalLeader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
-  buf_set_keymap('n', '<LocalLeader>m', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', 'gk', vim.lsp.buf.signature_help, bufopts)
+  vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+  vim.keymap.set('n', '<LocalLeader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+  vim.keymap.set('n', '<LocalLeader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  vim.keymap.set('n', '<LocalLeader>wl', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, bufopts)
+  vim.keymap.set('n', '<LocalLeader>D', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', '<LocalLeader>r', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', 'ga', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  vim.keymap.set('n', '<LocalLeader>m', function()
+    vim.lsp.buf.format({ async = true })
+  end, bufopts)
+  vim.keymap.set('n', '<LocalLeader>q', vim.diagnostic.setloclist, bufopts)
 
   -- Format file in buffer on save
-  if client.resolved_capabilities.document_formatting then
-    vim.api.nvim_command('autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync({}, 5000)')
+  if client.server_capabilities.documentFormattingProvider then
+    vim.api.nvim_create_autocmd('BufWritePre', {
+      callback = function()
+        vim.lsp.buf.format({ timeout_ms = 5000 })
+      end,
+    })
   end
 end
+
+-- Setup integration with cmp for autocompletion
+local capabilities = cmp_nvim_lsp.default_capabilities()
 
 -- Extend default config for all servers
 lspconfig.util.default_config = vim.tbl_deep_extend('force', lspconfig.util.default_config, {
@@ -70,46 +74,8 @@ lspconfig.util.default_config = vim.tbl_deep_extend('force', lspconfig.util.defa
     debounce_text_changes = 150,
   },
   on_attach = on_attach,
-  -- Setup integration with cmp for autocompletion
-  capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+  capabilities = capabilities,
 })
-
---@private
---- Jumps to a location. Used as a handler for multiple LSP methods.
----@param _ any (not used)
----@param result table result of LSP method; a location or a list of locations.
----@param ctx table table containing the context of the request, including the method
----(`textDocument/definition` can return `Location` or `Location[]`
-local function location_handler(_, result, ctx, _)
-  local log = require('vim.lsp.log')
-  local util = vim.lsp.util
-  local api = vim.api
-  if result == nil or vim.tbl_isempty(result) then
-    local _ = log.info() and log.info(ctx.method, 'No location found')
-    return nil
-  end
-  local client = vim.lsp.get_client_by_id(ctx.client_id)
-  if vim.tbl_islist(result) then
-    if #result > 1 then
-      vim.fn.setqflist({}, ' ', {
-        title = 'LSP locations',
-        items = util.locations_to_items(result, client.offset_encoding),
-      })
-      api.nvim_command('botright copen')
-    else
-      util.jump_to_location(result[1], client.offset_encoding)
-    end
-  else
-    util.jump_to_location(result, client.offset_encoding)
-  end
-end
-
--- Prevent switching buffer to first location on multiple results
--- See https://github.com/neovim/neovim/blob/3e00d4f01cebedb758050e2e3faf065036fcfdc2/runtime/lua/vim/lsp/handlers.lua#L308
-vim.lsp.handlers['textDocument/declaration'] = location_handler
-vim.lsp.handlers['textDocument/definition'] = location_handler
-vim.lsp.handlers['textDocument/typeDefinition'] = location_handler
-vim.lsp.handlers['textDocument/implementation'] = location_handler
 
 -- Replace sign column diagnostic letters with nerdfonts icons
 -- (default { Error = 'E', Warning = 'W', Hint = 'H', Information = 'I' })

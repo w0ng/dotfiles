@@ -4,6 +4,6 @@ local lspconfig = require('lspconfig')
 lspconfig.tsserver.setup({
   on_attach = function(client)
     -- Disable formatting with tsserver. Use dprint in efm instead
-    client.resolved_capabilities.document_formatting = false
+    client.server_capabilities.documentFormattingProvider = false
   end,
 })
