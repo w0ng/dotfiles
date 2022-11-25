@@ -42,6 +42,18 @@ packer.startup(function()
     end,
   })
 
+  -- noice.nvim: Experimental UI replacement for messages, cmdline and popupmenu
+  -- nui.nvim: UI component library
+  use({
+    'folke/noice.nvim',
+    requires = {
+      'MunifTanjim/nui.nvim',
+    },
+    config = function()
+      require('plugin/noice')
+    end,
+  })
+
   -- vim-jsx-pretty: react syntax highlighting and indenting
   use('MaxMEllon/vim-jsx-pretty')
 
