@@ -18,6 +18,8 @@ vim.opt.laststatus = 3
 vim.opt.mouse = 'a'
 -- Show cursor line number (default off)
 vim.opt.number = true
+-- Show line numbers relative to cursor line (default false)
+vim.opt.relativenumber = true
 -- Show Insert, Replace, or Visual message on the last line (default on)
 vim.opt.showmode = false
 -- Enables 24-bit RGB color in the TUI (default off)

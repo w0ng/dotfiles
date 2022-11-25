@@ -215,4 +215,7 @@ packer.startup(function()
     'iamcco/markdown-preview.nvim',
     run = 'cd app && yarn install',
   })
+
+  -- vim-be-good: games to practice vim movements
+  use('ThePrimeagen/vim-be-good')
 end)
