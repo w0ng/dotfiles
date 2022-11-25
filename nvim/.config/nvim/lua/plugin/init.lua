@@ -21,13 +21,25 @@ packer.startup(function()
     end,
   })
 
+  -- noice.nvim: Experimental UI replacement for messages, cmdline and popupmenu
+  -- nui.nvim: UI component library
+  use({
+    'folke/noice.nvim',
+    requires = {
+      'MunifTanjim/nui.nvim',
+    },
+    config = function()
+      require('plugin/noice')
+    end,
+  })
+
   -- feline.nvim: conigurable statusline
   use({
     'feline-nvim/feline.nvim',
     requires = {
       'ellisonleao/gruvbox.nvim',
       'kyazdani42/nvim-web-devicons',
-      'lewis6991/gitsigns.nvim',
+      'folke/noice.nvim',
     },
     config = function()
       require('plugin/feline')
@@ -39,18 +51,6 @@ packer.startup(function()
     'b0o/incline.nvim',
     config = function()
       require('plugin/incline')
-    end,
-  })
-
-  -- noice.nvim: Experimental UI replacement for messages, cmdline and popupmenu
-  -- nui.nvim: UI component library
-  use({
-    'folke/noice.nvim',
-    requires = {
-      'MunifTanjim/nui.nvim',
-    },
-    config = function()
-      require('plugin/noice')
     end,
   })
 
