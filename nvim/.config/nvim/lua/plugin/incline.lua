@@ -7,7 +7,7 @@ require('incline').setup({
   highlight = {
     groups = {
       InclineNormal = 'StatusLine',
-      InclineNormalNC = 'StatusLine',
+      InclineNormalNC = 'StatusLineNC',
     },
   },
 })

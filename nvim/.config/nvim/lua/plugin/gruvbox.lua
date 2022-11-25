@@ -15,7 +15,7 @@ require('gruvbox').setup({
     GruvboxOrangeSign = { fg = colors.orange, bg = colors.dark0, reverse = false },
 
     -- Darker StatusLine
-    StatusLine = { fg = colors.dark0_hard, bg = colors.light1, reverse = true },
+    StatusLine = { fg = colors.dark0_hard, bg = colors.bright_yellow, reverse = true },
     StatusLineNC = { fg = colors.dark0_hard, bg = colors.light4, reverse = true },
 
     -- Darker LSP popup menu
