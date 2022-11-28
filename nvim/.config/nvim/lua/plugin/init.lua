@@ -21,13 +21,25 @@ packer.startup(function()
   --   end,
   -- })
 
+  -- noice.nvim: Experimental UI replacement for messages, cmdline and popupmenu
+  -- nui.nvim: UI component library
+  use({
+    'folke/noice.nvim',
+    requires = {
+      'MunifTanjim/nui.nvim',
+    },
+    config = function()
+      require('plugin/noice')
+    end,
+  })
+
   -- feline.nvim: conigurable statusline
   use({
     'feline-nvim/feline.nvim',
     requires = {
       'ellisonleao/gruvbox.nvim',
       'kyazdani42/nvim-web-devicons',
-      -- 'lewis6991/gitsigns.nvim',
+      'folke/noice.nvim',
     },
     config = function()
       require('plugin/feline')
@@ -39,18 +51,6 @@ packer.startup(function()
     'b0o/incline.nvim',
     config = function()
       require('plugin/incline')
-    end,
-  })
-
-  -- noice.nvim: Experimental UI replacement for messages, cmdline and popupmenu
-  -- nui.nvim: UI component library
-  use({
-    'folke/noice.nvim',
-    requires = {
-      'MunifTanjim/nui.nvim',
-    },
-    config = function()
-      require('plugin/noice')
     end,
   })
 
@@ -155,24 +155,6 @@ packer.startup(function()
     end,
   })
 
-  -- diffview.nvim: single view for all file diffs
-  -- use({
-  --   'sindrets/diffview.nvim',
-  --   requires = 'nvim-lua/plenary.nvim',
-  --   config = function()
-  --     require('plugin/diffview')
-  --   end,
-  -- })
-
-  -- -- neogit: git interface (using this for everything except :Git blame)
-  -- use({
-  --   'TimUntersberger/neogit',
-  --   requires = 'sindrets/diffview.nvim',
-  --   config = function()
-  --     require('plugin/neogit')
-  --   end,
-  -- })
-
   -- vim-fugitive: git wrapper (only still using this for :Git blame)
   use({
     'tpope/vim-fugitive',
@@ -210,12 +192,6 @@ packer.startup(function()
   -- pantharshit00/vim-prisma: Prisma2 syntax highlighting
   use('pantharshit00/vim-prisma')
 
-  -- iamcco/markdown-preview.nvim: markdown preview in browser
-  use({
-    'iamcco/markdown-preview.nvim',
-    run = 'cd app && yarn install',
-  })
-
   -- dprint
   use({
     'Canva/dprint-vim-plugin',
@@ -224,4 +200,7 @@ packer.startup(function()
       vim.g.dprint_format_on_save = 1
     end,
   })
+
+  -- vim-be-good: games to practice vim movements
+  use('ThePrimeagen/vim-be-good')
 end)

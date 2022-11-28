@@ -1,5 +1,6 @@
 -- https://github.com/ellisonleao/gruvbox.nvim/blob/7a5c7ace3ac169b2898a4c7d8abec42cf9e18003/lua/gruvbox/palette.lua
 local gruvbox_colors = require('gruvbox.palette')
+local noice = require('noice')
 
 local system_colors = {
   red = 'Maroon',
@@ -32,6 +33,10 @@ local components = {
   active = { {}, {}, {} },
   inactive = { {}, {}, {} },
 }
+
+local function mode_provider()
+  return '' .. noice.api.status.mode.get()
+end
 
 table.insert(components.active[SECTION.LEFT], {
   provider = function()
@@ -87,6 +92,16 @@ table.insert(components.active[SECTION.LEFT], {
   },
 })
 
+table.insert(components.active[SECTION.LEFT], {
+  provider = mode_provider,
+  enabled = noice.api.status.mode.has,
+  hl = {
+    fg = gruvbox_colors.light4,
+  },
+  left_sep = ' ',
+  right_sep = ' ',
+})
+
 table.insert(components.active[SECTION.MIDDLE], {
   provider = {
     name = 'file_info',
@@ -111,61 +126,21 @@ table.insert(components.active[SECTION.MIDDLE], {
   right_sep = ' ',
 })
 
--- table.insert(components.active[SECTION.RIGHT], {
---   provider = {
---     name = 'git_branch',
---   },
---   hl = {
---     fg = gruvbox_colors.bright_purple,
---   },
---   left_sep = ' ',
---   truncate_hide = true,
--- })
-
--- table.insert(components.active[SECTION.RIGHT], {
---   provider = {
---     name = 'git_diff_added',
---   },
---   hl = {
---     fg = gruvbox_colors.bright_green,
---   },
---   truncate_hide = true,
--- })
-
--- table.insert(components.active[SECTION.RIGHT], {
---   provider = {
---     name = 'git_diff_removed',
---   },
---   hl = {
---     fg = gruvbox_colors.bright_red,
---   },
---   truncate_hide = true,
--- })
-
--- table.insert(components.active[SECTION.RIGHT], {
---   provider = {
---     name = 'git_diff_changed',
---   },
---   hl = {
---     fg = gruvbox_colors.bright_orange,
---   },
---   truncate_hide = true,
--- })
-
-table.insert(components.active[SECTION.RIGHT], {
-  provider = function()
-    return vim.bo.filetype
-  end,
+table.insert(components.active[SECTION.MIDDLE], {
+  provider = {
+    name = 'search_count',
+  },
   hl = {
-    fg = gruvbox_colors.bright_blue,
+    fg = gruvbox_colors.bright_yellow,
   },
   left_sep = ' ',
+  right_sep = ' ',
 })
 
 table.insert(components.active[SECTION.RIGHT], {
   provider = 'position',
   hl = {
-    fg = gruvbox_colors.bright_blue,
+    fg = gruvbox_colors.light4,
   },
   left_sep = ' ',
   right_sep = ' ',
@@ -189,6 +164,27 @@ table.insert(components.inactive[SECTION.MIDDLE], {
       file_readonly_icon = ' ',
       colored_icon = false,
     },
+  },
+  hl = {
+    fg = gruvbox_colors.light4,
+  },
+  left_sep = ' ',
+  right_sep = ' ',
+})
+
+table.insert(components.inactive[SECTION.LEFT], {
+  provider = mode_provider,
+  enabled = noice.api.status.mode.has,
+  hl = {
+    fg = gruvbox_colors.light4,
+  },
+  left_sep = ' ',
+  right_sep = ' ',
+})
+
+table.insert(components.inactive[SECTION.MIDDLE], {
+  provider = {
+    name = 'search_count',
   },
   hl = {
     fg = gruvbox_colors.light4,
