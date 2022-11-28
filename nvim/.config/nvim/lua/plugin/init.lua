@@ -63,17 +63,17 @@ packer.startup(function()
   -- nvim-treesitter: code parser and syntax highlighting
   -- nvim-treesitter-textobjects: per-language text objects
   -- nvim-ts-context-commentstring: per-language comments for React files
-  -- use({
-  --   'nvim-treesitter/nvim-treesitter',
-  --   run = ':TSUpdate',
-  --   requires = {
-  --     'nvim-treesitter/nvim-treesitter-textobjects',
-  --     'JoosepAlviste/nvim-ts-context-commentstring',
-  --   },
-  --   config = function()
-  --     require('plugin/treesitter')
-  --   end,
-  -- })
+  use({
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate',
+    requires = {
+      'nvim-treesitter/nvim-treesitter-textobjects',
+      'JoosepAlviste/nvim-ts-context-commentstring',
+    },
+    config = function()
+      require('plugin/treesitter')
+    end,
+  })
 
   -- nvim-lspconfig: common configs for built-in LSP
   -- cmp-nvim-lsp: nvim-cmp source for neovim builtin LSP client
