@@ -1,5 +1,7 @@
+local lspconfig = require('lspconfig')
+
 -- npm i -g stylelint-lsp
-require('lspconfig').stylelint_lsp.setup({
+lspconfig.stylelint_lsp.setup({
   settings = {
     stylelintplus = {
       autoFixOnFormat = true,
@@ -9,4 +11,5 @@ require('lspconfig').stylelint_lsp.setup({
   filetypes = {
     'css',
   },
+  root_dir = lspconfig.util.root_pattern('shell.nix'),
 })

@@ -1,5 +1,7 @@
+local lspconfig = require('lspconfig')
+
 -- npm i -g vscode-langservers-extracted
-require('lspconfig').cssls.setup({
+lspconfig.cssls.setup({
   settings = {
     css = {
       validate = true,
@@ -9,4 +11,5 @@ require('lspconfig').cssls.setup({
       },
     },
   },
+  root_dir = lspconfig.util.root_pattern('shell.nix'),
 })
