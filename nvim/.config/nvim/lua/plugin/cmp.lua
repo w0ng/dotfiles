@@ -86,5 +86,5 @@ cmp.setup({
 })
 
 -- Override highlights
-vim.cmd([[ highlight! default CmpItemKind guifg=#EBDBB2 ]])
-vim.cmd([[ highlight! default CmpItemMenu guifg=#EBDBB2 ]])
+vim.api.nvim_set_hl(0, 'CmpItemKind', { fg = '#ebdbb2' })
+vim.api.nvim_set_hl(0, 'CmpItemMenu', { fg = '#ebdbb2' })

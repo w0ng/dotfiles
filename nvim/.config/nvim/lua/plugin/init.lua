@@ -34,6 +34,26 @@ packer.startup(function()
     end,
   })
 
+  -- incline.nvim: floating buffer statusline
+  use({
+    'b0o/incline.nvim',
+    config = function()
+      require('plugin/incline')
+    end,
+  })
+
+  -- noice.nvim: Experimental UI replacement for messages, cmdline and popupmenu
+  -- nui.nvim: UI component library
+  use({
+    'folke/noice.nvim',
+    requires = {
+      'MunifTanjim/nui.nvim',
+    },
+    config = function()
+      require('plugin/noice')
+    end,
+  })
+
   -- vim-jsx-pretty: react syntax highlighting and indenting
   use('MaxMEllon/vim-jsx-pretty')
 
@@ -58,14 +78,16 @@ packer.startup(function()
   -- nvim-lspconfig: common configs for built-in LSP
   -- cmp-nvim-lsp: nvim-cmp source for neovim builtin LSP client
   -- lua-dev.nvim: better neovim completion (see plugin/lspconfig/sumneko_lua)
+  -- neodev.nvim: better neovim completion (see plugin/lspconfig/sumneko_lua)
   use({
     'neovim/nvim-lspconfig',
     requires = {
       'npxbr/gruvbox.nvim',
       'hrsh7th/cmp-nvim-lsp',
-      'folke/lua-dev.nvim',
+      'folke/neodev.nvim',
     },
     config = function()
+      require('neodev').setup({})
       require('plugin/lspconfig')
     end,
   })

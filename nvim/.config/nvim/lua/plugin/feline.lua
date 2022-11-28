@@ -53,30 +53,6 @@ table.insert(components.active[SECTION.LEFT], {
 
 table.insert(components.active[SECTION.LEFT], {
   provider = {
-    name = 'file_info',
-    opts = {
-      type = 'relative',
-      file_modified_icon = '',
-      file_readonly_icon = ' ',
-    },
-  },
-  short_provider = {
-    name = 'file_info',
-    opts = {
-      type = 'base-only',
-      file_modified_icon = '',
-      file_readonly_icon = ' ',
-    },
-  },
-  hl = {
-    fg = gruvbox_colors.bright_yellow,
-  },
-  left_sep = ' ',
-  right_sep = ' ',
-})
-
-table.insert(components.active[SECTION.LEFT], {
-  provider = {
     name = 'diagnostic_errors',
   },
   hl = {
@@ -109,6 +85,30 @@ table.insert(components.active[SECTION.LEFT], {
   hl = {
     fg = gruvbox_colors.bright_aqua,
   },
+})
+
+table.insert(components.active[SECTION.MIDDLE], {
+  provider = {
+    name = 'file_info',
+    opts = {
+      type = 'relative',
+      file_modified_icon = '',
+      file_readonly_icon = ' ',
+    },
+  },
+  short_provider = {
+    name = 'file_info',
+    opts = {
+      type = 'base-only',
+      file_modified_icon = '',
+      file_readonly_icon = ' ',
+    },
+  },
+  hl = {
+    fg = gruvbox_colors.bright_yellow,
+  },
+  left_sep = ' ',
+  right_sep = ' ',
 })
 
 -- table.insert(components.active[SECTION.RIGHT], {
@@ -171,7 +171,7 @@ table.insert(components.active[SECTION.RIGHT], {
   right_sep = ' ',
 })
 
-table.insert(components.inactive[SECTION.LEFT], {
+table.insert(components.inactive[SECTION.MIDDLE], {
   provider = {
     name = 'file_info',
     opts = {

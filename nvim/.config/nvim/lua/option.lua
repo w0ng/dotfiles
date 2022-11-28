@@ -12,6 +12,8 @@ vim.opt.foldlevelstart = 99
 vim.opt.foldmethod = 'indent'
 -- Enables hiding a buffer instead of discarding buffer on unload (default off)
 vim.opt.hidden = true
+-- Only show statusline on last window (default 2)
+vim.opt.laststatus = 3
 -- Enables mouse support (default '')
 vim.opt.mouse = 'a'
 -- Show cursor line number (default off)
