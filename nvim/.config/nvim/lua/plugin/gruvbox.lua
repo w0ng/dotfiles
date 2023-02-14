@@ -1,4 +1,4 @@
-local colors = require('gruvbox.palette')
+local colors = require('gruvbox.palette').colors
 
 require('gruvbox').setup({
   bold = false,
