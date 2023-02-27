@@ -125,7 +125,7 @@ packer.startup(function()
 
   -- fzf.vim: fuzzy finder
   use({
-    '/usr/local/opt/fzf',
+    '/opt/homebrew/opt/fzf',
     {
       'junegunn/fzf.vim',
       config = function()
@@ -196,7 +196,7 @@ packer.startup(function()
   use({
     'Canva/dprint-vim-plugin',
     config = function()
-      vim.g.dprint_dir = vim.fn.expand('~/dev/canva/tools/dprint')
+      vim.g.dprint_dir = vim.fn.expand('~/work/canva/tools/dprint')
       vim.g.dprint_format_on_save = 1
     end,
   })

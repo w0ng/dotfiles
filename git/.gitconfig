@@ -75,3 +75,5 @@
 	rebase = false
 [init]
 	defaultBranch = main
+[maintenance]
+	repo = ~/work/canva

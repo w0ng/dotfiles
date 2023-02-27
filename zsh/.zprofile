@@ -1,10 +1,10 @@
 #
 # System environment variables
 #
-export EDITOR='/usr/local/bin/nvim'
+export EDITOR='/opt/homebrew/bin/nvim'
 export LESS='-i -R'
 export PAGER='less'
-export VISUAL='/usr/local/bin/nvim'
+export VISUAL='/opt/homebrew/bin/nvim'
 
 if [[ "$OSTYPE" == darwin* ]]; then
   export BROWSER='open'
@@ -24,7 +24,6 @@ fi
 typeset -gU cdpath fpath mailpath path
 
 for dir (
-  "/usr/local/share/android-sdk/platform-tools"
   "$HOME/.cargo/bin"
   "$HOME/bin"
 ); do
@@ -35,3 +34,9 @@ for dir (
     )
   fi
 done
+
+# Added by Toolbox App
+export PATH="$PATH:$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
+
+
+eval "$(/opt/homebrew/bin/brew shellenv)"

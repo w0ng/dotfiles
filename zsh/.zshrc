@@ -51,7 +51,7 @@ alias dc="docker-compose"
 alias gcM='git commit --amend --message'
 alias gist="gist -p"
 alias g='git add . && git commit -m "WIP: $(date)"'
-# alias ls='/usr/local/bin/gls --group-directories-first --color=auto --classify --human-readable'
+# alias ls='/opt/homebrew/bin/gls --group-directories-first --color=auto --classify --human-readable'
 alias ls='lsd --group-directories-first --color=auto --classify --human-readable'
 alias n='/usr/bin/ssh nas'
 alias luamake=$HOME/dev/lua-language-server/3rd/luamake/luamake
@@ -105,12 +105,8 @@ if [[ -s "$HOME/.fzf.zsh" ]]; then
   source "$HOME/.fzf.zsh"
 fi
 
-# Include command-line API tokens
-if [[ -r "$HOME/.tokens" ]]; then
-  source "$HOME/.tokens"
-fi
-
 # Nix
 if [[ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]]; then
   source "$HOME/.nix-profile/etc/profile.d/nix.sh"
 fi
+### End of Zinit's installer chunk
