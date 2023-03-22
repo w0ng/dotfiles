@@ -13,6 +13,7 @@ require('nvim-treesitter.configs').setup({
     'regex',
     'tsx',
     'typescript',
+    'vim',
     'yaml',
   },
 
