@@ -2,7 +2,12 @@ local colors = require('gruvbox.palette').colors
 
 require('gruvbox').setup({
   bold = false,
-  italic = false,
+  italic = {
+    strings = false,
+    comments = false,
+    operators = false,
+    folds = false,
+  },
   overrides = {
     -- Transparent SignColumn
     SignColumn = { bg = colors.dark0 },
