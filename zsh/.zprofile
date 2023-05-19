@@ -37,6 +37,8 @@ done
 
 # Added by Toolbox App
 export PATH="$PATH:$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
-
+# Nix
+export CANVA_NIXPKGS_SYSTEM=aarch64-darwin
+export FORCE_NO_BAZEL_REMOTE_CACHE=true
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
