@@ -3,10 +3,7 @@ local cmp_nvim_lsp = require('cmp_nvim_lsp')
 
 -- Configure diagnostic options globally
 vim.diagnostic.config({
-  virtual_text = {
-    severity_sort = true,
-    source = true,
-  },
+  virtual_text = false,
   float = {
     border = 'rounded',
     severity_sort = true,
