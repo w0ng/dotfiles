@@ -1,5 +1,5 @@
 -- https://github.com/ellisonleao/gruvbox.nvim/blob/211ce2ee4c9bb94b0426375543889f1f6fcfca89/lua/gruvbox/palette.lua#L4-L41
-local gruvbox_colors = require('gruvbox.palette').colors
+local gruvbox_colors = require('gruvbox').palette
 local noice = require('noice')
 
 local system_colors = {
