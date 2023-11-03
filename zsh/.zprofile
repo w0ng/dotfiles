@@ -27,6 +27,7 @@ for dir (
   "/opt/homebrew/opt/node@16/bin"
   "$HOME/.cargo/bin"
   "$HOME/bin"
+  "$HOME/Library/Android/sdk/platform-tools"
 ); do
   if [[ -d "$dir" ]]; then
     path=(
