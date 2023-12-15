@@ -1,13 +1,11 @@
 -- brew install efm-langserver
 local lspconfig = require('lspconfig')
 
--- brew install dprint
-local dprint = {
-  formatCommand = 'dprint fmt --stdin ${INPUT}',
+-- brew install prettierd
+local prettierd = {
+  formatCommand = 'prettierd "${INPUT}"',
   formatStdin = true,
-  rootMarkers = {
-    'dprint.json',
-  },
+  env = { string.format('PRETTIERD_DEFAULT_CONFIG=%s', vim.fn.expand('~/.prettierrc')) },
 }
 
 -- cargo install stylua
@@ -27,18 +25,34 @@ lspconfig.efm.setup({
   },
   settings = {
     languages = {
-      javascript = { dprint },
-      javascriptreact = { dprint },
+      css = { prettierd },
+      graphql = { prettierd },
+      html = { prettierd },
+      javascript = { prettierd },
+      javascriptreact = { prettierd },
+      json = { prettierd },
+      less = { prettierd },
       lua = { stylua },
-      typescript = { dprint },
-      typescriptreact = { dprint },
+      markdown = { prettierd },
+      scss = { prettierd },
+      typescript = { prettierd },
+      typescriptreact = { prettierd },
+      yaml = { prettierd },
     },
   },
   filetypes = {
+    'css',
+    'graphql',
+    'html',
     'javascript',
     'javascriptreact',
+    'json',
+    'less',
     'lua',
+    'markdown',
+    'scss',
     'typescript',
     'typescriptreact',
+    'yaml',
   },
 })

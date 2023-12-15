@@ -1,14 +1,12 @@
 local formatter = require('formatter')
 
--- brew install dprint
-local dprint = function(ext)
-  return function()
-    return {
-      exe = 'dprint',
-      args = { 'fmt', '--config', '~/.config/dprint/dprint.json', '--stdin', ext },
-      stdin = true,
-    }
-  end
+-- brew install prettierd
+local prettierd = function()
+  return {
+    exe = 'prettierd',
+    args = { vim.api.nvim_buf_get_name(0) },
+    stdin = true,
+  }
 end
 
 -- cargo install stylua
@@ -22,16 +20,21 @@ end
 
 -- Add filetypes to formatter config
 formatter.setup({
-  logging = false,
+  -- logging = false,
   filetype = {
-    javascript = { dprint('js') },
-    javascriptreact = { dprint('jsx') },
-    json = { dprint('json') },
-    jsonc = { dprint('jsonc') },
+    css = { prettierd },
+    graphql = { prettierd },
+    html = { prettierd },
+    javascript = { prettierd },
+    javascriptreact = { prettierd },
+    json = { prettierd },
+    less = { prettierd },
     lua = { stylua },
-    markdown = { dprint('md') },
-    typescript = { dprint('ts') },
-    typescriptreact = { dprint('tsx') },
+    markdown = { prettierd },
+    scss = { prettierd },
+    typescript = { prettierd },
+    typescriptreact = { prettierd },
+    yaml = { prettierd },
   },
 })
 
@@ -39,6 +42,10 @@ local map = vim.api.nvim_set_keymap
 -- auto format <current filetype>
 map('n', '<Leader>af', ':Format<CR>', { noremap = true })
 map('v', '<Leader>af', ':Format<CR>', { noremap = true })
+-- auto format css
+map('n', '<Leader>ac', ':set ft=css<CR>:Format<CR>', { noremap = true })
+-- auto format html
+map('n', '<Leader>ah', ':set ft=html<CR>:Format<CR>', { noremap = true })
 -- auto format js
 map('n', '<Leader>aj', ':set ft=javascript<CR>:Format<CR>', { noremap = true })
 -- auto format markdown
