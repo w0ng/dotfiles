@@ -1,4 +1,11 @@
 require('nvim-treesitter.configs').setup({
+  -- Disable updating commentstring on CursorHold
+  enable_autocmd = false,
+})
+
+vim.g.skip_ts_context_commentstring_module = true
+
+require('nvim-treesitter.configs').setup({
   ensure_installed = {
     'bash',
     'css',
@@ -65,12 +72,5 @@ require('nvim-treesitter.configs').setup({
         ['[]'] = '@class.outer',
       },
     },
-  },
-
-  -- https://github.com/JoosepAlviste/nvim-ts-context-commentstring
-  context_commentstring = {
-    enable = true,
-    -- Disable updating commentstring on CursorHold
-    enable_autocmd = false,
   },
 })

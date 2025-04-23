@@ -1,6 +1,6 @@
 --- General
 -- Screen columns are are highlighted with ColorColumn (default '')
-vim.opt.colorcolumn = { 80, 100 }
+vim.opt.colorcolumn = { 100 }
 -- Hide fold column in diff mode (default 'internal,filler,closeoff')
 vim.opt.diffopt:append('foldcolumn:0')
 -- When foldmethod == 'indent', lines starting with ignore get fold level from
@@ -19,7 +19,7 @@ vim.opt.mouse = 'a'
 -- Show cursor line number (default off)
 vim.opt.number = true
 -- Show line numbers relative to cursor line (default false)
-vim.opt.relativenumber = true
+-- vim.opt.relativenumber = true
 -- Show Insert, Replace, or Visual message on the last line (default on)
 vim.opt.showmode = false
 -- Enables 24-bit RGB color in the TUI (default off)

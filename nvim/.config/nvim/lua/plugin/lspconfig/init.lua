@@ -9,6 +9,22 @@ vim.diagnostic.config({
     severity_sort = true,
     source = true,
   },
+  -- Replace sign column diagnostic letters with nerdfonts icons
+  -- (default { Error = 'E', Warning = 'W', Hint = 'H', Information = 'I' })
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = ' ',
+      [vim.diagnostic.severity.WARN] = ' ',
+      [vim.diagnostic.severity.INFO] = ' ',
+      [vim.diagnostic.severity.HINT] = ' ',
+    },
+    linehl = {
+      [vim.diagnostic.severity.ERROR] = 'Error',
+      [vim.diagnostic.severity.WARN] = 'Warn',
+      [vim.diagnostic.severity.INFO] = 'Info',
+      [vim.diagnostic.severity.HINT] = 'Hint',
+    },
+  },
 })
 
 -- Always show sign column
@@ -74,18 +90,6 @@ lspconfig.util.default_config = vim.tbl_deep_extend('force', lspconfig.util.defa
   capabilities = capabilities,
 })
 
--- Replace sign column diagnostic letters with nerdfonts icons
--- (default { Error = 'E', Warning = 'W', Hint = 'H', Information = 'I' })
-for type, icon in pairs({
-  Error = ' ',
-  Warn = ' ',
-  Hint = ' ',
-  Info = ' ',
-}) do
-  local hl = 'DiagnosticSign' .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
-end
-
 -- Setup servers
 require('plugin/lspconfig/cssls')
 require('plugin/lspconfig/cssmodules_ls')
@@ -97,4 +101,4 @@ require('plugin/lspconfig/jsonls')
 -- require('plugin/lspconfig/prismals')
 require('plugin/lspconfig/stylelint_lsp')
 require('plugin/lspconfig/lua_ls')
-require('plugin/lspconfig/tsserver')
+require('plugin/lspconfig/ts_ls')

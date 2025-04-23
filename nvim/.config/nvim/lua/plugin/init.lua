@@ -33,16 +33,14 @@ packer.startup(function()
     end,
   })
 
-  -- feline.nvim: conigurable statusline
+  -- lualine.nvim: conigurable statusline
   use({
-    'feline-nvim/feline.nvim',
+    'nvim-lualine/lualine.nvim',
     requires = {
-      'ellisonleao/gruvbox.nvim',
-      'kyazdani42/nvim-web-devicons',
-      'folke/noice.nvim',
+      'nvim-tree/nvim-web-devicons',
     },
     config = function()
-      require('plugin/feline')
+      require('plugin/lualine')
     end,
   })
 
@@ -82,7 +80,7 @@ packer.startup(function()
   use({
     'neovim/nvim-lspconfig',
     requires = {
-      'npxbr/gruvbox.nvim',
+      'ellisonleao/gruvbox.nvim',
       'hrsh7th/cmp-nvim-lsp',
       'folke/neodev.nvim',
     },
@@ -145,10 +143,10 @@ packer.startup(function()
   -- nvim-tree.lua: file explorer sidebar
   -- nvim-web-devicons: icons in sidebar
   use({
-    'kyazdani42/nvim-tree.lua',
+    'nvim-tree/nvim-tree.lua',
     requires = {
-      'kyazdani42/nvim-web-devicons',
-      'npxbr/gruvbox.nvim',
+      'nvim-tree/nvim-web-devicons',
+      'ellisonleao/gruvbox.nvim',
     },
     config = function()
       require('plugin/tree')
@@ -198,9 +196,10 @@ packer.startup(function()
     config = function()
       vim.g.dprint_dir = vim.fn.expand('~/work/canva/tools/dprint')
       vim.g.dprint_format_on_save = 1
+      -- vim.g.dprint_debug = 1
     end,
   })
 
   -- vim-be-good: games to practice vim movements
-  use('ThePrimeagen/vim-be-good')
+  -- use('ThePrimeagen/vim-be-good')
 end)
