@@ -8,6 +8,7 @@ require('lualine').setup({
     lualine_a = {
       {
         'mode',
+        color = { gui = '' },
         fmt = function(str)
           if str == 'INSERT' or str == 'REPLACE' then
             return ''
@@ -19,10 +20,14 @@ require('lualine').setup({
     lualine_b = {},
     lualine_c = {
       '%=',
-      { 'filename', color = { fg = '#fabd2f' } },
+      { 'filename', color = { fg = '#fabd2f', gui = '' } },
     },
     lualine_x = {},
-    lualine_y = { 'diagnostics' },
-    lualine_z = { 'location' },
+    lualine_y = {
+      { 'diagnostics', color = { gui = '' } },
+    },
+    lualine_z = {
+      { 'location', color = { gui = '' } },
+    },
   },
 })
