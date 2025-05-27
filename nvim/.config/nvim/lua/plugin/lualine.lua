@@ -17,10 +17,23 @@ require('lualine').setup({
         end,
       },
     },
-    lualine_b = {},
+    lualine_b = {
+      -- https://github.com/nvim-lualine/lualine.nvim/issues/1355
+      {
+        'macro',
+        fmt = function()
+          local reg = vim.fn.reg_recording()
+          if reg ~= '' then
+            return 'Recording @' .. reg
+          end
+          return nil
+        end,
+        draw_empty = false,
+      },
+    },
     lualine_c = {
       '%=',
-      { 'filename', color = { fg = '#fabd2f', gui = '' } },
+      { 'filename', path = 1, color = { fg = '#fabd2f', gui = '' } },
     },
     lualine_x = {},
     lualine_y = {
