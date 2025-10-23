@@ -1,4 +1,3 @@
-local lspconfig = require('lspconfig')
 local cmp_nvim_lsp = require('cmp_nvim_lsp')
 
 -- Configure diagnostic options globally
@@ -76,24 +75,95 @@ end
 local capabilities = cmp_nvim_lsp.default_capabilities()
 
 -- Extend default config for all servers
-lspconfig.util.default_config = vim.tbl_deep_extend('force', lspconfig.util.default_config, {
+vim.lsp.config('*', {
   flags = {
     debounce_text_changes = 150,
   },
   on_attach = on_attach,
   capabilities = capabilities,
+  root_markers = { 'shell.nix' },
 })
 
--- Setup servers
-require('plugin/lspconfig/cssls')
-require('plugin/lspconfig/cssmodules_ls')
-require('plugin/lspconfig/efm')
-require('plugin/lspconfig/eslint')
--- require('plugin/lspconfig/graphql')
-require('plugin/lspconfig/html')
-require('plugin/lspconfig/jsonls')
--- require('plugin/lspconfig/prismals')
-require('plugin/lspconfig/stylelint_lsp')
-require('plugin/lspconfig/lua_ls')
--- require('plugin/lspconfig/ts_ls')
-require('plugin/lspconfig/tsgo')
+-- Extend individual servers
+-- (extends https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md)
+
+-- npm i -g vscode-langservers-extracted
+vim.lsp.config('cssls', {
+  settings = {
+    css = {
+      validate = true,
+      lint = {
+        unknownAtRules = 'ignore',
+        unknownProperties = 'ignore',
+      },
+    },
+  },
+})
+vim.lsp.enable('cssls')
+
+-- npm i -g cssmodules-language-server
+vim.lsp.config('cssmodules_ls', {})
+vim.lsp.enable('cssmodules_ls')
+
+-- npm i -g vscode-langservers-extracted
+vim.lsp.config('eslint', {
+  settings = {
+    -- Disable formatting with eslint. Use dprint in efm instead
+    format = false,
+  },
+})
+vim.lsp.enable('eslint')
+
+-- npm install -g graphql-language-service-cli
+-- vim.lsp.enable('graphql')
+
+-- npm i -g vscode-langservers-extracted
+vim.lsp.config('html', {})
+vim.lsp.enable('html')
+
+-- npm i -g vscode-langservers-extracted
+vim.lsp.config('jsonls', {
+  filetypes = { 'json', 'jsonc' },
+  init_options = {
+    provideFormatter = false,
+  },
+})
+vim.lsp.enable('jsonls')
+
+--vim.lsp.enable('prismals')
+
+-- npm i -g stylelint-lsp
+vim.lsp.config('stylelint_lsp', {
+  settings = {
+    stylelintplus = {
+      autoFixOnFormat = true,
+      autoFixOnSave = true,
+    },
+  },
+  filetypes = {
+    'css',
+  },
+})
+vim.lsp.enable('stylelint_lsp')
+
+-- brew install lua-language-server
+vim.lsp.config('lua_ls', {
+  on_attach = function(client)
+    -- Disable formatting with sumneko_lua. Use stylua in efm instead
+    client.server_capabilities.documentFormattingProvider = false
+  end,
+})
+vim.lsp.enable('lua_ls')
+
+-- npm i -g typescript typescript-language-server
+-- require('lsp/ts_ls')
+
+
+-- npm i -g @typescript/native-preview
+vim.lsp.config('tsgo', {
+  on_attach = function(client)
+    -- Disable formatting with tsserver. Use dprint in efm instead
+    client.server_capabilities.documentFormattingProvider = false
+  end,
+})
+vim.lsp.enable('tsgo')
