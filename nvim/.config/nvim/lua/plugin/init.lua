@@ -14,12 +14,12 @@ packer.startup(function()
   })
 
   -- gitsigns.nvim: git decorators for git modified lines
-  -- use({
-  --   'lewis6991/gitsigns.nvim',
-  --   config = function()
-  --     require('plugin/gitsigns')
-  --   end,
-  -- })
+  use({
+    'lewis6991/gitsigns.nvim',
+    config = function()
+      require('plugin/gitsigns')
+    end,
+  })
 
   -- noice.nvim: Experimental UI replacement for messages, cmdline and popupmenu
   -- nui.nvim: UI component library
@@ -148,14 +148,6 @@ packer.startup(function()
     },
     config = function()
       require('plugin/tree')
-    end,
-  })
-
-  -- vim-fugitive: git wrapper (only still using this for :Git blame)
-  use({
-    'tpope/vim-fugitive',
-    config = function()
-      require('plugin/fugitive')
     end,
   })
 
