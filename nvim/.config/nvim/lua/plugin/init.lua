@@ -38,6 +38,7 @@ packer.startup(function()
     'nvim-lualine/lualine.nvim',
     requires = {
       'nvim-tree/nvim-web-devicons',
+      'lewis6991/gitsigns.nvim',
     },
     config = function()
       require('plugin/lualine')

@@ -1,3 +1,14 @@
+local function diff_source()
+  local gitsigns = vim.b.gitsigns_status_dict
+  if gitsigns then
+    return {
+      added = gitsigns.added,
+      modified = gitsigns.changed,
+      removed = gitsigns.removed
+    }
+  end
+end
+
 require('lualine').setup({
   options = {
     theme = 'gruvbox-material',
@@ -18,6 +29,7 @@ require('lualine').setup({
       },
     },
     lualine_b = {
+      {'diff', source = diff_source},
       -- https://github.com/nvim-lualine/lualine.nvim/issues/1355
       {
         'macro',
