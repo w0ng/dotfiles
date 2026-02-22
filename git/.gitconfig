@@ -77,3 +77,5 @@
 	defaultBranch = main
 [maintenance]
 	repo = ~/work/canva
+[trace2]
+	eventTarget = af_unix:dgram:/tmp/olly-git-trace2.sock
