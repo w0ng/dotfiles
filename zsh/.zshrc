@@ -115,3 +115,13 @@ if (( $+commands[direnv] )); then
 fi
 
 ### End of Zinit's installer chunk
+
+# pnpm
+export PNPM_HOME="/Users/andrew.w/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+# export PATH="$HOME/bin:$PATH"
