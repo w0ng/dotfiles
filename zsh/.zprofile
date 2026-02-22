@@ -26,6 +26,7 @@ typeset -gU cdpath fpath mailpath path
 for dir (
   "$HOME/.cargo/bin"
   "$HOME/bin"
+  "$HOME/.npm-global/bin"
 ); do
   if [[ -d "$dir" ]]; then
     path=(
