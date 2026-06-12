@@ -56,7 +56,7 @@ alias n='/usr/bin/ssh nas'
 alias luamake=$HOME/dev/lua-language-server/3rd/luamake/luamake
 alias s="cd $HOME/dev/scratch"
 #alias ssh='TERM=xterm-256color ssh'
-alias ssh='kitty +kitten ssh'
+#alias ssh='kitty +kitten ssh'
 alias tm="tmux attach-session -d -t 0"
 alias vim="nvim"
 alias vimdiff="nvim -d"

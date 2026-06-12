@@ -62,8 +62,6 @@
   hunk-header-style = line-number syntax
   hunk-header-decoration-style = magenta box
   ; side-by-side = true
-[commit]
-	template = ~/.stCommitMsg
 [filter "lfs"]
 	process = git-lfs filter-process
 	required = true

@@ -70,3 +70,5 @@ vendor
 .idea
 tags
 *.xlf
+
+**/.claude/settings.local.json

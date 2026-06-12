@@ -28,6 +28,7 @@ for dir (
   "$HOME/.cargo/bin"
   "$HOME/bin"
   "$HOME/Library/Android/sdk/platform-tools"
+  "$HOME/.local/bin"
 ); do
   if [[ -d "$dir" ]]; then
     path=(
