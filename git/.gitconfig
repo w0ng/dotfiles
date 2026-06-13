@@ -75,8 +75,10 @@
 	rebase = false
 [init]
 	defaultBranch = main
-[maintenance]
-	repo = ~/work/canva
+[include]
+	; machine-local config (untracked) — keeps internal repo paths
+	; (e.g. git maintenance registrations) out of this public repo
+	path = ~/.gitconfig.local
 [trace2]
 	eventTarget = af_unix:dgram:/tmp/olly-git-trace2.sock
 	configparams = remote.origin.url
