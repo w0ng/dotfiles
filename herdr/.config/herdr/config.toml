@@ -52,6 +52,7 @@ prefix = "ctrl+a"
 # Prefix-mode actions
 # help = "prefix+?"
 # settings = "prefix+s"
+settings = "prefix+`"
 # detach = "prefix+q"
 # reload_config = "prefix+shift+r"
 # open_notification_target = "prefix+o"
@@ -86,6 +87,7 @@ prefix = "ctrl+a"
 # last_pane = ""          # optional, unset by default; bind e.g. "prefix+tab" for global back-and-forth
 # split_vertical = "prefix+v"
 # split_horizontal = "prefix+minus"
+split_horizontal = "prefix+s"
 # close_pane = "prefix+x"
 # zoom = "prefix+z"       # legacy alias: fullscreen
 # resize_mode = "prefix+r"
@@ -155,6 +157,7 @@ prefix = "ctrl+a"
 # Ask for a tab name before creating a new tab.
 # Set false to create tabs immediately with generated names.
 # prompt_new_tab_name = true
+prompt_new_tab_name = false
 
 # Show detected/reported agent labels in split pane borders when no manual pane name is set.
 # show_agent_labels_on_pane_borders = false
@@ -174,6 +177,7 @@ prefix = "ctrl+a"
 # system = ask the OS notification service directly
 # delivery = "off"
 # delay_seconds = 1
+delivery = "system"
 
 [ui.toast.herdr]
 # position = "bottom-right"
@@ -217,7 +221,7 @@ prefix = "ctrl+a"
 # Requires a Kitty graphics-compatible outer terminal.
 # kitty_graphics = false
 # Save recent pane screen history across full server restarts.
-pane_history = false
+pane_history = true
 # While prefix mode is active, temporarily switch the macOS host input
 # source to an ASCII-capable keyboard layout so prefix commands register
 # even when a CJK IME is active, then restore the previous input source
