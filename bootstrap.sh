@@ -89,6 +89,13 @@ BREW_FORMULAE=(
   # GNU coreutils (provides gls, gdircolors used in .zshrc)
   coreutils
 
+  # interactive shell tooling (configured in zsh/.zshrc)
+  lsd        # used by the fzf-tab cd preview
+  starship   # prompt
+  atuin      # shell history (Ctrl-R)
+  zoxide     # smart cd (aliased to `cd`)
+  direnv     # per-directory environment
+
   # formatters (used by neovim formatter.nvim + efm-langserver)
   prettierd
 
@@ -224,19 +231,20 @@ else
   success "gist gem already installed"
 fi
 
-# ── Zinit (zsh plugin manager) ───────────────────────────────────────────────
+# ── Antidote (zsh plugin manager) ────────────────────────────────────────────
 
-step "Zinit"
+step "Antidote"
 
-ZINIT_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/zinit/zinit.git"
+# Plugins are declared in zsh/.zsh_plugins.txt (stowed to ~/.zsh_plugins.txt) and
+# compiled into a static ~/.zsh_plugins.zsh by .zshrc on the first shell start.
+ANTIDOTE_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/antidote"
 
-if [[ -d "$ZINIT_HOME" ]]; then
-  success "Zinit already installed at $ZINIT_HOME"
+if [[ -d "$ANTIDOTE_DIR" ]]; then
+  success "Antidote already installed at $ANTIDOTE_DIR"
 else
-  info "Installing Zinit..."
-  mkdir -p "$(dirname "$ZINIT_HOME")"
-  git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
-  success "Zinit installed"
+  info "Installing Antidote..."
+  git clone --depth=1 https://github.com/mattmc3/antidote.git "$ANTIDOTE_DIR"
+  success "Antidote installed"
 fi
 
 # ── Neovim plugins ───────────────────────────────────────────────────────────
@@ -267,6 +275,7 @@ STOW_PACKAGES=(
   nvim
   prettier
   readline
+  starship
   stylua
   tmux
   zsh
@@ -290,7 +299,7 @@ done
 
 printf "\n${GREEN}${BOLD}Bootstrap complete!${RESET}\n\n"
 printf "Next steps:\n"
-printf "  1. Restart your shell (or open a new terminal session)\n"
+printf "  1. Restart your shell — antidote installs zsh plugins and builds the bundle on first start\n"
 printf "  2. Launch nvim — vim.pack installs plugins and tree-sitter compiles parsers on first run\n"
 printf "  3. If you use weechat, run: ${BOLD}cd ~/dotfiles && stow weechat${RESET}\n"
 printf "  4. Set up any private tokens in ~/.tokens\n\n"

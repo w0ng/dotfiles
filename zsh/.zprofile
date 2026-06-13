@@ -29,6 +29,7 @@ for dir (
   "$HOME/bin"
   "$HOME/Library/Android/sdk/platform-tools"
   "$HOME/.local/bin"
+  "$HOME/.npm-global/bin"
 ); do
   if [[ -d "$dir" ]]; then
     path=(

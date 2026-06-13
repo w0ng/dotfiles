@@ -1,0 +1,22 @@
+# ~/.zsh_plugins.txt — plugin list for antidote (https://antidote.sh)
+#
+# Order matters. antidote compiles this into a cached static bundle that
+# .zshrc sources on startup (fast warm starts). Add/remove a plugin here,
+# then run `antidote load` (or just open a new shell) to rebuild the bundle.
+
+# Completion: ez-compinit runs `compinit` at the right moment; zsh-completions
+# adds extra completion definitions to fpath *before* compinit runs.
+mattmc3/ez-compinit
+zsh-users/zsh-completions kind:fpath path:src
+
+# Fuzzy tab completion — must come after compinit and before the plugins below
+# that wrap ZLE widgets.
+Aloxaf/fzf-tab
+
+# Fish-like autosuggestions.
+zsh-users/zsh-autosuggestions
+
+# Syntax highlighting — must be loaded LAST.
+# Prefer richer highlighting? Swap this line for:
+#   zdharma-continuum/fast-syntax-highlighting
+zsh-users/zsh-syntax-highlighting
