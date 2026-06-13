@@ -1,0 +1,20 @@
+# ~/.config/atuin/config.toml — SQLite-backed shell history, LOCAL ONLY.
+# Docs: https://docs.atuin.sh/configuration/config/
+#
+# No cloud sync: nothing leaves this machine. Suitable for a corporate devbox.
+
+auto_sync = false      # never contact a sync server
+update_check = false   # no network calls on startup
+
+# UI
+style = "compact"
+inline_height = 20
+show_preview = true
+
+# Selecting a result drops it onto the command line for review; press Enter
+# again to run it (mirrors the fzf Ctrl-R behaviour you're used to).
+enter_accept = false
+
+# Search
+search_mode = "fuzzy"
+filter_mode = "global"

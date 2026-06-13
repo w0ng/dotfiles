@@ -1,0 +1,58 @@
+# ~/.config/starship.toml — replicates the previous prezto "w0ng" prompt.
+#
+# Two lines, solid background blocks (black user@host · gray path · black
+# branch), bright-white bold text, and a vi-mode prompt char ($ green in insert
+# mode, red in command mode). Colors use the 16-color palette so they track
+# your gruvbox terminal theme, exactly like w0ng did.
+#
+# NOTE: git status symbols (modified/untracked/…) are intentionally omitted.
+# `git status` can take seconds in a large monorepo and would time out (Starship
+# has no async git), so dropping it keeps the prompt instant in every repo. The
+# branch lookup alone is ~4ms. Docs: https://starship.rs/config/
+
+add_newline = false
+
+format = """\
+$username\
+$hostname\
+$directory\
+$git_branch\
+$line_break\
+$character"""
+
+# ` user@host:` on a black block (blends into the gruvbox background)
+[username]
+show_always = true
+style_user = "bold fg:bright-white bg:black"
+style_root = "bold fg:bright-white bg:black"
+format = "[ $user]($style)"
+
+[hostname]
+ssh_only = false
+style = "bold fg:bright-white bg:black"
+format = "[@$hostname:]($style)"
+
+# ` ~/full/path ` on the gray highlight block; full path like zsh's %~
+[directory]
+style = "bold fg:bright-white bg:bright-black"
+format = "[ $path ]($style)"
+truncation_length = 0
+truncate_to_repo = false
+truncation_symbol = ""
+read_only = ""
+home_symbol = "~"
+
+# ` branch ` on a black block, white bold (trailing space kept, like w0ng's git fragment)
+[git_branch]
+symbol = ""
+style = "bold fg:white bg:black"
+format = "[ $branch ]($style)"
+
+# Line 2: vi-aware prompt char — green $ in insert, red $ in command mode.
+# `$` is a Starship special char, so it's escaped as \$ inside single-quote
+# (literal) TOML strings.
+[character]
+format = "$symbol "
+success_symbol = '[ \$](bold green)'
+error_symbol   = '[ \$](bold green)'
+vimcmd_symbol  = '[ \$](bold red)'
