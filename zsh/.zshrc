@@ -108,6 +108,21 @@ alias vim="nvim"
 alias vimdiff="nvim -d"
 
 #
+# wt — git worktree manager. Bare `wt` (or `wt cd`) fzf-picks a worktree and
+# cd's in; `wt v` also opens nvim there. new/rm/ls/path/prune delegate to the
+# `wt` script in ~/.local/bin (which Claude Code / Codex call directly too).
+#
+wt() {
+  emulate -L zsh
+  case "${1:-}" in
+    ''|cd)        local d; d="$(command wt path "${2:-}")" && [[ -n "$d" ]] && cd "$d" ;;
+    v|vim|e|edit) local d; d="$(command wt path "${2:-}")" && [[ -n "$d" ]] && cd "$d" && nvim ;;
+    new|co)       local sub="$1"; shift; local d; d="$(command wt "$sub" "$@")" && [[ -n "$d" ]] && cd "$d" ;;
+    *)            command wt "$@" ;;
+  esac
+}
+
+#
 # Git aliases (ported from the prezto git module)
 #
 # `gws` originally interpolated prezto's $_git_status_ignore_submodules; its
