@@ -91,6 +91,7 @@ BREW_FORMULAE=(
 
   # interactive shell tooling (configured in zsh/.zshrc)
   lsd        # used by the fzf-tab cd preview
+  bat        # cat replacement (aliased to `cat`)
   starship   # prompt
   atuin      # shell history (Ctrl-R)
   zoxide     # smart cd (aliased to `cd`)

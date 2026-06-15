@@ -66,21 +66,12 @@ setopt RC_QUOTES               # '' is a literal single quote inside '...'
 unsetopt FLOW_CONTROL          # free up ^Q / ^S
 
 #
-# Vi mode (replaces prezto editor module)
+# Vi mode — provided by the zsh-vi-mode plugin (jeffreytse/zsh-vi-mode), which
+# does `bindkey -v`, manages the escape-key timeout, and switches the cursor
+# shape (beam in insert, block in command) on its own. Custom insert-mode keys
+# are re-applied in the zvm_after_init hook below, since the plugin rebinds keys
+# when it initializes.
 #
-bindkey -v
-export KEYTIMEOUT=1            # 10ms; snappy insert<->command switching
-
-# Cursor shape: beam in insert mode, block in command mode
-function zle-keymap-select {
-  case $KEYMAP in
-    vicmd)      print -n '\e[1 q' ;;   # block
-    viins|main) print -n '\e[5 q' ;;   # beam
-  esac
-}
-zle -N zle-keymap-select
-function zle-line-init { print -n '\e[5 q' }
-zle -N zle-line-init
 
 #
 # Completion styling (consumed by fzf-tab; compinit is handled by ez-compinit)
@@ -94,6 +85,7 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'lsd -1 --color=always $realpath'
 #
 # Aliases
 #
+alias cat='bat'                 # bat: cat with syntax highlighting + git integration
 alias icat="kitty +kitten icat"
 alias cf='cd $(fd --type directory | fzf)'
 alias d="cd $HOME/dev"
@@ -135,20 +127,20 @@ add-zsh-hook precmd _term_title_precmd
 add-zsh-hook preexec _term_title_preexec
 
 #
-# Additional vi keybindings
+# Additional vi keybindings — applied via zvm_after_init because zsh-vi-mode
+# rebinds keys when it initializes, which would otherwise clobber these.
 #
+function zvm_after_init {
+  bindkey -M viins '^A' beginning-of-line
 
-bindkey -M viins '^A' beginning-of-line
+  autoload -Uz up-line-or-beginning-search
+  zle -N up-line-or-beginning-search
+  bindkey -M viins '^P' up-line-or-beginning-search
 
-autoload -Uz up-line-or-beginning-search
-zle -N up-line-or-beginning-search
-bindkey -M viins '^P' up-line-or-beginning-search
-
-autoload -Uz down-line-or-beginning-search
-zle -N down-line-or-beginning-search
-bindkey -M viins '^N' down-line-or-beginning-search
-
-bindkey -M viins 'jj' vi-cmd-mode
+  autoload -Uz down-line-or-beginning-search
+  zle -N down-line-or-beginning-search
+  bindkey -M viins '^N' down-line-or-beginning-search
+}
 
 #
 # dircolors (GNU coreutils — `brew install coreutils` provides gdircolors on macOS)
@@ -157,7 +149,7 @@ bindkey -M viins 'jj' vi-cmd-mode
 if (( $+commands[gdircolors] )); then
   if [[ $COLORTERM =~ ^(truecolor|24bit) && -s "$HOME/.config/dircolors/dircolors-gruvbox-dark" ]]; then
     # `vivid generate gruvbox-dark > dircolors-gruvbox-dark`
-    export LS_COLORS="$(cat "$HOME/.config/dircolors/dircolors-gruvbox-dark")"
+    export LS_COLORS="$(<"$HOME/.config/dircolors/dircolors-gruvbox-dark")"
   elif [[ -s "$HOME/.config/dircolors/dircolors-256color" ]]; then
     eval "$(gdircolors --sh "$HOME/.config/dircolors/dircolors-256color")"
   else
