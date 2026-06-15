@@ -96,7 +96,6 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'lsd -1 --color=always $realpath'
 #
 alias icat="kitty +kitten icat"
 alias cf='cd $(fd --type directory | fzf)'
-alias d="cd $HOME/dev"
 alias dc="docker-compose"
 alias gcM='git commit --amend --message'
 alias gist="gist -p"
