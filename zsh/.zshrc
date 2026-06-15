@@ -11,6 +11,13 @@
 #
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
+# zsh-vi-mode: initialise at source time instead of on the first prompt, so the
+# keybinding setup later in this file (fzf, atuin's ^R, the custom binds near
+# the bottom) lands on top of vi mode and survives. Together with loading the
+# plugin before the ZLE-wrapping plugins, this also stops zsh-vi-mode from
+# resetting zsh-autosuggestions / fast-syntax-highlighting.
+ZVM_INIT_MODE=sourcing
+
 #
 # Antidote — plugin manager (https://antidote.sh), static-bundle pattern.
 #
@@ -66,21 +73,12 @@ setopt RC_QUOTES               # '' is a literal single quote inside '...'
 unsetopt FLOW_CONTROL          # free up ^Q / ^S
 
 #
-# Vi mode (replaces prezto editor module)
+# Vi mode — now provided by zsh-vi-mode (jeffreytse/zsh-vi-mode), loaded via
+# antidote and initialised at source time (see ZVM_INIT_MODE above). It owns the
+# vi keymaps, the insert<->normal cursor shape (beam/block, its defaults), and
+# the key timeout (ZVM_KEYTIMEOUT), replacing the old `bindkey -v`, KEYTIMEOUT,
+# and zle-keymap-select cursor hooks.
 #
-bindkey -v
-export KEYTIMEOUT=1            # 10ms; snappy insert<->command switching
-
-# Cursor shape: beam in insert mode, block in command mode
-function zle-keymap-select {
-  case $KEYMAP in
-    vicmd)      print -n '\e[1 q' ;;   # block
-    viins|main) print -n '\e[5 q' ;;   # beam
-  esac
-}
-zle -N zle-keymap-select
-function zle-line-init { print -n '\e[5 q' }
-zle -N zle-line-init
 
 #
 # Completion styling (consumed by fzf-tab; compinit is handled by ez-compinit)
@@ -146,7 +144,8 @@ add-zsh-hook precmd _term_title_precmd
 add-zsh-hook preexec _term_title_preexec
 
 #
-# Additional vi keybindings
+# Additional vi keybindings. These run after zsh-vi-mode's init (sourcing mode),
+# so they land on top of its keymaps and stick.
 #
 
 bindkey -M viins '^A' beginning-of-line
@@ -158,8 +157,6 @@ bindkey -M viins '^P' up-line-or-beginning-search
 autoload -Uz down-line-or-beginning-search
 zle -N down-line-or-beginning-search
 bindkey -M viins '^N' down-line-or-beginning-search
-
-bindkey -M viins 'jj' vi-cmd-mode
 
 #
 # dircolors (GNU coreutils — `brew install coreutils` provides gdircolors on macOS)

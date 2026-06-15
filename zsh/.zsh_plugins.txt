@@ -9,6 +9,11 @@
 mattmc3/ez-compinit
 zsh-users/zsh-completions kind:fpath path:src
 
+# Vi mode. Loaded before the ZLE-wrapping plugins below so its init (sourcing
+# mode — see ZVM_INIT_MODE in .zshrc) doesn't reset their widgets, which is the
+# known zsh-vi-mode vs autosuggestions/syntax-highlighting conflict.
+jeffreytse/zsh-vi-mode
+
 # Fuzzy tab completion — must come after compinit and before the plugins below
 # that wrap ZLE widgets.
 Aloxaf/fzf-tab
@@ -17,6 +22,4 @@ Aloxaf/fzf-tab
 zsh-users/zsh-autosuggestions
 
 # Syntax highlighting — must be loaded LAST.
-# Prefer richer highlighting? Swap this line for:
-#   zdharma-continuum/fast-syntax-highlighting
-zsh-users/zsh-syntax-highlighting
+zdharma-continuum/fast-syntax-highlighting
