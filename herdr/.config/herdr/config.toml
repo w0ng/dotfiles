@@ -20,6 +20,7 @@ name = "gruvbox"
 [theme.custom]
 text     = "#fabd2f"   # active space/agent title — gruvbox yellow
 subtext0 = "#928374"   # inactive space/agent title — gruvbox grey
+surface0 = "#1d2021"
 
 [terminal]
 # Executable used for new interactive panes.
