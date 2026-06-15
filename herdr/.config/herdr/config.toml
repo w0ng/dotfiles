@@ -13,11 +13,13 @@ name = "gruvbox"
 
 # Override individual color tokens on top of the base theme.
 # Accepts: hex (#rrggbb), named colors, rgb(r,g,b), or panel_bg = "reset"
-# [theme.custom]
-# panel_bg = "reset"
-# accent = "#f5c2e7"
-# red = "#ff6188"
-# green = "#a6e3a1"
+# Overridable tokens: panel_bg surface0 surface1 surface_dim overlay0
+#   overlay1 text subtext0 mauve green yellow red blue teal peach (+ accent)
+# Colors for the spaces/agents sidebar, using the gruvbox palette.
+# Active entries stay bright; inactive entries are grey.
+[theme.custom]
+text     = "#fabd2f"   # active space/agent title — gruvbox yellow
+subtext0 = "#928374"   # inactive space/agent title — gruvbox grey
 
 [terminal]
 # Executable used for new interactive panes.
@@ -170,6 +172,7 @@ prompt_new_tab_name = false
 
 # Show detected/reported agent labels in split pane borders when no manual pane name is set.
 # show_agent_labels_on_pane_borders = false
+show_agent_labels_on_pane_borders = true
 
 # Agent panel scope: "current" or "all". Toggling it in the sidebar saves this setting.
 # agent_panel_scope = "all"
