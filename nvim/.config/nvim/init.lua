@@ -623,11 +623,37 @@ vim.keymap.set('n', '<Leader>b', function() require('snacks').picker.buffers() e
 --------------------------------------------------------------------------------
 vim.pack.add({ gh('dmtrKovalenko/fff.nvim') })
 
+-- fff eagerly indexes (full file scan + frecency/history DBs) at startup unless
+-- lazy_sync is true. Only pay that cost when nvim opens inside a real project
+-- root; everywhere else (home, /tmp, ad-hoc dirs) stays lazy so launching nvim
+-- never kicks off a large background scan. The index still builds on demand the
+-- first time <Leader>p / <Leader>f runs. fff's plugin/fff.lua reads
+-- vim.g.fff.lazy_sync at UIEnter, so setting it via setup() here (which runs
+-- before UIEnter) takes effect.
+--
+-- The roots come from $NVIM_FFF_ROOTS (colon-separated, set in the untracked
+-- ~/.devenv.zsh) so machine-specific repo paths stay out of this public repo. Unset
+-- (e.g. a GUI without the shell env) => no eager roots => always lazy.
+local function fff_eager_root()
+  local cwd = vim.fn.getcwd()
+  local roots = vim.split(vim.env.NVIM_FFF_ROOTS or '', ':', { trimempty = true })
+  for _, root in ipairs(roots) do
+    root = vim.fn.expand(root)
+    if cwd == root or vim.startswith(cwd, root .. '/') then return true end
+  end
+  return false
+end
+
 require('fff').setup({
   prompt_vim_mode = false,
   preview = {
     enabled = false,
   },
+  -- false = eager scan/cache at startup; true = lazy (build index on first use).
+  lazy_sync = not fff_eager_root(),
+  -- Never index $HOME directly (default is true). Stops a stray picker open
+  -- from the home dir from trying to scan the entire home tree.
+  enable_home_dir_scanning = false,
 })
 vim.keymap.set('n', '<Leader>p', function() require('fff').find_files() end, { desc = 'Find files' })
 vim.keymap.set('n', '<Leader>f', function() require('fff').live_grep() end, { desc = 'Live grep' })
