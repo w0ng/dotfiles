@@ -195,12 +195,6 @@ if (( $+commands[direnv] )); then
   eval "$(direnv hook zsh)"
 fi
 
-if (( $+commands[zoxide] )); then
-  unalias cd 2>/dev/null || true
-  unalias zi 2>/dev/null || true
-  eval "$(zoxide init --cmd cd zsh)"
-fi
-
 #
 # Prompt — starship (replaces the prezto w0ng prompt + zsh-async)
 #
@@ -223,3 +217,10 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+#
+if (( $+commands[zoxide] )); then
+  unalias cd 2>/dev/null || true
+  unalias zi 2>/dev/null || true
+  eval "$(zoxide init --cmd cd zsh)"
+fi
+
