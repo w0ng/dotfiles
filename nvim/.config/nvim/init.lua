@@ -108,18 +108,23 @@ noremap('v', '<Leader><S-v>', '"+P')
 -- Copy current file path to clipboard
 noremap('n', '<Leader>c', ':let @+=expand("%:p")<CR>')
 
--- Clipboard: OSC 52 (works over SSH)
-vim.g.clipboard = {
-  name = 'OSC 52',
-  copy = {
-    ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
-    ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
-  },
-  paste = {
-    ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
-    ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
-  },
-}
+-- Clipboard: use OSC 52 only over SSH, where it forwards to the local clipboard
+-- through the terminal. Locally, leave vim.g.clipboard unset so Neovim uses the
+-- native macOS provider (pbcopy/pbpaste) -- this works in both terminals and GUI
+-- frontends (VimR, Veil), which don't interpret OSC 52 escape sequences.
+if vim.env.SSH_TTY or vim.env.SSH_CONNECTION then
+  vim.g.clipboard = {
+    name = 'OSC 52',
+    copy = {
+      ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+      ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+    },
+    paste = {
+      ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+      ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+    },
+  }
+end
 
 -- ============================================================================
 -- PLUGINS
