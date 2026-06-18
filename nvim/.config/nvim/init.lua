@@ -198,6 +198,24 @@ require('gruvbox').setup({
 vim.cmd.colorscheme('gruvbox')
 
 --------------------------------------------------------------------------------
+-- claudecode.nvim: connect an external Claude Code CLI to this nvim (IDE protocol)
+--------------------------------------------------------------------------------
+vim.pack.add({ gh('coder/claudecode.nvim') })
+
+require('claudecode').setup({
+  -- Don't spawn Claude inside nvim. Claude runs in a separate kitty pane and
+  -- connects via /ide; nvim only runs the WebSocket/MCP server (auto_start=true).
+  -- lua_ls flags partial setup tables; a provider-only terminal config is valid.
+  ---@diagnostic disable-next-line: missing-fields
+  terminal = { provider = 'none' },
+})
+
+-- Send current visual selection to the connected Claude session
+vim.keymap.set('v', '<leader>as', '<cmd>ClaudeCodeSend<cr>', { desc = 'Claude: send selection' })
+-- Add current buffer to Claude's context
+vim.keymap.set('n', '<leader>ab', '<cmd>ClaudeCodeAdd %<cr>', { desc = 'Claude: add buffer' })
+
+--------------------------------------------------------------------------------
 -- gitsigns.nvim: git decorators for modified lines
 --------------------------------------------------------------------------------
 vim.pack.add({ gh('lewis6991/gitsigns.nvim') })

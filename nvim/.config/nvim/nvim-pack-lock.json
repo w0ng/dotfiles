@@ -5,6 +5,10 @@
       "src": "https://github.com/Saghen/blink.cmp",
       "version": "1.0.0 - 2.0.0"
     },
+    "claudecode.nvim": {
+      "rev": "e6c9dd4d4f144910b0066489100ad94b7133821f",
+      "src": "https://github.com/coder/claudecode.nvim"
+    },
     "conform.nvim": {
       "rev": "619363c30309d29ffa631e67c8183f2a72caa373",
       "src": "https://github.com/stevearc/conform.nvim"
