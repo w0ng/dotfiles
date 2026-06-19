@@ -202,6 +202,46 @@ vim.cmd.colorscheme('gruvbox')
 --------------------------------------------------------------------------------
 vim.pack.add({ gh('coder/claudecode.nvim') })
 
+-- Bridge the cwd mismatch: Claude is launched from the repo/worktree root, but
+-- nvim's cwd stays in a subdirectory so fff and live-grep stay scoped to it.
+-- claudecode keys both the IDE lockfile and at-mention paths off nvim's getcwd(),
+-- so without help /ide greys this session out and selections arrive relative to
+-- the subdir instead of the repo root. Re-root both against the git root.
+-- Patched before setup() because auto_start writes the lockfile during setup().
+local function claude_git_root()
+  return vim.fs.root(vim.fn.getcwd(), '.git')
+end
+
+-- (1) Advertise the git root (an ancestor of Claude's cwd) in the lockfile so
+--     /ide treats this session as matching the current cwd.
+local lockfile = require('claudecode.lockfile')
+local base_get_workspace_folders = lockfile.get_workspace_folders
+function lockfile.get_workspace_folders()
+  local folders = base_get_workspace_folders()
+  local root = claude_git_root()
+  if root and not vim.list_contains(folders, root) then
+    table.insert(folders, root)
+  end
+  return folders
+end
+
+-- (2) Send at-mention paths relative to the git root instead of nvim's cwd, so
+--     Claude resolves them from the worktree root.
+local claudecode = require('claudecode')
+local base_format_at_mention = claudecode._format_path_for_at_mention
+function claudecode._format_path_for_at_mention(file_path)
+  local formatted, is_directory = base_format_at_mention(file_path)
+  local cwd = vim.fn.getcwd()
+  local root = claude_git_root()
+  if root and root ~= cwd and string.find(file_path, cwd, 1, true) == 1 then
+    local prefix = string.sub(cwd, #root + 2)
+    if prefix ~= '' then
+      formatted = prefix .. '/' .. formatted
+    end
+  end
+  return formatted, is_directory
+end
+
 require('claudecode').setup({
   -- Don't spawn Claude inside nvim. Claude runs in a separate kitty pane and
   -- connects via /ide; nvim only runs the WebSocket/MCP server (auto_start=true).
