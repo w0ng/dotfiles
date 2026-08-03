@@ -27,6 +27,7 @@ for dir (
   "$HOME/.cargo/bin"
   "$HOME/bin"
   "$HOME/.npm-global/bin"
+  "$HOME/.local/bin"
 ); do
   if [[ -d "$dir" ]]; then
     path=(
