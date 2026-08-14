@@ -1,0 +1,101 @@
+#!/usr/bin/env bash
+#
+# herdr-task — launch a command (e.g. a separate claude/codex) in a fresh herdr
+# target via the socket API. Must run inside a herdr session. Marks the child
+# with HERDR_TASK=1 so dispatching skills/policies know not to re-dispatch (no loops).
+#
+#   herdr-task <label> [--workspace|--tab|--split <right|down>] [--cwd PATH] [--focus|--no-focus] -- <command...>
+#
+#   # new isolated workspace (default), backgrounded — async delegation:
+#   herdr-task "review 1234" --cwd ~/src/myproject -- claude "review https://github.com/owner/repo/pull/1234"
+#   # new tab, focused — relocate to a fresh context:
+#   herdr-task "plan holidays" --tab --focus --cwd ~ -- claude "help me plan my holidays"
+#   # split the current pane, focused — a helper beside the current session:
+#   herdr-task "debug flake" --split right --focus -- claude "investigate this flaky test"
+#
+set -eu
+
+[[ "${HERDR_ENV:-}" == 1 ]] || { echo "herdr-task: not inside a herdr session" >&2; exit 1; }
+for c in herdr jq; do command -v "$c" >/dev/null || { echo "herdr-task: $c required" >&2; exit 1; }; done
+
+label="" cwd="" focus="--no-focus" mode="workspace" dir="right"
+# Without this, a value-taking flag left last makes `shift 2` fail: bare `set -e` exits
+# silently for --split, and --cwd leaks `$2: unbound variable`.
+need() { [[ $# -ge 2 ]] || { echo "herdr-task: $1 needs a value" >&2; exit 1; }; }
+while (($#)); do
+  case "$1" in
+    --cwd)       need "$@"; cwd="$2"; shift 2 ;;
+    --focus)     focus="--focus"; shift ;;
+    --no-focus)  focus="--no-focus"; shift ;;
+    --workspace) mode="workspace"; shift ;;
+    --tab)       mode="tab"; shift ;;
+    --split)     need "$@"; mode="split"; dir="$2"; shift 2 ;;
+    --)          shift; break ;;
+    -*)          echo "herdr-task: unknown flag $1" >&2; exit 1 ;;
+    *)           [[ -z "$label" ]] && { label="$1"; shift; } || break ;;
+  esac
+done
+[[ -n "$label" && $# -gt 0 ]] || { echo "usage: herdr-task <label> [--workspace|--tab|--split <right|down>] [--cwd PATH] [--focus|--no-focus] -- <command...>" >&2; exit 1; }
+[[ "$mode" != split || "$dir" == right || "$dir" == down ]] || { echo "herdr-task: --split needs 'right' or 'down'" >&2; exit 1; }
+[[ -n "$cwd" ]] || cwd="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+
+# Create the target and capture the pane to run in. Running in an explicit pane
+# (vs `agent start`) keeps the correct cwd and a single pane. herdr auto-detects
+# the agent (claude/codex) in that pane for status + notifications.
+case "$mode" in
+  workspace)
+    created="$(herdr workspace create --cwd "$cwd" --label "$label" $focus)"
+    target="$(printf '%s' "$created" | jq -r '.result.workspace.workspace_id // empty')"
+    rp="$(printf '%s' "$created" | jq -r '.result.root_pane.pane_id // empty')"
+    ;;
+  tab)
+    # Pin the workspace. Left implicit, `tab create` falls back to whatever is *focused* — so a
+    # backgrounded dispatcher would drop its tab into the user's workspace instead of its own.
+    ws_arg=()
+    if [[ -n "${HERDR_WORKSPACE_ID:-}" ]]; then ws_arg=(--workspace "$HERDR_WORKSPACE_ID"); fi
+    created="$(herdr tab create "${ws_arg[@]}" --cwd "$cwd" --label "$label" $focus)"
+    target="$(printf '%s' "$created" | jq -r '.result.tab.tab_id // empty')"
+    rp="$(printf '%s' "$created" | jq -r '.result.root_pane.pane_id // empty')"
+    ;;
+  split)
+    created="$(herdr pane split --current --direction "$dir" --cwd "$cwd" $focus)"
+    rp="$(printf '%s' "$created" | jq -r '.result.pane.pane_id // empty')"
+    target="$rp"
+    ;;
+esac
+[[ -n "$rp" ]] || { echo "herdr-task: could not create $mode" >&2; exit 1; }
+[[ "$mode" == split ]] && herdr pane rename "$rp" "$label" >/dev/null 2>&1 || true
+
+# The pane exists from here on, so any failure below would strand it empty. Unwind instead.
+runner=""
+unwind() {
+  if [[ -n "$runner" ]]; then rm -f -- "$runner"; fi
+  herdr pane close "$rp" >/dev/null 2>&1 || true
+  echo "herdr-task: dispatch failed; closed the new $mode" >&2
+}
+trap unwind ERR
+
+# HERDR_TASK=1 marks the child so dispatching skills/policies don't re-dispatch.
+# `herdr pane run` types the command into an interactive shell, which corrupts anything
+# big or bang-bearing: past ~1kB characters go missing (losing one inside a quoted string
+# hangs the shell on the unterminated quote), and `!` fires history expansion. Spool the
+# command to a script so the typed string is always a short path. `exec` keeps the process
+# tree identical to running the command directly, which is what herdr detects agents from.
+runner_dir="${XDG_RUNTIME_DIR:-${TMPDIR:-/tmp}}/herdr-task"
+mkdir -p "$runner_dir"
+# Generous window on purpose: the runner has already exec'd, so only a pane restore could want
+# it back, and that stays well inside a day. XDG_RUNTIME_DIR is tmpfs wiped at logout anyway.
+find "$runner_dir" -maxdepth 1 -name 'run-*.sh' -mmin +1440 -delete 2>/dev/null || true
+runner="$(mktemp "$runner_dir/run-XXXXXX.sh")"
+{
+  printf '#!/usr/bin/env bash\n'
+  printf 'exec env HERDR_TASK=1'
+  for a in "$@"; do printf ' %q' "$a"; done
+  printf '\n'
+} > "$runner"
+chmod u+x "$runner"   # not `+x`: on mktemp's 0600 that yields 0711, and this holds the prompt
+herdr pane run "$rp" "$(printf '%q' "$runner")" >/dev/null
+trap - ERR
+
+echo "herdr-task: '$label' → $mode $target ($(basename "$1") in $cwd)" >&2
+
