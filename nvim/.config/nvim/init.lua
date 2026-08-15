@@ -736,22 +736,11 @@ require('nvim-surround').setup({})
 vim.pack.add({ gh('tpope/vim-obsession') })
 
 --------------------------------------------------------------------------------
--- vim-tmux-navigator / vim-herdr-navigation: seamless split navigation between
--- vim and the surrounding multiplexer (herdr or tmux)
+-- vim-tmux-navigator: seamless split navigation between vim and tmux
 --------------------------------------------------------------------------------
-vim.pack.add({
-  gh('christoomey/vim-tmux-navigator'),
-  gh('paulbkim-dev/vim-herdr-navigation'),
-})
+vim.pack.add({ gh('christoomey/vim-tmux-navigator') })
 
 vim.g.tmux_navigator_no_wrap = 1
--- herdr-navigation owns <C-hjkl> so the two don't both map them; it falls back
--- to :TmuxNavigate* when we're in tmux rather than a herdr pane.
-vim.g.tmux_navigator_no_mappings = 1
-
--- The herdr copy of this plugin lives under a version-hashed path, so source the
--- vim.pack checkout instead — that path is stable and its rev is in the lockfile.
-dofile(vim.fn.stdpath('data') .. '/site/pack/core/opt/vim-herdr-navigation/editor/nvim.lua')
 
 -- ============================================================================
 -- LSP
