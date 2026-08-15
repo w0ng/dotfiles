@@ -135,6 +135,36 @@ navigate_pane_right = ""
 # type = "pane"
 # command = "lazygit"
 
+# vim-herdr-navigation: direct ctrl+hjkl pane navigation. The plugin action
+# checks the focused pane's foreground process and forwards the chord into
+# vim/nvim, so splits and panes navigate as one; anything else moves pane focus.
+# Deliberately not focus_pane_* — those would move focus before vim ever sees
+# the key. Note this shadows readline ctrl+l (clear) and ctrl+k (kill line) in
+# non-vim panes.
+[[keys.command]]
+key = "ctrl+h"
+type = "plugin_action"
+command = "vim-herdr-navigation.left"
+description = "navigate left (vim/herdr)"
+
+[[keys.command]]
+key = "ctrl+j"
+type = "plugin_action"
+command = "vim-herdr-navigation.down"
+description = "navigate down (vim/herdr)"
+
+[[keys.command]]
+key = "ctrl+k"
+type = "plugin_action"
+command = "vim-herdr-navigation.up"
+description = "navigate up (vim/herdr)"
+
+[[keys.command]]
+key = "ctrl+l"
+type = "plugin_action"
+command = "vim-herdr-navigation.right"
+description = "navigate right (vim/herdr)"
+
 # Legacy indexed shortcut config is still parsed for compatibility.
 # Prefer switch_tab, switch_workspace, and focus_agent for new configs.
 # [keys.indexed]
