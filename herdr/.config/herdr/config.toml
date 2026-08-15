@@ -101,6 +101,10 @@ next_agent = "prefix+period"
 # focus_pane_down = "prefix+j"
 # focus_pane_up = "prefix+k"
 # focus_pane_right = "prefix+l"
+focus_pane_left = "ctrl+h"
+focus_pane_down = "ctrl+j"
+focus_pane_up = "ctrl+k"
+focus_pane_right = "ctrl+l"
 # cycle_pane_next = "prefix+tab"
 # cycle_pane_previous = "prefix+shift+tab"
 # last_pane = ""          # optional, unset by default; bind e.g. "prefix+tab" for global back-and-forth
@@ -227,7 +231,7 @@ enabled = true
 [session]
 # Resume supported AI-agent panes into their native conversation sessions after
 # a Herdr server restart. Requires official integrations that report session refs.
-# resume_agents_on_restore = true
+resume_agents_on_restore = true
 
 [remote]
 # Whether herdr manages the ssh config used for the `herdr --remote` bridge.
