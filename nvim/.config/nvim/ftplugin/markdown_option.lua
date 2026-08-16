@@ -5,6 +5,5 @@ vim.bo.softtabstop = 4
 -- Number of spaces that a <Tab> in the file counts for (default 8)
 vim.bo.tabstop = 4
 
--- Enable spell-checking
-vim.wo.spell = true
+-- Spell-checking is off by default; `cos` toggles it on with this dictionary
 vim.bo.spelllang = 'en_au'
