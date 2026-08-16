@@ -668,6 +668,82 @@ vim.pack.add({ gh('christoomey/vim-tmux-navigator') })
 
 vim.g.tmux_navigator_no_wrap = 1
 
+--------------------------------------------------------------------------------
+-- claudecode.nvim: WebSocket server that `/ide` in Claude Code connects to.
+-- Claude always runs in its own herdr pane, never inside Neovim, so the terminal
+-- provider is 'none': the server and its tools stay available but the plugin
+-- creates no windows here. Focusing that pane is wired up manually below.
+--------------------------------------------------------------------------------
+vim.pack.add({ gh('coder/claudecode.nvim') })
+
+require('claudecode').setup({
+  terminal = { provider = 'none' },
+})
+
+-- Focus the herdr pane running Claude Code. Prefers an agent in this tab, then
+-- anywhere in this workspace; `herdr agent focus` accepts the hosting pane id.
+local function focus_herdr_claude()
+  -- Read the caller context up front: the callback below runs in a fast event
+  -- context, where `vim.env` (a Vimscript call under the hood) would error.
+  local workspace = vim.env.HERDR_WORKSPACE_ID
+  local tab, pane = vim.env.HERDR_TAB_ID, vim.env.HERDR_PANE_ID
+  if vim.env.HERDR_ENV ~= '1' or not workspace or vim.fn.executable('herdr') == 0 then
+    return
+  end
+  vim.system({ 'herdr', 'agent', 'list' }, { text = true }, function(out)
+    if out.code ~= 0 then
+      return
+    end
+    local ok, response = pcall(vim.json.decode, out.stdout)
+    if not ok then
+      return
+    end
+    local target
+    for _, agent in ipairs(vim.tbl_get(response, 'result', 'agents') or {}) do
+      if agent.agent == 'claude' and agent.workspace_id == workspace and agent.pane_id ~= pane then
+        target = target or agent.pane_id
+        -- A pane in this tab beats one merely in the same workspace.
+        if agent.tab_id == tab then
+          target = agent.pane_id
+          break
+        end
+      end
+    end
+    if target then
+      vim.schedule(function()
+        vim.system({ 'herdr', 'agent', 'focus', target })
+      end)
+    end
+  end)
+end
+
+-- With provider 'none' the plugin cannot move focus itself, so this event is the
+-- documented hook for focusing an externally managed session. It fires per file
+-- sent, and only once Claude is actually connected.
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'ClaudeCodeSendComplete',
+  callback = focus_herdr_claude,
+})
+
+-- Unattached, claudecode.nvim queues the @ mention and opens its terminal, which
+-- provider 'none' makes a silent no-op. Fail loudly instead -- and because the
+-- send never happens, ClaudeCodeSendComplete never fires and no pane is focused.
+local function send_to_claude(command)
+  if not require('claudecode').is_claude_connected() then
+    vim.notify('No Claude Code session connected to this Neovim', vim.log.levels.ERROR)
+    return
+  end
+  vim.cmd(command)
+end
+
+-- Send the visual selection (file plus line range), or the whole current file.
+vim.keymap.set('v', '<Leader>as', function()
+  send_to_claude('ClaudeCodeSend')
+end, { desc = 'Send selection to Claude' })
+vim.keymap.set('n', '<Leader>ab', function()
+  send_to_claude('ClaudeCodeAdd %')
+end, { desc = 'Send file to Claude' })
+
 -- ============================================================================
 -- LSP
 -- ============================================================================
