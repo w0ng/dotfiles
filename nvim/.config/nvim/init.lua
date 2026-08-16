@@ -574,6 +574,18 @@ vim.pack.add({ gh('catgoose/nvim-colorizer.lua') })
 require('colorizer').setup()
 
 --------------------------------------------------------------------------------
+-- render-markdown.nvim: in-buffer markdown rendering (headings, code blocks,
+-- tables, checkboxes). Needs the markdown/markdown_inline treesitter parsers
+-- (installed above) and uses nvim-web-devicons as its icon provider.
+--------------------------------------------------------------------------------
+vim.pack.add({ gh('MeanderingProgrammer/render-markdown.nvim') })
+
+require('render-markdown').setup({
+  -- Render everywhere except insert mode, so editing shows the raw source.
+  render_modes = { 'n', 'v', 'c', 't' },
+})
+
+--------------------------------------------------------------------------------
 -- snacks.nvim: utility library; here used for the buffer picker (replaces fzf.vim)
 --------------------------------------------------------------------------------
 vim.pack.add({ gh('folke/snacks.nvim') })
