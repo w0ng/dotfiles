@@ -1,0 +1,48 @@
+# hunk configuration
+# Place this file at ~/.config/hunk/config.toml
+# Docs: https://github.com/modem-dev/hunk#config
+
+# Built-in theme id, "auto" (match terminal), or a custom theme table.
+theme = "github-dark-default"
+
+# Layout: "auto", "split", or "stack"
+# mode = "auto"
+
+# Version control backend: "git", "jj", or "sl" (auto-detected by default)
+# vcs = "git"
+
+# Auto-reload when the current diff input changes
+# watch = false
+
+# Hide untracked files in Git/Sapling working-tree `hunk diff` sessions
+# exclude_untracked = false
+
+line_numbers = false
+
+# Tab stops for source code (1-16); overridable with -x/--tab-width
+# tab_width = 4
+
+# Wrap long diff lines instead of truncating them
+# wrap_lines = false
+
+menu_bar = false
+
+# Files pane: "auto", true, or false
+sidebar = false
+
+# Show hunk metadata rows
+hunk_headers = true
+
+agent_notes = true
+
+# Ask to save changed view preferences on quit
+prompt_save_view_preferences = false
+
+# Let the terminal background show through Hunk surfaces
+# transparent_background = false
+
+# Remap command ids to custom keys — see docs/keybindings.md
+# [keybindings]
+
+# Load plain TypeScript extensions from ~/.config/hunk/extensions/
+# [extensions]
