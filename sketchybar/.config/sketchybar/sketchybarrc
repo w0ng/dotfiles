@@ -2,9 +2,9 @@
 #
 # sketchybar — status bar for AeroSpace.
 #
-# Workspace pills are driven by AeroSpace's exec-on-workspace-change callback,
-# which triggers the custom `aerospace_workspace_change` event (see
-# aerospace/.config/aerospace/aerospace.toml).
+# AeroSpace's exec-on-workspace-change callback runs workspace_change.sh, which
+# paints the whole workspace row itself and then fires aerospace_workspace_change
+# for the layout/monitor items (see aerospace/.config/aerospace/aerospace.toml).
 
 CONFIG_DIR="$HOME/.config/sketchybar"
 PLUGIN_DIR="$CONFIG_DIR/plugins"
@@ -65,26 +65,32 @@ sketchybar --add item mode left \
 
 SPACES=(1 2 3 4 5 6 7 8 9 0)
 
+# The pills carry no script of their own — workspace_change.sh paints the whole
+# row in one pass, which avoids ten bash spawns per switch and, at startup,
+# thirty aerospace queries.
 for sid in "${SPACES[@]}"; do
   sketchybar --add item "space.$sid" left \
-    --subscribe "space.$sid" aerospace_workspace_change \
     --set "space.$sid" \
       label="$sid" \
       icon.drawing=off \
       label.padding_left=10 \
       label.padding_right=10 \
-      click_script="aerospace workspace $sid" \
-      script="$PLUGIN_DIR/aerospace.sh $sid"
+      click_script="aerospace workspace $sid"
 done
 
 # ── monitor + layout (left, after workspaces) ────────────────────────────────
-# Both are written by layout.sh from a single aerospace query. The monitor item
-# has no script of its own, so it is declared first and populated by the layout
-# item's script. AeroSpace has no layout-change event, hence the custom
+# Both items' icons and labels are written by layout.sh, which is why monitor is
+# declared first. AeroSpace has no layout-change event, hence the custom
 # aerospace_layout_change trigger fired from the layout keybindings.
 
+# Subscribed to display_change so plugging or unplugging a monitor repaints the
+# row: workspace_change.sh redraws the pills and triggers the layout/monitor
+# refresh. Aerospace redistributes workspaces across monitors on such a change,
+# and none of the aerospace events fire for it.
 sketchybar --add item monitor left \
+  --subscribe monitor display_change \
   --set monitor \
+    script="$PLUGIN_DIR/workspace_change.sh" \
     padding_left=12 \
     background.color="$BG_DIM" \
     background.drawing=on \
@@ -100,7 +106,7 @@ sketchybar --add item layout left \
     script="$PLUGIN_DIR/layout.sh"
 
 
-# ── front app (left, after workspaces) ───────────────────────────────────────
+# ── front app (left, after the layout indicator) ─────────────────────────────
 
 sketchybar --add item front_app left \
   --subscribe front_app front_app_switched \
@@ -138,4 +144,7 @@ sketchybar --add item volume right \
 
 # ── go ───────────────────────────────────────────────────────────────────────
 
+# --update runs every item's script, including the monitor item's
+# workspace_change.sh, so this also performs the initial paint of the pill row.
 sketchybar --update
+

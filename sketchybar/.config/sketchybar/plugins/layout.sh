@@ -5,8 +5,8 @@
 # has no on-layout-changed callback, so this is triggered by the layout
 # keybindings (aerospace_layout_change) and on-focus-changed — nothing polls.
 #
-# One `aerospace echo` costs ~37ms regardless of how many variables it asks
-# for, so folding the monitor lookup into the existing call is free.
+# Each `aerospace echo` costs ~22ms, so this makes two calls rather than one —
+# see the note below for why they cannot be combined.
 
 source "$HOME/.config/sketchybar/colors.sh"
 

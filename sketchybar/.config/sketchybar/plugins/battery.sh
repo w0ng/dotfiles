@@ -8,7 +8,10 @@ source "$HOME/.config/sketchybar/colors.sh"
 # smaller than it looks.
 batt=$(pmset -g batt)
 percent=$(printf '%s' "$batt" | grep -Eo '[0-9]+%' | cut -d% -f1)
-charging=$(printf '%s' "$batt" | grep 'AC Power')
+# Match the battery's own state, not the power source: on AC at 100% pmset
+# reports "charged", and keying off "AC Power" would show the charging bolt
+# permanently while docked.
+charging=$(printf '%s' "$batt" | grep '; charging')
 
 [ -z "$percent" ] && exit 0
 
