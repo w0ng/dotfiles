@@ -23,7 +23,7 @@ ICON_FONT="Maple Mono NL NF CN"
 
 sketchybar --bar \
   position=top \
-  height=31 \
+  height=40 \
   blur_radius=20 \
   color="$BAR" \
   padding_left=6 \
@@ -41,7 +41,7 @@ sketchybar --default \
   label.padding_left=4 \
   label.padding_right=8 \
   background.corner_radius=6 \
-  background.height=22 \
+  background.height=25 \
   padding_left=2 \
   padding_right=2
 

@@ -94,13 +94,13 @@ key-mapping.preset = 'qwerty'
 # draws ~4px outside the window frame. Nothing of the desktop shows through:
 #   inner = 4 + 4  two windows' borders meet
 #   outer = 4      one window's border reaches the screen edge
-#   top   = 31 (sketchybar) + 4
+#   top   = 40 (sketchybar) + 4
 # With 0 gaps the outer half of the border falls off-screen and is clipped.
 gaps.inner.horizontal = 8
 gaps.inner.vertical =   8
 gaps.outer.left =       4
 gaps.outer.bottom =     4
-gaps.outer.top =        35
+gaps.outer.top =        44
 gaps.outer.right =      4
 
 # 'main' binding mode declaration
