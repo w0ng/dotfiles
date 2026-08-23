@@ -61,6 +61,48 @@ fi
 info "Updating Homebrew..."
 brew update --quiet
 
+# ── Homebrew taps and trust ──────────────────────────────────────────────────
+
+step "Homebrew taps"
+
+# Homebrew 6 refuses to load formulae/casks from third-party taps until they are
+# explicitly trusted, so a fresh bootstrap aborts on the first one without this.
+# Trust the individual entries rather than whole taps, to keep the blast radius
+# to what this setup actually installs.
+
+BREW_TAPS=(
+  felixkratz/formulae   # sketchybar, borders
+  nikitabobko/tap       # aerospace
+)
+
+for tap in "${BREW_TAPS[@]}"; do
+  if brew tap | grep -qx "$tap"; then
+    success "$tap already tapped"
+  else
+    info "Tapping $tap..."
+    brew tap "$tap"
+  fi
+done
+
+BREW_TRUSTED_FORMULAE=(
+  felixkratz/formulae/borders
+  felixkratz/formulae/sketchybar
+)
+
+BREW_TRUSTED_CASKS=(
+  nikitabobko/tap/aerospace
+)
+
+for f in "${BREW_TRUSTED_FORMULAE[@]}"; do
+  brew trust --formula "$f"
+  success "trusted $f"
+done
+
+for c in "${BREW_TRUSTED_CASKS[@]}"; do
+  brew trust --cask "$c"
+  success "trusted $c"
+done
+
 # ── Homebrew formulae ────────────────────────────────────────────────────────
 
 step "Homebrew formulae"
@@ -117,6 +159,10 @@ BREW_FORMULAE=(
 
   # irc client
   weechat
+
+  # status bar and window borders (aerospace companions, felixkratz tap)
+  felixkratz/formulae/sketchybar
+  felixkratz/formulae/borders
 
   # gist CLI (gem installed later)
   # mysql client config
@@ -278,6 +324,7 @@ STOW_PACKAGES=(
   nvim
   prettier
   readline
+  sketchybar
   starship
   stylua
   tmux

@@ -1,0 +1,141 @@
+#!/bin/bash
+#
+# sketchybar — status bar for AeroSpace.
+#
+# Workspace pills are driven by AeroSpace's exec-on-workspace-change callback,
+# which triggers the custom `aerospace_workspace_change` event (see
+# aerospace/.config/aerospace/aerospace.toml).
+
+CONFIG_DIR="$HOME/.config/sketchybar"
+PLUGIN_DIR="$CONFIG_DIR/plugins"
+
+source "$CONFIG_DIR/colors.sh"
+
+# Text is SF Pro (the macOS system typeface — note the *system* copy is a hidden
+# ".SF NS" family and cannot be referenced by name, so this needs the SF Pro
+# download from developer.apple.com/fonts installed).
+# Icons stay on Maple Mono NF: SF Pro has no Nerd Font glyphs, and Maple Mono
+# has the widest coverage installed here (33k codepoints).
+LABEL_FONT="SF Pro"
+ICON_FONT="Maple Mono NL NF CN"
+
+# ── bar ──────────────────────────────────────────────────────────────────────
+
+sketchybar --bar \
+  position=top \
+  height=31 \
+  blur_radius=20 \
+  color="$BAR" \
+  padding_left=6 \
+  padding_right=6
+
+# ── defaults applied to every item ───────────────────────────────────────────
+
+sketchybar --default \
+  icon.font="$ICON_FONT:Bold:13.0" \
+  label.font="$LABEL_FONT:Semibold:13.0" \
+  icon.color="$FG" \
+  label.color="$FG" \
+  icon.padding_left=8 \
+  icon.padding_right=4 \
+  label.padding_left=4 \
+  label.padding_right=8 \
+  background.corner_radius=6 \
+  background.height=22 \
+  padding_left=2 \
+  padding_right=2
+
+# ── workspaces (left) ────────────────────────────────────────────────────────
+# Mirrors persistent-workspaces in aerospace.toml.
+
+# Custom events must be registered before anything can subscribe to them.
+sketchybar --add event aerospace_workspace_change
+sketchybar --add event aerospace_layout_change
+sketchybar --add event aerospace_mode_change
+
+# Binding-mode indicator — hidden unless a non-main mode is active.
+sketchybar --add item mode left \
+  --subscribe mode aerospace_mode_change \
+  --set mode \
+    icon.drawing=off \
+    label.padding_left=10 \
+    label.padding_right=10 \
+    drawing=off \
+    script="$PLUGIN_DIR/mode.sh"
+
+SPACES=(1 2 3 4 5 6 7 8 9 0)
+
+for sid in "${SPACES[@]}"; do
+  sketchybar --add item "space.$sid" left \
+    --subscribe "space.$sid" aerospace_workspace_change \
+    --set "space.$sid" \
+      label="$sid" \
+      icon.drawing=off \
+      label.padding_left=10 \
+      label.padding_right=10 \
+      click_script="aerospace workspace $sid" \
+      script="$PLUGIN_DIR/aerospace.sh $sid"
+done
+
+# ── monitor + layout (left, after workspaces) ────────────────────────────────
+# Both are written by layout.sh from a single aerospace query. The monitor item
+# has no script of its own, so it is declared first and populated by the layout
+# item's script. AeroSpace has no layout-change event, hence the custom
+# aerospace_layout_change trigger fired from the layout keybindings.
+
+sketchybar --add item monitor left \
+  --set monitor \
+    padding_left=12 \
+    background.color="$BG_DIM" \
+    background.drawing=on \
+    click_script="aerospace move-workspace-to-monitor --wrap-around next; sketchybar --trigger aerospace_layout_change"
+
+sketchybar --add item layout left \
+  --subscribe layout aerospace_layout_change aerospace_workspace_change front_app_switched \
+  --set layout \
+    padding_left=6 \
+    background.color="$BG_DIM" \
+    background.drawing=on \
+    click_script="aerospace fullscreen; sketchybar --trigger aerospace_layout_change" \
+    script="$PLUGIN_DIR/layout.sh"
+
+
+# ── front app (left, after workspaces) ───────────────────────────────────────
+
+sketchybar --add item front_app left \
+  --subscribe front_app front_app_switched \
+  --set front_app \
+    icon.drawing=off \
+    label.color="$YELLOW" \
+    label.font="$LABEL_FONT:Bold:13.0" \
+    padding_left=12 \
+    script="$PLUGIN_DIR/front_app.sh"
+
+# ── right side ───────────────────────────────────────────────────────────────
+
+sketchybar --add item clock right \
+  --set clock \
+    update_freq=10 \
+    icon="󰅐" \
+    icon.color="$BLUE" \
+    script="$PLUGIN_DIR/clock.sh"
+
+sketchybar --add item battery right \
+  --subscribe battery power_source_change system_woke \
+  --set battery \
+    update_freq=120 \
+    script="$PLUGIN_DIR/battery.sh"
+
+sketchybar --add item wifi right \
+  --subscribe wifi wifi_change system_woke \
+  --set wifi \
+    script="$PLUGIN_DIR/wifi.sh"
+
+sketchybar --add item volume right \
+  --subscribe volume volume_change \
+  --set volume \
+    script="$PLUGIN_DIR/volume.sh"
+
+# ── go ───────────────────────────────────────────────────────────────────────
+
+sketchybar --update
