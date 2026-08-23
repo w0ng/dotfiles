@@ -18,6 +18,8 @@ source "$CONFIG_DIR/colors.sh"
 # has the widest coverage installed here (33k codepoints).
 LABEL_FONT="SF Pro"
 ICON_FONT="Maple Mono NL NF CN"
+# Single source for the text size, so the declarations below cannot drift apart.
+FONT_SIZE="16.0"
 
 # ── bar ──────────────────────────────────────────────────────────────────────
 
@@ -32,8 +34,8 @@ sketchybar --bar \
 # ── defaults applied to every item ───────────────────────────────────────────
 
 sketchybar --default \
-  icon.font="$ICON_FONT:Bold:13.0" \
-  label.font="$LABEL_FONT:Semibold:13.0" \
+  icon.font="$ICON_FONT:Bold:$FONT_SIZE" \
+  label.font="$LABEL_FONT:Semibold:$FONT_SIZE" \
   icon.color="$FG" \
   label.color="$FG" \
   icon.padding_left=8 \
@@ -113,7 +115,7 @@ sketchybar --add item front_app left \
   --set front_app \
     icon.drawing=off \
     label.color="$YELLOW" \
-    label.font="$LABEL_FONT:Bold:13.0" \
+    label.font="$LABEL_FONT:Bold:$FONT_SIZE" \
     padding_left=12 \
     script="$PLUGIN_DIR/front_app.sh"
 
