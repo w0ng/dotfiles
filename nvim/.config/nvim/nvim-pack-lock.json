@@ -14,7 +14,7 @@
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "fff.nvim": {
-      "rev": "cf171e067d99a7ee1298bd3903f14a04addd8b39",
+      "rev": "d5b4abd2ac22ba42a787c07b6c5d21b76918262f",
       "src": "https://github.com/dmtrKovalenko/fff.nvim"
     },
     "gitsigns.nvim": {
@@ -42,7 +42,7 @@
       "src": "https://github.com/folke/noice.nvim"
     },
     "nui.nvim": {
-      "rev": "de740991c12411b663994b2860f1a4fd0937c130",
+      "rev": "a25dd472316d806eb38a5dd667c2e40da5570c75",
       "src": "https://github.com/MunifTanjim/nui.nvim"
     },
     "nvim-bqf": {
@@ -54,7 +54,7 @@
       "src": "https://github.com/catgoose/nvim-colorizer.lua"
     },
     "nvim-lspconfig": {
-      "rev": "a683e0ddf0cf64c6cd689e18ffb480ade3c162b7",
+      "rev": "bff1bd61cb1455040533201ca1edf1e84efa578f",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-notify": {
