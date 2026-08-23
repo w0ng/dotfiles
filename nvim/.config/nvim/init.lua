@@ -633,6 +633,7 @@ end, { desc = 'Buffers' })
 vim.pack.add({ gh('dmtrKovalenko/fff.nvim') })
 
 require('fff').setup({
+  enable_home_dir_scanning = false,
   prompt_vim_mode = false,
   preview = {
     enabled = false,
