@@ -8,7 +8,11 @@ config-version = 2
 
 # You can use it to add commands that run after AeroSpace startup.
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
-after-startup-command = []
+after-startup-command = [
+  # JankyBorders — highlight the focused window. Colours are gruvbox dark,
+  # matching kitty: bright yellow (#fabd2f) active, dark1 (#3c3836) inactive.
+  'exec-and-forget borders active_color=0xfffabd2f inactive_color=0xff3c3836 width=8.0 style=round',
+]
 
 # Start AeroSpace at login
 start-at-login = false
@@ -55,7 +59,19 @@ persistent-workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
 # A callback that runs every time binding mode changes
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 # See: https://nikitabobko.github.io/AeroSpace/commands#mode
-on-mode-changed = []
+# Tell sketchybar the binding mode changed; mode.sh queries the current mode.
+on-mode-changed = ['exec-and-forget sketchybar --trigger aerospace_mode_change']
+
+# Keep sketchybar's layout indicator in step when focus moves between a
+# floating and a tiled window.
+on-focus-changed = ['exec-and-forget sketchybar --trigger aerospace_layout_change']
+
+# Tell sketchybar which workspace is focused. The custom event is consumed by
+# sketchybar/.config/sketchybar/plugins/aerospace.sh.
+exec-on-workspace-change = [
+  '/bin/bash', '-c',
+  'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE PREV_WORKSPACE=$AEROSPACE_PREV_WORKSPACE',
+]
 
 focus-follows-mouse.enabled = false
 
@@ -71,12 +87,18 @@ key-mapping.preset = 'qwerty'
 #                 Monitor pattern is the same as for 'workspace-to-monitor-force-assignment'.
 #                 See:
 #                 https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
+# Gaps are sized to be exactly filled by the 8px JankyBorders border, which
+# draws ~4px outside the window frame. Nothing of the desktop shows through:
+#   inner = 4 + 4  two windows' borders meet
+#   outer = 4      one window's border reaches the screen edge
+#   top   = 31 (sketchybar) + 4
+# With 0 gaps the outer half of the border falls off-screen and is clipped.
 gaps.inner.horizontal = 8
 gaps.inner.vertical =   8
-gaps.outer.left =       8
-gaps.outer.bottom =     8
-gaps.outer.top =        8
-gaps.outer.right =      8
+gaps.outer.left =       4
+gaps.outer.bottom =     4
+gaps.outer.top =        35
+gaps.outer.right =      4
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -108,10 +130,10 @@ gaps.outer.right =      8
     # 'tell application "Terminal" to tell (do script) to activate' '''
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#layout
-    alt-slash = 'layout tiles horizontal vertical'
-    alt-comma = 'layout accordion horizontal vertical'
-    alt-f = 'fullscreen'
-    alt-space = ['layout floating tiling']
+    alt-slash = ['layout tiles horizontal vertical', 'exec-and-forget sketchybar --trigger aerospace_layout_change']
+    alt-comma = ['layout accordion horizontal vertical', 'exec-and-forget sketchybar --trigger aerospace_layout_change']
+    alt-f = ['fullscreen', 'exec-and-forget sketchybar --trigger aerospace_layout_change']
+    alt-space = ['layout floating tiling', 'exec-and-forget sketchybar --trigger aerospace_layout_change']
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#focus
     alt-h = 'focus --boundaries-action wrap-around-the-workspace left'
