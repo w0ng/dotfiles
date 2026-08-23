@@ -139,7 +139,8 @@ done
 step "Homebrew casks"
 
 BREW_CASKS=(
-  kitty    # terminal emulator
+  nikitabobko/tap/aerospace   # i3-like tiling window manager
+  kitty                       # terminal emulator
 )
 
 for cask in "${BREW_CASKS[@]}"; do
@@ -264,6 +265,7 @@ step "Stow dotfiles"
 cd "$DOTFILES_DIR"
 
 STOW_PACKAGES=(
+  aerospace
   dircolors
   dprint
   editline
