@@ -9,4 +9,5 @@
 sketchybar --trigger aerospace_workspace_change \
   FOCUSED_WORKSPACE="$AEROSPACE_FOCUSED_WORKSPACE" \
   PREV_WORKSPACE="$AEROSPACE_PREV_WORKSPACE" \
-  NONEMPTY="$(aerospace list-workspaces --monitor all --empty no 2>/dev/null | tr '\n' ' ')"
+  NONEMPTY="$(aerospace list-workspaces --monitor all --empty no 2>/dev/null | tr '\n' ' ')" \
+  VISIBLE="$(aerospace list-workspaces --monitor all --visible 2>/dev/null | tr '\n' ' ')"

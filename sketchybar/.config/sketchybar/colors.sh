@@ -6,6 +6,7 @@ export BG0=0xff282828
 export BG_DIM=0xff3c3836     # bg1 — idle workspace pill
 export FG=0xffebdbb2
 export GRAY=0xffa89984
+export GRAY_DARK=0xff7c6f64  # dark4 — workspace visible on the other monitor
 export YELLOW=0xfffabd2f
 export BLUE=0xff83a598
 export AQUA=0xff8ec07c
