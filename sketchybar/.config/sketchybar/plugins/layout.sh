@@ -10,9 +10,17 @@
 
 source "$HOME/.config/sketchybar/colors.sh"
 
-read -r layout fullscreen is_main <<<"$(
-  aerospace echo -- '%{window-layout} %{window-is-fullscreen} %{monitor-is-main}' 2>/dev/null
-)"
+# Two queries, deliberately. window-* variables error with "No window is
+# focused" on an empty workspace, and a combined query would poison the whole
+# read — monitor-is-main would parse as "is focused" and report 'secondary'.
+# monitor-* is monitor-scoped and always resolves.
+is_main=$(aerospace echo -- '%{monitor-is-main}' 2>/dev/null)
+
+if win=$(aerospace echo -- '%{window-layout} %{window-is-fullscreen}' 2>/dev/null); then
+  read -r layout fullscreen <<<"$win"
+else
+  layout=""; fullscreen=""
+fi
 
 # ── layout ───────────────────────────────────────────────────────────────────
 
