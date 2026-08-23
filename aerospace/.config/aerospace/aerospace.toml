@@ -66,11 +66,14 @@ on-mode-changed = ['exec-and-forget sketchybar --trigger aerospace_mode_change']
 # floating and a tiled window.
 on-focus-changed = ['exec-and-forget sketchybar --trigger aerospace_layout_change']
 
-# Tell sketchybar which workspace is focused. The custom event is consumed by
-# sketchybar/.config/sketchybar/plugins/aerospace.sh.
+# Tell sketchybar which workspace is focused. workspace_change.sh does the one
+# aerospace query the whole pill row needs and passes the result through the
+# event, so the ten pill scripts make no aerospace calls of their own. It has
+# to be a script — inlining the command substitution here breaks the TOML
+# parser.
 exec-on-workspace-change = [
   '/bin/bash', '-c',
-  'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE PREV_WORKSPACE=$AEROSPACE_PREV_WORKSPACE',
+  '$HOME/.config/sketchybar/plugins/workspace_change.sh',
 ]
 
 focus-follows-mouse.enabled = false

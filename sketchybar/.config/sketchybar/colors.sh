@@ -13,4 +13,5 @@ export GREEN=0xffb8bb26
 export RED=0xfffb4934
 export ORANGE=0xfffe8019
 export PURPLE=0xffd3869b
+export DIM=0xff665c54     # dark3 — workspaces with no windows
 export TRANSPARENT=0x00000000
