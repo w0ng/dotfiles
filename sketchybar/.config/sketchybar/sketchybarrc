@@ -2,9 +2,9 @@
 #
 # sketchybar — status bar for AeroSpace.
 #
-# AeroSpace's exec-on-workspace-change callback runs workspace_change.sh, which
-# paints the whole workspace row itself and then fires aerospace_workspace_change
-# for the layout/monitor items (see aerospace/.config/aerospace/aerospace.toml).
+# Everything on the left is driven by AeroSpace callbacks declared in
+# aerospace/.config/aerospace/aerospace.toml; nothing polls but the clock and
+# the battery.
 
 CONFIG_DIR="$HOME/.config/sketchybar"
 PLUGIN_DIR="$CONFIG_DIR/plugins"
@@ -51,7 +51,6 @@ sketchybar --default \
 # Mirrors persistent-workspaces in aerospace.toml.
 
 # Custom events must be registered before anything can subscribe to them.
-sketchybar --add event aerospace_workspace_change
 sketchybar --add event aerospace_layout_change
 sketchybar --add event aerospace_mode_change
 
@@ -63,13 +62,12 @@ sketchybar --add item mode left \
     label.padding_left=10 \
     label.padding_right=10 \
     drawing=off \
-    script="$PLUGIN_DIR/mode.sh"
+    script="$PLUGIN_DIR/aerospace_mode.sh"
 
 SPACES=(1 2 3 4 5 6 7 8 9 0)
 
-# The pills carry no script of their own — workspace_change.sh paints the whole
-# row in one pass, which avoids ten bash spawns per switch and, at startup,
-# thirty aerospace queries.
+# The pills carry no script of their own: aerospace_workspace_change.sh paints
+# the whole row in one pass, avoiding ten script spawns per workspace switch.
 for sid in "${SPACES[@]}"; do
   sketchybar --add item "space.$sid" left \
     --set "space.$sid" \
@@ -81,40 +79,36 @@ for sid in "${SPACES[@]}"; do
 done
 
 # ── monitor + layout (left, after workspaces) ────────────────────────────────
-# Both items' icons and labels are written by layout.sh, which is why monitor is
-# declared first. AeroSpace has no layout-change event, hence the custom
-# aerospace_layout_change trigger fired from the layout keybindings.
+# aerospace_layout.sh writes both of these items, so monitor is declared first.
 #
-# Deliberately NOT subscribed to front_app_switched: on-focus-changed in
-# aerospace.toml already fires aerospace_layout_change for every focus change,
-# including ones originating outside AeroSpace (`open -a`) and ones between two
-# windows of the same app, which front_app_switched cannot see at all.
-# Subscribing to both ran layout.sh twice per focus change and three times per
-# workspace switch — four and six redundant aerospace queries respectively.
-# aerospace_workspace_change must stay: it is how a display_change repaint
-# (monitor item -> workspace_change.sh) reaches these two items.
-
-# Subscribed to display_change so plugging or unplugging a monitor repaints the
-# row: workspace_change.sh redraws the pills and triggers the layout/monitor
-# refresh. Aerospace redistributes workspaces across monitors on such a change,
-# and none of the aerospace events fire for it.
+# AeroSpace has no layout-change callback, so the layout keybindings fire
+# aerospace_layout_change by hand. on-focus-changed fires it too, and that
+# covers every workspace switch — including between two empty workspaces — so
+# the layout item needs no separate workspace event.
+#
+# front_app_switched is deliberately unused here: it cannot see focus moving
+# between two windows of the same app, nor focus changes originating outside
+# AeroSpace (`open -a`). aerospace_layout_change sees both.
+#
+# display_change catches monitors being plugged or unplugged, which makes
+# AeroSpace redistribute workspaces without firing an event of its own.
 sketchybar --add item monitor left \
   --subscribe monitor display_change \
   --set monitor \
-    script="$PLUGIN_DIR/workspace_change.sh" \
+    script="$PLUGIN_DIR/aerospace_workspace_change.sh" \
     padding_left=12 \
     background.color="$BG_DIM" \
     background.drawing=on \
     click_script="aerospace move-workspace-to-monitor --wrap-around next; sketchybar --trigger aerospace_layout_change"
 
 sketchybar --add item layout left \
-  --subscribe layout aerospace_layout_change aerospace_workspace_change \
+  --subscribe layout aerospace_layout_change display_change \
   --set layout \
     padding_left=6 \
     background.color="$BG_DIM" \
     background.drawing=on \
     click_script="aerospace fullscreen; sketchybar --trigger aerospace_layout_change" \
-    script="$PLUGIN_DIR/layout.sh"
+    script="$PLUGIN_DIR/aerospace_layout.sh"
 
 
 # ── front app (left, after the layout indicator) ─────────────────────────────
@@ -155,7 +149,7 @@ sketchybar --add item volume right \
 
 # ── go ───────────────────────────────────────────────────────────────────────
 
-# --update runs every item's script, including the monitor item's
-# workspace_change.sh, so this also performs the initial paint of the pill row.
+# --update runs every item's script, which is also what performs the initial
+# paint of the pill row (via the monitor item).
 sketchybar --update
 
