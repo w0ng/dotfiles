@@ -16,7 +16,7 @@ source "$CONFIG_DIR/colors.sh"
 # download from developer.apple.com/fonts installed).
 # Icons stay on Maple Mono NF: SF Pro has no Nerd Font glyphs, and Maple Mono
 # has the widest coverage installed here (33k codepoints).
-LABEL_FONT="SF Pro"
+LABEL_FONT="SF Pro Text"
 ICON_FONT="Maple Mono NL NF CN"
 # Single source for the text size, so the declarations below cannot drift apart.
 FONT_SIZE="16.0"
