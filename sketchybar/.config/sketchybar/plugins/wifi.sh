@@ -1,9 +1,9 @@
 #!/bin/bash
 # Wi-Fi connected / disconnected.
 #
-# Driven by sketchybar's built-in wifi_change event — nothing polls. Uses
-# `ipconfig getifaddr` (~25ms), which needs no special permission; the SSID is
-# deliberately not shown, as macOS redacts it without Location Services access.
+# Driven by sketchybar's built-in wifi_change event — nothing polls. The SSID
+# is deliberately not shown: macOS redacts it without Location Services access,
+# whereas `ipconfig getifaddr` needs no permission at all.
 
 source "$HOME/.config/sketchybar/colors.sh"
 

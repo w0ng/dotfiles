@@ -2,8 +2,8 @@
 # Focused application name.
 #
 # Driven by the built-in front_app_switched event, so nothing polls. The
-# aerospace fallback only runs when $INFO is absent (initial load or a manual
-# trigger), which is why it isn't on the hot path.
+# aerospace fallback runs only when $INFO is absent — initial load or a manual
+# trigger — so it never lands on the hot path.
 
 app="${INFO:-$(aerospace echo -- '%{app-name}' 2>/dev/null)}"
 [ -z "$app" ] && exit 0

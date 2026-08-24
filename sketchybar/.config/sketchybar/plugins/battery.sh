@@ -3,9 +3,7 @@
 
 source "$HOME/.config/sketchybar/colors.sh"
 
-# One pmset call serves both lookups; the upstream sketchybar example calls it
-# twice. Worth ~3ms — the greps already pipeline against pmset, so the win is
-# smaller than it looks.
+# One pmset call serves both lookups.
 batt=$(pmset -g batt)
 percent=$(printf '%s' "$batt" | grep -Eo '[0-9]+%' | cut -d% -f1)
 # Match the battery's own state, not the power source: on AC at 100% pmset
