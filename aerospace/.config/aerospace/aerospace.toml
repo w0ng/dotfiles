@@ -28,10 +28,10 @@ enable-normalization-opposite-orientation-for-nested-containers = true
 # See: https://nikitabobko.github.io/AeroSpace/guide#layouts
 # The 'accordion-padding' specifies the size of accordion padding
 # You can set 0 to disable the padding feature
-accordion-padding = 0
+accordion-padding = 30
 
 # Possible values: tiles|accordion
-default-root-container-layout = 'tiles'
+default-root-container-layout = 'accordion'
 
 # Possible values: horizontal|vertical|auto
 # 'auto' means: wide monitor (anything wider than high) gets horizontal orientation,
@@ -91,13 +91,9 @@ key-mapping.preset = 'qwerty'
 #                 See:
 #                 https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 # Gaps are sized to be exactly filled by the 8px JankyBorders border, which
-# draws ~4px outside the window frame. Nothing of the desktop shows through:
-#   inner = 4 + 4  two windows' borders meet
-#   outer = 4      one window's border reaches the screen edge
-#   top   = 40 (sketchybar) + 4
-# With 0 gaps the outer half of the border falls off-screen and is clipped.
-gaps.inner.horizontal = 8
-gaps.inner.vertical =   8
+# draws ~4px outside the window frame.
+gaps.inner.horizontal = 4
+gaps.inner.vertical =   4
 gaps.outer.left =       4
 gaps.outer.bottom =     4
 gaps.outer.top =        44
@@ -136,7 +132,7 @@ gaps.outer.right =      4
     alt-slash = ['layout tiles horizontal vertical', 'exec-and-forget sketchybar --trigger aerospace_layout_change']
     alt-comma = ['layout accordion horizontal vertical', 'exec-and-forget sketchybar --trigger aerospace_layout_change']
     alt-f = ['fullscreen', 'exec-and-forget sketchybar --trigger aerospace_layout_change']
-    alt-space = ['layout floating tiling', 'exec-and-forget sketchybar --trigger aerospace_layout_change']
+    alt-shift-f = ['layout floating tiling', 'exec-and-forget sketchybar --trigger aerospace_layout_change']
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#focus
     alt-h = 'focus --boundaries-action wrap-around-the-workspace left'
@@ -201,18 +197,3 @@ gaps.outer.right =      4
     alt-shift-j = ['join-with down', 'mode main']
     alt-shift-k = ['join-with up', 'mode main']
     alt-shift-l = ['join-with right', 'mode main']
-
-
-# ── Window rules ─────────────────────────────────────────────────────────────
-
-[[on-window-detected]]
-if.app-id = 'net.kovidgoyal.kitty'
-run = 'layout tiling'
-
-[[on-window-detected]]
-if.app-id = 'com.brave.Browser'
-run = 'layout tiling'
-
-[[on-window-detected]]
-if = 'true'
-run = 'layout floating'
