@@ -182,6 +182,26 @@ gaps.outer.right =      4
     # See: https://nikitabobko.github.io/AeroSpace/commands#mode
     alt-shift-semicolon = 'mode service'
 
+    # Launch-or-focus an app: alt-<letter>. 'open -a' raises the app when it is
+    # already running, so these double as an app switcher.
+    alt-a = 'exec-and-forget open -a Claude'
+    alt-b = 'exec-and-forget open -a "Brave Browser"'
+    alt-c = 'exec-and-forget open -a Calendar'
+    alt-d = 'exec-and-forget open -a Discord'
+    alt-e = 'exec-and-forget open -a Finder'
+    alt-g = 'exec-and-forget open -a ChatGPT'
+    alt-i = 'exec-and-forget open -a Messages'
+    alt-m = 'exec-and-forget open -a Mail'
+    alt-o = 'exec-and-forget open -a Obsidian'
+    alt-p = 'exec-and-forget open -a 1Password'
+    alt-r = 'exec-and-forget open -a Telegram'
+    alt-s = 'exec-and-forget open -a Slack'
+    alt-t = 'exec-and-forget open -a kitty'
+    alt-v = 'exec-and-forget open -a VimR'
+    alt-w = 'exec-and-forget open -a WhatsApp'
+    alt-x = 'exec-and-forget open -a Spotify'
+    alt-z = 'exec-and-forget open -a zoom.us'
+
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 [mode.service.binding]
