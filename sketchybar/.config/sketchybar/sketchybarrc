@@ -84,6 +84,15 @@ done
 # Both items' icons and labels are written by layout.sh, which is why monitor is
 # declared first. AeroSpace has no layout-change event, hence the custom
 # aerospace_layout_change trigger fired from the layout keybindings.
+#
+# Deliberately NOT subscribed to front_app_switched: on-focus-changed in
+# aerospace.toml already fires aerospace_layout_change for every focus change,
+# including ones originating outside AeroSpace (`open -a`) and ones between two
+# windows of the same app, which front_app_switched cannot see at all.
+# Subscribing to both ran layout.sh twice per focus change and three times per
+# workspace switch — four and six redundant aerospace queries respectively.
+# aerospace_workspace_change must stay: it is how a display_change repaint
+# (monitor item -> workspace_change.sh) reaches these two items.
 
 # Subscribed to display_change so plugging or unplugging a monitor repaints the
 # row: workspace_change.sh redraws the pills and triggers the layout/monitor
@@ -99,7 +108,7 @@ sketchybar --add item monitor left \
     click_script="aerospace move-workspace-to-monitor --wrap-around next; sketchybar --trigger aerospace_layout_change"
 
 sketchybar --add item layout left \
-  --subscribe layout aerospace_layout_change aerospace_workspace_change front_app_switched \
+  --subscribe layout aerospace_layout_change aerospace_workspace_change \
   --set layout \
     padding_left=6 \
     background.color="$BG_DIM" \
