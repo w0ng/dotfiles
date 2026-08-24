@@ -1,0 +1,155 @@
+#!/bin/bash
+#
+# sketchybar — status bar for AeroSpace.
+#
+# Everything on the left is driven by AeroSpace callbacks declared in
+# aerospace/.config/aerospace/aerospace.toml; nothing polls but the clock and
+# the battery.
+
+CONFIG_DIR="$HOME/.config/sketchybar"
+PLUGIN_DIR="$CONFIG_DIR/plugins"
+
+source "$CONFIG_DIR/colors.sh"
+
+# Text is SF Pro (the macOS system typeface — note the *system* copy is a hidden
+# ".SF NS" family and cannot be referenced by name, so this needs the SF Pro
+# download from developer.apple.com/fonts installed).
+# Icons stay on Maple Mono NF: SF Pro has no Nerd Font glyphs, and Maple Mono
+# has the widest coverage installed here (33k codepoints).
+LABEL_FONT="SF Pro Text"
+ICON_FONT="Maple Mono NL NF CN"
+# Single source for the text size, so the declarations below cannot drift apart.
+FONT_SIZE="16.0"
+
+# ── bar ──────────────────────────────────────────────────────────────────────
+
+sketchybar --bar \
+  position=top \
+  height=40 \
+  blur_radius=20 \
+  color="$BAR" \
+  padding_left=6 \
+  padding_right=6
+
+# ── defaults applied to every item ───────────────────────────────────────────
+
+sketchybar --default \
+  icon.font="$ICON_FONT:Bold:$FONT_SIZE" \
+  label.font="$LABEL_FONT:Regular:$FONT_SIZE" \
+  icon.color="$FG" \
+  label.color="$FG" \
+  icon.padding_left=8 \
+  icon.padding_right=4 \
+  label.padding_left=4 \
+  label.padding_right=8 \
+  background.corner_radius=6 \
+  background.height=25 \
+  padding_left=2 \
+  padding_right=2
+
+# ── workspaces (left) ────────────────────────────────────────────────────────
+# Mirrors persistent-workspaces in aerospace.toml.
+
+# Custom events must be registered before anything can subscribe to them.
+sketchybar --add event aerospace_layout_change
+sketchybar --add event aerospace_mode_change
+
+# Binding-mode indicator — hidden unless a non-main mode is active.
+sketchybar --add item mode left \
+  --subscribe mode aerospace_mode_change \
+  --set mode \
+    icon.drawing=off \
+    label.padding_left=10 \
+    label.padding_right=10 \
+    drawing=off \
+    script="$PLUGIN_DIR/aerospace_mode.sh"
+
+SPACES=(1 2 3 4 5 6 7 8 9 0)
+
+# The pills carry no script of their own: aerospace_workspace_change.sh paints
+# the whole row in one pass, avoiding ten script spawns per workspace switch.
+for sid in "${SPACES[@]}"; do
+  sketchybar --add item "space.$sid" left \
+    --set "space.$sid" \
+      label="$sid" \
+      icon.drawing=off \
+      label.padding_left=10 \
+      label.padding_right=10 \
+      click_script="aerospace workspace $sid"
+done
+
+# ── monitor + layout (left, after workspaces) ────────────────────────────────
+# aerospace_layout.sh writes both of these items, so monitor is declared first.
+#
+# AeroSpace has no layout-change callback, so the layout keybindings fire
+# aerospace_layout_change by hand. on-focus-changed fires it too, and that
+# covers every workspace switch — including between two empty workspaces — so
+# the layout item needs no separate workspace event.
+#
+# front_app_switched is deliberately unused here: it cannot see focus moving
+# between two windows of the same app, nor focus changes originating outside
+# AeroSpace (`open -a`). aerospace_layout_change sees both.
+#
+# display_change catches monitors being plugged or unplugged, which makes
+# AeroSpace redistribute workspaces without firing an event of its own.
+sketchybar --add item monitor left \
+  --subscribe monitor display_change \
+  --set monitor \
+    script="$PLUGIN_DIR/aerospace_workspace_change.sh" \
+    padding_left=12 \
+    background.color="$BG_DIM" \
+    background.drawing=on \
+    click_script="aerospace move-workspace-to-monitor --wrap-around next; sketchybar --trigger aerospace_layout_change"
+
+sketchybar --add item layout left \
+  --subscribe layout aerospace_layout_change display_change \
+  --set layout \
+    padding_left=6 \
+    background.color="$BG_DIM" \
+    background.drawing=on \
+    click_script="aerospace fullscreen; sketchybar --trigger aerospace_layout_change" \
+    script="$PLUGIN_DIR/aerospace_layout.sh"
+
+
+# ── front app (left, after the layout indicator) ─────────────────────────────
+
+sketchybar --add item front_app left \
+  --subscribe front_app front_app_switched \
+  --set front_app \
+    icon.drawing=off \
+    label.color="$YELLOW" \
+    label.font="$LABEL_FONT:Bold:$FONT_SIZE" \
+    padding_left=12 \
+    script="$PLUGIN_DIR/front_app.sh"
+
+# ── right side ───────────────────────────────────────────────────────────────
+
+sketchybar --add item clock right \
+  --set clock \
+    update_freq=10 \
+    icon="󰅐" \
+    icon.color="$BLUE" \
+    script="$PLUGIN_DIR/clock.sh"
+
+sketchybar --add item battery right \
+  --subscribe battery power_source_change system_woke \
+  --set battery \
+    update_freq=120 \
+    script="$PLUGIN_DIR/battery.sh"
+
+sketchybar --add item wifi right \
+  --subscribe wifi wifi_change system_woke \
+  --set wifi \
+    script="$PLUGIN_DIR/wifi.sh"
+
+sketchybar --add item volume right \
+  --subscribe volume volume_change \
+  --set volume \
+    script="$PLUGIN_DIR/volume.sh"
+
+# ── go ───────────────────────────────────────────────────────────────────────
+
+# --update runs every item's script, which is also what performs the initial
+# paint of the pill row (via the monitor item).
+sketchybar --update
+
