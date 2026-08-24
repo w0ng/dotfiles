@@ -25,15 +25,15 @@ fi
 # ── layout ───────────────────────────────────────────────────────────────────
 
 if [ "$fullscreen" = "true" ]; then
-  icon="󰊓"; label="full"; color="$ORANGE"
+  icon="󰊓"; label="fullscreen"; color="$ORANGE"
 else
   # AeroSpace reports direction as an h_/v_ prefix: h_tiles, v_accordion, ...
   case "$layout" in
-    floating)     icon="󰄯"; label="float";  color="$AQUA"  ;;
+    floating)     icon="󰄯"; label="floating";  color="$AQUA"  ;;
     h_tiles)      icon="↔"; label="tiles";  color="$GREEN" ;;
     v_tiles)      icon="↕"; label="tiles";  color="$GREEN" ;;
-    h_accordion)  icon="↔"; label="accord"; color="$BLUE"  ;;
-    v_accordion)  icon="↕"; label="accord"; color="$BLUE"  ;;
+    h_accordion)  icon="↔"; label="accordion"; color="$BLUE"  ;;
+    v_accordion)  icon="↕"; label="accordion"; color="$BLUE"  ;;
     *)            icon="󰋱"; label="${layout:-—}"; color="$GRAY" ;;
   esac
 fi
