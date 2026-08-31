@@ -53,6 +53,7 @@ sketchybar --default \
 # Custom events must be registered before anything can subscribe to them.
 sketchybar --add event aerospace_layout_change
 sketchybar --add event aerospace_mode_change
+sketchybar --add event now_playing_change
 
 # Binding-mode indicator — hidden unless a non-main mode is active.
 sketchybar --add item mode left \
@@ -147,7 +148,24 @@ sketchybar --add item volume right \
   --set volume \
     script="$PLUGIN_DIR/volume.sh"
 
+sketchybar --add item now_playing right \
+  --subscribe now_playing now_playing_change system_woke \
+  --set now_playing \
+    click_script="media-control toggle-play-pause" \
+    script="$PLUGIN_DIR/now_playing.sh"
+
 # ── go ───────────────────────────────────────────────────────────────────────
+
+# now_playing_stream.sh is a background daemon (see its own header), so it's
+# spawned here rather than via --set. The pgrep guard avoids stacking
+# duplicates on repeated --reloads — matched on the wrapper's own path since
+# media-control re-execs into a perl helper whose argv contains neither
+# "media-control" nor "stream". No setsid on macOS (util-linux, not
+# BSD/coreutils), so nohup+disown is the detachment used instead.
+if ! pgrep -f "now_playing_stream.sh" >/dev/null; then
+  nohup "$PLUGIN_DIR/now_playing_stream.sh" >/dev/null 2>&1 &
+  disown
+fi
 
 # --update runs every item's script, which is also what performs the initial
 # paint of the pill row (via the monitor item).
