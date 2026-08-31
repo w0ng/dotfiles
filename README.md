@@ -45,12 +45,13 @@ Plugins listed in `~/.zsh_plugins.txt` clone themselves on the next shell launch
 ### CLI tools
 
 ```sh
-brew install lsd fd ripgrep coreutils
+brew install lsd fd ripgrep coreutils jq
 ```
 
 - `lsd` — `ls` replacement (aliased in `.zshrc`)
 - `fd` / `ripgrep` — used by aliases, fzf-tab, and Neovim
 - `coreutils` — provides `gdircolors`, which drives `LS_COLORS` theming
+- `jq` — parses JSON for the sketchybar `now_playing` item and the Claude Code status line
 - Optional: `brew install bat vivid gist` (`vivid` regenerates the `dircolors-*` themes)
 
 ### Neovim
@@ -95,6 +96,75 @@ brew install --cask kitty font-commit-mono-nerd-font
 ```
 
 `kitty.conf` sets `font_family CommitMono Nerd Font`.
+
+### Sketchybar — now playing
+
+```sh
+brew install media-control
+```
+
+Streams macOS's Now Playing info (via `MediaRemote.framework`) for the sketchybar
+`now_playing` item — event-driven, no polling. `jq` (already listed under CLI tools) parses it.
+
+### Claude Code status line
+
+```sh
+brew install gh
+gh auth login
+```
+
+`claude/.claude/statusline.sh` renders two rows. Row 1 is local: context tokens against the
+window, session cost (dimmed at `$0.00`, which is what a `--resume`d session shows before its
+next turn — Claude Code restores the context window from the transcript but not the accumulated
+cost), and the branch name with how long ago it was cut from `master`/`main`. Row 2 appears once
+a PR exists: number and review verdict, conflicts, CI pass/fail counts, unresolved review threads
+(current vs. stale), and collapses to `merged` once it lands. Each row fits `$COLUMNS`
+independently, dropping segments by priority; nothing is right-aligned, since a half-width pane
+strands a right-hand group behind an ellipsis.
+
+`git status` can cost seconds in a large repo, so no segment uses it — the branch comes from
+reading `.git/HEAD` directly. Caches live under `~/.cache/cc-statusline/`: branch age for 10
+minutes, PR state for 90s, the latter refreshed by `statusline-pr.sh`, spawned detached and
+lock-guarded so a render never blocks on the network. A `.attempt` marker caps retries at one a
+minute so a failing `gh` call doesn't refresh on every message; delete a cache file to force one.
+
+A few segments are off by default and only activate when their environment variable is set —
+useful if a repo has a ticket-linked branch convention, a specific CI check that gates merging, or
+stacked PRs. Set these somewhere outside this repo rather than in it, since the values are
+typically specific to one codebase/employer — `.zshrc` already sources `~/.devenv.zsh` if present,
+which is exactly for config like this that shouldn't be public:
+
+| Variable | Effect |
+|---|---|
+| `CC_STATUSLINE_TICKET_RE` | Regex with 3 capture groups (`board`, `number`, `rest`) matched against the branch name; shows a ticket chip |
+| `CC_STATUSLINE_TICKET_URL_FMT` | `printf`-style URL template with one `%s` for the ticket key, e.g. `https://example.atlassian.net/browse/%s` — the chip links there instead of showing as plain text |
+| `CC_STATUSLINE_MAIN_CHECKOUT` | Path to a "primary" checkout that should always stay on the default branch; warns when it isn't |
+| `CC_STATUSLINE_PR_TRAIN` | Set to `1` to walk the PR's base/child chain (extra GraphQL calls) and show stack position plus parent staleness |
+| `CC_STATUSLINE_CI_CHECK_RE` | Regex matching the name of the CI check that gates merging; enables an "untested" segment before it runs |
+| `CC_STATUSLINE_CI_BOT_RE` + `CC_STATUSLINE_CI_STEP_RE` | Regexes matching a CI bot's PR comment login, and a named `s` capture group for the failing step name — shown instead of a bare pass/fail count |
+
+Icons are Nerd Font glyphs. Underlined segments are OSC 8 hyperlinks, which need
+`FORCE_HYPERLINK=1` in the environment — Claude Code decides whether to emit them by sniffing
+`TERM_PROGRAM`/`VTE_VERSION`, which some terminal multiplexers don't forward over SSH. `zsh/.zshenv`
+exports it for the shell; it also needs to be set in `~/.claude/settings.json`'s `env`, which isn't
+part of this repo (see below). `CC_STATUSLINE_NO_LINKS=1` disables links; `CC_STATUSLINE_MARGIN`
+tunes reserved columns.
+
+This package doesn't include `~/.claude/settings.json` — unlike `commands/` and `skills/`, that
+file tends to accumulate machine- and employer-specific permissions, so it's left for each machine
+to manage directly. To wire up the status line, add to it:
+
+```json
+{
+  "env": { "FORCE_HYPERLINK": "1" },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh",
+    "padding": 0,
+    "refreshInterval": 60
+  }
+}
+```
 
 ### Optional packages
 
