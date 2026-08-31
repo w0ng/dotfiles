@@ -134,14 +134,14 @@ stacked PRs. Set these somewhere outside this repo rather than in it, since the 
 typically specific to one codebase/employer — `.zshrc` already sources `~/.devenv.zsh` if present,
 which is exactly for config like this that shouldn't be public:
 
-| Variable | Effect |
-|---|---|
-| `CC_STATUSLINE_TICKET_RE` | Regex with 3 capture groups (`board`, `number`, `rest`) matched against the branch name; shows a ticket chip |
-| `CC_STATUSLINE_TICKET_URL_FMT` | `printf`-style URL template with one `%s` for the ticket key, e.g. `https://example.atlassian.net/browse/%s` — the chip links there instead of showing as plain text |
-| `CC_STATUSLINE_MAIN_CHECKOUT` | Path to a "primary" checkout that should always stay on the default branch; warns when it isn't |
-| `CC_STATUSLINE_PR_TRAIN` | Set to `1` to walk the PR's base/child chain (extra GraphQL calls) and show stack position plus parent staleness |
-| `CC_STATUSLINE_CI_CHECK_RE` | Regex matching the name of the CI check that gates merging; enables an "untested" segment before it runs |
-| `CC_STATUSLINE_CI_BOT_RE` + `CC_STATUSLINE_CI_STEP_RE` | Regexes matching a CI bot's PR comment login, and a named `s` capture group for the failing step name — shown instead of a bare pass/fail count |
+| Variable                                               | Effect                                                                                                                                                               |
+| ------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `CC_STATUSLINE_TICKET_RE`                              | Regex with 3 capture groups (`board`, `number`, `rest`) matched against the branch name; shows a ticket chip                                                         |
+| `CC_STATUSLINE_TICKET_URL_FMT`                         | `printf`-style URL template with one `%s` for the ticket key, e.g. `https://example.atlassian.net/browse/%s` — the chip links there instead of showing as plain text |
+| `CC_STATUSLINE_MAIN_CHECKOUT`                          | Path to a "primary" checkout that should always stay on the default branch; warns when it isn't                                                                      |
+| `CC_STATUSLINE_PR_TRAIN`                               | Set to `1` to walk the PR's base/child chain (extra GraphQL calls) and show stack position plus parent staleness                                                     |
+| `CC_STATUSLINE_CI_CHECK_RE`                            | Regex matching the name of the CI check that gates merging; enables an "untested" segment before it runs                                                             |
+| `CC_STATUSLINE_CI_BOT_RE` + `CC_STATUSLINE_CI_STEP_RE` | Regexes matching a CI bot's PR comment login, and a named `s` capture group for the failing step name — shown instead of a bare pass/fail count                      |
 
 Icons are Nerd Font glyphs. Underlined segments are OSC 8 hyperlinks, which need
 `FORCE_HYPERLINK=1` in the environment — Claude Code decides whether to emit them by sniffing
