@@ -250,10 +250,47 @@ require('claudecode').setup({
   terminal = { provider = 'none' },
 })
 
--- Send current visual selection to the connected Claude session
-vim.keymap.set('v', '<leader>as', '<cmd>ClaudeCodeSend<cr>', { desc = 'Claude: send selection' })
--- Add current buffer to Claude's context
-vim.keymap.set('n', '<leader>ab', '<cmd>ClaudeCodeAdd %<cr>', { desc = 'Claude: add buffer' })
+-- Focus the Claude pane connected to this nvim so a send lands me in its prompt
+-- ready to type. Scoped to nvim's own herdr tab ($HERDR_TAB_ID, which is
+-- workspace-namespaced), so it picks the Claude pane in *this* tab and never
+-- jumps to a Claude in another tab or workspace. nvim isn't a detected agent, so
+-- the only claude in the tab is the connected one. Fully async (no UI block);
+-- a no-op if herdr isn't running or there's no Claude alongside this tab.
+local function focus_claude()
+  local tab = vim.env.HERDR_TAB_ID
+  if not tab then
+    return
+  end
+  vim.system({ 'herdr', 'agent', 'list' }, { text = true }, function(res)
+    if res.code ~= 0 then
+      return
+    end
+    local ok, data = pcall(vim.json.decode, res.stdout)
+    if not ok then
+      return
+    end
+    for _, a in ipairs((data.result or {}).agents or {}) do
+      if a.tab_id == tab and a.agent == 'claude' then
+        vim.system({ 'herdr', 'agent', 'focus', a.pane_id })
+        return
+      end
+    end
+  end)
+end
+
+-- Send current visual selection to the connected Claude session, then focus it
+vim.keymap.set('v', '<leader>as', function()
+  -- Leave visual mode synchronously ('x') so '< / '> reflect the selection
+  -- before ClaudeCodeSend reads the range from those marks.
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', true, false, true), 'nx', false)
+  vim.cmd("'<,'>ClaudeCodeSend")
+  focus_claude()
+end, { desc = 'Claude: send selection + focus' })
+-- Add current buffer to Claude's context, then focus it
+vim.keymap.set('n', '<leader>ab', function()
+  vim.cmd('ClaudeCodeAdd %')
+  focus_claude()
+end, { desc = 'Claude: add buffer + focus' })
 
 --------------------------------------------------------------------------------
 -- gitsigns.nvim: git decorators for modified lines
