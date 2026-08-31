@@ -11,15 +11,12 @@ PLUGIN_DIR="$CONFIG_DIR/plugins"
 
 source "$CONFIG_DIR/colors.sh"
 
-# Text is SF Pro (the macOS system typeface — note the *system* copy is a hidden
-# ".SF NS" family and cannot be referenced by name, so this needs the SF Pro
-# download from developer.apple.com/fonts installed).
-# Icons stay on Maple Mono NF: SF Pro has no Nerd Font glyphs, and Maple Mono
-# has the widest coverage installed here (33k codepoints).
-LABEL_FONT="SF Pro Text"
+# One Nerd Font (Maple Mono NL NF CN, widest coverage installed here — 33k
+# codepoints) for both text and icons, so glyphs and label text always match.
+LABEL_FONT="Maple Mono NL NF CN"
 ICON_FONT="Maple Mono NL NF CN"
 # Single source for the text size, so the declarations below cannot drift apart.
-FONT_SIZE="16.0"
+FONT_SIZE="18.0"
 
 # ── bar ──────────────────────────────────────────────────────────────────────
 
@@ -27,15 +24,15 @@ sketchybar --bar \
   position=top \
   height=40 \
   blur_radius=20 \
-  color="$BAR" \
+  color="$BG0" \
   padding_left=6 \
   padding_right=6
 
 # ── defaults applied to every item ───────────────────────────────────────────
 
 sketchybar --default \
-  icon.font="$ICON_FONT:Bold:$FONT_SIZE" \
-  label.font="$LABEL_FONT:Regular:$FONT_SIZE" \
+  icon.font="$ICON_FONT:ExtraBold:$FONT_SIZE" \
+  label.font="$LABEL_FONT:Medium:$FONT_SIZE" \
   icon.color="$FG" \
   label.color="$FG" \
   icon.padding_left=8 \

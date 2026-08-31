@@ -16,4 +16,5 @@ export ORANGE=0xfffe8019
 export PURPLE=0xffd3869b
 export DIM=0xff665c54     # dark3 — workspaces with no windows
 export TRANSPARENT=0x00000000
+export BLACK=0xff000000      # pure opaque black — hides the notch behind the bar
 export SPOTIFY_GREEN=0xff1db954  # Spotify's own brand green, not gruvbox's
