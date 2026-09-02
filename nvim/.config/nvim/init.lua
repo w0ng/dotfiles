@@ -1,5 +1,5 @@
 -- Neovim configuration (single file).
--- Sections below: OPTIONS, KEYMAPS, PLUGINS, LSP.
+-- Sections below: OPTIONS, KEYMAPS, PLUGINS, LSP, NEOVIDE.
 -- Filetype-specific settings live in ftplugin/ and ftdetect/ (auto-loaded by
 -- Neovim, so they stay as separate runtime files).
 
@@ -193,6 +193,11 @@ require('gruvbox').setup({
     QuickFixLine = { fg = colors.bright_yellow, bg = 'none' },
   },
 })
+
+-- Pin the dark variant. Neovide follows the macOS system appearance and would
+-- otherwise flip gruvbox to light; it leaves 'background' alone once something
+-- else has set it, so this has to happen before the colorscheme loads.
+vim.o.background = 'dark'
 
 -- Set colorscheme, make statusline and pop-up menu darker
 vim.cmd.colorscheme('gruvbox')
@@ -928,3 +933,61 @@ vim.lsp.config('tsgo', {
   end,
 })
 vim.lsp.enable('tsgo')
+
+-- ============================================================================
+-- NEOVIDE
+-- ============================================================================
+-- Mirror the kitty setup (kitty/.config/kitty/kitty.conf) so the GUI matches
+-- nvim running inside kitty. Fonts are deliberately *not* set here: 'guifont'
+-- only accepts a family plus a size, and macOS reports all 16 Maple Mono faces
+-- under the single family 'Maple Mono NL NF CN', so kitty's Medium/ExtraBold
+-- styles are only reachable from neovide/.config/neovide/config.toml, which
+-- takes a family *and* a style per slot. Setting 'guifont' here would override
+-- that file and silently fall back to the Regular weight.
+
+if vim.g.neovide then
+  -- kitty: cursor #ff9900 / cursor_text_color #000000. Neovide paints the
+  -- cursor from the Cursor highlight, which gruvbox leaves as plain reverse.
+  vim.api.nvim_set_hl(0, 'Cursor', { fg = '#000000', bg = '#ff9900' })
+
+  -- kitty: cursor_blink_interval 0
+  vim.opt.guicursor:append('a:blinkon0')
+
+  -- kitty: mouse_hide_wait 3.0 (kitty's default; hide the pointer while typing)
+  vim.g.neovide_hide_mouse_when_typing = true
+
+  -- kitty: color0-15. Inside kitty the terminal emulator supplies these to
+  -- :terminal buffers; under Neovide nothing does, so restate kitty's palette.
+  vim.g.terminal_color_0 = '#1d2021'
+  vim.g.terminal_color_1 = '#cc241d'
+  vim.g.terminal_color_2 = '#98971a'
+  vim.g.terminal_color_3 = '#d79921'
+  vim.g.terminal_color_4 = '#458588'
+  vim.g.terminal_color_5 = '#b16286'
+  vim.g.terminal_color_6 = '#689d6a'
+  vim.g.terminal_color_7 = '#a89983'
+  vim.g.terminal_color_8 = '#3c3836'
+  vim.g.terminal_color_9 = '#fb4934'
+  vim.g.terminal_color_10 = '#b8bb26'
+  vim.g.terminal_color_11 = '#fabd2f'
+  vim.g.terminal_color_12 = '#83a598'
+  vim.g.terminal_color_13 = '#d3869b'
+  vim.g.terminal_color_14 = '#8ec07c'
+  vim.g.terminal_color_15 = '#ebdbb2'
+
+  -- kitty intercepts the macOS clipboard shortcuts itself. Neovide registers a
+  -- clipboard *provider* (so "+y and "+p work) but binds no keys, so ⌘c/⌘v/⌘x
+  -- are dead in the GUI without these.
+  vim.keymap.set({ 'n', 'v' }, '<D-v>', '"+p', { desc = 'Paste from system clipboard' })
+  vim.keymap.set('i', '<D-v>', '<C-r><C-o>+', { desc = 'Paste from system clipboard' })
+  vim.keymap.set('c', '<D-v>', '<C-r>+', { desc = 'Paste from system clipboard' })
+  vim.keymap.set('t', '<D-v>', function()
+    local chan = vim.b.terminal_job_id
+    if chan then
+      vim.api.nvim_chan_send(chan, vim.fn.getreg('+'))
+    end
+  end, { desc = 'Paste from system clipboard' })
+  vim.keymap.set('v', '<D-c>', '"+y', { desc = 'Copy to system clipboard' })
+  vim.keymap.set('v', '<D-x>', '"+d', { desc = 'Cut to system clipboard' })
+  vim.keymap.set('n', '<D-a>', 'ggVG', { desc = 'Select all' })
+end

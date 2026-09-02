@@ -1,0 +1,31 @@
+# Neovide GUI settings, kept in step with kitty/.config/kitty/kitty.conf so
+# Neovide and nvim-inside-kitty look identical.
+#
+# Only the settings Neovide *cannot* take from Lua live here. Everything it
+# exposes as a g: variable (cursor colour, ANSI palette, ⌘ clipboard keys) is in
+# the NEOVIDE section of nvim/.config/nvim/init.lua instead.
+
+[font]
+# kitty: font_size 18.0
+size = 18.0
+
+# kitty picks faces by style: Medium for normal, ExtraBold for bold. macOS
+# reports all 16 Maple Mono faces under the one family "Maple Mono NL NF CN",
+# so the style has to be named explicitly - 'guifont' takes a family and a size
+# only, and would resolve to Regular. Setting 'guifont' anywhere overrides this
+# whole [font] table, so leave it unset.
+[[font.normal]]
+family = "Maple Mono NL NF CN"
+style = "Medium"
+
+[[font.bold]]
+family = "Maple Mono NL NF CN"
+style = "ExtraBold"
+
+[[font.italic]]
+family = "Maple Mono NL NF CN"
+style = "Medium Italic"
+
+[[font.bold_italic]]
+family = "Maple Mono NL NF CN"
+style = "ExtraBold Italic"

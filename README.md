@@ -69,6 +69,13 @@ LSP servers from npm:
 npm install -g vscode-langservers-extracted cssmodules-language-server stylelint-lsp @typescript/native-preview
 ```
 
+For the GUI, the optional `neovide/` package matches kitty's font and palette,
+and adds the macOS ⌘ clipboard keys that kitty would otherwise handle:
+
+```sh
+brew install --cask neovide
+```
+
 - `tree-sitter-cli` (the `tree-sitter` command — Homebrew's `tree-sitter` formula is library-only) + Xcode Command Line Tools (`xcode-select --install`) compile Treesitter parsers
 - `dprint` / `stylua` are the formatters, run via conform.nvim
 - Optional: `brew install rust` — only needed if `fff.nvim` can't download a prebuilt binary and has to build it
@@ -92,10 +99,12 @@ brew install tmux reattach-to-user-namespace
 ### Terminal & fonts
 
 ```sh
-brew install --cask kitty font-commit-mono-nerd-font
+brew install --cask kitty font-maple-mono-nl-nf-cn
 ```
 
-`kitty.conf` sets `font_family CommitMono Nerd Font`.
+`kitty.conf` sets `font_family Maple Mono NL NF CN`, using the Medium face for
+normal text and ExtraBold for bold. `neovide/` names the same four faces so the
+Neovide GUI renders identically.
 
 ### Sketchybar — now playing
 
