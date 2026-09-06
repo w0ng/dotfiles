@@ -24,11 +24,16 @@ ZVM_INIT_MODE=sourcing
 # Antidote — plugin manager (https://antidote.sh), static-bundle pattern.
 #
 # .zsh_plugins.txt is compiled into a static .zsh_plugins.zsh that we source
-# directly for fast startup, regenerated only when the .txt is newer. The
-# GIT_CONFIG_* override disables git's fsmonitor for that one command: where
-# fsmonitor is enabled globally, a watcher's "Adding ... to watch list" chatter
-# lands in the bundle and corrupts it. Guarded so the shell still works before
-# antidote is installed.
+# directly for fast startup, regenerated only when the .txt is newer. Guarded
+# so the shell still works before antidote is installed.
+#
+# Cloning a missing bundle and printing the source lines share one stdout, so
+# whatever git says while fetching lands in the file and the next shell tries
+# to run it: an fsmonitor watcher announcing a new watch, a git wrapper
+# announcing a request id. The first pass does the cloning with that output
+# discarded, which leaves the second nothing to fetch and so nothing to say
+# but the bundle itself. The GIT_CONFIG_* override then covers the writing
+# pass, where a stray fsmonitor call would have no clone to hide behind.
 #
 # Probed rather than hardcoded: antidote is a Homebrew formula on macOS but has
 # no distro package on Linux, where it is a git clone under XDG data instead.
@@ -50,6 +55,7 @@ if [[ -n "$ANTIDOTE_DIR" ]]; then
   source "$ANTIDOTE_DIR/antidote.zsh"
   zsh_plugins="${ZDOTDIR:-$HOME}/.zsh_plugins"
   if [[ ! "${zsh_plugins}.zsh" -nt "${zsh_plugins}.txt" ]]; then
+    antidote bundle <"${zsh_plugins}.txt" >/dev/null 2>&1
     GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=core.fsmonitor GIT_CONFIG_VALUE_0=false \
       antidote bundle <"${zsh_plugins}.txt" >|"${zsh_plugins}.zsh"
   fi
