@@ -1,9 +1,5 @@
--- Number of spaces to use for each (auto)indent step (default 8)
 vim.bo.shiftwidth = 4
--- Number of spaces that a <Tab> and <BS> counts during editing (default 0)
 vim.bo.softtabstop = 4
--- Number of spaces that a <Tab> in the file counts for (default 8)
 vim.bo.tabstop = 4
 
--- Spell-checking is off by default; `cos` toggles it on with this dictionary
 vim.bo.spelllang = 'en_au'

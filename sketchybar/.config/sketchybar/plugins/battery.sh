@@ -14,15 +14,34 @@ charging=$(printf '%s' "$batt" | grep '; charging')
 [ -z "$percent" ] && exit 0
 
 if [ -n "$charging" ]; then
-  icon="󰂄"; color="$GREEN"
+  icon="󰂄"
+  color="$GREEN"
 else
   case "$percent" in
-    100|9[0-9]) icon="󰁹"; color="$GREEN" ;;
-    8[0-9]|7[0-9]) icon="󰂁"; color="$GREEN" ;;
-    6[0-9]|5[0-9]) icon="󰁿"; color="$YELLOW" ;;
-    4[0-9]|3[0-9]) icon="󰁽"; color="$ORANGE" ;;
-    2[0-9]) icon="󰁻"; color="$ORANGE" ;;
-    *) icon="󰁺"; color="$RED" ;;
+    100 | 9[0-9])
+      icon="󰁹"
+      color="$GREEN"
+      ;;
+    8[0-9] | 7[0-9])
+      icon="󰂁"
+      color="$GREEN"
+      ;;
+    6[0-9] | 5[0-9])
+      icon="󰁿"
+      color="$YELLOW"
+      ;;
+    4[0-9] | 3[0-9])
+      icon="󰁽"
+      color="$ORANGE"
+      ;;
+    2[0-9])
+      icon="󰁻"
+      color="$ORANGE"
+      ;;
+    *)
+      icon="󰁺"
+      color="$RED"
+      ;;
   esac
 fi
 

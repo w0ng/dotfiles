@@ -16,8 +16,8 @@
     "**/*-lock.json"
   ],
   "plugins": [
-    "https://plugins.dprint.dev/typescript-0.60.0.wasm",
-    "https://plugins.dprint.dev/json-0.13.2.wasm",
-    "https://plugins.dprint.dev/markdown-0.11.3.wasm"
+    "npm:@dprint/typescript@0.96.1",
+    "npm:@dprint/json@0.23.0",
+    "npm:@dprint/markdown@0.23.3"
   ]
 }

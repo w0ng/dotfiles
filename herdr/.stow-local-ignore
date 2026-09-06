@@ -1,0 +1,18 @@
+# Runtime state herdr writes beside its config. Stow reads the filesystem, not
+# git, so without this it links these into $HOME and herdr then writes them
+# back into the repo working tree. All of them are gitignored.
+#
+# A .stow-local-ignore replaces stow's built-in ignore list for this package,
+# so the defaults worth keeping are repeated here.
+session\.json
+session-history\.json
+.*\.log
+.*\.sock
+\.plugins\.lock
+
+# stow defaults
+\.git
+\.gitignore
+\.gitmodules
+.+~
+\#.*\#

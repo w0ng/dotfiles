@@ -1,4 +1,9 @@
+# Global stylua config. nvim's conform.lua passes `--config-path` at this file
+# explicitly, which also means it WINS over any stylua.toml a project ships:
+# stylua only falls back to searching the working directory when that flag is
+# absent. Deleting this file changes Lua formatting everywhere, not just here.
+
 column_width = 100
 indent_type = 'Spaces'
-indent_width = 2
+indent_width = 4
 quote_style = 'AutoPreferSingle'

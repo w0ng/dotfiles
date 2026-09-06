@@ -1,0 +1,31 @@
+theme = Gruvbox Dark
+palette = 0=#1d2021
+palette = 8=#3c3836
+
+cursor-style = block
+cursor-style-blink = false
+cursor-color = #fe8019
+cursor-text = #282828
+
+font-family = Maple Mono NF CN
+font-style = Medium
+font-style-bold = ExtraBold
+font-style-italic = Medium Italic
+font-style-bold-italic = ExtraBold Italic
+font-size = 18
+
+window-padding-x = 8
+window-padding-y = 4
+window-padding-balance = true
+
+keybind = global:alt+grave_accent=toggle_quick_terminal
+quick-terminal-position = center
+quick-terminal-screen = mouse
+quick-terminal-autohide = false
+quick-terminal-animation-duration = 0
+quick-terminal-size = 80%,80%
+
+macos-non-native-fullscreen = true
+macos-titlebar-style = tabs
+
+custom-shader = shaders/cursor_tail.glsl

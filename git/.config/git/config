@@ -1,0 +1,74 @@
+[user]
+	name = Andrew Wong
+	email = wongadev@gmail.com
+[core]
+    editor = nvim
+[color]
+    ui = true
+[color "branch"]
+    current = brightgreen bold
+    remote = brightred bold
+[color "diff"]
+    meta = brightyellow bold
+    commit = brightgreen bold
+    frag = brightmagenta bold
+    old = brightred bold
+    new = brightgreen bold
+    whitespace = brightred reverse
+[color "status"]
+    added = brightgreen bold
+    changed = brightred bold
+    untracked = brightred bold
+[github]
+    user = w0ng
+[diff]
+    tool = nvimdiff
+    algorithm = histogram
+[difftool]
+    prompt = false
+[merge]
+    tool = nvimdiff
+    renameLimit = 999999
+[mergetool]
+    keepBackup = false
+[pager]
+  diff = delta
+  log = delta
+  reflog = delta
+  show = delta
+[interactive]
+  diffFilter = delta --color-only --features=interactive
+[delta]
+  syntax-theme = gruvbox-dark
+  file-style = brightyellow bold
+  file-decoration-style = yellow ol ul
+  hunk-header-style = line-number syntax
+  hunk-header-decoration-style = magenta box
+  ; side-by-side = true
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+[pull]
+	rebase = false
+[init]
+	defaultBranch = main
+[push]
+	autoSetupRemote = true
+[fetch]
+	prune = true
+[rerere]
+	enabled = true
+[branch]
+	sort = -committerdate
+[include]
+	; machine-local config (untracked) — keeps internal repo paths
+	; (e.g. git maintenance registrations) out of this public repo.
+	; Relative, so it resolves beside this file.
+	path = config.local
+[includeIf "gitdir:~/work/"]
+	; work identity (untracked, supplied by the private overlay). The public
+	; [user] above is the personal one; anything cloned under ~/work/ commits
+	; with the work email instead.
+	path = config.work

@@ -1,0 +1,23 @@
+# ~/.config/hunk/config.toml — terminal diff viewer.
+# Docs: https://github.com/modem-dev/hunk#config
+#
+# Only the settings that differ from hunk's defaults are listed. Run `hunk diff`
+# and open the theme picker to browse the bundled themes.
+
+# Matches the rest of this repo. hunk also ships the hard and soft variants;
+# medium is the one whose #282828 background the other configs use.
+theme = "gruvbox-dark-medium"
+
+# Chrome off: the diff itself is the whole point, and tmux already supplies a
+# status line and pane borders.
+line_numbers = false
+menu_bar = false
+sidebar = false
+
+# Keep the @@ rows — they are the only cue for how far apart two hunks are.
+hunk_headers = true
+
+agent_notes = true
+
+# Never interrupt a quit to ask about saving view changes.
+prompt_save_view_preferences = false

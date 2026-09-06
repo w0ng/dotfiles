@@ -1,1 +1,25 @@
-.config/nvim/plugin/packer_compiled.lua
+nvim/.config/nvim/plugin/packer_compiled.lua
+
+# vim.pack's plugin lockfile. ~/.config/nvim/nvim-pack-lock.json is a stow
+# symlink into this package, so nvim rewrites it here on every plugin update.
+# Untracked on purpose: it pins commit SHAs per machine, and the config already
+# declares which plugins to install.
+nvim/.config/nvim/nvim-pack-lock.json
+
+# Machine-local nvim overrides — extra project roots and vendored-formatter
+# paths that can't live in a public repo. Supplied by the private overlay.
+nvim/.config/nvim/lua/local.lua
+
+# herdr runtime state. ~/.config/herdr is a folded stow symlink into this
+# package, so herdr writes its logs, session state and plugin lock straight
+# into the repo.
+herdr/.config/herdr/*.log
+herdr/.config/herdr/session.json
+herdr/.config/herdr/session-history.json
+herdr/.config/herdr/.plugins.lock
+
+# Editor swap files
+*.sw[a-p]
+
+# macOS Finder metadata
+.DS_Store

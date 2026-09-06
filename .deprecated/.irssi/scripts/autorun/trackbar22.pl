@@ -1,1 +1,0 @@
-../trackbar22.pl

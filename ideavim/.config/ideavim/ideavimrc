@@ -1,0 +1,131 @@
+"
+" IdeaVim — for browsing code in IntelliJ and the other JetBrains IDEs.
+"
+" Kept deliberately close to the nvim config so the same keys do the same things
+" in both. Where nvim reaches for an LSP or a picker, this reaches for the
+" equivalent IDE action; action IDs come from `:actionlist <pattern>` or the
+" "IdeaVim: track action IDs" toggle in Search Everywhere.
+"
+" Two conventions worth keeping:
+"   * Comments cite the nvim file that owns a mapping, never a line number --
+"     the config is split across plugin/*.lua and the numbers move.
+"   * Comments never trail a :map command. The map family takes the rest of the
+"     line literally, so `nmap gd <Action>(X) " note` maps gd to the action AND
+"     the note. `set` is fine, and keeps its inline comments below.
+"
+
+" ----------------------------------------------------------------------------
+" Options -- the subset init.lua sets that IdeaVim also understands. Indent
+" settings are absent on purpose: the IDE owns those, not the emulation.
+" ----------------------------------------------------------------------------
+set ignorecase
+set smartcase
+set hlsearch
+set incsearch
+set number
+set relativenumber
+set showmode        " -- INSERT -- etc; unlike nvim, nothing else here reports the mode
+
+" IDE-specific, with no nvim equivalent.
+set ideajoin              " J uses the IDE's smart join rather than a dumb one
+set idearefactormode=keep " stay in normal mode through a refactor
+
+" Emulated plugins, chosen to mirror what nvim loads.
+set surround          " plugin/surround.lua
+set commentary        " the native `gc` operator
+set highlightedyank   " vim.hl.on_yank() in init.lua
+set matchit           " extended `%`, which nvim ships by default
+
+" ----------------------------------------------------------------------------
+" Leader. Space is both leader and localleader in nvim, so <Leader> here stands
+" in for both.
+" ----------------------------------------------------------------------------
+let mapleader = " "
+
+" Switch ';' with ':' -- init.lua
+noremap ; :
+noremap : ;
+
+" Stop highlighting the current search -- init.lua
+nnoremap <Leader>n :nohlsearch<CR>
+
+" Move between splits without the <C-w> prefix -- init.lua. IdeaVim handles
+" <C-w> itself, so these need no IDE action.
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" ----------------------------------------------------------------------------
+" Navigation. grn/gra/grr/gri/grt/K/gO ship as nvim defaults in 0.11+; gd is
+" added in plugin/lsp.lua. `gr` is a prefix in nvim, so never map it alone.
+" ----------------------------------------------------------------------------
+" gd  -> definition
+nmap gd <Action>(GotoDeclaration)
+" grr -> references
+nmap grr <Action>(FindUsages)
+" gri -> implementation
+nmap gri <Action>(GotoImplementation)
+" grt -> type definition
+nmap grt <Action>(GotoTypeDeclaration)
+" grn -> rename
+nmap grn <Action>(RenameElement)
+" gra -> code action
+nmap gra <Action>(ShowIntentionActions)
+" gO  -> document symbols
+nmap gO <Action>(FileStructurePopup)
+" K   -> hover
+nmap K <Action>(QuickJavaDoc)
+nmap ]m <Action>(MethodDown)
+nmap [m <Action>(MethodUp)
+
+" ----------------------------------------------------------------------------
+" Diagnostics -- plugin/lsp.lua. ]d and [d are nvim defaults as of 0.12; the
+" config no longer redefines them.
+" ----------------------------------------------------------------------------
+nmap [d <Action>(GotoPreviousError)
+nmap ]d <Action>(GotoNextError)
+" <Leader>e -> vim.diagnostic.open_float
+nmap <Leader>e <Action>(ShowErrorDescription)
+" <Leader>q -> vim.diagnostic.setloclist
+nmap <Leader>q <Action>(ActivateProblemsViewToolWindow)
+" <Leader>l -> :LspEslintFixAll
+nmap <Leader>l <Action>(Javascript.Linters.EsLint.Fix)
+
+" ----------------------------------------------------------------------------
+" Pickers. nvim uses fff and snacks; the IDE has its own.
+" ----------------------------------------------------------------------------
+" <Leader>p -> plugin/fff.lua find_files
+nmap <Leader>p <Action>(GotoFile)
+" <Leader>f -> plugin/fff.lua live_grep
+nmap <Leader>f <Action>(FindInPath)
+" <Leader>s -> live_grep seeded with <cword>; Find in Path prefills the word at
+" the caret, so it lands in the same place.
+nmap <Leader>s <Action>(FindInPath)
+" <Leader>b -> plugin/snacks.lua picker.buffers
+nmap <Leader>b <Action>(RecentFiles)
+" <Leader>t -> plugin/nvim-tree.lua toggle
+nmap <Leader>t <Action>(ActivateProjectToolWindow)
+
+" ----------------------------------------------------------------------------
+" Editing and git -- plugin/conform.lua formats, plugin/gitsigns.lua blames.
+" nvim dropped its single-line blame, so there is only the one mapping now.
+" ----------------------------------------------------------------------------
+nmap <Leader>m <Action>(ReformatCode)
+nmap <Leader>g <Action>(Annotate)
+
+" unimpaired-style toggles -- init.lua. Only the two the IDE can act on; `com`
+" (mouse) and `cos` (spell) have no useful equivalent.
+nmap cow <Action>(EditorToggleUseSoftWraps)
+nmap con <Action>(EditorToggleShowLineNumbers)
+
+" ----------------------------------------------------------------------------
+" System clipboard -- init.lua uses "+ on these same keys.
+" ----------------------------------------------------------------------------
+vnoremap <Leader>c "+y
+vnoremap <Leader>x "+x
+nnoremap <Leader>v "+p
+nnoremap <Leader><S-v> "+P
+
+" Copy the current file path -- init.lua does this with expand('%:p').
+nmap <Leader>c <Action>(CopyAbsolutePath)

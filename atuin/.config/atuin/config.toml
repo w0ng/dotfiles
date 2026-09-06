@@ -1,0 +1,28 @@
+# ~/.config/atuin/config.toml — SQLite-backed shell history, LOCAL ONLY.
+# Docs: https://docs.atuin.sh/configuration/config/
+#
+# No cloud sync: nothing leaves this machine. Suitable for a corporate devbox.
+
+auto_sync = false      # never contact a sync server
+update_check = false   # no network calls on startup
+
+# UI
+style = "compact"
+inline_height = 20
+show_preview = true
+
+# Start the search UI in whichever keymap the shell is already in, rather than
+# atuin's emacs default — .zshrc loads zsh-vi-mode, so that means vi.
+keymap_mode = "auto"
+
+# Day before month, matching LANG=en_AU. Only affects how atuin parses and
+# prints dates (`atuin stats`, relative ranges), not what is stored.
+dialect = "uk"
+
+# A result lands on the command line for editing; Enter runs it. The default
+# would run it straight from the picker.
+enter_accept = false
+
+# Search
+search_mode = "fuzzy"
+filter_mode = "global"

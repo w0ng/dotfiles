@@ -8,10 +8,14 @@
 source "$HOME/.config/sketchybar/colors.sh"
 
 if [ -n "$(ipconfig getifaddr en0 2>/dev/null)" ]; then
-  icon="󰤨"; label="up";   color="$GREEN"
+  icon="󰤨"
+  label="up"
+  color="$GREEN"
 else
-  icon="󰤭"; label="down"; color="$RED"
+  icon="󰤭"
+  label="down"
+  color="$RED"
 fi
 
 sketchybar --set "$NAME" icon="$icon" icon.color="$color" \
-                         label="$label" label.color="$color"
+  label="$label" label.color="$color"

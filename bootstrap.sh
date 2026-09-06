@@ -1,355 +1,1029 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #
-# bootstrap.sh — initialise dotfiles on a new macOS machine
+# Provision a macOS machine from this dotfiles repo.
 #
-# Usage: bash bootstrap.sh
+# Usage:
+#   bash bootstrap.sh                # run every module listed in MODULES
+#   bash bootstrap.sh zsh neovim     # run only these modules
+#   bash bootstrap.sh --list         # print the enabled modules
+#   bash bootstrap.sh --modules      # print every module this script defines
+#   bash bootstrap.sh --dry-run      # print what would happen, change nothing
+#   bash bootstrap.sh --no-update    # skip `brew update` (faster re-runs)
+#   bash bootstrap.sh --profile=work # personal or work; remembered after the first run
+#   bash bootstrap.sh --help
 #
-# Run from the dotfiles directory (~/dotfiles) after cloning the repo.
-# Installs all required applications, then symlinks config files via stow.
+# A module installs the tools for one area and symlinks their config with GNU
+# stow. Modules are idempotent, so re-running only does outstanding work.
+#
+# When adding a tool, declare it in a module rather than installing it by hand,
+# and give every stow_package line a matching install line — a stowed config
+# whose binary is missing fails silently at the point of use.
+#
+# Sourcing this file defines its functions without running anything, and the
+# tools it drives (BREW, STOW, NPM, GIT) and paths it writes to (DOTFILES_DIR,
+# STOW_TARGET) are overridable, so tests can stub them. See
+# tests/bootstrap_test.sh. Targets bash 3.2, the version macOS ships.
 
 set -euo pipefail
 
-# ── helpers ──────────────────────────────────────────────────────────────────
+# Ordered so that a module only runs once whatever it relies on is present:
+# system defaults first, then stow, then the standalone tools, then the modules
+# whose configs call those tools.
+readonly MODULES=(
+  macos         # system defaults
+  apps          # desktop applications
+  core          # stow, which every stowing module below needs
+  cli           # fd, fzf, ripgrep, jq and friends
+  gittools      # git, gh, delta
+  terminal      # ghostty
+  atuin         # shell history
+  multiplexer   # tmux, herdr
+  runtimes      # node, which mod_neovim's npm language servers run on
+  neovim        # nvim, its GUI, the servers and formatters it drives, ideavim
+  windowmanager # aerospace, sketchybar, borders; sketchybar needs jq
+  agents        # coding-agent CLIs
+  zsh           # shell; .zshrc initialises most of the tools above
+)
 
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-BOLD='\033[1m'
-RESET='\033[0m'
+DOTFILES_DIR="${DOTFILES_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)}"
+# The same path with symlinks resolved. displace_conflicts compares `pwd -P`
+# output against it, and on macOS /tmp and /var are themselves symlinks, so a
+# repo reached through one would fail that comparison and the script would move
+# its own files into the backup directory.
+DOTFILES_PHYSICAL="$(cd "${DOTFILES_DIR}" 2>/dev/null && pwd -P)"
+DOTFILES_PHYSICAL="${DOTFILES_PHYSICAL:-${DOTFILES_DIR}}"
+STOW_TARGET="${STOW_TARGET:-${HOME}}"
+BREW="${BREW:-brew}"
+STOW="${STOW:-stow}"
+NPM="${NPM:-npm}"
+GIT="${GIT:-git}"
 
-info()    { printf "${BLUE}==>${RESET} ${BOLD}%s${RESET}\n" "$*"; }
-success() { printf "${GREEN}  ✓${RESET} %s\n" "$*"; }
-warn()    { printf "${YELLOW}  !${RESET} %s\n" "$*"; }
-error()   { printf "${RED}  ✗${RESET} %s\n" "$*" >&2; }
-step()    { printf "\n${BOLD}%s${RESET}\n" "── $* ──────────────────────────────────────"; }
+DRY_RUN=false
+SKIP_UPDATE=false
+REQUESTED=()
 
-# ── preflight ────────────────────────────────────────────────────────────────
+# personal or work. Work machines need overrides this repo deliberately does
+# not carry: a commit identity, and employer-specific shell settings. Chosen
+# with --profile, remembered here, so later runs need no flag.
+PROFILE=""
+PROFILE_FILE="${PROFILE_FILE:-${HOME}/.config/dotfiles/profile}"
 
-step "Preflight checks"
+#######################################
+# Output
+#######################################
 
-if [[ "$(uname)" != "Darwin" ]]; then
-  error "This script is macOS-only."
-  exit 1
-fi
-
-DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
-if [[ "$DOTFILES_DIR" != "$HOME/dotfiles" ]]; then
-  warn "Script is running from $DOTFILES_DIR"
-  warn "Stow expects the repo to live at ~/dotfiles for symlinks to resolve correctly."
-  read -rp "Continue anyway? [y/N] " confirm
-  [[ "$confirm" =~ ^[Yy]$ ]] || exit 1
-fi
-
-success "Running from $DOTFILES_DIR"
-
-# ── Homebrew ─────────────────────────────────────────────────────────────────
-
-step "Homebrew"
-
-if ! command -v brew &>/dev/null; then
-  info "Installing Homebrew..."
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  # Add brew to PATH for the rest of this script (Apple Silicon path)
-  eval "$(/opt/homebrew/bin/brew shellenv)" 2>/dev/null || eval "$(/usr/local/bin/brew shellenv)" 2>/dev/null
+if [[ -t 1 ]]; then
+  readonly RED=$'\033[0;31m'
+  readonly GREEN=$'\033[0;32m'
+  readonly YELLOW=$'\033[1;33m'
+  readonly BLUE=$'\033[0;34m'
+  readonly BOLD=$'\033[1m'
+  readonly RESET=$'\033[0m'
 else
-  success "Homebrew already installed"
-  eval "$(brew shellenv)"
+  readonly RED='' GREEN='' YELLOW='' BLUE='' BOLD='' RESET=''
 fi
 
-info "Updating Homebrew..."
-brew update --quiet
+info() {
+  printf '%s==>%s %s%s%s\n' "${BLUE}" "${RESET}" "${BOLD}" "$*" "${RESET}"
+}
+success() { printf '%s  ✓%s %s\n' "${GREEN}" "${RESET}" "$*"; }
+skip() { printf '   ·  %s\n' "$*"; }
+warn() { printf '%s  !%s %s\n' "${YELLOW}" "${RESET}" "$*"; }
+error() { printf '%s  ✗%s %s\n' "${RED}" "${RESET}" "$*" >&2; }
 
-# ── Homebrew taps and trust ──────────────────────────────────────────────────
+step() {
+  printf '\n%s── %s %s%s\n' \
+    "${BOLD}" "$*" "$(printf '─%.0s' {1..40})" "${RESET}"
+}
 
-step "Homebrew taps"
-
-# Homebrew 6 refuses to load formulae/casks from third-party taps until they are
-# explicitly trusted, so a fresh bootstrap aborts on the first one without this.
-# Trust the individual entries rather than whole taps, to keep the blast radius
-# to what this setup actually installs.
-
-BREW_TAPS=(
-  felixkratz/formulae   # sketchybar, borders
-  nikitabobko/tap       # aerospace
-)
-
-for tap in "${BREW_TAPS[@]}"; do
-  if brew tap | grep -qx "$tap"; then
-    success "$tap already tapped"
+# Runs a command, or describes it under --dry-run.
+run() {
+  if [[ "${DRY_RUN}" == true ]]; then
+    printf '   →  %s\n' "$*"
   else
-    info "Tapping $tap..."
-    brew tap "$tap"
+    "$@"
   fi
-done
+}
 
-BREW_TRUSTED_FORMULAE=(
-  felixkratz/formulae/borders
-  felixkratz/formulae/sketchybar
-)
+# False under --dry-run, so success messages cannot claim a change that the run
+# never made.
+did_run() {
+  [[ "${DRY_RUN}" != true ]]
+}
 
-BREW_TRUSTED_CASKS=(
-  nikitabobko/tap/aerospace
-)
+# Reads the remembered profile. A pure getter: resolve_profile does the asking,
+# because this is called from inside "$(...)" where a failure could not stop the
+# script.
+profile() {
+  if [[ -z "${PROFILE}" && -r "${PROFILE_FILE}" ]]; then
+    PROFILE="$(<"${PROFILE_FILE}")"
+  fi
+  printf '%s' "${PROFILE}"
+}
 
-for f in "${BREW_TRUSTED_FORMULAE[@]}"; do
-  brew trust --formula "$f"
-  success "trusted $f"
-done
+# Establishes the profile before any module runs. Never guesses: the profile
+# decides whether employer-managed apps get installed or removed, so a wrong
+# default does real work in the wrong direction.
+resolve_profile() {
+  # Assign directly rather than through "$(profile)": a subshell's assignment
+  # would not reach this shell, leaving PROFILE empty for every later reader.
+  if [[ -z "${PROFILE}" && -r "${PROFILE_FILE}" ]]; then
+    PROFILE="$(<"${PROFILE_FILE}")"
+  fi
+  if [[ -n "${PROFILE}" ]]; then
+    success "profile: ${PROFILE}"
+    return 0
+  fi
 
-for c in "${BREW_TRUSTED_CASKS[@]}"; do
-  brew trust --cask "$c"
-  success "trusted $c"
-done
+  if [[ ! -t 0 ]]; then
+    error "no profile set. Pass --profile=personal or --profile=work."
+    return 1
+  fi
 
-# ── Homebrew formulae ────────────────────────────────────────────────────────
+  local answer
+  while true; do
+    printf 'Is this a personal or work machine? [personal/work] ' >&2
+    read -r answer || {
+      printf '\n' >&2
+      error "no profile chosen."
+      return 1
+    }
+    case "${answer}" in
+      p | personal)
+        PROFILE=personal
+        break
+        ;;
+      w | work)
+        PROFILE=work
+        break
+        ;;
+      *) warn "answer 'personal' or 'work'." ;;
+    esac
+  done
+  remember_profile
+}
 
-step "Homebrew formulae"
+# Persists the chosen profile so later runs need no flag.
+remember_profile() {
+  [[ "${DRY_RUN}" == true ]] && return 0
+  mkdir -p "$(dirname "${PROFILE_FILE}")"
+  printf '%s\n' "${PROFILE}" >"${PROFILE_FILE}"
+  success "profile: ${PROFILE} (remembered in ~${PROFILE_FILE#"${HOME}"})"
+}
 
-BREW_FORMULAE=(
-  # dotfile management
-  stow
+usage() {
+  sed -n '/^# Usage:/,/^# *bash bootstrap.sh --help$/p' "${BASH_SOURCE[0]}" \
+    | sed 's/^# \{0,1\}//'
+}
 
-  # shell
-  zsh
+#######################################
+# Installed-package index
+#######################################
 
-  # editors
-  neovim
+# `brew list <name>` costs ~0.35s of Ruby startup and this script asks about
+# ~50 packages; listing everything once costs ~0.02s. Newline-delimited strings
+# rather than associative arrays, which bash 3.2 lacks.
+INSTALLED_FORMULAE=''
+INSTALLED_CASKS=''
+INSTALLED_TAPS=''
+INSTALLED_TRUSTED=''
+INSTALLED_NPM=''
+INDEX_LOADED=false
 
-  # treesitter parser compilation — nvim-treesitter's `main` branch builds
-  # parsers from source on first launch via the tree-sitter CLI
-  tree-sitter-cli
+load_package_index() {
+  [[ "${INDEX_LOADED}" == true ]] && return 0
 
-  # terminal multiplexer
-  tmux
+  INSTALLED_FORMULAE="$("${BREW}" list --formula 2>/dev/null || true)"
+  INSTALLED_CASKS="$("${BREW}" list --cask 2>/dev/null || true)"
+  INSTALLED_TAPS="$("${BREW}" tap 2>/dev/null || true)"
+  # JSON, not a plain list -- `brew trust` has no line-oriented output. Matched
+  # as a quoted substring below rather than parsed, which keeps this free of a
+  # jq dependency that mod_cli has not installed yet on a fresh machine.
+  INSTALLED_TRUSTED="$("${BREW}" trust --json v1 2>/dev/null || true)"
+  if command -v "${NPM}" >/dev/null 2>&1; then
+    # Paths arrive as .../node_modules/<name> or .../node_modules/@scope/name.
+    INSTALLED_NPM="$("${NPM}" ls -g --depth=0 --parseable 2>/dev/null \
+      | sed -e 's|.*/node_modules/||' || true)"
+  fi
+  INDEX_LOADED=true
+}
 
-  # fuzzy finder and file search
-  fzf
-  fd
+# Whether $2 appears as a whole line in the newline-delimited list $1.
+listed() {
+  case $'\n'"$1"$'\n' in
+    *$'\n'"$2"$'\n'*) return 0 ;;
+    *) return 1 ;;
+  esac
+}
 
-  # GNU coreutils (provides gls, gdircolors used in .zshrc)
-  coreutils
+# Records a just-installed package so a later module skips it without
+# re-querying brew. $1 is one of formula, cask, tap, npm.
+remember() {
+  case "$1" in
+    formula) INSTALLED_FORMULAE="${INSTALLED_FORMULAE}"$'\n'"$2" ;;
+    cask) INSTALLED_CASKS="${INSTALLED_CASKS}"$'\n'"$2" ;;
+    tap) INSTALLED_TAPS="${INSTALLED_TAPS}"$'\n'"$2" ;;
+    npm) INSTALLED_NPM="${INSTALLED_NPM}"$'\n'"$2" ;;
+  esac
+}
 
-  # interactive shell tooling (configured in zsh/.zshrc)
-  lsd        # used by the fzf-tab cd preview
-  bat        # cat replacement (aliased to `cat`)
-  starship   # prompt
-  atuin      # shell history (Ctrl-R)
-  zoxide     # smart cd (aliased to `cd`)
-  direnv     # per-directory environment
+#######################################
+# Package helpers
+#######################################
 
-  # formatters (used by neovim formatter.nvim + efm-langserver)
-  prettierd
+# $1 may be tap-qualified: `brew install` wants the qualified name, `brew list`
+# reports the bare one.
+brew_formula() {
+  local spec="$1"
+  local name="${1##*/}"
 
-  # language servers (brew-based)
-  efm-langserver
-  lua-language-server
+  load_package_index
+  if listed "${INSTALLED_FORMULAE}" "${name}"; then
+    skip "${name}"
+    return 0
+  fi
+  info "installing ${spec}"
+  run "${BREW}" install "${spec}"
+  remember formula "${name}"
+  success "${name}"
+}
 
-  # version management
-  node@20    # used for npm global LSP installs
-  ruby       # used for gist gem
+# $2 is an optional app bundle, e.g. 'Google Chrome.app'. If it is already in
+# /Applications the cask is skipped: the app arrived some other way, typically
+# pushed by an employer's device management, and installing over it fails
+# outright while adopting it needs a sudo prompt no installer should spring.
+brew_cask() {
+  local spec="$1"
+  local name="${1##*/}"
+  local bundle="${2:-}"
 
-  # rust toolchain (for stylua)
-  rustup
+  load_package_index
+  if listed "${INSTALLED_CASKS}" "${name}"; then
+    skip "${name} (cask)"
+    return 0
+  fi
+  if [[ -n "${bundle}" && -d "/Applications/${bundle}" ]]; then
+    skip "${name} (already installed outside brew)"
+    return 0
+  fi
+  info "installing ${spec} (cask)"
+  run "${BREW}" install --cask "${spec}"
+  remember cask "${name}"
+  success "${name} (cask)"
+}
 
-  # git tooling
-  git
-  gh         # GitHub CLI
+# rustup installs the toolchain manager, not a toolchain. Without an explicit
+# default, cargo and rustc are shims that error on every call -- the state a
+# work machine is left in by its own provisioning.
+rust_toolchain() {
+  local rustup candidate
 
-  # irc client
-  weechat
+  # Wanted on both machines, but rustup arrives differently on each: Homebrew's
+  # is keg-only and never on PATH, while a work machine has it provisioned into
+  # ~/.cargo/bin already. Take whichever exists.
+  for candidate in \
+    "$(homebrew_prefix)/opt/rustup/bin/rustup" \
+    "${HOME}/.cargo/bin/rustup"; do
+    if [[ -x "${candidate}" ]]; then
+      rustup="${candidate}"
+      break
+    fi
+  done
+  [[ -n "${rustup:-}" ]] || return 0
 
-  # status bar and window borders (aerospace companions, felixkratz tap)
-  felixkratz/formulae/sketchybar
-  felixkratz/formulae/borders
-
-  # gist CLI (gem installed later)
-  # mysql client config
-  mysql-client
-)
-
-for formula in "${BREW_FORMULAE[@]}"; do
-  # Skip comment lines
-  [[ "$formula" == \#* ]] && continue
-  if brew list --formula "$formula" &>/dev/null 2>&1; then
-    success "$formula already installed"
+  if "${rustup}" toolchain list 2>/dev/null | grep -q 'no installed toolchains'; then
+    info "installing the default Rust toolchain (this downloads ~1GB)"
+    run "${rustup}" default stable
+    success "rust toolchain installed"
   else
-    info "Installing $formula..."
-    brew install "$formula"
+    skip "rust toolchain already installed"
   fi
-done
 
-# ── Homebrew casks ───────────────────────────────────────────────────────────
+  # rustfmt and clippy come with the default profile; rust-analyzer does not,
+  # and nvim's config enables it.
+  if "${rustup}" component list --installed 2>/dev/null | grep -q '^rust-analyzer'; then
+    skip "rust-analyzer"
+    return 0
+  fi
+  run "${rustup}" component add rust-analyzer
+  success "rust-analyzer"
+}
 
-step "Homebrew casks"
+# A CLI the employer's tooling bundle already puts on PATH in /usr/local/bin.
+# Homebrew's copy sits earlier on PATH and would shadow it, so a work machine
+# would silently run a different version from the one its tooling was tested
+# against. Under the work profile the formula is left to the bundle, and a brew
+# copy from an earlier run is removed so it stops shadowing.
+personal_formula() {
+  local spec="$1"
+  local name="${1##*/}"
 
-BREW_CASKS=(
-  nikitabobko/tap/aerospace   # i3-like tiling window manager
-  kitty                       # terminal emulator
-)
+  if [[ "$(profile)" != work ]]; then
+    brew_formula "${spec}"
+    return 0
+  fi
 
-for cask in "${BREW_CASKS[@]}"; do
-  if brew list --cask "$cask" &>/dev/null 2>&1; then
-    success "$cask already installed"
+  load_package_index
+  if listed "${INSTALLED_FORMULAE}" "${name}"; then
+    info "removing ${name} — provided by the work tooling bundle"
+    run "${BREW}" uninstall "${spec}"
+    success "removed ${name}"
+    return 0
+  fi
+  skip "${name} (provided by the work tooling bundle)"
+}
+
+# A cask the employer's device management owns on a work machine. Installing it
+# there would fight the managed copy and its update channel, so under the work
+# profile it is never installed -- and a brew copy from an earlier run, or from
+# a machine that later became managed, is removed.
+personal_cask() {
+  local spec="$1"
+  local name="${1##*/}"
+  local bundle="${2:-}"
+
+  if [[ "$(profile)" != work ]]; then
+    brew_cask "${spec}" "${bundle}"
+    return 0
+  fi
+
+  load_package_index
+  if listed "${INSTALLED_CASKS}" "${name}"; then
+    info "removing ${name} (cask) — managed on work machines"
+    run "${BREW}" uninstall --cask "${spec}"
+    success "removed ${name} (cask)"
+    return 0
+  fi
+  skip "${name} (managed on work machines)"
+}
+
+brew_tap() {
+  local tap="$1"
+
+  load_package_index
+  if listed "${INSTALLED_TAPS}" "${tap}"; then
+    skip "${tap} (tap)"
+    return 0
+  fi
+  info "tapping ${tap}"
+  run "${BREW}" tap "${tap}"
+  remember tap "${tap}"
+  success "${tap} (tap)"
+}
+
+# Homebrew 6 refuses to load a formula or cask from a third-party tap until it
+# is trusted. $1 is --formula or --cask, $2 the fully qualified name.
+brew_trust() {
+  local kind="$1"
+  local name="$2"
+
+  load_package_index
+  case "${INSTALLED_TRUSTED}" in
+    *"\"${name}\""*)
+      skip "${name} (trusted)"
+      return 0
+      ;;
+  esac
+  info "trusting ${name}"
+  run "${BREW}" trust "${kind}" "${name}"
+  INSTALLED_TRUSTED="${INSTALLED_TRUSTED}"$'\n'"\"${name}\""
+  success "${name} (trusted)"
+}
+
+npm_global() {
+  local pkg="$1"
+
+  if ! command -v "${NPM}" >/dev/null 2>&1; then
+    warn "npm is not on PATH — skipping ${pkg}"
+    return 0
+  fi
+  load_package_index
+  if listed "${INSTALLED_NPM}" "${pkg}"; then
+    skip "${pkg} (npm)"
+    return 0
+  fi
+  info "installing ${pkg} (npm)"
+  run "${NPM}" install -g "${pkg}"
+  remember npm "${pkg}"
+  success "${pkg} (npm)"
+}
+
+# Cached: `brew --prefix` is another 0.35s of Ruby startup.
+homebrew_prefix() {
+  if [[ -z "${HOMEBREW_PREFIX:-}" ]]; then
+    HOMEBREW_PREFIX="$("${BREW}" --prefix 2>/dev/null || true)"
+  fi
+  printf '%s' "${HOMEBREW_PREFIX}"
+}
+
+#######################################
+# Stow
+#######################################
+
+# Where displaced files go, one directory per run. Deliberately not a sibling
+# of the file it replaces: when a parent directory is already a folded stow
+# symlink into the repo, a backup written beside the target lands inside the
+# package itself.
+backup_dir() {
+  if [[ -z "${BACKUP_DIR:-}" ]]; then
+    BACKUP_DIR="${STOW_TARGET}/.dotfiles-backup/$(date +%Y%m%d-%H%M%S)"
+  fi
+  printf '%s' "${BACKUP_DIR}"
+}
+
+# Paths a package would create, relative to the stow target.
+#
+# Tracked files only: stow links what git tracks, so only those can conflict.
+# Listing with find would also match runtime state a tool writes into its own
+# package directory through a folded symlink — herdr's session.json and logs,
+# for instance — and displace_conflicts would move that live state aside.
+# Falls back to find when the repo is not a git checkout, such as a tarball
+# download or the scratch directories the tests build.
+package_files() {
+  local pkg="$1"
+
+  [[ -d "${DOTFILES_DIR}/${pkg}" ]] || return 0
+  (
+    cd "${DOTFILES_DIR}/${pkg}" || return 0
+    git ls-files 2>/dev/null \
+      || find . -type f ! -name '*.pre-stow*' | sed 's|^\./||'
+  )
+}
+
+# Moves real files aside so stow can take their place. A fresh macOS ships its
+# own ~/.zshenv, and an app may write a default config before it is stowed.
+displace_conflicts() {
+  local pkg="$1"
+  local target live resolved dest
+
+  while IFS= read -r target; do
+    [[ -n "${target}" ]] || continue
+    live="${STOW_TARGET}/${target}"
+    [[ -e "${live}" ]] || continue
+    [[ -L "${live}" ]] && continue
+
+    # A folded parent symlink makes ${live} resolve back into the package, so
+    # moving it would destroy the file being stowed.
+    resolved="$(cd "$(dirname "${live}")" && pwd -P)/$(basename "${live}")"
+    case "${resolved}" in
+      "${DOTFILES_PHYSICAL}"/*) continue ;;
+    esac
+
+    dest="$(backup_dir)/${target}"
+    warn "${target} exists — backing up to ${dest#"${STOW_TARGET}"/}"
+    run mkdir -p "$(dirname "${dest}")"
+    run mv "${live}" "${dest}"
+  done < <(package_files "${pkg}")
+}
+
+stow_package() {
+  local pkg="$1"
+
+  if [[ ! -d "${DOTFILES_DIR}/${pkg}" ]]; then
+    warn "no such package: ${pkg}"
+    return 0
+  fi
+  displace_conflicts "${pkg}"
+  # --no-folding links each file rather than symlinking a whole directory. A
+  # folded directory is the repo, so anything a tool writes beside its config
+  # -- logs, sockets, session state -- lands in version control.
+  # --ignore keeps Finder's .DS_Store out: it is gitignored, but stow scans the
+  # filesystem rather than git, so an untracked one still gets linked -- and
+  # colliding with an existing ~/.DS_Store aborts the whole package.
+  run "${STOW}" --dir "${DOTFILES_DIR}" --target "${STOW_TARGET}" \
+    --ignore='\.DS_Store' --no-folding --restow "${pkg}"
+  if did_run; then
+    success "stowed ${pkg}"
+  fi
+}
+
+#######################################
+# Modules, in MODULES order
+#######################################
+
+# macos/ is run, not stowed.
+mod_macos() {
+  step "macOS defaults"
+  info "applying macos/defaults.bash (Dock and Finder will restart)"
+  run bash "${DOTFILES_DIR}/macos/defaults.bash"
+  success "defaults written"
+}
+
+mod_apps() {
+  step "applications"
+  personal_cask 1password '1Password.app'
+  personal_cask affinity 'Affinity.app'
+  brew_cask alfred 'Alfred 5.app'
+  personal_cask chatgpt 'ChatGPT.app'
+  personal_cask claude 'Claude.app'
+  brew_cask cleanshot 'CleanShot X.app'
+  personal_cask discord 'Discord.app'
+  personal_cask docker-desktop 'Docker.app'
+  personal_cask figma 'Figma.app'
+  personal_cask firefox 'Firefox.app'
+  personal_cask google-chrome 'Google Chrome.app'
+  brew_cask handy 'Handy.app'
+  brew_cask iina 'IINA.app'
+  brew_cask imageoptim 'ImageOptim.app'
+  personal_cask nordvpn 'NordVPN.app'
+  brew_cask obsidian 'Obsidian.app'
+  personal_cask spotify 'Spotify.app'
+  personal_cask telegram 'Telegram.app'
+  personal_cask whatsapp 'WhatsApp.app'
+  personal_cask zoom 'zoom.us.app'
+}
+
+mod_core() {
+  step "core"
+  brew_formula stow
+}
+
+mod_cli() {
+  step "command-line tools"
+  brew_formula bat
+  brew_formula btop
+  personal_formula direnv
+  brew_formula eza
+  brew_formula fd
+  brew_formula ffmpeg
+  brew_formula fzf
+  brew_formula jq
+  brew_formula ripgrep
+  brew_formula shellcheck
+  personal_formula uv
+  brew_formula vivid
+  brew_formula zoxide
+  stow_package bat
+  stow_package btop
+  stow_package fd
+  stow_package fzf
+}
+
+# Work machines commit under a different identity. The git config includes
+# config.work for anything under ~/work/, and git skips a missing include
+# silently — so without this check, work commits go out under the personal
+# address with nothing to notice.
+# Globals:
+#   DRY_RUN
+require_work_gitconfig() {
+  local target="${HOME}/.config/git/config.work" email
+
+  if [[ -r "${target}" ]]; then
+    skip "work git identity (~${target#"${HOME}"})"
+    return 0
+  fi
+  if [[ "${DRY_RUN}" == true ]]; then
+    printf '   →  create %s with the work commit identity\n' "${target}"
+    return 0
+  fi
+  if [[ ! -t 0 ]]; then
+    warn "~${target#"${HOME}"} is missing — work repos will commit as the personal identity"
+    return 0
+  fi
+
+  warn "~${target#"${HOME}"} is missing; work repos would commit as the personal identity"
+  printf 'Work commit email (blank to skip): ' >&2
+  read -r email
+  if [[ -z "${email}" ]]; then
+    warn "skipped; run again or write ~${target#"${HOME}"} by hand"
+    return 0
+  fi
+  printf '[user]\n\temail = %s\n' "${email}" >"${target}"
+  chmod 600 "${target}"
+  success "wrote ~${target#"${HOME}"}"
+}
+
+# Creates the untracked local git config with an empty [maintenance] section.
+#
+# Deliberately registers nothing. `git maintenance register` writes an absolute
+# repo path into whichever config it is handed, and the repos worth maintaining
+# are employer-specific -- so the list is filled in by hand on the machine that
+# needs it, and this only puts the section there to hold it. Which repos are
+# worth it is a judgement anyway: the tasks earn their keep on a repo with deep
+# history and do nothing noticeable on a small one.
+#
+# The list has to be unconditional config rather than a gitdir-conditional
+# include: the launchd job runs `git for-each-repo --config=maintenance.repo`
+# from outside any repo, where a conditional include never applies.
+# Globals:
+#   DRY_RUN
+ensure_maintenance_section() {
+  local target="${HOME}/.config/git/config.local"
+
+  if grep -q '^\[maintenance\]' "${target}" 2>/dev/null; then
+    skip "git maintenance section (~${target#"${HOME}"})"
+    return 0
+  fi
+  if [[ "${DRY_RUN}" == true ]]; then
+    printf '   →  add a [maintenance] section to %s\n' "${target}"
+    return 0
+  fi
+
+  mkdir -p "$(dirname "${target}")"
+  # Appended: the file may already hold settings this script did not write.
+  printf '[maintenance]\n' >>"${target}"
+  chmod 600 "${target}"
+  success "added [maintenance] to ~${target#"${HOME}"}"
+}
+
+# Reports the untracked files a work machine is expected to have. This repo
+# deliberately ships none of them -- they hold employer-specific settings -- but
+# they come from two different places, which the notes below spell out: the
+# private overlay supplies some, and bootstrap itself writes the rest.
+#
+# None is required: every config that reads one skips it when absent, so this is
+# a checklist rather than a failure. It also prints the one step this script
+# deliberately leaves undone -- see the git maintenance note below. It runs last so the answer is the final
+# thing on screen, and unconditionally for the work profile -- a partial run
+# should still say what the machine is missing.
+#
+# Each path is the one the reading config actually opens, not where the file is
+# conventionally kept -- a copy anywhere else is silently ignored rather than
+# reported here. No zsh entry any more: the shell's only machine-local mechanism
+# is $ZDOTDIR/functions, a directory the overlay stows into rather than a single
+# file worth checking for.
+report_overlay_files() {
+  local entry path note missing=0
+
+  step "untracked local files"
+  for entry in \
+    "${HOME}/.config/nvim/lua/local.lua|overlay: nvim eager roots, vendored formatter paths" \
+    "${HOME}/.config/git/config.local|bootstrap writes: holds the git maintenance repo list" \
+    "${HOME}/.config/git/config.work|bootstrap writes: git identity for repos under ~/work/"; do
+    path="${entry%%|*}"
+    note="${entry#*|}"
+    if [[ -r "${path}" ]]; then
+      success "~${path#"${HOME}"}  ${note}"
+    else
+      warn "~${path#"${HOME}"}  ${note} — MISSING"
+      missing=$((missing + 1))
+    fi
+  done
+
+  if ((missing)); then
+    skip "${missing} missing — see the note on each"
+  fi
+
+  # Nothing is registered for git maintenance automatically: the paths worth
+  # registering are employer-specific, so the section is created empty and
+  # filled in here. Said out loud, because an empty section looks like a bug.
+  local maintenance="${HOME}/.config/git/config.local"
+  if [[ -r "${maintenance}" ]] \
+    && ! grep -qE '^[[:space:]]*repo[[:space:]]*=' "${maintenance}"; then
+    warn "git maintenance has no repo registered. Add each one worth maintaining:"
+    skip "git -C <repo> maintenance register --config-file ~/.config/git/config.local"
+  fi
+  return 0
+}
+
+mod_gittools() {
+  step "git tooling"
+  # Not a personal_formula: the work tooling wrapper delegates to whichever git
+  # is on PATH, so brew's copy is what it runs. Removing it drops the wrapper
+  # back to Apple's older git rather than leaving the bundle's own.
+  brew_formula git
+  personal_formula gh
+  # .gitconfig sets delta as the pager for diff/log/reflog/show and as
+  # interactive.diffFilter, so all of those break without it.
+  brew_formula git-delta
+  # .gitconfig registers the lfs filter, so cloning or checking out a repo that
+  # uses LFS fails without it.
+  personal_formula git-lfs
+  # Terminal diff viewer. Its config is stowed below, so declaring the binary
+  # here is what keeps the pair together on a fresh machine.
+  brew_formula hunk
+  stow_package git
+  stow_package hunk
+
+  if [[ "$(profile)" == work ]]; then
+    require_work_gitconfig
+    ensure_maintenance_section
+  fi
+}
+
+mod_terminal() {
+  step "terminal"
+  brew_cask ghostty 'Ghostty.app'
+  # The ligature variant, not the NL one, so `font-feature = -calt` can switch
+  # ligatures off without swapping fonts.
+  brew_cask font-maple-mono-nf-cn
+  stow_package ghostty
+}
+
+mod_atuin() {
+  step "atuin"
+  brew_formula atuin
+  stow_package atuin
+}
+
+mod_multiplexer() {
+  step "multiplexer"
+  # Not a personal_formula, unlike most work-bundled tools: tpm depends on the
+  # tmux formula, so skipping it would install tmux as a dependency and then
+  # remove it on the next run. Brew's copy shadows the bundle's -- /opt/homebrew
+  # sits ahead of /usr/local on PATH -- which also gets a newer tmux.
+  brew_formula tmux
+  brew_formula herdr
+  stow_package tmux
+  stow_package herdr
+
+  # The formula provides tpm itself; the plugins it manages are cloned on first
+  # launch into ~/.config/tmux/plugins, which tpm derives from the config path.
+  # tmux.conf's last line runs it.
+  brew_formula tpm
+}
+
+mod_runtimes() {
+  step "runtimes"
+  # Current node rather than a pinned node@N: pinned formulae are keg-only, so
+  # they never put npm on PATH, and mod_neovim's language servers are npm
+  # packages.
+  #
+  # Not a personal_formula, even though the work tooling bundle ships its own
+  # node: that one's global module directory is root-owned, so `npm install -g`
+  # fails against it and no language server can install.
+  brew_formula node
+
+  # rustup itself is personal-only -- a work machine is given one by its own
+  # provisioning -- but the toolchain setup runs on both, since neither source
+  # installs a compiler on its own.
+  personal_formula rustup
+  rust_toolchain
+}
+
+mod_neovim() {
+  step "neovim"
+  brew_formula neovim
+  brew_formula tree-sitter-cli # nvim-treesitter compiles parsers from source
+  brew_cask neovide-app 'Neovide.app'
+
+  # Language servers and formatters live here because nvim's config is the
+  # only thing that drives them: conform.nvim calls the formatters by name,
+  # and init.lua enables a server for each of the rest.
+  brew_formula lua-language-server
+  brew_formula buf # drives buf_ls via `buf lsp serve`
+  brew_formula dprint
+  brew_formula shfmt
+  brew_formula stylua
+
+  # typescript must be 7 or newer: only the native compiler speaks --lsp,
+  # which is what the tsc server drives.
+  npm_global bash-language-server
+  npm_global cssmodules-language-server
+  npm_global stylelint-lsp
+  npm_global typescript
+  npm_global vscode-langservers-extracted # cssls, html, jsonls, eslint
+
+  stow_package nvim
+  stow_package neovide
+  stow_package dprint
+  stow_package stylua
+  # JetBrains IDEs are not installed from here, but when one is present it
+  # reads this. Kept close to nvim's config on purpose.
+  stow_package ideavim
+}
+
+mod_windowmanager() {
+  step "window management"
+  brew_tap felixkratz/formulae
+  brew_tap nikitabobko/tap
+  brew_trust --formula felixkratz/formulae/sketchybar
+  brew_trust --formula felixkratz/formulae/borders
+  brew_trust --cask nikitabobko/tap/aerospace
+  brew_formula felixkratz/formulae/sketchybar
+  brew_formula felixkratz/formulae/borders
+  brew_cask nikitabobko/tap/aerospace 'AeroSpace.app'
+  stow_package aerospace
+  stow_package sketchybar
+}
+
+mod_agents() {
+  step "agents"
+  # No bundle argument: this cask ships a bare `claude` binary, not an app, so
+  # the /Applications check cannot see the managed copy. personal_cask keeps it
+  # off work machines, where /usr/local/bin/claude is managed and newer.
+  personal_cask claude-code
+  brew_cask codex
+}
+
+mod_zsh() {
+  step "zsh"
+  # Homebrew's zsh, not /bin/zsh: macOS pins 5.9 and will not update it.
+  brew_formula zsh
+  # antidote compiles $ZDOTDIR/.zsh_plugins.txt into a static bundle on first
+  # start. .zshrc skips its whole plugin block when the formula is absent.
+  brew_formula antidote
+
+  stow_package zsh
+
+  set_login_shell
+}
+
+# Editing /etc/shells needs root and chsh asks for a password, so both prompts
+# are announced first. A refusal only warns: a managed machine may restrict
+# sudo or hold the user record in a configuration profile, and everything else
+# here works fine on the system zsh.
+set_login_shell() {
+  local shell_path current
+
+  shell_path="$(homebrew_prefix)/bin/zsh"
+  if [[ ! -x "${shell_path}" ]]; then
+    warn "${shell_path} is missing — leaving the login shell alone"
+    return 0
+  fi
+
+  # Not $SHELL: it is inherited from login and stays stale for the rest of the
+  # session after chsh, which makes it look as though nothing happened.
+  current="$(dscl . -read "/Users/$(id -un)" UserShell 2>/dev/null \
+    | awk '{print $2}')"
+  if [[ "${current}" == "${shell_path}" ]]; then
+    success "login shell is already ${shell_path}"
+    return 0
+  fi
+
+  if ! grep -qxF "${shell_path}" /etc/shells; then
+    warn "adding ${shell_path} to /etc/shells — sudo will ask for a password"
+    if ! run sudo sh -c "printf '%s\n' '${shell_path}' >> /etc/shells"; then
+      warn "could not write /etc/shells; login shell left as ${current}"
+      return 0
+    fi
+  fi
+
+  # chsh rejects any shell absent from /etc/shells, so there is no point trying
+  # when the step above failed.
+  warn "switching login shell — chsh will ask for your password"
+  if run chsh -s "${shell_path}"; then
+    if did_run; then
+      success "login shell set to ${shell_path} — open a new terminal for it"
+    fi
   else
-    info "Installing $cask (cask)..."
-    brew install --cask "$cask"
+    warn "chsh failed; login shell left as ${current}"
   fi
-done
+}
 
-# ── Rust / Cargo ─────────────────────────────────────────────────────────────
+#######################################
+# Homebrew
+#######################################
 
-step "Rust / Cargo"
+# A managed machine already has Homebrew and this is a no-op. A personal Mac
+# does not, and the official installer pulls in the Xcode command-line tools
+# first and prompts once for sudo.
+# Returns:
+#   1 if brew could not be put on PATH.
+install_homebrew() {
+  local prefix
 
-# rustup was installed by brew; initialise the toolchain if needed.
-# cargo also backs fff.nvim, which builds its Rust binary on first nvim launch
-# (via the PackChanged hook in init.lua) when no prebuilt binary is available.
-if ! command -v cargo &>/dev/null; then
-  info "Initialising Rust toolchain..."
-  rustup-init -y --no-modify-path
-  source "$HOME/.cargo/env"
-else
-  success "cargo already available"
-fi
-
-if ! command -v stylua &>/dev/null; then
-  info "Installing stylua via cargo..."
-  cargo install stylua
-else
-  success "stylua already installed"
-fi
-
-# ── Node.js / npm global packages ────────────────────────────────────────────
-
-step "Node.js / npm globals"
-
-# Ensure the pinned node@20 binary is on PATH for this session
-export PATH="/opt/homebrew/opt/node@20/bin:$PATH"
-
-if ! command -v node &>/dev/null; then
-  error "node not found. Check that node@20 was installed correctly."
-  exit 1
-fi
-
-success "Node $(node --version), npm $(npm --version)"
-
-NPM_GLOBALS=(
-  # TypeScript LSP
-  typescript
-  typescript-language-server
-
-  # CSS / HTML / JSON / ESLint LSPs (all from this package)
-  vscode-langservers-extracted
-
-  # GraphQL LSP
-  graphql-language-service-cli
-
-  # Prisma LSP
-  "@prisma/language-server"
-
-  # Stylelint LSP
-  stylelint-lsp
-
-  # CSS Modules LSP
-  cssmodules-language-server
-)
-
-for pkg in "${NPM_GLOBALS[@]}"; do
-  if npm list -g --depth=0 "$pkg" &>/dev/null 2>&1; then
-    success "$pkg already installed globally"
+  if command -v "${BREW}" >/dev/null 2>&1; then
+    success "Homebrew already installed"
+  elif [[ "${DRY_RUN}" == true ]]; then
+    printf '   →  install Homebrew from https://brew.sh (prompts for sudo)\n'
+    return 0
   else
-    info "npm install -g $pkg..."
-    npm install -g "$pkg"
+    info "installing Homebrew — this asks for confirmation and your password"
+    # Not wrapped in run(): the command substitution would download the
+    # installer even when run() only prints the command.
+    /bin/bash -c "$(curl -fsSL \
+      https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   fi
-done
 
-# ── Ruby gems ────────────────────────────────────────────────────────────────
+  # A fresh install is not on this shell's PATH yet, so probe both prefixes
+  # rather than assuming Apple Silicon. eval is how brew publishes its
+  # environment; there is no non-eval form.
+  for prefix in /opt/homebrew /usr/local; do
+    if [[ -x "${prefix}/bin/brew" ]]; then
+      eval "$("${prefix}/bin/brew" shellenv)"
+      break
+    fi
+  done
 
-step "Ruby gems"
+  if ! command -v "${BREW}" >/dev/null 2>&1; then
+    error "Homebrew is still not on PATH. Install it: https://brew.sh"
+    return 1
+  fi
+  success "Homebrew $("${BREW}" --version | head -1 | awk '{print $2}') at \
+$(homebrew_prefix)"
 
-# Use brew ruby so gem install lands in the right gemdir
-export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
-export PATH="$(gem environment gemdir)/bin:$PATH"
-
-if ! gem list gist -i &>/dev/null 2>&1; then
-  info "Installing gist gem..."
-  gem install gist
-else
-  success "gist gem already installed"
-fi
-
-# ── Antidote (zsh plugin manager) ────────────────────────────────────────────
-
-step "Antidote"
-
-# Plugins are declared in zsh/.zsh_plugins.txt (stowed to ~/.zsh_plugins.txt) and
-# compiled into a static ~/.zsh_plugins.zsh by .zshrc on the first shell start.
-ANTIDOTE_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/antidote"
-
-if [[ -d "$ANTIDOTE_DIR" ]]; then
-  success "Antidote already installed at $ANTIDOTE_DIR"
-else
-  info "Installing Antidote..."
-  git clone --depth=1 https://github.com/mattmc3/antidote.git "$ANTIDOTE_DIR"
-  success "Antidote installed"
-fi
-
-# ── Neovim plugins ───────────────────────────────────────────────────────────
-
-step "Neovim plugins"
-
-# Plugins are managed by native vim.pack (Neovim 0.12+), configured inline in
-# init.lua. There is no plugin-manager install step: plugins clone on the first
-# `nvim` launch and the lockfile lives at ~/.config/nvim/nvim-pack-lock.json.
-success "Managed by vim.pack — installs on first nvim launch (no action needed)"
-
-# ── Stow dotfiles ─────────────────────────────────────────────────────────────
-
-step "Stow dotfiles"
-
-cd "$DOTFILES_DIR"
-
-STOW_PACKAGES=(
-  aerospace
-  dircolors
-  dprint
-  editline
-  fd
-  fzf
-  git
-  ideavim
-  kitty
-  mysql
-  nvim
-  prettier
-  readline
-  sketchybar
-  starship
-  stylua
-  tmux
-  zsh
-  # weechat — skipped by default; may contain IRC credentials
-)
-
-warn "weechat config is skipped (may contain credentials). Stow it manually if needed: stow weechat"
-
-for pkg in "${STOW_PACKAGES[@]}"; do
-  [[ "$pkg" == \#* ]] && continue
-  if [[ -d "$DOTFILES_DIR/$pkg" ]]; then
-    info "Stowing $pkg..."
-    stow --restow "$pkg"
-    success "$pkg symlinked"
+  if [[ "${SKIP_UPDATE}" == true ]]; then
+    skip "brew update (--no-update)"
   else
-    warn "$pkg directory not found, skipping"
+    # No info() line: `brew update` prints its own "==> Updating Homebrew..."
+    # even under --quiet, and two near-identical lines read like it ran twice.
+    run "${BREW}" update --quiet
   fi
-done
 
-# ── Done ─────────────────────────────────────────────────────────────────────
+  # Having just updated deliberately, stop brew updating again mid-run: a later
+  # install would otherwise resolve against a different formula index than the
+  # one this run started with.
+  export HOMEBREW_NO_AUTO_UPDATE=1
+}
 
-printf "\n${GREEN}${BOLD}Bootstrap complete!${RESET}\n\n"
-printf "Next steps:\n"
-printf "  1. Restart your shell — antidote installs zsh plugins and builds the bundle on first start\n"
-printf "  2. Launch nvim — vim.pack installs plugins and tree-sitter compiles parsers on first run\n"
-printf "  3. If you use weechat, run: ${BOLD}cd ~/dotfiles && stow weechat${RESET}\n"
-printf "  4. Set up any private tokens in ~/.tokens\n\n"
+#######################################
+# Entry point
+#######################################
+
+known_modules() {
+  compgen -A function mod_ | sed 's/^mod_//' | sort
+}
+
+# Returns 10 when a flag has already printed what was asked for, 1 on a bad one.
+parse_args() {
+  local arg
+
+  REQUESTED=()
+  for arg in "$@"; do
+    case "${arg}" in
+      --dry-run) DRY_RUN=true ;;
+      --no-update) SKIP_UPDATE=true ;;
+      --profile=*)
+        PROFILE="${arg#*=}"
+        case "${PROFILE}" in
+          personal | work) remember_profile ;;
+          *)
+            error "unknown profile: ${PROFILE} (expected personal or work)"
+            return 1
+            ;;
+        esac
+        ;;
+      --list)
+        printf 'enabled modules:\n'
+        printf '  %s\n' "${MODULES[@]}"
+        return 10
+        ;;
+      --modules)
+        known_modules
+        return 10
+        ;;
+      -h | --help)
+        usage
+        return 10
+        ;;
+      -*)
+        error "unknown flag: ${arg}"
+        return 1
+        ;;
+      *) REQUESTED+=("${arg}") ;;
+    esac
+  done
+}
+
+# Checked before anything is installed, so a typo costs nothing.
+validate_modules() {
+  local module
+  local status=0
+
+  for module in "$@"; do
+    if ! declare -F "mod_${module}" >/dev/null; then
+      error "no such module: ${module}"
+      status=1
+    fi
+  done
+  if ((status != 0)); then
+    printf 'known modules: %s\n' "$(known_modules | tr '\n' ' ')" >&2
+  fi
+  return "${status}"
+}
+
+main() {
+  local parse_status=0
+  local to_run module
+
+  parse_args "$@" || parse_status=$?
+  ((parse_status == 10)) && return 0
+  ((parse_status != 0)) && return "${parse_status}"
+
+  to_run=("${MODULES[@]}")
+  ((${#REQUESTED[@]})) && to_run=("${REQUESTED[@]}")
+  validate_modules "${to_run[@]}" || return 1
+
+  step "preflight"
+  if [[ "$(uname)" != Darwin ]]; then
+    error "macOS only for now."
+    return 1
+  fi
+  success "repo at ${DOTFILES_DIR}"
+  [[ "${DRY_RUN}" == true ]] && warn "dry run — nothing will be changed"
+
+  step "profile"
+  resolve_profile || return 1
+
+  step "homebrew"
+  install_homebrew || return 1
+
+  for module in "${to_run[@]}"; do
+    "mod_${module}"
+  done
+
+  printf '\n%s%sDone.%s Ran: %s\n' \
+    "${GREEN}" "${BOLD}" "${RESET}" "${to_run[*]}"
+  if [[ " ${to_run[*]} " == *" zsh "* ]]; then
+    printf 'Restart your shell — antidote builds the plugin bundle first.\n'
+  fi
+
+  [[ "$(profile)" == work ]] && report_overlay_files
+  return 0
+}
+
+# Sourcing this file, as the tests do, defines the functions without running.
+if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
+  main "$@"
+fi
