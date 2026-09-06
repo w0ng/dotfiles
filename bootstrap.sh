@@ -9,7 +9,7 @@
 #   bash bootstrap.sh --modules      # print every module this script defines
 #   bash bootstrap.sh --dry-run      # print what would happen, change nothing
 #   bash bootstrap.sh --no-update    # skip `brew update` (faster re-runs)
-#   bash bootstrap.sh --profile=work # personal or work; remembered after the first run
+#   bash bootstrap.sh --profile=work # personal or work; asked once, remembered
 #   bash bootstrap.sh --help
 #
 # A module installs the tools for one area and symlinks their config with GNU
@@ -20,8 +20,9 @@
 # whose binary is missing fails silently at the point of use.
 #
 # Sourcing this file defines its functions without running anything, and the
-# tools it drives (BREW, STOW, NPM, GIT) and paths it writes to (DOTFILES_DIR,
-# STOW_TARGET) are overridable, so tests can stub them. See
+# tools it drives (BREW, STOW, NPM, GIT) and paths it reads or writes
+# (DOTFILES_DIR, STOW_TARGET, BREW_PREFIXES) are overridable, so tests can stub
+# them. See
 # tests/bootstrap_test.sh. Targets bash 3.2, the version macOS ships.
 
 set -euo pipefail
@@ -57,6 +58,9 @@ BREW="${BREW:-brew}"
 STOW="${STOW:-stow}"
 NPM="${NPM:-npm}"
 GIT="${GIT:-git}"
+# Space-separated so a test can point the probe at a scratch prefix instead of
+# running the real /opt/homebrew/bin/brew.
+BREW_PREFIXES="${BREW_PREFIXES:-/opt/homebrew /usr/local}"
 
 DRY_RUN=false
 SKIP_UPDATE=false
@@ -163,7 +167,6 @@ resolve_profile() {
   remember_profile
 }
 
-# Persists the chosen profile so later runs need no flag.
 remember_profile() {
   [[ "${DRY_RUN}" == true ]] && return 0
   mkdir -p "$(dirname "${PROFILE_FILE}")"
@@ -408,6 +411,23 @@ npm_global() {
   success "${pkg} (npm)"
 }
 
+# Puts an already-installed Homebrew on PATH. Both prefixes are probed rather
+# than assuming Apple Silicon, and eval is how brew publishes its environment --
+# there is no non-eval form.
+# Returns:
+#   1 if no brew was found at either prefix.
+brew_shellenv() {
+  local prefix
+  # shellcheck disable=SC2086 # word splitting is how the list is iterated
+  for prefix in ${BREW_PREFIXES}; do
+    if [[ -x "${prefix}/bin/brew" ]]; then
+      eval "$("${prefix}/bin/brew" shellenv)"
+      return 0
+    fi
+  done
+  return 1
+}
+
 # Cached: `brew --prefix` is another 0.35s of Ruby startup.
 homebrew_prefix() {
   if [[ -z "${HOMEBREW_PREFIX:-}" ]]; then
@@ -514,6 +534,7 @@ mod_apps() {
   personal_cask 1password '1Password.app'
   personal_cask affinity 'Affinity.app'
   brew_cask alfred 'Alfred 5.app'
+  personal_cask brave-browser 'Brave Browser.app'
   personal_cask chatgpt 'ChatGPT.app'
   personal_cask claude 'Claude.app'
   brew_cask cleanshot 'CleanShot X.app'
@@ -563,8 +584,6 @@ mod_cli() {
 # config.work for anything under ~/work/, and git skips a missing include
 # silently — so without this check, work commits go out under the personal
 # address with nothing to notice.
-# Globals:
-#   DRY_RUN
 require_work_gitconfig() {
   local target="${HOME}/.config/git/config.work" email
 
@@ -605,8 +624,6 @@ require_work_gitconfig() {
 # The list has to be unconditional config rather than a gitdir-conditional
 # include: the launchd job runs `git for-each-repo --config=maintenance.repo`
 # from outside any repo, where a conditional include never applies.
-# Globals:
-#   DRY_RUN
 ensure_maintenance_section() {
   local target="${HOME}/.config/git/config.local"
 
@@ -632,8 +649,7 @@ ensure_maintenance_section() {
 # private overlay supplies some, and bootstrap itself writes the rest.
 #
 # None is required: every config that reads one skips it when absent, so this is
-# a checklist rather than a failure. It also prints the one step this script
-# deliberately leaves undone -- see the git maintenance note below. It runs last so the answer is the final
+# a checklist rather than a failure. It runs last so the answer is the final
 # thing on screen, and unconditionally for the work profile -- a partial run
 # should still say what the machine is missing.
 #
@@ -664,9 +680,8 @@ report_overlay_files() {
     skip "${missing} missing — see the note on each"
   fi
 
-  # Nothing is registered for git maintenance automatically: the paths worth
-  # registering are employer-specific, so the section is created empty and
-  # filled in here. Said out loud, because an empty section looks like a bug.
+  # ensure_maintenance_section leaves the section empty on purpose; say so out
+  # loud, because an empty section otherwise reads as a bug.
   local maintenance="${HOME}/.config/git/config.local"
   if [[ -r "${maintenance}" ]] \
     && ! grep -qE '^[[:space:]]*repo[[:space:]]*=' "${maintenance}"; then
@@ -766,11 +781,11 @@ mod_neovim() {
   brew_formula shfmt
   brew_formula stylua
 
-  # typescript must be 7 or newer: only the native compiler speaks --lsp,
-  # which is what the tsc server drives.
   npm_global bash-language-server
   npm_global cssmodules-language-server
   npm_global stylelint-lsp
+  # Must be 7 or newer: only the native compiler speaks --lsp, which is what
+  # the tsc server drives.
   npm_global typescript
   npm_global vscode-langservers-extracted # cssls, html, jsonls, eslint
 
@@ -871,7 +886,10 @@ set_login_shell() {
 # Returns:
 #   1 if brew could not be put on PATH.
 install_homebrew() {
-  local prefix
+  # An install can exist without being on this shell's PATH -- a login shell
+  # started before the zsh package was stowed carries no /opt/homebrew. Testing
+  # PATH alone would reinstall Homebrew over a working copy.
+  brew_shellenv || true
 
   if command -v "${BREW}" >/dev/null 2>&1; then
     success "Homebrew already installed"
@@ -884,17 +902,9 @@ install_homebrew() {
     # installer even when run() only prints the command.
     /bin/bash -c "$(curl -fsSL \
       https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    # A fresh install is not on this shell's PATH either.
+    brew_shellenv || true
   fi
-
-  # A fresh install is not on this shell's PATH yet, so probe both prefixes
-  # rather than assuming Apple Silicon. eval is how brew publishes its
-  # environment; there is no non-eval form.
-  for prefix in /opt/homebrew /usr/local; do
-    if [[ -x "${prefix}/bin/brew" ]]; then
-      eval "$("${prefix}/bin/brew" shellenv)"
-      break
-    fi
-  done
 
   if ! command -v "${BREW}" >/dev/null 2>&1; then
     error "Homebrew is still not on PATH. Install it: https://brew.sh"
@@ -915,6 +925,11 @@ $(homebrew_prefix)"
   # install would otherwise resolve against a different formula index than the
   # one this run started with.
   export HOMEBREW_NO_AUTO_UPDATE=1
+
+  # Ask mode is Homebrew 6's default for install, upgrade and reinstall: it
+  # prompts whenever the plan reaches past the package named, which a single
+  # dependency is enough to trigger. This script has to run unattended.
+  export HOMEBREW_NO_ASK=1
 }
 
 #######################################
@@ -1023,7 +1038,6 @@ main() {
   return 0
 }
 
-# Sourcing this file, as the tests do, defines the functions without running.
 if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
   main "$@"
 fi

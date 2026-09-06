@@ -64,7 +64,7 @@ initialises most of the tools above it.
 | Module | What it does |
 | --- | --- |
 | `macos` | Runs `macos/defaults.bash` — Dock, Finder, keyboard, trackpad. Not a stow package. Caps Lock → Control isn't scripted (the API doesn't take effect); set it in System Settings > Keyboard > Modifier Keys. |
-| `apps` | 20 desktop apps, 14 of them personal-only. |
+| `apps` | 21 desktop apps, 15 of them personal-only. |
 | `core` | `stow`, the prerequisite every other module needs. |
 | `cli` | bat, btop, eza, fd, ffmpeg, fzf, jq, ripgrep, shellcheck, vivid, zoxide; direnv and uv personal-only. Stows configs for bat, btop, fd, fzf. |
 | `gittools` | git, git-delta, hunk; gh and git-lfs personal-only. Stows `git/` and `hunk/`. Under the work profile it also checks for a work commit identity and creates an empty `[maintenance]` section in `~/.config/git/config.local` — which repos to register there is left to be filled in by hand, since the paths are employer-specific, and the run ends by saying so. |
@@ -79,6 +79,90 @@ initialises most of the tools above it.
 
 `bootstrap.sh` is the single source of truth for the package list — read the
 `mod_*` functions rather than trusting this table.
+
+## Keeping it updated
+
+`bootstrap.sh` installs what is missing; it never upgrades what is already
+there. Updating is deliberately a separate act, one command per manager.
+
+Start with the repo itself. Every stowed file is a symlink back into it, so a
+pull updates the live configs the moment it lands, and the re-run picks up any
+package or stow target the pull introduced:
+
+```sh
+cd ~/repos/dotfiles && git pull && bash bootstrap.sh
+```
+
+### Homebrew
+
+```sh
+brew update && brew upgrade
+brew upgrade --cask --greedy
+```
+
+The second line does more than it looks like it should. Twenty-one of the
+twenty-six casks here declare `auto_updates true` -- 1Password, Chrome,
+Firefox, Docker, Spotify and most of the rest ship their own updaters -- and
+`brew upgrade` deliberately leaves those alone rather than fight an updater
+running behind it. The effect is that brew owns them but never moves them,
+which is the "installed once, never updated" state this repo exists to avoid.
+`--greedy` re-syncs brew with what is actually on disk; occasionally is enough.
+
+### npm language servers
+
+```sh
+npm update -g
+```
+
+### zsh plugins
+
+```sh
+antidote update
+```
+
+Updates antidote and every cloned bundle. The static `.zsh_plugins.zsh` does
+not need regenerating afterwards -- it only sources files out of the clone
+directories, so refreshed repos are picked up as they are. Regeneration is
+driven by mtime, and happens on the next shell after `.zsh_plugins.txt` is
+edited.
+
+### tmux plugins
+
+Inside tmux, with the prefix bound to `C-a`: `C-a U` updates, `C-a I`
+installs, `C-a M-u` removes. tpm is the one thing on a fresh machine that does
+not install itself -- everything else here does.
+
+### Neovim
+
+Inside nvim, `:lua vim.pack.update()` for the plugins, which Neovim's native
+`vim.pack` manages rather than a plugin manager, and `:TSUpdate` for the
+treesitter parsers.
+
+### Rust
+
+```sh
+rustup update
+```
+
+### Housekeeping
+
+```sh
+brew autoremove   # dependencies nothing needs any more
+brew cleanup      # old versions and stale downloads
+brew doctor       # broken links, unlinked kegs, deprecated taps
+```
+
+### Self-updaters shadow Homebrew
+
+Several of these tools can also update themselves, and some install into
+`~/.local/bin` -- which `.zshenv` puts *ahead* of `/opt/homebrew/bin`. When
+that happens the self-installed copy silently wins, and `brew upgrade` goes on
+diligently updating a binary you are not running. `uv self update` and Codex's
+standalone installer both do exactly this.
+
+Homebrew owns both, so let `brew upgrade` handle them and leave their own
+updaters alone. `command -v uv` answering anything other than
+`/opt/homebrew/bin/uv` is the tell.
 
 ## Tests
 

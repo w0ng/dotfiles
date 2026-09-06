@@ -113,7 +113,10 @@ STUB
   STOW="${WORK_DIR}/stubs/stow"
   NPM="${WORK_DIR}/stubs/npm"
   GIT="${WORK_DIR}/stubs/git"
-  export DOTFILES_DIR STOW_TARGET BREW STOW NPM GIT
+  # Points the Homebrew probe away from the real prefixes, so no test can eval
+  # the machine's own `brew shellenv`.
+  BREW_PREFIXES="${WORK_DIR}/no-brew"
+  export DOTFILES_DIR STOW_TARGET BREW STOW NPM GIT BREW_PREFIXES
 
   # Cleared so a previous test's cache cannot leak in.
   unset HOMEBREW_PREFIX BACKUP_DIR
@@ -641,6 +644,52 @@ test_no_package_is_declared_by_two_modules() {
     "${REPO_ROOT}/bootstrap.sh" | awk '{print $2}' | sort | uniq -d | tr '\n' ' ')"
 
   assert_eq '' "${dupes}" 'no package is declared twice'
+}
+
+# install_homebrew decided from `command -v brew` alone, so a shell without
+# /opt/homebrew on PATH -- a login shell started before the zsh package was
+# stowed -- re-ran the entire Homebrew installer over a working install.
+test_install_homebrew_finds_an_install_that_is_not_on_path() {
+  local prefix output
+  prefix="${WORK_DIR}/off-path"
+  mkdir -p "${prefix}/bin"
+  cat >"${prefix}/bin/brew" <<STUB
+#!/bin/bash
+case "\$1" in
+  shellenv) printf 'export PATH="%s:\$PATH"\n' "${prefix}/bin" ;;
+  --prefix) printf '%s\n' "${prefix}" ;;
+  --version) printf 'Homebrew 4.0.0\n' ;;
+esac
+exit 0
+STUB
+  chmod +x "${prefix}/bin/brew"
+
+  # Should this regress, install_homebrew falls through to the real Homebrew
+  # installer. A curl that returns nothing keeps that branch from reaching the
+  # network: the command substitution feeding `bash -c` comes back empty.
+  mkdir -p "${WORK_DIR}/safe"
+  printf '#!/bin/bash\nexit 0\n' >"${WORK_DIR}/safe/curl"
+  chmod +x "${WORK_DIR}/safe/curl"
+
+  BREW=brew # a bare name, so PATH alone decides whether it resolves
+  BREW_PREFIXES="${prefix}"
+  SKIP_UPDATE=true
+  unset HOMEBREW_PREFIX
+  output="$(PATH="${WORK_DIR}/safe:/usr/bin:/bin" install_homebrew 2>&1)"
+
+  assert_contains "${output}" 'already installed' 'adopts the off-PATH install'
+  assert_not_contains "${output}" 'installing Homebrew' 'no second installer run'
+}
+
+# Homebrew 6 asks before any install whose plan reaches past the package named,
+# which a single dependency triggers -- and a prompt stops an unattended run.
+test_install_homebrew_opts_out_of_ask_mode() {
+  SKIP_UPDATE=true
+  unset HOMEBREW_NO_ASK HOMEBREW_NO_AUTO_UPDATE
+  install_homebrew >/dev/null 2>&1
+
+  assert_eq '1' "${HOMEBREW_NO_ASK:-}" 'ask mode off for the run'
+  assert_eq '1' "${HOMEBREW_NO_AUTO_UPDATE:-}" 'auto-update stays off too'
 }
 
 #######################################

@@ -1,5 +1,3 @@
-nvim/.config/nvim/plugin/packer_compiled.lua
-
 # vim.pack's plugin lockfile. ~/.config/nvim/nvim-pack-lock.json is a stow
 # symlink into this package, so nvim rewrites it here on every plugin update.
 # Untracked on purpose: it pins commit SHAs per machine, and the config already
