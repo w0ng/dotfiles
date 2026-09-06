@@ -50,4 +50,19 @@ prepend_user_path() {
   done
   (( ${#found} )) && path=($found $path)
 }
+
+#
+# Machine-local environment, supplied by the private overlay. Read by every
+# zsh, login or not, which is what decides a setting belongs here rather than in
+# .zshrc.local — anything a language server or an agent has to inherit is set
+# before any interactive shell exists.
+#
+# Sourced before PATH is assembled on purpose: appending to user_path_dirs here
+# gets an entry the same existence check as the rest, and the same re-assert
+# from .zprofile after path_helper would otherwise demote it.
+#
+if [[ -r "$ZDOTDIR/.zshenv.local" ]]; then
+  source "$ZDOTDIR/.zshenv.local"
+fi
+
 prepend_user_path

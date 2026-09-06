@@ -53,6 +53,28 @@ that delegates to whichever `git` is on `PATH` needs Homebrew's to be there;
 and `tmux`, because the `tpm` formula depends on it, so skipping it would
 install tmux as a dependency and remove it again on the next run.
 
+## Machine-local settings
+
+Nothing employer-specific is tracked here. What a work machine needs comes from
+a separate private repo stowed on top of this one, through four hooks this repo
+reads but never ships:
+
+| Path | Reach | Holds |
+| --- | --- | --- |
+| `~/.config/zsh/.zshenv.local` | every zsh, login or not | Anything a language server or an agent has to inherit. Sourced before `PATH` is assembled, so appending to `user_path_dirs` gets the same existence check and the same `.zprofile` re-assert as the rest |
+| `~/.config/zsh/.zshrc.local` | interactive zsh only | An alias, an export, a tool's `eval` init — the three things that cannot be autoloaded |
+| `~/.config/zsh/functions/` | interactive zsh, on first call | One file per function, autoloaded. The right home for anything that has to run in the calling shell, such as a picker that `cd`s. A script on `PATH` cannot: it runs in a child process |
+| `~/.config/nvim/lua/local.lua` | nvim | Extra project roots and vendored tool paths, read through `pcall(require, 'local')` |
+
+Every one is optional and skipped when absent, so this repo stands on its own,
+and an overlay is free to occupy only the ones it needs. The split between the
+first two is reach, not preference: `.zshenv.local` is read by shells that have
+no prompt, `.zshrc.local` only by ones that do.
+
+Put a setting in one of these rather than inline. `.zshrc` is a symlink into
+this repo, so an installer that appends to it writes employer settings straight
+into a public package — which four separate tools have now done.
+
 ## Modules
 
 Each module is a `mod_*` function in `bootstrap.sh`, run in the order listed

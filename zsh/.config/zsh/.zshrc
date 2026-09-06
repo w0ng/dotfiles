@@ -30,8 +30,23 @@ ZVM_INIT_MODE=sourcing
 # lands in the bundle and corrupts it. Guarded so the shell still works before
 # antidote is installed.
 #
-ANTIDOTE_DIR="/opt/homebrew/opt/antidote/share/antidote"
-if [[ -e "$ANTIDOTE_DIR/antidote.zsh" ]]; then
+# Probed rather than hardcoded: antidote is a Homebrew formula on macOS but has
+# no distro package on Linux, where it is a git clone under XDG data instead.
+# The wrong path here is silent — every plugin simply never loads.
+#
+ANTIDOTE_DIR=''
+for _antidote_candidate in \
+  /opt/homebrew/opt/antidote/share/antidote \
+  /usr/local/opt/antidote/share/antidote \
+  "${XDG_DATA_HOME:-$HOME/.local/share}/antidote"; do
+  if [[ -e "$_antidote_candidate/antidote.zsh" ]]; then
+    ANTIDOTE_DIR="$_antidote_candidate"
+    break
+  fi
+done
+unset _antidote_candidate
+
+if [[ -n "$ANTIDOTE_DIR" ]]; then
   source "$ANTIDOTE_DIR/antidote.zsh"
   zsh_plugins="${ZDOTDIR:-$HOME}/.zsh_plugins"
   if [[ ! "${zsh_plugins}.zsh" -nt "${zsh_plugins}.txt" ]]; then
@@ -200,16 +215,17 @@ if [[ -d "$user_functions" ]]; then
 fi
 unset user_functions
 
-# This directory is the whole of the machine-local mechanism: there is
-# deliberately no .zshrc.local hook, and no .zshenv.local or .zprofile.local
-# either. All three went once their contents proved dead — the last two things
-# .zshrc.local would have carried were a function, which is a file here now, and
-# a JetBrains license-server export that could never have worked from a shell:
-# an app launched from the Dock inherits nothing from an interactive zsh.
 #
-# Bring a hook back if work ever needs an alias, an export, or a tool's `eval`
-# init, none of which can be autoloaded. Put it in the file that matches the
-# reach: .zshrc.local sees interactive shells only, .zshenv.local sees every
-# shell. Either way it goes under ZDOTDIR, and never inline above: .zshrc is a
-# symlink into this repo, so an installer that appends to it writes employer
-# settings straight into a public package.
+# Machine-local interactive settings, supplied by the private overlay. The
+# functions directory above covers anything that can be a function; this covers
+# what cannot — an alias, an export, a tool's `eval` init.
+#
+# Sourced last, so what it sets wins over everything above, and kept as its own
+# file rather than written inline: .zshrc is a symlink into this repo, so an
+# installer appending to it would commit employer settings to a public package.
+# Reach is what chooses between this and .zshenv.local — this one is read only
+# by shells that have a prompt.
+#
+if [[ -r "${ZDOTDIR:-$HOME}/.zshrc.local" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zshrc.local"
+fi
