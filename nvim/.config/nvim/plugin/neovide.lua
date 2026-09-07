@@ -13,6 +13,11 @@
 -- to the Regular weight.
 
 if vim.g.neovide then
+    -- Neovide starts with 'background' light, so gruvbox loads its light variant
+    -- and the GUI comes up bright. Flipping it re-sources the colorscheme, which
+    -- is why it has to happen before the Cursor highlight below rather than after.
+    vim.opt.background = 'dark'
+
     -- ghostty: cursor-color = #fe8019 / cursor-text = #282828. gruvbox leaves
     -- Cursor as plain reverse, so redefine it - but 'guicursor' has to name
     -- it too: Neovim's default guicursor gives no mode a highlight-group at
