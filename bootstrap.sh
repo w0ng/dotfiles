@@ -35,6 +35,7 @@ readonly MODULES=(
   apps          # desktop applications
   core          # stow, which every stowing module below needs
   cli           # fd, fzf, ripgrep, jq and friends
+  files         # yazi, and the decoders it previews with
   gittools      # git, gh, delta
   terminal      # ghostty
   atuin         # shell history
@@ -578,6 +579,19 @@ mod_cli() {
   stow_package btop
   stow_package fd
   stow_package fzf
+}
+
+mod_files() {
+  step "file manager"
+  brew_formula yazi
+  # Preview decoders. yazi shells out per file type and renders an empty pane
+  # when one is missing rather than saying so, which reads as a yazi bug.
+  brew_formula imagemagick # SVG, HEIC and font previews
+  brew_formula poppler     # PDF previews
+  brew_formula sevenzip    # archive listings
+  # ffmpeg, for video thumbnails, and the fd/ripgrep/fzf/zoxide that back
+  # yazi's find, search and jump commands, all come from mod_cli.
+  stow_package yazi
 }
 
 # Work machines commit under a different identity. The git config includes

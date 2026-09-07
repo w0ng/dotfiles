@@ -1,0 +1,22 @@
+[mgr]
+# A wider preview than yazi's default [1, 4, 3]. The preview pane is the whole
+# reason to run this over `ls`, and at this width a PDF page or a source file
+# is readable rather than merely present.
+ratio = [1, 3, 4]
+
+sort_by         = "natural"
+sort_sensitive  = false
+sort_reverse    = false
+sort_dir_first  = true
+linemode        = "size"
+show_hidden     = false
+show_symlink    = true
+scrolloff       = 5
+
+[preview]
+# Bounds on the pixel size yazi decodes to, not on the pane. Left near the
+# default: raising them makes every hover re-encode a larger image for no
+# visible gain, since the pane is the limit in practice.
+max_width  = 800
+max_height = 1200
+wrap       = "yes"

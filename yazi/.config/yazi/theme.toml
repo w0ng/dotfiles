@@ -1,0 +1,116 @@
+# Classic Gruvbox Dark, the same palette ghostty's bundled theme uses and every
+# other config here hardcodes. Written out rather than fetched with `ya pkg`,
+# which would put a network call and an upstream flavor in the bootstrap path.
+
+[mgr]
+cwd = { fg = "#8ec07c" }
+
+hovered         = { fg = "#282828", bg = "#83a598" }
+preview_hovered = { underline = true }
+
+find_keyword  = { fg = "#fabd2f", italic = true }
+find_position = { fg = "#d3869b", bg = "reset", italic = true }
+
+marker_copied   = { fg = "#b8bb26", bg = "#b8bb26" }
+marker_cut      = { fg = "#fb4934", bg = "#fb4934" }
+marker_marked   = { fg = "#8ec07c", bg = "#8ec07c" }
+marker_selected = { fg = "#fabd2f", bg = "#fabd2f" }
+
+count_copied   = { fg = "#282828", bg = "#b8bb26" }
+count_cut      = { fg = "#282828", bg = "#fb4934" }
+count_selected = { fg = "#282828", bg = "#fabd2f" }
+
+border_symbol = "│"
+border_style  = { fg = "#665c54" }
+
+[tabs]
+active   = { fg = "#282828", bg = "#ebdbb2", bold = true }
+inactive = { fg = "#a89984", bg = "#3c3836" }
+
+[mode]
+normal_main = { fg = "#282828", bg = "#83a598", bold = true }
+normal_alt  = { fg = "#83a598", bg = "#3c3836" }
+select_main = { fg = "#282828", bg = "#b8bb26", bold = true }
+select_alt  = { fg = "#b8bb26", bg = "#3c3836" }
+unset_main  = { fg = "#282828", bg = "#d3869b", bold = true }
+unset_alt   = { fg = "#d3869b", bg = "#3c3836" }
+
+[status]
+progress_label  = { fg = "#ebdbb2", bold = true }
+progress_normal = { fg = "#83a598", bg = "#3c3836" }
+progress_error  = { fg = "#fb4934", bg = "#3c3836" }
+
+perm_type = { fg = "#83a598" }
+perm_read = { fg = "#fabd2f" }
+perm_write = { fg = "#fb4934" }
+perm_exec = { fg = "#b8bb26" }
+perm_sep = { fg = "#928374" }
+
+[pick]
+border   = { fg = "#83a598" }
+active   = { fg = "#d3869b", bold = true }
+inactive = {}
+
+[input]
+border   = { fg = "#83a598" }
+title    = {}
+value    = {}
+selected = { reversed = true }
+
+[cmp]
+border   = { fg = "#83a598" }
+active   = { reversed = true }
+inactive = {}
+
+[tasks]
+border  = { fg = "#83a598" }
+title   = {}
+hovered = { fg = "#d3869b", underline = true }
+
+[which]
+cols            = 3
+mask            = { bg = "#3c3836" }
+cand            = { fg = "#8ec07c" }
+rest            = { fg = "#928374" }
+desc            = { fg = "#d3869b" }
+separator       = " ▸ "
+separator_style = { fg = "#665c54" }
+
+[confirm]
+border     = { fg = "#83a598" }
+title      = { fg = "#83a598" }
+content    = {}
+list       = { fg = "#8ec07c" }
+btn_yes    = { reversed = true }
+btn_no     = {}
+btn_labels = [ "  [Y]es  ", "  (N)o  " ]
+
+[spot]
+border = { fg = "#83a598" }
+title  = { fg = "#83a598" }
+tbl_col = { fg = "#83a598" }
+tbl_cell = { fg = "#fabd2f", reversed = true }
+
+[notify]
+title_info  = { fg = "#8ec07c" }
+title_warn  = { fg = "#fabd2f" }
+title_error = { fg = "#fb4934" }
+
+[filetype]
+# Mime globs are matched against a VFS path, not a bare mime type, so the
+# `**/` prefix is load-bearing: without it a rule parses cleanly and then
+# matches nothing.
+rules = [
+  { mime = "**/image/*", fg = "#fabd2f" },
+  { mime = "**/{audio,video}/*", fg = "#d3869b" },
+  { mime = "**/application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", fg = "#fb4934" },
+  { mime = "**/application/{pdf,doc,rtf}", fg = "#8ec07c" },
+  { mime = "vfs/{absent,stale}", fg = "#928374" },
+
+  { url = "*", is = "orphan", bg = "#cc241d" },
+  { url = "*", is = "exec", fg = "#b8bb26" },
+  { url = "*", is = "dummy", bg = "#cc241d" },
+  { url = "*/", is = "dummy", bg = "#cc241d" },
+
+  { url = "*/", fg = "#83a598" },
+]

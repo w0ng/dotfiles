@@ -203,6 +203,27 @@ if (( $+commands[zoxide] )); then
 fi
 
 #
+# `y` runs yazi and leaves the shell in whatever directory yazi was browsing
+# when it quit. yazi cannot do that itself — it is a child process, so its own
+# cd dies with it — hence --cwd-file, which it writes on exit for the parent
+# shell to read. Bound to `y` rather than `yazi` so the bare binary still
+# behaves normally.
+#
+if (( $+commands[yazi] )); then
+  y() {
+    local tmp cwd
+    tmp="$(mktemp -t yazi-cwd.XXXXXX)" || return
+    yazi "$@" --cwd-file="$tmp"
+    # No trailing NUL means yazi wrote nothing, and read reports failure —
+    # expected whenever it exited without changing directory.
+    if IFS= read -r -d '' cwd < "$tmp" && [[ -n "$cwd" && "$cwd" != "$PWD" ]]; then
+      builtin cd -- "$cwd"
+    fi
+    rm -f -- "$tmp"
+  }
+fi
+
+#
 # Machine-local zsh functions, one file per function, supplied by the private
 # overlay. Autoloaded, so a file is read on first call rather than at every
 # shell start — which makes this the right home for anything that has to run in
