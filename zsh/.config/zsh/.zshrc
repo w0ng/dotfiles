@@ -214,9 +214,12 @@ if (( $+commands[yazi] )); then
     local tmp cwd
     tmp="$(mktemp -t yazi-cwd.XXXXXX)" || return
     yazi "$@" --cwd-file="$tmp"
-    # No trailing NUL means yazi wrote nothing, and read reports failure —
-    # expected whenever it exited without changing directory.
-    if IFS= read -r -d '' cwd < "$tmp" && [[ -n "$cwd" && "$cwd" != "$PWD" ]]; then
+    # yazi writes the bare path, unterminated, and writes it even when the
+    # directory never changed — so the comparison below is what detects "stay
+    # put". Reading with `read -d ''` cannot: with no NUL to find it reports
+    # failure on every exit, which silently swallowed the cd.
+    cwd="$(<"$tmp")"
+    if [[ -n "$cwd" && "$cwd" != "$PWD" ]]; then
       builtin cd -- "$cwd"
     fi
     rm -f -- "$tmp"
