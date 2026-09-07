@@ -14,9 +14,13 @@ show_symlink    = true
 scrolloff       = 5
 
 [preview]
-# Bounds on the pixel size yazi decodes to, not on the pane. Left near the
-# default: raising them makes every hover re-encode a larger image for no
-# visible gain, since the pane is the limit in practice.
-max_width  = 800
-max_height = 1200
+# Ceilings on the pixel size yazi decodes to, counted in *physical* pixels.
+# Whichever is smaller, these or the pane, wins, and yazi only shrinks to fit
+# — it never enlarges. So on a 2x display a low ceiling is what bites: the
+# stock 600 left a 600px image stranded in the top-left of a ~2990px pane.
+# Set clear of the widest pane this setup can produce (6K display, fullscreen,
+# the ratio above), so the pane is always the real limit; higher still is free
+# for that same reason, which is why these are not tuned to the exact pixel.
+max_width  = 4000
+max_height = 4000
 wrap       = "yes"
