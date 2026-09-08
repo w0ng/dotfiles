@@ -678,6 +678,9 @@ report_overlay_files() {
 
   step "untracked local files"
   for entry in \
+    "${HOME}/.claude/CLAUDE.md|overlay: Canva coding guides and repo conventions" \
+    "${HOME}/.claude/settings.json|overlay: work permissions, MCP allow/deny, plugins" \
+    "${HOME}/.claude/statusline.zsh|overlay: work statusline" \
     "${HOME}/.config/aerospace/browser.local|overlay: the app alt-b opens — Brave without it" \
     "${HOME}/.config/nvim/lua/local.lua|overlay: nvim eager roots, vendored formatter paths" \
     "${HOME}/.config/git/config.local|bootstrap writes: holds the git maintenance repo list" \
@@ -835,6 +838,22 @@ mod_agents() {
   # off work machines, where /usr/local/bin/claude is managed and newer.
   personal_cask claude-code
   brew_cask codex
+
+  # ~/.claude is profile-exclusive rather than shared. The work machine's
+  # CLAUDE.md, skills and permission lists are employer-specific, its statusline
+  # talks to corporate GitHub, Buildkite and Jira, and permissions.allow merges
+  # across scopes rather than overriding -- so a shared base would leak entries
+  # into work that work could never remove. The overlay supplies the whole
+  # directory there instead.
+  #
+  # hooks/ is absent on purpose: herdr installs its own hook and overwrites it
+  # on every integration update, so tracking it would churn this repo with
+  # herdr's version bumps.
+  if [[ "$(profile)" == work ]]; then
+    skip "claude config (the overlay supplies it on work machines)"
+  else
+    stow_package claude
+  fi
 }
 
 mod_zsh() {

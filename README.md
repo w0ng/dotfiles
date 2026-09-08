@@ -97,7 +97,7 @@ initialises most of the tools above it.
 | `runtimes` | node, because the language servers below are npm packages, and a Rust toolchain — rustup is personal-only, but the toolchain step runs on both, since neither source installs a compiler on its own. |
 | `neovim` | nvim and Neovide, tree-sitter, the language servers and formatters its config drives (lua-language-server, buf, dprint, shfmt, stylua, five npm servers). Stows `nvim/`, `neovide/`, `dprint/`, `stylua/` and `ideavim/`. |
 | `windowmanager` | aerospace, sketchybar, borders — third-party taps, so it also trusts them, which Homebrew 6 requires before it will load a formula from one. Stows `aerospace/` and `sketchybar/`. |
-| `agents` | codex; claude-code personal-only. |
+| `agents` | codex; claude-code personal-only. Stows `claude/` on the personal profile only — `~/.claude` diverges completely between machines, so the overlay supplies the work machine's instead of layering onto a shared base. |
 | `zsh` | Homebrew's zsh and antidote, and makes it the login shell. Stows `zsh/` — a small `~/.zshenv` that sets `ZDOTDIR`, with `.zshrc`, `.zprofile` and `.zsh_plugins.txt` under `~/.config/zsh/`. `.zshenv` cannot move there: zsh reads it before it knows `ZDOTDIR` exists. |
 
 `bootstrap.sh` is the single source of truth for the package list — read the
