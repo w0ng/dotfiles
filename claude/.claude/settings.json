@@ -13,12 +13,17 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash '/Users/andrew/.claude/hooks/herdr-agent-state.sh' session",
+            "command": "bash ~/.claude/hooks/herdr-agent-state.sh session",
             "timeout": 10
           }
         ]
       }
     ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.zsh",
+    "refreshInterval": 60
   },
   "enabledPlugins": {
     "lua-lsp@claude-plugins-official": true,
@@ -34,12 +39,7 @@
   },
   "skipDangerousModePermissionPrompt": true,
   "editorMode": "vim",
-  "voiceEnabled": false,
-  "agentPushNotifEnabled": true,
   "inputNeededNotifEnabled": true,
-  "statusLine": {
-    "type": "command",
-    "command": "~/.claude/statusline.zsh",
-    "refreshInterval": 60
-  }
+  "agentPushNotifEnabled": true,
+  "voiceEnabled": false
 }
