@@ -678,6 +678,7 @@ report_overlay_files() {
 
   step "untracked local files"
   for entry in \
+    "${HOME}/.config/aerospace/browser.local|overlay: the app alt-b opens — Brave without it" \
     "${HOME}/.config/nvim/lua/local.lua|overlay: nvim eager roots, vendored formatter paths" \
     "${HOME}/.config/git/config.local|bootstrap writes: holds the git maintenance repo list" \
     "${HOME}/.config/git/config.work|bootstrap writes: git identity for repos under ~/work/"; do

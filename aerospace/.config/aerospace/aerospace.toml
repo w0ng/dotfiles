@@ -142,7 +142,7 @@ gaps.outer.right =      4
     # Launch-or-focus, alt-<letter>. `open -a` raises an app that is already
     # running, so these double as an app switcher.
     alt-a = 'exec-and-forget open -a Claude'
-    alt-b = 'exec-and-forget open -a "Google Chrome"'
+    alt-b = 'exec-and-forget b="$(cat "$HOME/.config/aerospace/browser.local" 2>/dev/null)"; open -a "${b:-Brave Browser}"'
     alt-c = 'exec-and-forget open -a Calendar'
     alt-d = 'exec-and-forget open -a Discord'
     alt-e = 'exec-and-forget open -a Finder'
