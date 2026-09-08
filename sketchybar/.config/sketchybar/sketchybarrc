@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# sketchybar — status bar for AeroSpace.
+# sketchybar: status bar for AeroSpace.
 #
 # Everything on the left is driven by AeroSpace callbacks declared in
 # aerospace/.config/aerospace/aerospace.toml; nothing polls but the clock and
@@ -11,7 +11,7 @@ PLUGIN_DIR="$CONFIG_DIR/plugins"
 
 source "$CONFIG_DIR/colors.sh"
 
-# One Nerd Font (Maple Mono NL NF CN, widest coverage installed here — 33k
+# One Nerd Font (Maple Mono NL NF CN, widest coverage installed here at 33k
 # codepoints) for both text and icons, so glyphs and label text always match.
 LABEL_FONT="Maple Mono NL NF CN"
 ICON_FONT="Maple Mono NL NF CN"
@@ -52,7 +52,7 @@ sketchybar --default \
 sketchybar --add event aerospace_layout_change
 sketchybar --add event aerospace_mode_change
 
-# Binding-mode indicator — hidden unless a non-main mode is active.
+# Binding-mode indicator, hidden unless a non-main mode is active.
 sketchybar --add item mode left \
   --subscribe mode aerospace_mode_change \
   --set mode \
@@ -81,7 +81,7 @@ done
 #
 # AeroSpace has no layout-change callback, so the layout keybindings fire
 # aerospace_layout_change by hand. on-focus-changed fires it too, and that
-# covers every workspace switch — including between two empty workspaces — so
+# covers every workspace switch, including between two empty workspaces, so
 # the layout item needs no separate workspace event.
 #
 # front_app_switched is deliberately unused here: it cannot see focus moving

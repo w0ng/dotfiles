@@ -87,7 +87,7 @@ noremap('n', '<Leader>c', ':let @+=expand("%:p")<CR>')
 
 -- Machine-local settings that can't live in a public repo, supplied by the
 -- private overlay; absent everywhere else, hence the pcall. Loaded here rather
--- than where it is read because it also runs side effects -- a managed machine
+-- than where it is read because it also runs side effects. A managed machine
 -- needs vim.env.PATH adjusted so plugin git resolves to a real git rather than
 -- a corporate wrapper, and that must land before the first vim.pack.add(),
 -- which all run from plugin/ after this file. require caches, so the reads in

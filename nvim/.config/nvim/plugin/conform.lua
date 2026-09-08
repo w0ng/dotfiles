@@ -16,10 +16,10 @@ end
 -- CI; elsewhere fall back to system dprint + personal config.
 --
 -- The sub-path is repo-specific, so it lives in lua/local.lua rather than here.
--- Without it this returns nil and the plain `dprint` lookup wins -- which is
+-- Without it this returns nil and the plain `dprint` lookup wins, which is
 -- already right whenever the checkout puts its own copy on PATH (a direnv
--- PATH_add, say). What this covers is when it does not: nvim launched from a
--- shell where that never happened, or one nvim editing files across two
+-- PATH_add, say). What this covers is when it does not, such as nvim launched
+-- from a shell where that never happened, or one nvim editing files across two
 -- checkouts, since PATH is fixed at launch while this resolves per buffer.
 local function repo_dprint(filename)
     local sub = localcfg.dprint_subpath

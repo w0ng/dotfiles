@@ -1,4 +1,4 @@
-# ~/.config/atuin/config.toml — SQLite-backed shell history, LOCAL ONLY.
+# ~/.config/atuin/config.toml: SQLite-backed shell history, LOCAL ONLY.
 # Docs: https://docs.atuin.sh/configuration/config/
 #
 # No cloud sync: nothing leaves this machine. Suitable for a corporate devbox.
@@ -12,7 +12,7 @@ inline_height = 20
 show_preview = true
 
 # Start the search UI in whichever keymap the shell is already in, rather than
-# atuin's emacs default — .zshrc loads zsh-vi-mode, so that means vi.
+# atuin's emacs default. .zshrc loads zsh-vi-mode, so that means vi.
 keymap_mode = "auto"
 
 # Day before month, matching LANG=en_AU. Only affects how atuin parses and

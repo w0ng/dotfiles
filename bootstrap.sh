@@ -16,7 +16,7 @@
 # stow. Modules are idempotent, so re-running only does outstanding work.
 #
 # When adding a tool, declare it in a module rather than installing it by hand,
-# and give every stow_package line a matching install line — a stowed config
+# and give every stow_package line a matching install line. A stowed config
 # whose binary is missing fails silently at the point of use.
 #
 # Sourcing this file defines its functions without running anything, and the
@@ -116,7 +116,7 @@ did_run() {
   [[ "${DRY_RUN}" != true ]]
 }
 
-# Reads the remembered profile. A pure getter: resolve_profile does the asking,
+# Reads the remembered profile. A pure getter. resolve_profile does the asking,
 # because this is called from inside "$(...)" where a failure could not stop the
 # script.
 profile() {
@@ -126,12 +126,13 @@ profile() {
   printf '%s' "${PROFILE}"
 }
 
-# Establishes the profile before any module runs. Never guesses: the profile
-# decides whether employer-managed apps get installed or removed, so a wrong
-# default does real work in the wrong direction.
+# Establishes the profile before any module runs. Never guesses, because the
+# profile decides whether employer-managed apps get installed or removed, so a
+# wrong default does real work in the wrong direction.
 resolve_profile() {
-  # Assign directly rather than through "$(profile)": a subshell's assignment
-  # would not reach this shell, leaving PROFILE empty for every later reader.
+  # Assign directly rather than through "$(profile)", because a subshell's
+  # assignment would not reach this shell, leaving PROFILE empty for every later
+  # reader.
   if [[ -z "${PROFILE}" && -r "${PROFILE_FILE}" ]]; then
     PROFILE="$(<"${PROFILE_FILE}")"
   fi
@@ -200,9 +201,10 @@ load_package_index() {
   INSTALLED_FORMULAE="$("${BREW}" list --formula 2>/dev/null || true)"
   INSTALLED_CASKS="$("${BREW}" list --cask 2>/dev/null || true)"
   INSTALLED_TAPS="$("${BREW}" tap 2>/dev/null || true)"
-  # JSON, not a plain list -- `brew trust` has no line-oriented output. Matched
-  # as a quoted substring below rather than parsed, which keeps this free of a
-  # jq dependency that mod_cli has not installed yet on a fresh machine.
+  # JSON, not a plain list, because `brew trust` has no line-oriented output.
+  # The check below matches it as a quoted substring rather than parsing it,
+  # which keeps this free of a jq dependency that mod_cli has not installed yet
+  # on a fresh machine.
   INSTALLED_TRUSTED="$("${BREW}" trust --json v1 2>/dev/null || true)"
   if command -v "${NPM}" >/dev/null 2>&1; then
     # Paths arrive as .../node_modules/<name> or .../node_modules/@scope/name.
@@ -235,7 +237,7 @@ remember() {
 # Package helpers
 #######################################
 
-# $1 may be tap-qualified: `brew install` wants the qualified name, `brew list`
+# $1 may be tap-qualified. `brew install` wants the qualified name, `brew list`
 # reports the bare one.
 brew_formula() {
   local spec="$1"
@@ -253,9 +255,10 @@ brew_formula() {
 }
 
 # $2 is an optional app bundle, e.g. 'Google Chrome.app'. If it is already in
-# /Applications the cask is skipped: the app arrived some other way, typically
-# pushed by an employer's device management, and installing over it fails
-# outright while adopting it needs a sudo prompt no installer should spring.
+# /Applications this skips the cask, because the app arrived some other way,
+# typically pushed by an employer's device management, and installing over it
+# fails outright while adopting it needs a sudo prompt no installer should
+# spring.
 brew_cask() {
   local spec="$1"
   local name="${1##*/}"
@@ -277,8 +280,8 @@ brew_cask() {
 }
 
 # rustup installs the toolchain manager, not a toolchain. Without an explicit
-# default, cargo and rustc are shims that error on every call -- the state a
-# work machine is left in by its own provisioning.
+# default, cargo and rustc are shims that error on every call. That is the
+# state a work machine's own provisioning leaves it in.
 rust_toolchain() {
   local rustup candidate
 
@@ -339,7 +342,7 @@ personal_formula() {
 
 # A cask the employer's device management owns on a work machine. Installing it
 # there would fight the managed copy and its update channel, so under the work
-# profile it is never installed -- and a brew copy from an earlier run, or from
+# profile it is never installed, and a brew copy from an earlier run, or from
 # a machine that later became managed, is removed.
 personal_cask() {
   local spec="$1"
@@ -429,7 +432,7 @@ brew_shellenv() {
   return 1
 }
 
-# Cached: `brew --prefix` is another 0.35s of Ruby startup.
+# Cached, because `brew --prefix` is another 0.35s of Ruby startup.
 homebrew_prefix() {
   if [[ -z "${HOMEBREW_PREFIX:-}" ]]; then
     HOMEBREW_PREFIX="$("${BREW}" --prefix 2>/dev/null || true)"
@@ -442,7 +445,7 @@ homebrew_prefix() {
 #######################################
 
 # Where displaced files go, one directory per run. Deliberately not a sibling
-# of the file it replaces: when a parent directory is already a folded stow
+# of the file it replaces. When a parent directory is already a folded stow
 # symlink into the repo, a backup written beside the target lands inside the
 # package itself.
 backup_dir() {
@@ -454,10 +457,11 @@ backup_dir() {
 
 # Paths a package would create, relative to the stow target.
 #
-# Tracked files only: stow links what git tracks, so only those can conflict.
-# Listing with find would also match runtime state a tool writes into its own
-# package directory through a folded symlink — herdr's session.json and logs,
-# for instance — and displace_conflicts would move that live state aside.
+# Tracked files only, because stow links what git tracks, so only those can
+# conflict. Listing with find would also match runtime state a tool writes into
+# its own package directory through a folded symlink, such as herdr's
+# session.json and logs, and displace_conflicts would move that live state
+# aside.
 # Falls back to find when the repo is not a git checkout, such as a tarball
 # download or the scratch directories the tests build.
 package_files() {
@@ -506,10 +510,10 @@ stow_package() {
   fi
   displace_conflicts "${pkg}"
   # --no-folding links each file rather than symlinking a whole directory. A
-  # folded directory is the repo, so anything a tool writes beside its config
-  # -- logs, sockets, session state -- lands in version control.
-  # --ignore keeps Finder's .DS_Store out: it is gitignored, but stow scans the
-  # filesystem rather than git, so an untracked one still gets linked -- and
+  # folded directory is the repo, so anything a tool writes beside its config,
+  # such as logs, sockets or session state, lands in version control.
+  # --ignore keeps Finder's .DS_Store out. It is gitignored, but stow scans the
+  # filesystem rather than git, so an untracked one still gets linked, and
   # colliding with an existing ~/.DS_Store aborts the whole package.
   run "${STOW}" --dir "${DOTFILES_DIR}" --target "${STOW_TARGET}" \
     --ignore='\.DS_Store' --no-folding --restow "${pkg}"
@@ -597,7 +601,7 @@ mod_files() {
 
 # Work machines commit under a different identity. The git config includes
 # config.work for anything under ~/work/, and git skips a missing include
-# silently — so without this check, work commits go out under the personal
+# silently, so without this check, work commits go out under the personal
 # address with nothing to notice.
 require_work_gitconfig() {
   local target="${HOME}/.config/git/config.work" email
@@ -631,14 +635,15 @@ require_work_gitconfig() {
 #
 # Deliberately registers nothing. `git maintenance register` writes an absolute
 # repo path into whichever config it is handed, and the repos worth maintaining
-# are employer-specific -- so the list is filled in by hand on the machine that
+# are employer-specific, so you fill the list in by hand on the machine that
 # needs it, and this only puts the section there to hold it. Which repos are
-# worth it is a judgement anyway: the tasks earn their keep on a repo with deep
-# history and do nothing noticeable on a small one.
+# worth it is a judgement anyway. The tasks pay off on a repo with deep history
+# and do nothing noticeable on a small one.
 #
 # The list has to be unconditional config rather than a gitdir-conditional
-# include: the launchd job runs `git for-each-repo --config=maintenance.repo`
-# from outside any repo, where a conditional include never applies.
+# include, because the launchd job runs `git for-each-repo
+# --config=maintenance.repo` from outside any repo, where a conditional include
+# never applies.
 ensure_maintenance_section() {
   local target="${HOME}/.config/git/config.local"
 
@@ -652,27 +657,28 @@ ensure_maintenance_section() {
   fi
 
   mkdir -p "$(dirname "${target}")"
-  # Appended: the file may already hold settings this script did not write.
+  # Appended, because the file may already hold settings this script did not
+  # write.
   printf '[maintenance]\n' >>"${target}"
   chmod 600 "${target}"
   success "added [maintenance] to ~${target#"${HOME}"}"
 }
 
 # Reports the untracked files a work machine is expected to have. This repo
-# deliberately ships none of them -- they hold employer-specific settings -- but
-# they come from two different places, which the notes below spell out: the
-# private overlay supplies some, and bootstrap itself writes the rest.
+# deliberately ships none of them, because they hold employer-specific
+# settings, but they come from two different places, which the notes below spell
+# out: the private overlay supplies some, and bootstrap itself writes the rest.
 #
-# None is required: every config that reads one skips it when absent, so this is
-# a checklist rather than a failure. It runs last so the answer is the final
-# thing on screen, and unconditionally for the work profile -- a partial run
+# None is required, because every config that reads one skips it when absent, so
+# this is a checklist rather than a failure. It runs last so the answer is the
+# final thing on screen, and unconditionally for the work profile. A partial run
 # should still say what the machine is missing.
 #
 # Each path is the one the reading config actually opens, not where the file is
-# conventionally kept -- a copy anywhere else is silently ignored rather than
-# reported here. No zsh entry any more: the shell's only machine-local mechanism
-# is $ZDOTDIR/functions, a directory the overlay stows into rather than a single
-# file worth checking for.
+# conventionally kept. A copy anywhere else is silently ignored rather than
+# reported here. No zsh entry any more, because the shell's only machine-local
+# mechanism is $ZDOTDIR/functions, a directory the overlay stows into rather
+# than a single file worth checking for.
 report_overlay_files() {
   local entry path note missing=0
 
@@ -712,9 +718,9 @@ report_overlay_files() {
 
 mod_gittools() {
   step "git tooling"
-  # Not a personal_formula: the work tooling wrapper delegates to whichever git
-  # is on PATH, so brew's copy is what it runs. Removing it drops the wrapper
-  # back to Apple's older git rather than leaving the bundle's own.
+  # Not a personal_formula, because the work tooling wrapper delegates to
+  # whichever git is on PATH, so brew's copy is what it runs. Removing it drops
+  # the wrapper back to Apple's older git rather than leaving the bundle's own.
   brew_formula git
   personal_formula gh
   # .gitconfig sets delta as the pager for diff/log/reflog/show and as
@@ -752,10 +758,11 @@ mod_atuin() {
 
 mod_multiplexer() {
   step "multiplexer"
-  # Not a personal_formula, unlike most work-bundled tools: tpm depends on the
-  # tmux formula, so skipping it would install tmux as a dependency and then
-  # remove it on the next run. Brew's copy shadows the bundle's -- /opt/homebrew
-  # sits ahead of /usr/local on PATH -- which also gets a newer tmux.
+  # Not a personal_formula, unlike most work-bundled tools, because tpm depends
+  # on the tmux formula, so skipping it would install tmux as a dependency and
+  # then remove it on the next run. Brew's copy shadows the bundle's, since
+  # /opt/homebrew sits ahead of /usr/local on PATH, and it also gets a newer
+  # tmux.
   brew_formula tmux
   brew_formula herdr
   stow_package tmux
@@ -774,12 +781,12 @@ mod_runtimes() {
   # packages.
   #
   # Not a personal_formula, even though the work tooling bundle ships its own
-  # node: that one's global module directory is root-owned, so `npm install -g`
+  # node. That one's global module directory is root-owned, so `npm install -g`
   # fails against it and no language server can install.
   brew_formula node
 
-  # rustup itself is personal-only -- a work machine is given one by its own
-  # provisioning -- but the toolchain setup runs on both, since neither source
+  # rustup itself is personal-only, because a work machine's own provisioning
+  # supplies one, but the toolchain setup runs on both, since neither source
   # installs a compiler on its own.
   personal_formula rustup
   rust_toolchain
@@ -803,8 +810,8 @@ mod_neovim() {
   npm_global bash-language-server
   npm_global cssmodules-language-server
   npm_global stylelint-lsp
-  # Must be 7 or newer: only the native compiler speaks --lsp, which is what
-  # the tsc server drives.
+  # Must be 7 or newer, because only the native compiler speaks --lsp, which is
+  # what the tsc server drives.
   npm_global typescript
   npm_global vscode-langservers-extracted # cssls, html, jsonls, eslint
 
@@ -833,22 +840,23 @@ mod_windowmanager() {
 
 mod_agents() {
   step "agents"
-  # No bundle argument: this cask ships a bare `claude` binary, not an app, so
-  # the /Applications check cannot see the managed copy. personal_cask keeps it
-  # off work machines, where /usr/local/bin/claude is managed and newer.
+  # No bundle argument, because this cask ships a bare `claude` binary, not an
+  # app, so the /Applications check cannot see the managed copy. personal_cask
+  # keeps it off work machines, where /usr/local/bin/claude is managed and
+  # newer.
   personal_cask claude-code
   brew_cask codex
 
   # ~/.claude is profile-exclusive rather than shared. The work machine's
   # CLAUDE.md, skills and permission lists are employer-specific, its statusline
   # talks to corporate GitHub, Buildkite and Jira, and permissions.allow merges
-  # across scopes rather than overriding -- so a shared base would leak entries
+  # across scopes rather than overriding, so a shared base would leak entries
   # into work that work could never remove. The overlay supplies the whole
   # directory there instead.
   #
-  # hooks/ is absent on purpose: herdr installs its own hook and overwrites it
-  # on every integration update, so tracking it would churn this repo with
-  # herdr's version bumps.
+  # hooks/ is absent on purpose, because herdr installs its own hook and
+  # overwrites it on every integration update, so tracking it would churn this
+  # repo with herdr's version bumps.
   if [[ "$(profile)" == work ]]; then
     skip "claude config (the overlay supplies it on work machines)"
   else
@@ -858,7 +866,7 @@ mod_agents() {
 
 mod_zsh() {
   step "zsh"
-  # Homebrew's zsh, not /bin/zsh: macOS pins 5.9 and will not update it.
+  # Homebrew's zsh, not /bin/zsh, because macOS pins 5.9 and will not update it.
   brew_formula zsh
   # antidote compiles $ZDOTDIR/.zsh_plugins.txt into a static bundle on first
   # start. .zshrc skips its whole plugin block when the formula is absent.
@@ -870,9 +878,9 @@ mod_zsh() {
 }
 
 # Editing /etc/shells needs root and chsh asks for a password, so both prompts
-# are announced first. A refusal only warns: a managed machine may restrict
-# sudo or hold the user record in a configuration profile, and everything else
-# here works fine on the system zsh.
+# are announced first. A refusal only warns, because a managed machine may
+# restrict sudo or hold the user record in a configuration profile, and
+# everything else here works fine on the system zsh.
 set_login_shell() {
   local shell_path current
 
@@ -921,7 +929,7 @@ set_login_shell() {
 # Returns:
 #   1 if brew could not be put on PATH.
 install_homebrew() {
-  # An install can exist without being on this shell's PATH -- a login shell
+  # An install can exist without being on this shell's PATH. A login shell
   # started before the zsh package was stowed carries no /opt/homebrew. Testing
   # PATH alone would reinstall Homebrew over a working copy.
   brew_shellenv || true
@@ -933,7 +941,7 @@ install_homebrew() {
     return 0
   else
     info "installing Homebrew — this asks for confirmation and your password"
-    # Not wrapped in run(): the command substitution would download the
+    # Not wrapped in run(), because the command substitution would download the
     # installer even when run() only prints the command.
     /bin/bash -c "$(curl -fsSL \
       https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -951,17 +959,18 @@ $(homebrew_prefix)"
   if [[ "${SKIP_UPDATE}" == true ]]; then
     skip "brew update (--no-update)"
   else
-    # No info() line: `brew update` prints its own "==> Updating Homebrew..."
-    # even under --quiet, and two near-identical lines read like it ran twice.
+    # No info() line, because `brew update` prints its own "==> Updating
+    # Homebrew..." even under --quiet, and two near-identical lines read like it
+    # ran twice.
     run "${BREW}" update --quiet
   fi
 
-  # Having just updated deliberately, stop brew updating again mid-run: a later
-  # install would otherwise resolve against a different formula index than the
-  # one this run started with.
+  # Having just updated deliberately, stop brew updating again mid-run, because
+  # a later install would otherwise resolve against a different formula index
+  # than the one this run started with.
   export HOMEBREW_NO_AUTO_UPDATE=1
 
-  # Ask mode is Homebrew 6's default for install, upgrade and reinstall: it
+  # Ask mode is Homebrew 6's default for install, upgrade and reinstall. It
   # prompts whenever the plan reaches past the package named, which a single
   # dependency is enough to trigger. This script has to run unattended.
   export HOMEBREW_NO_ASK=1

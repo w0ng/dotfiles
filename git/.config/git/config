@@ -63,7 +63,7 @@
 [branch]
 	sort = -committerdate
 [include]
-	; machine-local config (untracked) — keeps internal repo paths
+	; machine-local config (untracked). Keeps internal repo paths
 	; (e.g. git maintenance registrations) out of this public repo.
 	; Relative, so it resolves beside this file.
 	path = config.local

@@ -25,22 +25,23 @@ if [[ "$OSTYPE" == darwin* ]]; then
   export BROWSER='open'
 fi
 
-# Set unconditionally. The obvious `[[ -z "$LANG" ]]` guard is useless here:
-# /etc/zprofile runs first and already sets LANG=C.UTF-8 when it is empty, so the
-# guard never passes and this locale never applied. C.UTF-8 sorts in byte order
-# (caps before lowercase) and formats dates month-first.
+# Set unconditionally. The obvious `[[ -z "$LANG" ]]` guard is useless here,
+# because /etc/zprofile runs first and already sets LANG=C.UTF-8 when it is
+# empty, so the guard never passes and this locale never applied. C.UTF-8 sorts
+# in byte order (caps before lowercase) and formats dates month-first.
 export LANG='en_AU.UTF-8'
 
 #
 # Homebrew
 #
 # Sets PATH, MANPATH and the HOMEBREW_* variables. Apple Silicon only, so the
-# prefix is hardcoded rather than probed -- see CLAUDE.md. The -x test doubles as
-# the platform guard: a Linux host has no /opt/homebrew, so it simply skips.
+# prefix is hardcoded rather than probed. See CLAUDE.md. The -x test doubles as
+# the platform guard, because a Linux host has no /opt/homebrew, so it simply
+# skips.
 #
 # A managed Mac may already have done this from /etc/zprofile, which runs first.
-# Harmless -- `typeset -U path` collapses the repeat -- and this has to stay for
-# any machine without that.
+# Harmless, because `typeset -U path` collapses the repeat, and this has to
+# stay for any machine without that.
 #
 if [[ -x /opt/homebrew/bin/brew ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -50,7 +51,7 @@ fi
 # Re-assert the user bin directories, after path_helper has had its say.
 #
 # /etc/zprofile runs `path_helper`, which rebuilds PATH with the system
-# directories first and appends everything else — so on a login shell the
+# directories first and appends everything else, so on a login shell the
 # entries .zshenv prepended end up behind /usr/bin. Anything placed in
 # ~/.local/bin to shadow a system binary would silently lose.
 #
@@ -66,8 +67,8 @@ fi
 #
 # JetBrains Toolbox
 #
-# Appended, not prepended: these are generated launcher shims and should never
-# shadow a real binary of the same name.
+# Appended, not prepended, because these are generated launcher shims and
+# should never shadow a real binary of the same name.
 #
 if [[ -d "$HOME/Library/Application Support/JetBrains/Toolbox/scripts" ]]; then
   path+=("$HOME/Library/Application Support/JetBrains/Toolbox/scripts")

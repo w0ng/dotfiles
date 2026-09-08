@@ -45,8 +45,8 @@ require('blink.cmp').setup({
 
 -- Advertise blink's completion capabilities to every language server. The
 -- servers themselves are configured in plugin/lsp.lua, which nvim sources after
--- this file -- harmless, because vim.lsp.config('*') merges across calls and a
--- config is not resolved until a client actually starts.
+-- this file. That is harmless, because vim.lsp.config('*') merges across calls
+-- and nothing resolves a config until a client actually starts.
 vim.lsp.config('*', {
     capabilities = require('blink.cmp').get_lsp_capabilities(),
 })

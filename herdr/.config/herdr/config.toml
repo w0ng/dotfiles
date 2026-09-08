@@ -1,4 +1,4 @@
-# ~/.config/herdr/config.toml — terminal multiplexer for coding agents.
+# ~/.config/herdr/config.toml: terminal multiplexer for coding agents.
 #
 # Only settings that differ from herdr's defaults are listed; run `herdr` and
 # open the settings pane (prefix+`) to see the full set with their defaults.
@@ -9,11 +9,12 @@ onboarding = false
 [theme]
 name = "gruvbox"
 
-# The base theme leaves the sidebar too uniform to scan: active and inactive
-# entries only differ in weight. These pull them apart on the gruvbox palette.
+# The base theme leaves the sidebar too uniform to scan, because active and
+# inactive entries only differ in weight. These pull them apart on the gruvbox
+# palette.
 [theme.custom]
-text     = "#fabd2f"   # active space/agent title — gruvbox yellow
-subtext0 = "#928374"   # inactive space/agent title — gruvbox grey
+text     = "#fabd2f"   # active space/agent title: gruvbox yellow
+subtext0 = "#928374"   # inactive space/agent title: gruvbox grey
 surface0 = "#1d2021"
 
 [terminal]
@@ -48,9 +49,9 @@ navigate_pane_up = ""
 navigate_pane_right = ""
 
 [worktrees]
-# Where `New worktree` puts checkouts. Machine-specific: herdr has no config
-# include mechanism, so set this in the local copy on machines that need a
-# path outside the repo's own directory.
+# Where `New worktree` puts checkouts. Machine-specific, because herdr has no
+# config include mechanism, so set this in the local copy on machines that need
+# a path outside the repo's own directory.
 # directory = "~/work/trees"
 
 [ui]

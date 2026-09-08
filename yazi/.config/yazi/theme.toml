@@ -98,7 +98,7 @@ title_error = { fg = "#fb4934" }
 
 [filetype]
 # Mime globs are matched against a VFS path, not a bare mime type, so the
-# `**/` prefix is load-bearing: without it a rule parses cleanly and then
+# `**/` prefix is load-bearing. Without it a rule parses cleanly and then
 # matches nothing.
 rules = [
   { mime = "**/image/*", fg = "#fabd2f" },

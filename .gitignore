@@ -1,10 +1,10 @@
 # vim.pack's plugin lockfile. ~/.config/nvim/nvim-pack-lock.json is a stow
 # symlink into this package, so nvim rewrites it here on every plugin update.
-# Untracked on purpose: it pins commit SHAs per machine, and the config already
-# declares which plugins to install.
+# Untracked on purpose, because it pins commit SHAs per machine, and the
+# config already declares which plugins to install.
 nvim/.config/nvim/nvim-pack-lock.json
 
-# Machine-local nvim overrides — extra project roots and vendored-formatter
+# Machine-local nvim overrides: extra project roots and vendored-formatter
 # paths that can't live in a public repo. Supplied by the private overlay.
 nvim/.config/nvim/lua/local.lua
 

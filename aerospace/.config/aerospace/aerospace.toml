@@ -1,15 +1,15 @@
-# ~/.config/aerospace/aerospace.toml — tiling window manager.
+# ~/.config/aerospace/aerospace.toml: tiling window manager.
 # Commands and options: https://nikitabobko.github.io/AeroSpace/commands
 
 config-version = 2
 
 # Both of these only make sense while AeroSpace is running, and there is no hook
-# to stop them again: every callback AeroSpace offers fires on startup, login, or
-# a state change (focus, monitor, mode, workspace, window) — none on exit. So
-# they outlive it, and quitting them is `killall borders sketchybar` by hand.
+# to stop them again. Every callback AeroSpace offers fires on startup, login,
+# or a state change (focus, monitor, mode, workspace, window), and none on exit.
+# So they outlive it, and quitting them is `killall borders sketchybar` by hand.
 after-startup-command = [
-  # JankyBorders — highlight the focused window. Gruvbox dark, matching the
-  # terminal: bright yellow (#fabd2f) active, dark1 (#3c3836) inactive.
+  # JankyBorders: highlight the focused window. Gruvbox dark, matching the
+  # terminal, with bright yellow (#fabd2f) active and dark1 (#3c3836) inactive.
   'exec-and-forget borders active_color=0xfffabd2f inactive_color=0xff3c3836 width=8.0 style=round',
   'exec-and-forget sketchybar',
 ]
@@ -41,9 +41,9 @@ on-mode-changed = ['exec-and-forget sketchybar --trigger aerospace_mode_change']
 # Fires when focus moves between a floating and a tiled window, which changes
 # the layout indicator.
 on-focus-changed = ['exec-and-forget sketchybar --trigger aerospace_layout_change']
-# One script rather than a command per pill: it makes the single AeroSpace query
-# the whole row needs and paints all ten itself. It has to be a script —
-# inlining the command substitution here fails to parse as TOML.
+# One script rather than a command per pill, because it makes the single
+# AeroSpace query the whole row needs and paints all ten itself. It has to be a
+# script, since inlining the command substitution here fails to parse as TOML.
 exec-on-workspace-change = [
   '/bin/bash', '-c',
   '$HOME/.config/sketchybar/plugins/aerospace_workspace_change.sh',
@@ -53,7 +53,7 @@ focus-follows-mouse.enabled = false
 key-mapping.preset = 'qwerty'
 
 #
-# Gaps, sized so the 8px JankyBorders border exactly fills them — it draws
+# Gaps, sized so the 8px JankyBorders border exactly fills them. It draws
 # roughly 4px outside the window frame.
 #
 # The top gap also clears sketchybar, so on an external monitor it is the bar's
@@ -62,10 +62,10 @@ key-mapping.preset = 'qwerty'
 # other, so a change there leaves either a strip of desktop above the windows or
 # windows tucked underneath the bar.
 #
-# The built-in panel gets the plain 4px instead: macOS already reserves the menu
-# bar area there and sketchybar draws inside it, so a second bar's worth of
+# The built-in panel gets the plain 4px instead, because macOS already reserves
+# the menu bar area there and sketchybar draws inside it, so a second bar's worth of
 # clearance would be dead space. "built-in" is a case-insensitive regex
-# substring — AeroSpace has no keyword for the laptop panel — and it matches
+# substring, since AeroSpace has no keyword for the laptop panel, and it matches
 # this Mac's "Built-in Retina Display". The trailing value is the default for
 # everything that does not match.
 #
@@ -110,7 +110,7 @@ gaps.outer.right =      4
     alt-0 = 'workspace 0'
 
     # Send the focused window to a workspace and follow it. --focus-follows-window
-    # is per-command: there is a focus-follows-mouse setting but no
+    # is per-command, because there is a focus-follows-mouse setting but no
     # focus-follows-window one, so the flag has to be repeated on each line.
     alt-shift-1 = 'move-node-to-workspace --focus-follows-window 1'
     alt-shift-2 = 'move-node-to-workspace --focus-follows-window 2'
@@ -123,7 +123,7 @@ gaps.outer.right =      4
     alt-shift-9 = 'move-node-to-workspace --focus-follows-window 9'
     alt-shift-0 = 'move-node-to-workspace --focus-follows-window 0'
 
-    # Same, but stay put — for parking a window somewhere without losing focus.
+    # Same, but stay put, for parking a window somewhere without losing focus.
     alt-ctrl-shift-1 = 'move-node-to-workspace 1'
     alt-ctrl-shift-2 = 'move-node-to-workspace 2'
     alt-ctrl-shift-3 = 'move-node-to-workspace 3'

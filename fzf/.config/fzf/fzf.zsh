@@ -1,5 +1,5 @@
 #
-# fzf shell integration, sourced from .zshrc. The location is our choice —
+# fzf shell integration, sourced from .zshrc. The location is our choice.
 # ~/.fzf.zsh was only ever a convention from fzf's own install script.
 #
 

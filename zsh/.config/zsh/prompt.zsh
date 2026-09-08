@@ -4,11 +4,11 @@
 #
 # A synchronous `git status` takes hundreds of milliseconds in a large
 # repository, which is long enough to feel on every prompt. Here it runs in a
-# background job: the prompt draws immediately and the segment fills in when
+# background job, so the prompt draws immediately and the segment fills in when
 # the answer arrives.
 #
-# The async primitive is `zle -F`, built into zsh — it watches a file
-# descriptor and runs a widget when it becomes readable. No plugin required.
+# The async mechanism is `zle -F`, built into zsh. It watches a file descriptor
+# and runs a widget when it becomes readable. No plugin required.
 #
 # The status indicators need a Nerd Font.
 #
@@ -47,8 +47,8 @@ _prompt_git_reap() {
 _prompt_git_start() {
   _prompt_git_cancel
   _prompt_git=''
-  # coproc rather than <(...): process substitution does not set $!, so there
-  # would be no pid to kill when the next prompt cancels this query.
+  # coproc rather than <(...), because process substitution does not set $!, so
+  # there would be no pid to kill when the next prompt cancels this query.
   #
   # A coproc is a job, so without no_monitor/no_notify zsh reports it starting
   # and finishing around every prompt.
@@ -181,6 +181,6 @@ $(_prompt_char) '
 #
 # zsh places RPROMPT on the last line of a multi-line prompt and handles both
 # the right-alignment and the reflow on resize. transient_rprompt must stay
-# unset: it clears the right prompt once a command runs, which is precisely
-# when the timestamp starts being useful.
+# unset, because it clears the right prompt once a command runs, which is
+# precisely when the timestamp starts being useful.
 RPROMPT='%F{8}%D{%d %b %H:%M}%f'

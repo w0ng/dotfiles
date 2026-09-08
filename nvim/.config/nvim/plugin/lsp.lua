@@ -1,6 +1,7 @@
--- nvim-lspconfig: per-server config DATA -- cmd, filetypes, root markers --
--- read off the runtimepath by vim.lsp.enable(). The servers themselves are
--- configured below with the built-in vim.lsp.config/enable (0.11+).
+-- nvim-lspconfig: per-server config DATA, meaning cmd, filetypes and root
+-- markers, which vim.lsp.enable() reads off the runtimepath. The servers
+-- themselves are configured below with the built-in vim.lsp.config/enable
+-- (0.11+).
 --------------------------------------------------------------------------------
 vim.pack.add({ 'https://github.com/neovim/nvim-lspconfig' })
 
@@ -189,10 +190,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
 -- LSP ACTIVITY
 -- ============================================================================
 -- Registers a source with lua/async_activity.lua. Nothing here touches the
--- statusline plugin directly -- plugin/lualine.lua supplies the redraw hook --
--- so this file depends only on what it declares above. The spinner shows while
--- a server attached to the current buffer is working. Two signals are needed,
--- because servers differ in what they report:
+-- statusline plugin directly, since plugin/lualine.lua supplies the redraw
+-- hook, so this file depends only on what it declares above. The spinner shows
+-- while a server attached to the current buffer is working. Two signals are
+-- needed, because servers differ in what they report:
 --   * $/progress      -- rust-analyzer, gopls, tsserver announce indexing.
 --   * no tokens yet   -- buf_ls announces no progress at all. A semantic-token
 --                        server that has not sent its first batch is still
@@ -241,7 +242,7 @@ local function lsp_activity()
     local parts = {}
     for _, client in ipairs(vim.lsp.get_clients({ bufnr = buf })) do
         -- 1) an active $/progress for this client, or
-        -- 2) still indexing -- only for servers that have never reported
+        -- 2) still indexing, only for servers that have never reported
         --    progress, since one that announces its work is the better signal
         --    and this would just duplicate it between messages.
         local busy = next(client.progress.pending) ~= nil

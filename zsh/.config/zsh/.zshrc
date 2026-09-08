@@ -1,5 +1,5 @@
 #
-# $ZDOTDIR/.zshrc — interactive zsh configuration
+# $ZDOTDIR/.zshrc: interactive zsh configuration
 #
 # antidote manages the plugins (declared in $ZDOTDIR/.zsh_plugins.txt), atuin
 # owns history search, and prompt.zsh in this directory renders the prompt.
@@ -9,7 +9,7 @@
 # Plugin config that must be set BEFORE plugins load
 #
 # atuin prepends its own strategy when it initialises, so the effective value
-# at runtime is `atuin history completion`: atuin answers first and zsh's own
+# at runtime is `atuin history completion`, so atuin answers first and zsh's own
 # history is the fallback.
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
@@ -21,7 +21,7 @@ ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 ZVM_INIT_MODE=sourcing
 
 #
-# Antidote — plugin manager (https://antidote.sh), static-bundle pattern.
+# Antidote: plugin manager (https://antidote.sh), static-bundle pattern.
 #
 # .zsh_plugins.txt is compiled into a static .zsh_plugins.zsh that we source
 # directly for fast startup, regenerated only when the .txt is newer. Guarded
@@ -35,9 +35,10 @@ ZVM_INIT_MODE=sourcing
 # but the bundle itself. The GIT_CONFIG_* override then covers the writing
 # pass, where a stray fsmonitor call would have no clone to hide behind.
 #
-# Probed rather than hardcoded: antidote is a Homebrew formula on macOS but has
-# no distro package on Linux, where it is a git clone under XDG data instead.
-# The wrong path here is silent — every plugin simply never loads.
+# Probed rather than hardcoded, because antidote is a Homebrew formula on macOS
+# but has no distro package on Linux, where it is a git clone under XDG data
+# instead.
+# The wrong path here is silent. Every plugin simply never loads.
 #
 ANTIDOTE_DIR=''
 for _antidote_candidate in \
@@ -67,8 +68,9 @@ fi
 # Shell options
 #
 
-# History — kept in XDG state, not $HOME. zsh does not create the directory
-# itself and silently records nothing when it is missing, hence the mkdir.
+# History, kept in XDG state rather than $HOME. zsh does not create the
+# directory itself and silently records nothing when it is missing, hence the
+# mkdir.
 # atuin keeps its own database; this file is what ^P/^N prefix search reads,
 # and what SHARE_HISTORY passes between concurrent shells.
 HISTFILE="${XDG_STATE_HOME:-$HOME/.local/state}/zsh/history"
@@ -105,8 +107,9 @@ unsetopt FLOW_CONTROL          # free up ^Q / ^S
 #
 
 #
-# LS_COLORS — gruvbox-dark via vivid, for eza, ls and the completion list.
-# Cached: `vivid generate` costs ~6ms a start, and only changes with vivid.
+# LS_COLORS: gruvbox-dark via vivid, for eza, ls and the completion list.
+# Cached, because `vivid generate` costs ~6ms a start and only changes when
+# vivid does.
 #
 if (( $+commands[vivid] )); then
   _lscolors_cache="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/lscolors"
@@ -122,7 +125,7 @@ fi
 # Completion styling. compinit itself is run by ez-compinit at the first prompt.
 #
 # Tab reaches fzf-tab indirectly. fzf.zsh, sourced further down, rebinds ^I to
-# fzf-completion — but fzf-completion first saves whatever ^I was bound to into
+# fzf-completion. But fzf-completion first saves whatever ^I was bound to into
 # $fzf_default_completion and calls it whenever the line has no `**` trigger.
 # That saved binding is fzf-tab-complete only because the plugin bundle is
 # sourced before fzf.zsh, so the order of those two blocks is load-bearing.
@@ -152,10 +155,10 @@ alias v="nvim"
 
 #
 # ^P/^N prefix search: type the start of a command, then step through only the
-# history entries beginning with it — the middle gear between a bare Up arrow
-# and atuin's ^R. Nothing else provides these: zsh leaves ^P/^N at self-insert
-# in viins, and neither zsh-vi-mode nor atuin binds them, so the autoload and
-# `zle -N` are both needed to bring the widgets into existence.
+# history entries beginning with it, the middle gear between a bare Up arrow
+# and atuin's ^R. Nothing else provides these, because zsh leaves ^P/^N at
+# self-insert in viins, and neither zsh-vi-mode nor atuin binds them, so the
+# autoload and `zle -N` are both needed to bring the widgets into existence.
 #
 
 autoload -Uz up-line-or-beginning-search
@@ -170,7 +173,7 @@ bindkey -M viins '^N' down-line-or-beginning-search
 # Source applications
 #
 
-# Sourced after the plugin bundle — see the completion note above.
+# Sourced after the plugin bundle. See the completion note above.
 if [[ -s "$HOME/.config/fzf/fzf.zsh" ]]; then
   source "$HOME/.config/fzf/fzf.zsh"
 fi
@@ -180,13 +183,13 @@ if (( $+commands[direnv] )); then
 fi
 
 #
-# Prompt — rendered by zsh, with the git segment queried asynchronously.
+# Prompt: rendered by zsh, with the git segment queried asynchronously.
 # See prompt.zsh for why it is not a prompt framework.
 #
 source "${ZDOTDIR:-$HOME}/prompt.zsh"
 
 #
-# History search — atuin (local-only), sourced after fzf so atuin's ^R wins over
+# History search: atuin (local-only), sourced after fzf so atuin's ^R wins over
 # fzf's. --disable-up-arrow stops atuin claiming the Up arrow and vicmd `k`;
 # ^P/^N it never binds either way.
 #
@@ -204,10 +207,10 @@ fi
 
 #
 # `y` runs yazi and leaves the shell in whatever directory yazi was browsing
-# when it quit. yazi cannot do that itself — it is a child process, so its own
-# cd dies with it — hence --cwd-file, which it writes on exit for the parent
-# shell to read. Bound to `y` rather than `yazi` so the bare binary still
-# behaves normally.
+# when it quit. yazi cannot do that itself, because it is a child process, so
+# its own cd dies with it. Hence --cwd-file, which it writes on exit for the
+# parent shell to read. Bound to `y` rather than `yazi` so the bare binary
+# still behaves normally.
 #
 if (( $+commands[yazi] )); then
   y() {
@@ -215,9 +218,9 @@ if (( $+commands[yazi] )); then
     tmp="$(mktemp -t yazi-cwd.XXXXXX)" || return
     yazi "$@" --cwd-file="$tmp"
     # yazi writes the bare path, unterminated, and writes it even when the
-    # directory never changed — so the comparison below is what detects "stay
-    # put". Reading with `read -d ''` cannot: with no NUL to find it reports
-    # failure on every exit, which silently swallowed the cd.
+    # directory never changed, so the comparison below is what detects "stay
+    # put". Reading with `read -d ''` cannot, because with no NUL to find it
+    # reports failure on every exit, which silently swallowed the cd.
     cwd="$(<"$tmp")"
     if [[ -n "$cwd" && "$cwd" != "$PWD" ]]; then
       builtin cd -- "$cwd"
@@ -229,9 +232,9 @@ fi
 #
 # Machine-local zsh functions, one file per function, supplied by the private
 # overlay. Autoloaded, so a file is read on first call rather than at every
-# shell start — which makes this the right home for anything that has to run in
+# shell start, which makes this the right home for anything that has to run in
 # the calling shell, such as a worktree picker that cd's. A script on PATH
-# cannot: it runs in a child process.
+# cannot, because it runs in a child process.
 #
 # compinit runs at the first prompt, after this, so the directory reaches fpath
 # in time; it only claims files whose names start with `_`, so a plain function
@@ -248,13 +251,13 @@ unset user_functions
 #
 # Machine-local interactive settings, supplied by the private overlay. The
 # functions directory above covers anything that can be a function; this covers
-# what cannot — an alias, an export, a tool's `eval` init.
+# what cannot, such as an alias, an export or a tool's `eval` init.
 #
 # Sourced last, so what it sets wins over everything above, and kept as its own
-# file rather than written inline: .zshrc is a symlink into this repo, so an
-# installer appending to it would commit employer settings to a public package.
-# Reach is what chooses between this and .zshenv.local — this one is read only
-# by shells that have a prompt.
+# file rather than written inline, because .zshrc is a symlink into this repo,
+# so an installer appending to it would commit employer settings to a public
+# package. Reach is what chooses between this and .zshenv.local. Only shells
+# that have a prompt read this one.
 #
 if [[ -r "${ZDOTDIR:-$HOME}/.zshrc.local" ]]; then
   source "${ZDOTDIR:-$HOME}/.zshrc.local"

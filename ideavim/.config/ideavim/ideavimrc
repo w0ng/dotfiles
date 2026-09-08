@@ -1,5 +1,5 @@
 "
-" IdeaVim — for browsing code in IntelliJ and the other JetBrains IDEs.
+" IdeaVim, for browsing code in IntelliJ and the other JetBrains IDEs.
 "
 " Kept deliberately close to the nvim config so the same keys do the same things
 " in both. Where nvim reaches for an LSP or a picker, this reaches for the
@@ -15,8 +15,8 @@
 "
 
 " ----------------------------------------------------------------------------
-" Options -- the subset init.lua sets that IdeaVim also understands. Indent
-" settings are absent on purpose: the IDE owns those, not the emulation.
+" Options: the subset init.lua sets that IdeaVim also understands. Indent
+" settings are absent on purpose, because the IDE owns those, not the emulation.
 " ----------------------------------------------------------------------------
 set ignorecase
 set smartcase
@@ -46,10 +46,10 @@ let mapleader = " "
 noremap ; :
 noremap : ;
 
-" Stop highlighting the current search -- init.lua
+" Stop highlighting the current search. From init.lua.
 nnoremap <Leader>n :nohlsearch<CR>
 
-" Move between splits without the <C-w> prefix -- init.lua. IdeaVim handles
+" Move between splits without the <C-w> prefix. From init.lua. IdeaVim handles
 " <C-w> itself, so these need no IDE action.
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
@@ -80,7 +80,7 @@ nmap ]m <Action>(MethodDown)
 nmap [m <Action>(MethodUp)
 
 " ----------------------------------------------------------------------------
-" Diagnostics -- plugin/lsp.lua. ]d and [d are nvim defaults as of 0.12; the
+" Diagnostics, from plugin/lsp.lua. ]d and [d are nvim defaults as of 0.12; the
 " config no longer redefines them.
 " ----------------------------------------------------------------------------
 nmap [d <Action>(GotoPreviousError)
@@ -108,24 +108,24 @@ nmap <Leader>b <Action>(RecentFiles)
 nmap <Leader>t <Action>(ActivateProjectToolWindow)
 
 " ----------------------------------------------------------------------------
-" Editing and git -- plugin/conform.lua formats, plugin/gitsigns.lua blames.
+" Editing and git: plugin/conform.lua formats, plugin/gitsigns.lua blames.
 " nvim dropped its single-line blame, so there is only the one mapping now.
 " ----------------------------------------------------------------------------
 nmap <Leader>m <Action>(ReformatCode)
 nmap <Leader>g <Action>(Annotate)
 
-" unimpaired-style toggles -- init.lua. Only the two the IDE can act on; `com`
-" (mouse) and `cos` (spell) have no useful equivalent.
+" unimpaired-style toggles, from init.lua. Only the two the IDE can act on;
+" `com` (mouse) and `cos` (spell) have no useful equivalent.
 nmap cow <Action>(EditorToggleUseSoftWraps)
 nmap con <Action>(EditorToggleShowLineNumbers)
 
 " ----------------------------------------------------------------------------
-" System clipboard -- init.lua uses "+ on these same keys.
+" System clipboard. init.lua uses "+ on these same keys.
 " ----------------------------------------------------------------------------
 vnoremap <Leader>c "+y
 vnoremap <Leader>x "+x
 nnoremap <Leader>v "+p
 nnoremap <Leader><S-v> "+P
 
-" Copy the current file path -- init.lua does this with expand('%:p').
+" Copy the current file path. init.lua does this with expand('%:p').
 nmap <Leader>c <Action>(CopyAbsolutePath)

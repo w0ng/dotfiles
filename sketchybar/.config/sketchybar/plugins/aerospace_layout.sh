@@ -2,7 +2,7 @@
 # AeroSpace layout + which monitor is focused.
 #
 # Writes two bar items, `layout` and `monitor`, from one aerospace call.
-# Triggered by aerospace_layout_change — nothing polls.
+# Triggered by aerospace_layout_change. Nothing polls.
 
 source "$HOME/.config/sketchybar/colors.sh"
 
@@ -13,7 +13,7 @@ source "$HOME/.config/sketchybar/colors.sh"
 # They stay two queries rather than one format string: window-* variables are
 # absent on an empty workspace, and a combined format would then shift
 # monitor-is-main into the layout field. The 'M'/'W' tags keep them apart, and
-# a failing sub-command inside eval does not abort the ones after it — on an
+# a failing sub-command inside eval does not abort the ones after it, so on an
 # empty workspace the W line is simply missing.
 #
 # `list-monitors --count` is folded into the same eval call rather than a
@@ -40,7 +40,7 @@ while IFS=$'\t' read -r tag a b; do
       layout="$a"
       fullscreen="$b"
       ;;
-    '' | *[!0-9]*) ;;          # neither tag — ignore
+    '' | *[!0-9]*) ;;          # neither tag, so ignore
     *) monitor_count="$tag" ;; # bare digit line from --count
   esac
 done <<<"$state"
@@ -97,9 +97,9 @@ else
   mon_color="$PURPLE"
 fi
 
-# Nothing to indicate on a single-display setup — hide the item rather than
+# Nothing to indicate on a single-display setup, so hide the item rather than
 # show a monitor pill that can never read anything but "monitor_1". A failed
-# or unparseable count defaults to "on" so a query hiccup can't wedge it
+# or unparseable count defaults to "on" so a query hiccup cannot leave it stuck
 # hidden.
 if [ "${monitor_count:-2}" -le 1 ]; then
   mon_drawing=off

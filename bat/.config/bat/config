@@ -1,9 +1,9 @@
-# bat configuration — one command-line argument per line.
+# bat configuration: one command-line argument per line.
 #
 # Matches the gruvbox dark used by ghostty, tmux and nvim. `gruvbox-dark` is
 # built in, so no `bat cache --build` is needed.
 --theme="gruvbox-dark"
 
 # Tab display width, matching nvim's global tabstop. Only affects files that
-# contain literal tabs — expandtab means ours never do.
+# contain literal tabs, and expandtab means ours never do.
 --tabs=2

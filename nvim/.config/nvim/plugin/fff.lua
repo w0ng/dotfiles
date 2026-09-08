@@ -24,8 +24,9 @@ if not ok_local then
 end
 
 -- fff eagerly indexes (full file scan + frecency/history DBs) at startup unless
--- lazy_sync is true. Only pay that inside a real project root -- this repo, plus
--- anything lua/local.lua adds. Elsewhere (home, /tmp, ad-hoc dirs) it stays lazy
+-- lazy_sync is true. Only pay that inside a real project root, meaning this
+-- repo plus anything lua/local.lua adds. Elsewhere (home, /tmp, ad-hoc dirs)
+-- it stays lazy
 -- and the index builds on demand at the first <Leader>p / <Leader>f.
 --
 -- fff reads vim.g.fff.lazy_sync at UIEnter, so setup() here still wins. init.lua

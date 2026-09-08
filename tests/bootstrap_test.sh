@@ -144,8 +144,9 @@ run_test() {
   # shellcheck disable=SC2030,SC2031 # FAILURES is deliberately subshell-local;
   # the subshell reports its count through the exit status instead.
   (
-    # Reset inside the subshell: it inherits the running total, and exiting
-    # with that would make every test after the first failure look failed too.
+    # Reset inside the subshell, because it inherits the running total, and
+    # exiting with that would make every test after the first failure look
+    # failed too.
     FAILURES=0
     setup
     "${name}"
@@ -324,7 +325,8 @@ test_personal_cask_removes_a_brew_copy_under_the_work_profile() {
 
 # Tools write runtime state into their own package directory through a folded
 # stow symlink. Those files are gitignored and never stowed, so displacing them
-# would move live state — a herdr session, an nvim lockfile — into the backup.
+# would move live state, such as a herdr session or an nvim lockfile, into the
+# backup.
 test_package_files_lists_only_tracked_files() {
   mkdir -p "${DOTFILES_DIR}/pkg/.config/pkg"
   (cd "${DOTFILES_DIR}" && git init -q . && printf 'runtime.log\n' >.gitignore)
@@ -619,7 +621,8 @@ test_every_stowed_package_declares_its_tool() {
   local aliases='nvim=neovim neovide=neovide-app'
 
   local declared pkg name pair
-  # Tap qualification stripped: a package directory is named for the bare tool.
+  # Tap qualification stripped, because a package directory is named for the
+  # bare tool.
   declared=" $(grep -oE '^[[:space:]]*(brew_formula|brew_cask|personal_formula|personal_cask|npm_global)[[:space:]]+[^"$ ]+' \
     "${REPO_ROOT}/bootstrap.sh" | awk '{print $2}' | sed "s|.*/||" | tr '\n' ' ') "
 
@@ -647,8 +650,8 @@ test_no_package_is_declared_by_two_modules() {
 }
 
 # install_homebrew decided from `command -v brew` alone, so a shell without
-# /opt/homebrew on PATH -- a login shell started before the zsh package was
-# stowed -- re-ran the entire Homebrew installer over a working install.
+# /opt/homebrew on PATH, such as a login shell started before the zsh package
+# was stowed, re-ran the entire Homebrew installer over a working install.
 test_install_homebrew_finds_an_install_that_is_not_on_path() {
   local prefix output
   prefix="${WORK_DIR}/off-path"
@@ -666,7 +669,8 @@ STUB
 
   # Should this regress, install_homebrew falls through to the real Homebrew
   # installer. A curl that returns nothing keeps that branch from reaching the
-  # network: the command substitution feeding `bash -c` comes back empty.
+  # network, because the command substitution feeding `bash -c` comes back
+  # empty.
   mkdir -p "${WORK_DIR}/safe"
   printf '#!/bin/bash\nexit 0\n' >"${WORK_DIR}/safe/curl"
   chmod +x "${WORK_DIR}/safe/curl"
@@ -682,7 +686,7 @@ STUB
 }
 
 # Homebrew 6 asks before any install whose plan reaches past the package named,
-# which a single dependency triggers -- and a prompt stops an unattended run.
+# which a single dependency triggers, and a prompt stops an unattended run.
 test_install_homebrew_opts_out_of_ask_mode() {
   SKIP_UPDATE=true
   unset HOMEBREW_NO_ASK HOMEBREW_NO_AUTO_UPDATE

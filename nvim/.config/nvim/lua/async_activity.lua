@@ -1,12 +1,12 @@
 -- One spinner for work that runs in the background, rendered by a single
--- lualine component. Nothing here blocks -- git blame and LSP indexing both
+-- lualine component. Nothing here blocks. Git blame and LSP indexing both
 -- return immediately and finish later; this only surfaces that they are still
 -- running.
 --
 -- Sources are functions returning a label, or nil when idle. They keep their
--- own detection -- git blame counts callbacks, LSP reads live client state --
--- but share one timer, one frame counter and one component, so adding a source
--- is a function rather than another copy of the plumbing.
+-- own detection, so git blame counts callbacks and LSP reads live client
+-- state, but they share one timer, one frame counter and one component, so
+-- adding a source is a function rather than another copy of the plumbing.
 local M = {}
 
 -- weather-moon_alt_* (U+E3C8-E3E3): a full lunar cycle in codepoint order,
@@ -25,7 +25,7 @@ local FRAME_MS = 80
 local sources = {}
 local timer = assert(vim.uv.new_timer())
 
--- Redraw hook, supplied by whichever plugin renders M.status() -- currently
+-- Redraw hook, supplied by whichever plugin renders M.status(), currently
 -- plugin/lualine.lua, the file that declares lualine. Inverting it this way
 -- keeps this module free of any plugin dependency of its own. No-op until then.
 local render = function() end

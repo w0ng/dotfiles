@@ -2,8 +2,8 @@
 # AeroSpace binding mode indicator.
 #
 # Hidden entirely in 'main' so the bar stays uncluttered; only appears when a
-# non-default mode is active. Driven by on-mode-changed in aerospace.toml —
-# nothing polls.
+# non-default mode is active. Driven by on-mode-changed in aerospace.toml.
+# Nothing polls.
 
 source "$HOME/.config/sketchybar/colors.sh"
 

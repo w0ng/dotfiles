@@ -1,5 +1,5 @@
--- Neovide GUI settings. Not a plugin -- it lives in plugin/ only because that
--- is sourced after init.lua, like everything else here.
+-- Neovide GUI settings. Not a plugin. It lives in plugin/ only because nvim
+-- sources that after init.lua, like everything else here.
 --------------------------------------------------------------------------------
 -- Mirrors the terminal setup (ghostty/.config/ghostty/config) so the GUI matches
 -- nvim running inside ghostty; each value below cites the ghostty option it
