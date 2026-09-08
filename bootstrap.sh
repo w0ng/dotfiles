@@ -549,6 +549,7 @@ mod_apps() {
   brew_cask imageoptim 'ImageOptim.app'
   personal_cask nordvpn 'NordVPN.app'
   brew_cask obsidian 'Obsidian.app'
+  personal_cask slack 'Slack.app'
   personal_cask spotify 'Spotify.app'
   personal_cask telegram 'Telegram.app'
   personal_cask whatsapp 'WhatsApp.app'

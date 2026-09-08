@@ -86,7 +86,7 @@ initialises most of the tools above it.
 | Module | What it does |
 | --- | --- |
 | `macos` | Runs `macos/defaults.bash` — Dock, Finder, keyboard, trackpad. Not a stow package. Caps Lock → Control isn't scripted (the API doesn't take effect); set it in System Settings > Keyboard > Modifier Keys. |
-| `apps` | 21 desktop apps, 15 of them personal-only. |
+| `apps` | 22 desktop apps, 16 of them personal-only. |
 | `core` | `stow`, the prerequisite every other module needs. |
 | `cli` | bat, btop, eza, fd, ffmpeg, fzf, jq, ripgrep, shellcheck, vivid, zoxide; direnv and uv personal-only. Stows configs for bat, btop, fd, fzf. |
 | `gittools` | git, git-delta, hunk; gh and git-lfs personal-only. Stows `git/` and `hunk/`. Under the work profile it also checks for a work commit identity and creates an empty `[maintenance]` section in `~/.config/git/config.local` — which repos to register there is left to be filled in by hand, since the paths are employer-specific, and the run ends by saying so. |
