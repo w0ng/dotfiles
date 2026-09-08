@@ -76,6 +76,44 @@ gaps.outer.bottom =     4
 gaps.outer.top =        [{ monitor."built-in" = 4 }, 36]
 gaps.outer.right =      4
 
+#
+# Apps whose windows are dialog-shaped, fixed-size, or want their own aspect
+# ratio, where a tile is the wrong shape. Everything else tiles. `alt-shift-f`
+# toggles a window by hand, so try an app that way before earning it a line
+# here.
+#
+# These blocks have to stay above [mode.main.binding]. TOML reads an
+# array-of-tables that follows a table header as nested inside it, so moving
+# them down redefines the keybinding table instead.
+#
+# `app-id` is an exact bundle ID; `aerospace list-apps` prints it for anything
+# running. The blocks sit in app-id order so a new one has an obvious home.
+# Exact IDs never overlap, so nothing but reading depends on it.
+#
+[[on-window-detected]]
+if.app-id = 'com.apple.ActivityMonitor'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Preview'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.systempreferences'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.colliderli.iina'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'pl.maketheweb.cleanshotx'
+run = 'layout floating'
+
 [mode.main.binding]
 
     # Layout. Each also nudges sketchybar, which cannot see the change itself.
