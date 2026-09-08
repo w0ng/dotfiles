@@ -98,13 +98,16 @@ _prompt_git_start() {
                --porcelain=v2 --branch --show-stash 2>/dev/null)
     [[ -n $head ]] || exit 0
 
+    # A branch or tag name reaches PS1 through $_prompt_git, which prompt_subst
+    # expands, so a literal % in one reads as a prompt escape: `50%-done` renders
+    # as `50` followed by $PWD. Doubling it makes it print as itself.
     if [[ $head == '(detached)' ]]; then
       head=" ${sha}"
       # Worth asking only when detached, and only names an exact tag.
       pos=$(command git describe --tags --exact-match HEAD 2>/dev/null) \
-        && pos=" %F{3} ${pos}%f"
+        && pos=" %F{3} ${pos//\%/%%}%f"
     else
-      head=" ${head}"
+      head=" ${head//\%/%%}"
     fi
 
     # branch.ab is "+<ahead> -<behind>", and is absent when there is no
@@ -155,16 +158,19 @@ _prompt_precmd() { _prompt_git_start }
 
 add-zsh-hook precmd _prompt_precmd
 
-# Vi mode indicator: zsh-vi-mode publishes the current mode in $ZVM_MODE.
-# Red in normal mode, green in insert.
-_prompt_char() {
-  if [[ ${ZVM_MODE:-} == $ZVM_MODE_NORMAL ]]; then
-    print -n '%F{red}'
-  else
-    print -n '%F{green}'
-  fi
-  print -n '%B $%b%f'
-}
+# Vi mode indicator: zsh-vi-mode publishes the current mode in $ZVM_MODE. Red in
+# normal mode, green everywhere else.
+#
+# Written as a ${...} expansion rather than a $(...) call, because prompt_subst
+# re-expands PS1 on every redraw, which is every keystroke that switches vi mode
+# and every async git result, and a command substitution forks a shell each time.
+# ZVM_MODE and ZVM_MODE_NORMAL each carry a default, so a shell where
+# zsh-vi-mode never loaded gets the insert colour rather than a coin toss.
+#
+# The two colours are variables because %F{...} cannot be written inline: its
+# closing brace would end the ${...} expansion it sits in.
+_prompt_normal='%F{red}'
+_prompt_insert='%F{green}'
 
 # Colours are given as 16-colour palette indices so they follow the terminal
 # theme instead of hard-coding hex values: 15 is bright-white, 7 white, 8
@@ -174,7 +180,7 @@ _prompt_char() {
 # an unrecognised name silently resolves to the default foreground rather than
 # raising an error.
 PS1='%K{black}%B%F{15} %n@%m %f%b%k%K{8}%B%F{15} %~ %f%b%k%K{black}%B%F{7}${_prompt_git}%f%b%k
-$(_prompt_char) '
+${${${ZVM_MODE:-i}:#${ZVM_MODE_NORMAL:-n}}:+${_prompt_insert}}${${(M)${ZVM_MODE:-i}:#${ZVM_MODE_NORMAL:-n}}:+${_prompt_normal}}%B $%b%f '
 
 # When the prompt was drawn, so that scrollback from a session left open for
 # days still says which day each command belongs to.

@@ -44,13 +44,24 @@ require('gruvbox').setup({
 
 -- bold = false above turns off bold everywhere, which flattens markdown
 -- headings into body text. Restore it for headings only, in Title's colour.
-local title_fg = vim.api.nvim_get_hl(0, { name = 'Title', link = false }).fg
-for level = 1, 6 do
-    vim.api.nvim_set_hl(0, '@markup.heading.' .. level .. '.markdown', {
-        fg = title_fg,
-        bold = true,
-    })
-end
-vim.api.nvim_set_hl(0, '@markup.heading.markdown', { fg = title_fg, bold = true })
+--
+-- On a ColorScheme autocmd rather than inline, for two reasons. Loading a
+-- colorscheme resets every highlight group, so anything set beforehand is
+-- discarded, and Title itself only holds gruvbox's colour once gruvbox has
+-- loaded. It also re-applies on any later reload, which plugin/neovide.lua
+-- triggers when it sets 'background'.
+vim.api.nvim_create_autocmd('ColorScheme', {
+    pattern = 'gruvbox',
+    callback = function()
+        local title_fg = vim.api.nvim_get_hl(0, { name = 'Title', link = false }).fg
+        for level = 1, 6 do
+            vim.api.nvim_set_hl(0, '@markup.heading.' .. level .. '.markdown', {
+                fg = title_fg,
+                bold = true,
+            })
+        end
+        vim.api.nvim_set_hl(0, '@markup.heading.markdown', { fg = title_fg, bold = true })
+    end,
+})
 
 vim.cmd.colorscheme('gruvbox')

@@ -178,8 +178,31 @@ if [[ -s "$HOME/.config/fzf/fzf.zsh" ]]; then
   source "$HOME/.config/fzf/fzf.zsh"
 fi
 
+#
+# Shell integration for direnv, atuin and zoxide.
+#
+# Each publishes its integration by printing zsh source, so the obvious
+# `eval "$(tool init zsh)"` forks and waits for a process before the first
+# prompt can draw, three times over. What they print changes only when the
+# binary does, so it is cached and re-read, the way LS_COLORS is above.
+#
+# Staleness is the binary's mtime, so a brew upgrade rebuilds the cache on the
+# next shell. A tool that moves to a different prefix without getting a newer
+# mtime would not, which `rm -rf ~/.cache/zsh` fixes.
+#
+_source_tool_init() {
+  local name="$1"
+  shift
+  local cache="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/init-${name}.zsh"
+  if [[ ! -s "$cache" || "$commands[$name]" -nt "$cache" ]]; then
+    [[ -d "${cache:h}" ]] || mkdir -p "${cache:h}"
+    "$@" >| "$cache"
+  fi
+  source "$cache"
+}
+
 if (( $+commands[direnv] )); then
-  eval "$(direnv hook zsh)"
+  _source_tool_init direnv direnv hook zsh
 fi
 
 #
@@ -194,7 +217,7 @@ source "${ZDOTDIR:-$HOME}/prompt.zsh"
 # ^P/^N it never binds either way.
 #
 if (( $+commands[atuin] )); then
-  eval "$(atuin init zsh --disable-up-arrow)"
+  _source_tool_init atuin atuin init zsh --disable-up-arrow
 fi
 
 #
@@ -202,8 +225,10 @@ fi
 # `--cmd cd`, which would replace cd with a function.
 #
 if (( $+commands[zoxide] )); then
-  eval "$(zoxide init zsh)"
+  _source_tool_init zoxide zoxide init zsh
 fi
+
+unfunction _source_tool_init
 
 #
 # `y` runs yazi and leaves the shell in whatever directory yazi was browsing

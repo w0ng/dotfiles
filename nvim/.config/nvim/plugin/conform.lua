@@ -21,17 +21,34 @@ end
 -- PATH_add, say). What this covers is when it does not, such as nvim launched
 -- from a shell where that never happened, or one nvim editing files across two
 -- checkouts, since PATH is fixed at launch while this resolves per buffer.
+--
+-- Memoised on the containing directory. conform asks for the command and the
+-- arguments separately, so an uncached lookup walks the tree upward twice per
+-- format, and again on every save. false is the cached "no fork here", since a
+-- nil entry is indistinguishable from an absent one.
+local repo_dprint_cache = {}
+
 local function repo_dprint(filename)
     local sub = localcfg.dprint_subpath
     if not sub or type(filename) ~= 'string' then
         return nil
     end
-    local git = vim.fs.find('.git', { upward = true, path = vim.fs.dirname(filename) })[1]
-    if not git then
-        return nil
+    local dir = vim.fs.dirname(filename)
+    local cached = repo_dprint_cache[dir]
+    if cached ~= nil then
+        return cached or nil
     end
-    local fork = vim.fs.dirname(git) .. '/' .. sub
-    return vim.fn.executable(fork) == 1 and fork or nil
+
+    local found = false
+    local git = vim.fs.find('.git', { upward = true, path = dir })[1]
+    if git then
+        local fork = vim.fs.dirname(git) .. '/' .. sub
+        if vim.fn.executable(fork) == 1 then
+            found = fork
+        end
+    end
+    repo_dprint_cache[dir] = found
+    return found or nil
 end
 
 conform.setup({

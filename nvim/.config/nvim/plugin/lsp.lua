@@ -236,6 +236,19 @@ vim.api.nvim_create_autocmd('LspProgress', {
     end,
 })
 
+-- Client ids are never reused, so without this the table grows for the life of
+-- the session every time a server restarts. Dropped only once the client is
+-- really gone, since LspDetach also fires when a client leaves one buffer while
+-- staying attached to others.
+vim.api.nvim_create_autocmd('LspDetach', {
+    callback = function(ev)
+        local id = ev.data and ev.data.client_id
+        if id and not vim.lsp.get_client_by_id(id) then
+            lsp_uses_progress[id] = nil
+        end
+    end,
+})
+
 -- Names of clients on the current buffer that are busy, else nil.
 local function lsp_activity()
     local buf = vim.api.nvim_get_current_buf()
