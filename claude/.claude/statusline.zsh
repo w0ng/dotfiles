@@ -2,10 +2,15 @@
 #
 # Claude Code status line: limits on top, consumption below.
 #
-#   󰄉 5h █░░░░░ 24% 󰑐 2h14m  ·  󰄉 7d ██░░░░ 41%  ·  󰍛 ███░░░░░░░ 34% 68k/200k
-#   󰚩 Opus 5  xhigh  󰧑  ·  󰄔 $1.23 󰈸 $0.98/h  󰃭 $3.10  ·  󰆼 97%  ·  󰥔 1h15m
+# At full width:
+#   󱑃  24% 󰑐 2h14m  ·  󰨳  41% 󰑐 4d 12h  ·    34% 68k/200k
+#   󰚩 Opus 5  xhigh  󰧑  ·  󰄔 $1.23  󰃭 $3.10  ·  󰆼 97%  ·  󱎫 1h15m
 #
-# Carries no navigation -- no cwd, branch, worktree or PR. The zsh prompt
+# Narrowed past the min threshold, the same session reads:
+#   󱑃 24%  ·  󰨳 41%  ·    34%
+#   󰚩 Opus 5  ·  󰄔 $1.23  ·  󰆼 97%
+#
+# Carries no navigation, so no cwd, branch, worktree or PR. The zsh prompt
 # already answers "where am I" on every prompt, so this answers only "what is
 # this costing", and the space that bought goes to the numbers.
 #
@@ -27,13 +32,14 @@ local -i now=${EPOCHSECONDS:-0}
 (( now )) || now=$(date +%s)
 
 # Segments shed by priority as the pane narrows. Thresholds are measured, not
-# guessed: the widest line renders 81 columns at full, 63 at mid and 45 at min,
+# guessed. The widest line renders 81 columns at full, 63 at mid and 45 at min,
 # so each tier is set just above what it actually produces. Re-measure these if
-# the segments change -- a tier that overflows its own threshold is invisible
+# the segments change. A tier that overflows its own threshold is invisible
 # until a narrow pane wraps.
 #
-# An undetected width falls back to full rather than minimal: the wide monitor is
-# the common case, and wrapping is a smaller loss than hiding data that fits.
+# An undetected width falls back to full rather than minimal, because the wide
+# monitor is the common case, and wrapping is a smaller loss than hiding data
+# that fits.
 local -i cols=${COLUMNS:-0}
 local tier=full
 if   (( cols > 0 && cols < 64 )); then tier=min
@@ -54,9 +60,9 @@ local -r BLU=$'\033[38;5;4m' MAG=$'\033[38;5;5m' CYN=$'\033[38;5;6m'
 # Index 8 renders dark-on-dark, because ghostty/.config/ghostty/config overrides
 # it to #3c3836, a gruvbox *background* shade; index 7 (#a89984) is too light to
 # recede. Nothing sits between them, so this pins gruvbox's own comment grey in
-# truecolor -- bg4, chosen by eye against the real line. It sits below the 4.5:1
-# contrast guideline deliberately: these are labels and separators meant to
-# recede. It is the one value to revisit if the terminal theme ever changes.
+# truecolor: bg4, chosen by eye against the real line. It sits below the 4.5:1
+# contrast guideline deliberately, because these are labels and separators meant
+# to recede. It is the one value to revisit if the terminal theme ever changes.
 local -r FG=$'\033[38;5;15m' DIM=$'\033[38;2;124;111;100m'
 local -r SEP="${DIM}  ·  ${RS}"
 
@@ -77,14 +83,31 @@ heat() {
   fi
 }
 
+# Nerd Fonts "progress" set (U+EE00 to U+EE05): an empty and a filled glyph for
+# each of left cap, middle and right cap, so a bar draws as one rounded track
+# rather than a row of separate blocks. Font-dependent, so a terminal font
+# without these renders every bar as tofu.
 bar() {
-  local -i pct=$1 width=$2 filled
+  local -i pct=$1 width=$2 filled i
   (( pct < 0   )) && pct=0
   (( pct > 100 )) && pct=100
   (( filled = (pct * width + 50) / 100 ))
   REPLY=''
-  repeat $filled REPLY+='█'
-  repeat $(( width - filled )) REPLY+='░'
+  for (( i = 1; i <= width; i++ )); do
+    if (( i == 1 )); then
+      if (( i <= filled )); then REPLY+=''
+      else                       REPLY+=''
+      fi
+    elif (( i == width )); then
+      if (( i <= filled )); then REPLY+=''
+      else                       REPLY+=''
+      fi
+    else
+      if (( i <= filled )); then REPLY+=''
+      else                       REPLY+=''
+      fi
+    fi
+  done
 }
 
 human_tokens() {
@@ -138,8 +161,6 @@ raw="$(print -r -- "$payload" | "$JQ" -r '
   , ((.rate_limits.five_hour.resets_at // 0) | tostring)
   , ((.rate_limits.seven_day.used_percentage // -1) | round | tostring)
   , ((.rate_limits.seven_day.resets_at // 0) | tostring)
-  , ((.rate_limits.spend_limit.used_percentage // -1) | round | tostring)
-  , ((.rate_limits.spend_limit.resets_at // 0) | tostring)
   , ((.prompt_cache.hit_ratio // -0.01) * 100 | round | tostring)
   , ((.context_window.current_usage.input_tokens | num) | tostring)
   , ((.context_window.current_usage.cache_creation_input_tokens | num) | tostring)
@@ -150,15 +171,15 @@ raw="$(print -r -- "$payload" | "$JQ" -r '
 
 [[ -n $raw ]] || exit 0
 local -a F; F=("${(@f)raw}")
-(( ${#F} >= 21 )) || exit 0
+(( ${#F} >= 19 )) || exit 0
 
 local    model=$F[1] effort=$F[2] thinking=$F[3] fastmode=$F[4]
 local -i ctx_pct=$F[5] ctx_tok=$F[6] ctx_max=$F[7]
 local -i cost_u=$F[8] dur_ms=$F[9]
 local -i rl5=$F[10] rl5_at=$F[11] rl7=$F[12] rl7_at=$F[13]
-local -i spend=$F[14] spend_at=$F[15] pc_hit=$F[16]
-local -i cu_in=$F[17] cu_write=$F[18] cu_read=$F[19]
-local    session=$F[20]
+local -i pc_hit=$F[14]
+local -i cu_in=$F[15] cu_write=$F[16] cu_read=$F[17]
+local    session=$F[18]
 local REPLY=''
 
 #######################################
@@ -167,14 +188,14 @@ local REPLY=''
 
 # cost.total_cost_usd only covers the current session, but the number worth
 # watching is what the day has cost across all of them. It renders even when it
-# equals the session total -- a segment that silently vanishes on single-session
-# days reads as a bug, and a stable position is worth one redundant figure. Each session drops its
-# running total in a file named after itself, bucketed by date; today's spend is
-# the sum of that directory.
+# equals the session total. A segment that silently vanishes on single-session
+# days reads as a bug, and a stable position is worth one redundant figure. Each
+# session drops its running total in a file named after itself, bucketed by
+# date; today's spend is the sum of that directory.
 #
 # A session running past midnight carries its whole total into the new day's
-# bucket rather than splitting at the boundary -- close enough for a status
-# line, and it keeps the write to one file with no bookkeeping.
+# bucket rather than splitting at the boundary, which is close enough for a
+# status line, and it keeps the write to one file with no bookkeeping.
 local -i today_u=0
 local ledger=${XDG_CACHE_HOME:-$HOME/.cache}/claude-statusline
 if [[ -n $session ]]; then
@@ -184,7 +205,7 @@ if [[ -n $session ]]; then
   if [[ ! -d $bucket ]]; then
     mkdir -p $bucket 2>/dev/null
     # Buckets are named by date, so a descending name sort is newest-first and
-    # trimming to the last week is a slice -- no date arithmetic required.
+    # trimming to the last week is a slice, with no date arithmetic required.
     local -a old; old=($ledger/*(N/On))
     (( ${#old} > 7 )) && rm -rf -- "${(@)old[8,-1]}" 2>/dev/null
   fi
@@ -198,13 +219,13 @@ if [[ -n $session ]]; then
 fi
 
 #######################################
-# Line 1 -- the limits
+# Line 1: the limits
 #######################################
 
 local -a lim
 if (( rl5 >= 0 )); then
   local l5col; heat $rl5; l5col=$REPLY
-  local out="${DIM}󰄉 5h${RS} "
+  local out="${DIM}󱑃${RS} "
   (( wide )) && { bar $rl5 6; out+="${l5col}${REPLY} " }
   out+="${l5col}${rl5}%${RS}"
   if (( mid && rl5_at > now )); then
@@ -215,28 +236,25 @@ if (( rl5 >= 0 )); then
 fi
 if (( rl7 >= 0 )); then
   local l7col; heat $rl7; l7col=$REPLY
-  local out7="${DIM}󰄉 7d${RS} "
+  local out7="${DIM}󰨳${RS} "
   (( wide )) && { bar $rl7 6; out7+="${l7col}${REPLY} " }
   out7+="${l7col}${rl7}%${RS}"
+  if (( mid && rl7_at > now )); then
+    human_span $(( rl7_at - now ))
+    out7+="${DIM} 󰑐 ${REPLY}${RS}"
+  fi
   lim+=("$out7")
-fi
-if (( mid && spend >= 0 )); then
-  local spcol; heat $spend; spcol=$REPLY
-  local outs="${DIM}󰄉 spend${RS} "
-  (( wide )) && { bar $spend 6; outs+="${spcol}${REPLY} " }
-  outs+="${spcol}${spend}%${RS}"
-  lim+=("$outs")
 fi
 
 local ctx_col
 # Deliberately not using exceeds_200k_tokens to force red here. It is a fixed
 # 200k threshold regardless of the model's real context window, so on a 1M-window
 # model it latches on at ~20% used and never clears. It also counts input + cache
-# + output, while used_percentage counts input only -- so it would be recolouring
+# + output, while used_percentage counts input only, so it would be recolouring
 # a number it does not actually measure.
 heat $ctx_pct; ctx_col=$REPLY
 bar $ctx_pct 10
-local ctx="${ctx_col}󰍛 ${REPLY} ${ctx_pct}%${RS}"
+local ctx="${DIM}${RS} ${ctx_col}${REPLY} ${ctx_pct}%${RS}"
 if (( mid )); then
   human_tokens $ctx_tok
   ctx+=" ${DIM}${REPLY}"
@@ -250,7 +268,7 @@ lim+=("$ctx")
 print -r -- "${(j:  ·  :)lim}"
 
 #######################################
-# Line 2 -- what it is costing
+# Line 2: what it is costing
 #######################################
 
 local -a seg
@@ -265,14 +283,8 @@ local line2="${(j:  :)seg}"
 human_cost $cost_u
 line2+="${SEP}${CYN}󰄔 ${REPLY}${RS}"
 
-# Spend velocity, which predicts hitting a limit better than the total does.
-# Suppressed for the first minute, when a tiny elapsed time makes the
-# extrapolation meaningless.
-if (( mid && dur_ms > 60000 && cost_u > 0 )); then
-  human_cost $(( cost_u * 3600000 / dur_ms ))
-  line2+=" ${DIM}󰈸 ${REPLY}/h${RS}"
-fi
-
+# The session total alone under-reports whenever the day ran across several
+# sessions, so this is the figure worth the space once there is space for it.
 if (( mid && today_u > 0 )); then
   human_cost $today_u
   line2+="  ${DIM}󰃭 ${REPLY}${RS}"
@@ -280,14 +292,19 @@ fi
 
 # prompt_cache is the session-wide figure but needs Claude Code 2.1.251+; below
 # that, derive the last call's hit rate from current_usage, which has carried the
-# same counters for far longer. The token floor keeps the first call of a session
-# -- nothing cached yet, so 0% by definition -- from reading as a failure.
+# same counters for far longer. On the first call of a session nothing is cached
+# yet, so the rate is 0% by definition, and the token floor keeps that from
+# reading as a failure.
 local -i hit=-1
 if   (( pc_hit >= 0 )); then hit=$pc_hit
 elif (( cu_in + cu_write + cu_read >= 20000 )); then
   (( hit = cu_read * 100 / (cu_in + cu_write + cu_read) ))
 fi
-if (( mid && hit >= 0 )); then
+# Shown at every tier, unlike the rest of line 2. A collapsing hit rate is the
+# first sign a session has started paying full price for context it already
+# sent, and it is the one number here that asks you to act rather than just
+# telling you where you stand.
+if (( hit >= 0 )); then
   local hitcol=$GRN
   (( hit < 70 )) && hitcol=$YLW
   (( hit < 40 )) && hitcol=$RED
@@ -296,7 +313,7 @@ fi
 
 if (( wide )); then
   human_span $(( dur_ms / 1000 ))
-  line2+="${SEP}${FG}󰥔 ${REPLY}${RS}"
+  line2+="${SEP}${FG}󱎫 ${REPLY}${RS}"
 fi
 
 print -r -- "$line2"
