@@ -21,7 +21,6 @@ FONT_SIZE="16.0"
 # ── bar ──────────────────────────────────────────────────────────────────────
 
 sketchybar --bar \
-  topmost=window \
   position=top \
   height=32 \
   blur_radius=20 \
