@@ -77,18 +77,18 @@ HISTFILE="${XDG_STATE_HOME:-$HOME/.local/state}/zsh/history"
 [[ -d "${HISTFILE:h}" ]] || mkdir -p "${HISTFILE:h}"
 HISTSIZE=100000
 SAVEHIST=100000
-setopt EXTENDED_HISTORY        # record timestamp for each command
-setopt INC_APPEND_HISTORY      # write commands as they're entered
-setopt SHARE_HISTORY           # share history across sessions
-setopt HIST_IGNORE_DUPS        # don't record an immediately-repeated command
-setopt HIST_IGNORE_ALL_DUPS    # remove older duplicate of a re-entered command
+setopt EXTENDED_HISTORY
+setopt INC_APPEND_HISTORY      # write each command as entered, not at exit
+setopt SHARE_HISTORY
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS    # remove the older copy of a re-entered command
 setopt HIST_IGNORE_SPACE       # don't record lines starting with a space
-setopt HIST_REDUCE_BLANKS      # trim superfluous blanks
+setopt HIST_REDUCE_BLANKS
 setopt HIST_VERIFY             # don't auto-run a history expansion; edit it first
 
 # Directories
 setopt AUTO_CD                 # `foo/` is treated as `cd foo/`
-setopt AUTO_PUSHD              # cd pushes onto the directory stack
+setopt AUTO_PUSHD
 setopt PUSHD_IGNORE_DUPS
 setopt PUSHD_SILENT
 

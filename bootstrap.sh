@@ -30,20 +30,20 @@ set -euo pipefail
 # system defaults first, then stow, then the standalone tools, then the modules
 # whose configs call those tools.
 readonly MODULES=(
-  macos         # system defaults
-  apps          # desktop applications
-  core          # stow, which every stowing module below needs
-  cli           # fd, fzf, ripgrep, jq and friends
-  files         # yazi, and the decoders it previews with
-  gittools      # git, gh, delta
-  terminal      # ghostty
-  atuin         # shell history
-  multiplexer   # tmux, herdr
-  runtimes      # node, which mod_neovim's npm language servers run on
-  neovim        # nvim, its GUI, the servers and formatters it drives, ideavim
-  windowmanager # aerospace, sketchybar, borders; sketchybar needs jq
-  agents        # coding-agent CLIs
-  zsh           # shell; .zshrc initialises most of the tools above
+  macos
+  apps
+  core
+  cli
+  files
+  gittools
+  terminal
+  atuin
+  multiplexer
+  runtimes
+  neovim
+  windowmanager
+  agents
+  zsh
 )
 
 DOTFILES_DIR="${DOTFILES_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)}"
@@ -100,7 +100,6 @@ step() {
     "${BOLD}" "$*" "$(printf '─%.0s' {1..40})" "${RESET}"
 }
 
-# Runs a command, or describes it under --dry-run.
 run() {
   if [[ "${DRY_RUN}" == true ]]; then
     printf '   →  %s\n' "$*"
@@ -115,9 +114,8 @@ did_run() {
   [[ "${DRY_RUN}" != true ]]
 }
 
-# Reads the remembered profile. A pure getter. resolve_profile does the asking,
-# because this is called from inside "$(...)" where a failure could not stop the
-# script.
+# resolve_profile does the asking, because this is called from inside "$(...)"
+# where a failure could not stop the script.
 profile() {
   if [[ -z "${PROFILE}" && -r "${PROFILE_FILE}" ]]; then
     PROFILE="$(<"${PROFILE_FILE}")"
@@ -125,9 +123,9 @@ profile() {
   printf '%s' "${PROFILE}"
 }
 
-# Establishes the profile before any module runs. Never guesses, because the
-# profile decides whether employer-managed apps get installed or removed, so a
-# wrong default does real work in the wrong direction.
+# Never guesses, because the profile decides whether employer-managed apps get
+# installed or removed, so a wrong default does real work in the wrong
+# direction.
 resolve_profile() {
   # Assign directly rather than through "$(profile)", because a subshell's
   # assignment would not reach this shell, leaving PROFILE empty for every later
@@ -417,8 +415,6 @@ npm_global() {
 # Puts an already-installed Homebrew on PATH. It probes both prefixes rather
 # than assuming Apple Silicon. eval is how brew publishes its environment, and
 # there is no non-eval form.
-# Returns:
-#   1 if no brew was found at either prefix.
 brew_shellenv() {
   local prefix
   # shellcheck disable=SC2086 # word splitting is how the list is iterated
@@ -630,8 +626,6 @@ require_work_gitconfig() {
   success "wrote ~${target#"${HOME}"}"
 }
 
-# Creates the untracked local git config with an empty [maintenance] section.
-#
 # Deliberately registers nothing. `git maintenance register` writes an absolute
 # repo path into whichever config it is handed, and the repos worth maintaining
 # are employer-specific, so you fill the list in by hand on the machine that
@@ -663,14 +657,10 @@ ensure_maintenance_section() {
   success "added [maintenance] to ~${target#"${HOME}"}"
 }
 
-# Reports the untracked files a work machine is expected to have. This repo
-# deliberately ships none of them, because they hold employer-specific
-# settings, but they come from two different places, which the notes below spell
-# out: the private overlay supplies some, and bootstrap itself writes the rest.
-#
-# None is required, because every config that reads one skips it when absent, so
-# this is a checklist rather than a failure. It runs last so the answer is the
-# final thing on screen, and unconditionally for the work profile. A partial run
+# This repo deliberately ships none of these, because they hold
+# employer-specific settings. None is required either, because every config that
+# reads one skips it when absent, so this is a checklist rather than a failure.
+# It runs last and unconditionally for the work profile, because a partial run
 # should still say what the machine is missing.
 #
 # Each path is the one the reading config actually opens, not where the file is
@@ -730,8 +720,7 @@ mod_gittools() {
   # .gitconfig registers the lfs filter, so cloning or checking out a repo that
   # uses LFS fails without it.
   personal_formula git-lfs
-  # Terminal diff viewer. Its config is stowed below, so declaring the binary
-  # here is what keeps the pair together on a fresh machine.
+  # Terminal diff viewer, stowed below.
   brew_formula hunk
   stow_package git
   stow_package hunk
@@ -822,7 +811,7 @@ mod_neovim() {
   stow_package dprint
   stow_package stylua
   # JetBrains IDEs are not installed from here, but when one is present it
-  # reads this. Kept close to nvim's config on purpose.
+  # reads this.
   stow_package ideavim
 }
 
@@ -928,8 +917,6 @@ set_login_shell() {
 # A managed machine already has Homebrew and this is a no-op. A personal Mac
 # does not, and the official installer pulls in the Xcode command-line tools
 # first and prompts once for sudo.
-# Returns:
-#   1 if brew could not be put on PATH.
 install_homebrew() {
   # An install can exist without being on this shell's PATH. A login shell
   # started before the zsh package was stowed carries no /opt/homebrew. Testing

@@ -19,7 +19,7 @@
 # helpers hand results back in $REPLY because $(...) around a function forks too.
 #
 # Colours are palette indices 0-15, not hex, so the line follows whatever theme
-# the terminal is wearing.
+# the terminal has set.
 
 emulate -L zsh
 setopt no_unset

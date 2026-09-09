@@ -88,7 +88,6 @@ conform.setup({
     },
 })
 
--- Manual format
 vim.keymap.set({ 'n', 'v' }, '<LocalLeader>m', function()
     require('conform').format({ async = true, lsp_format = 'never' })
 end, { desc = 'Format buffer' })

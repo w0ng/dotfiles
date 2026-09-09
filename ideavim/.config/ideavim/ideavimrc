@@ -7,8 +7,8 @@
 " "IdeaVim: track action IDs" toggle in Search Everywhere.
 "
 " Two conventions worth keeping:
-"   * Comments cite the nvim file that owns a mapping, never a line number --
-"     the config is split across plugin/*.lua and the numbers move.
+"   * Comments cite the nvim file that owns a mapping, never a line number,
+"     because the config is split across plugin/*.lua and the numbers move.
 "   * Comments never trail a :map command. The map family takes the rest of the
 "     line literally, so `nmap gd <Action>(X) " note` maps gd to the action AND
 "     the note. `set` is fine, and keeps its inline comments below.
@@ -60,21 +60,13 @@ nnoremap <C-l> <C-w>l
 " Navigation. grn/gra/grr/gri/grt/K/gO ship as nvim defaults in 0.11+; gd is
 " added in plugin/lsp.lua. `gr` is a prefix in nvim, so never map it alone.
 " ----------------------------------------------------------------------------
-" gd  -> definition
 nmap gd <Action>(GotoDeclaration)
-" grr -> references
 nmap grr <Action>(FindUsages)
-" gri -> implementation
 nmap gri <Action>(GotoImplementation)
-" grt -> type definition
 nmap grt <Action>(GotoTypeDeclaration)
-" grn -> rename
 nmap grn <Action>(RenameElement)
-" gra -> code action
 nmap gra <Action>(ShowIntentionActions)
-" gO  -> document symbols
 nmap gO <Action>(FileStructurePopup)
-" K   -> hover
 nmap K <Action>(QuickJavaDoc)
 nmap ]m <Action>(MethodDown)
 nmap [m <Action>(MethodUp)

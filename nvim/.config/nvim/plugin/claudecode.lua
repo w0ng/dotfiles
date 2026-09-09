@@ -2,7 +2,7 @@
 --------------------------------------------------------------------------------
 vim.pack.add({ 'https://github.com/coder/claudecode.nvim' })
 
--- Claude is launched at the project root, but nvim is often started deeper --
+-- You launch Claude at the project root, but nvim often starts deeper, because
 -- :cd into a subdirectory scopes fff and grep to it. claudecode derives both its
 -- lock file and its @-mention paths from nvim's cwd, so with claude at foo/ and
 -- nvim at foo/bar/baz/ the IDE reads as unavailable in /ide, and a file there

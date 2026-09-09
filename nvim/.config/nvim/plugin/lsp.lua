@@ -7,14 +7,21 @@ vim.pack.add({ 'https://github.com/neovim/nvim-lspconfig' })
 
 -- Extend individual servers
 -- (extends https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md)
+--
+-- Every binary here is declared in bootstrap.sh, under mod_neovim or
+-- mod_runtimes. A server that will not start is usually one whose module has
+-- not been run.
+--
+-- conform.lua owns formatting, so each server that offers its own has
+-- documentFormattingProvider switched off below. Two formatters racing over one
+-- buffer is the failure this avoids.
 
--- npm i -g bash-language-server
 -- Brings no linter of its own: diagnostics are shellcheck, which the server
 -- shells out to whenever it is on PATH.
 vim.lsp.config('bashls', {
     on_attach = function(client)
-        -- Disable formatting with bashls. It drives shfmt too, but with its own
-        -- defaults, which would retab these files. Use shfmt via conform.
+        -- bashls drives shfmt with its own defaults, which would retab these
+        -- files.
         client.server_capabilities.documentFormattingProvider = false
     end,
 })
@@ -43,7 +50,6 @@ vim.lsp.config('buf_ls', {
 })
 vim.lsp.enable('buf_ls')
 
--- npm i -g vscode-langservers-extracted
 vim.lsp.config('cssls', {
     settings = {
         css = {
@@ -57,24 +63,19 @@ vim.lsp.config('cssls', {
 })
 vim.lsp.enable('cssls')
 
--- npm i -g cssmodules-language-server
 vim.lsp.config('cssmodules_ls', {})
 vim.lsp.enable('cssmodules_ls')
 
--- npm i -g vscode-langservers-extracted
 vim.lsp.config('eslint', {
     settings = {
-        -- Disable formatting with eslint. Use dprint via conform instead.
         format = false,
     },
 })
 vim.lsp.enable('eslint')
 
--- npm i -g vscode-langservers-extracted
 vim.lsp.config('html', {})
 vim.lsp.enable('html')
 
--- npm i -g vscode-langservers-extracted
 vim.lsp.config('jsonls', {
     filetypes = { 'json', 'jsonc' },
     init_options = {
@@ -83,7 +84,6 @@ vim.lsp.config('jsonls', {
 })
 vim.lsp.enable('jsonls')
 
--- npm i -g stylelint-lsp
 vim.lsp.config('stylelint_lsp', {
     settings = {
         stylelintplus = {
@@ -97,32 +97,26 @@ vim.lsp.config('stylelint_lsp', {
 })
 vim.lsp.enable('stylelint_lsp')
 
--- brew install lua-language-server
 vim.lsp.config('lua_ls', {
     on_attach = function(client)
-        -- Disable formatting with lua_ls. Use stylua via conform instead.
         client.server_capabilities.documentFormattingProvider = false
     end,
 })
 vim.lsp.enable('lua_ls')
 
--- rustup component add rust-analyzer
 -- Not part of rustup's default profile, unlike rustfmt and clippy, so
 -- mod_runtimes adds it explicitly.
 vim.lsp.config('rust_analyzer', {
     on_attach = function(client)
-        -- Disable formatting with rust_analyzer. Use rustfmt via conform.
         client.server_capabilities.documentFormattingProvider = false
     end,
 })
 vim.lsp.enable('rust_analyzer')
 
--- npm i -g typescript
 -- Only the native compiler (TypeScript 7+) speaks `--lsp`, so the server skips a
 -- repo's vendored 5.x `node_modules/.bin/tsc` and falls through to the global one.
 vim.lsp.config('tsc', {
     on_attach = function(client)
-        -- Disable formatting with tsc. Use dprint via conform instead.
         client.server_capabilities.documentFormattingProvider = false
     end,
 })
@@ -152,10 +146,8 @@ vim.diagnostic.config({
     },
 })
 
--- Always show sign column
 vim.opt.signcolumn = 'yes'
 
--- Diagnostic mappings; see :help vim.diagnostic.*
 vim.keymap.set('n', '<LocalLeader>e', vim.diagnostic.open_float, {
     silent = true,
     desc = 'Show diagnostics under cursor',
