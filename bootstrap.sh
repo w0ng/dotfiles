@@ -770,9 +770,10 @@ mod_multiplexer() {
   stow_package tmux
   stow_package herdr
 
-  # The formula provides tpm itself; the plugins it manages are cloned on first
-  # launch into ~/.config/tmux/plugins, which tpm derives from the config path.
-  # tmux.conf's last line runs it.
+  # The formula provides tpm itself. It sources the plugins already cloned under
+  # ~/.config/tmux/plugins, a path it derives from the config path, but never
+  # clones a missing one, so a fresh machine needs prefix + I once. tmux.conf's
+  # last line runs it.
   brew_formula tpm
 }
 
