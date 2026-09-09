@@ -18,7 +18,6 @@ require('incline').setup({
             InclineNormalNC = 'StatusLineNC',
         },
     },
-    -- Add web-devicons
     render = function(props)
         local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ':t')
         if filename == '' then

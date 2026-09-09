@@ -14,7 +14,7 @@ source "$HOME/.config/sketchybar/colors.sh"
 # absent on an empty workspace, and a combined format would then shift
 # monitor-is-main into the layout field. The 'M'/'W' tags keep them apart, and
 # a failing sub-command inside eval does not abort the ones after it, so on an
-# empty workspace the W line is simply missing.
+# empty workspace the W line is missing.
 #
 # `list-monitors --count` is folded into the same eval call rather than a
 # separate `aerospace` invocation, so hiding the monitor item on a single-

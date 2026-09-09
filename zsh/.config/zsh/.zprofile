@@ -11,7 +11,7 @@ export VISUAL='nvim'
 # -i case-insensitive search unless the pattern has uppercase; -R passes colour
 # through; -F skips the pager entirely when the output fits one screen, so a
 # short `--help` or `git branch` does not trap you in it. -F needed -X alongside
-# on very old less to stop it clearing the screen; not since 530, and this is 668.
+# on older less to stop it clearing the screen; not since 530, and this is 668.
 export LESS='-i -R -F'
 
 # Syntax-highlighted man pages. col -bx strips the overstrike backspaces groff
@@ -36,8 +36,7 @@ export LANG='en_AU.UTF-8'
 #
 # Sets PATH, MANPATH and the HOMEBREW_* variables. Apple Silicon only, so the
 # prefix is hardcoded rather than probed. See CLAUDE.md. The -x test doubles as
-# the platform guard, because a Linux host has no /opt/homebrew, so it simply
-# skips.
+# the platform guard, because a Linux host has no /opt/homebrew, so it skips.
 #
 # A managed Mac may already have done this from /etc/zprofile, which runs first.
 # Harmless, because `typeset -U path` collapses the repeat, and this has to

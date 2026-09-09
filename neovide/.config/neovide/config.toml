@@ -10,7 +10,7 @@ size = 18.0
 
 # ghostty picks faces by style: Medium for normal, ExtraBold for bold. macOS
 # reports all 16 Maple Mono faces under the one family "Maple Mono NF CN",
-# so the style has to be named explicitly - 'guifont' takes a family and a size
+# so the style has to be named explicitly. 'guifont' takes a family and a size
 # only, and would resolve to Regular. Setting 'guifont' anywhere overrides this
 # whole [font] table, so leave it unset.
 [[font.normal]]

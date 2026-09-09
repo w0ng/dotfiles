@@ -203,7 +203,8 @@ run = 'layout floating'
     alt-shift-x = 'exec-and-forget open -a Spotify'
     alt-shift-z = 'exec-and-forget open -a zoom.us'
 
-# Escape hatch for layout surgery; alt-shift-semicolon enters it, esc leaves.
+# Occasional layout repairs, kept out of the main mode. alt-shift-semicolon
+# enters, esc leaves.
 [mode.service.binding]
     esc = ['reload-config', 'mode main']
     r = ['flatten-workspace-tree', 'mode main']

@@ -10,7 +10,6 @@ require('blink.cmp').setup({
         preset = 'super-tab',
     },
     appearance = {
-        -- Nerd Font icons in the completion menu.
         nerd_font_variant = 'mono',
     },
     sources = {

@@ -11,8 +11,8 @@
 #   󰚩 Opus 5  ·  󰄔 $1.23  ·  󰆼 97%
 #
 # Carries no navigation, so no cwd, branch, worktree or PR. The zsh prompt
-# already answers "where am I" on every prompt, so this answers only "what is
-# this costing", and the space that bought goes to the numbers.
+# already reports where you are, so this reports only what the session costs,
+# and the space that frees up goes to the numbers.
 #
 # This runs on every assistant message, so the whole render is one fork: jq.
 # The cost ledger is summed with integer arithmetic rather than awk, and the
@@ -68,11 +68,6 @@ local -r SEP="${DIM}  ·  ${RS}"
 
 # Every icon keeps a space on both sides, standalone ones included, which is why
 # the identity group below joins on two spaces rather than one.
-#
-# One glyph needs the room more than the rest: U+21BB is absent from Maple Mono
-# NF, so macOS substitutes it from a fallback font whose metrics do not match,
-# and it crowds whatever follows. Verified with:
-#   fc-query --format='%{charset}' ~/Library/Fonts/MapleMono-NF-CN-Medium.ttf
 
 # Colour a percentage by how alarming it is.
 heat() {
@@ -300,10 +295,9 @@ if   (( pc_hit >= 0 )); then hit=$pc_hit
 elif (( cu_in + cu_write + cu_read >= 20000 )); then
   (( hit = cu_read * 100 / (cu_in + cu_write + cu_read) ))
 fi
-# Shown at every tier, unlike the rest of line 2. A collapsing hit rate is the
+# Shown at every tier, unlike the rest of line 2. A falling hit rate is the
 # first sign a session has started paying full price for context it already
-# sent, and it is the one number here that asks you to act rather than just
-# telling you where you stand.
+# sent.
 if (( hit >= 0 )); then
   local hitcol=$GRN
   (( hit < 70 )) && hitcol=$YLW

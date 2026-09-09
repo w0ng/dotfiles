@@ -20,7 +20,7 @@
 # whose binary is missing fails silently at the point of use.
 #
 # Sourcing this file defines its functions without running anything, and the
-# tools it drives (BREW, STOW, NPM, GIT) and paths it reads or writes
+# tools it drives (BREW, STOW, NPM) and paths it reads or writes
 # (DOTFILES_DIR, STOW_TARGET, BREW_PREFIXES) are overridable, so tests can stub
 # them. See tests/bootstrap_test.sh. Targets bash 3.2, the version macOS ships.
 
@@ -57,7 +57,6 @@ STOW_TARGET="${STOW_TARGET:-${HOME}}"
 BREW="${BREW:-brew}"
 STOW="${STOW:-stow}"
 NPM="${NPM:-npm}"
-GIT="${GIT:-git}"
 # Space-separated so a test can point the probe at a scratch prefix instead of
 # running the real /opt/homebrew/bin/brew.
 BREW_PREFIXES="${BREW_PREFIXES:-/opt/homebrew /usr/local}"
@@ -124,8 +123,7 @@ profile() {
 }
 
 # Never guesses, because the profile decides whether employer-managed apps get
-# installed or removed, so a wrong default does real work in the wrong
-# direction.
+# installed or removed, so a wrong default installs or removes the wrong set.
 resolve_profile() {
   # Assign directly rather than through "$(profile)", because a subshell's
   # assignment would not reach this shell, leaving PROFILE empty for every later
@@ -720,7 +718,7 @@ mod_gittools() {
   # .gitconfig registers the lfs filter, so cloning or checking out a repo that
   # uses LFS fails without it.
   personal_formula git-lfs
-  # Terminal diff viewer, stowed below.
+  # Terminal diff viewer.
   brew_formula hunk
   stow_package git
   stow_package hunk

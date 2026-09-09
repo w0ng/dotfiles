@@ -38,7 +38,7 @@ ZVM_INIT_MODE=sourcing
 # Probed rather than hardcoded, because antidote is a Homebrew formula on macOS
 # but has no distro package on Linux, where it is a git clone under XDG data
 # instead.
-# The wrong path here is silent. Every plugin simply never loads.
+# The wrong path here is silent. No plugin loads.
 #
 ANTIDOTE_DIR=''
 for _antidote_candidate in \
@@ -128,7 +128,7 @@ fi
 # fzf-completion. But fzf-completion first saves whatever ^I was bound to into
 # $fzf_default_completion and calls it whenever the line has no `**` trigger.
 # That saved binding is fzf-tab-complete only because the plugin bundle is
-# sourced before fzf.zsh, so the order of those two blocks is load-bearing.
+# sourced before fzf.zsh, so the order of those two blocks matters.
 #
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'   # case-insensitive
 zstyle ':completion:*' menu no                              # fzf-tab owns the menu
@@ -155,8 +155,8 @@ alias v="nvim"
 
 #
 # ^P/^N prefix search: type the start of a command, then step through only the
-# history entries beginning with it, the middle gear between a bare Up arrow
-# and atuin's ^R. Nothing else provides these, because zsh leaves ^P/^N at
+# history entries beginning with it, a step between a bare Up arrow and
+# atuin's ^R. Nothing else provides these, because zsh leaves ^P/^N at
 # self-insert in viins, and neither zsh-vi-mode nor atuin binds them, so the
 # autoload and `zle -N` are both needed to bring the widgets into existence.
 #

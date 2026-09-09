@@ -1,7 +1,7 @@
 -- fff.nvim: fast file finder
 --------------------------------------------------------------------------------
 -- fff ships a Rust binary that has to be downloaded or built. Registered above
--- the add() below so it also fires on the very first install.
+-- the add() below so it also fires on the first install.
 vim.api.nvim_create_autocmd('PackChanged', {
     callback = function(ev)
         local kind = ev.data.kind
@@ -57,8 +57,8 @@ require('fff').setup({
     },
     -- false = eager scan/cache at startup; true = lazy (build index on first use).
     lazy_sync = not fff_eager_root(),
-    -- Never index $HOME directly (default is true). Stops a stray picker open
-    -- from the home dir from trying to scan the entire home tree.
+    -- Never index $HOME directly (default is true). Stops a picker opened from
+    -- the home directory from scanning the entire home tree.
     enable_home_dir_scanning = false,
 })
 vim.keymap.set('n', '<Leader>p', function()

@@ -2,7 +2,6 @@
 -- OPTIONS
 -- ============================================================================
 
--- General
 vim.opt.colorcolumn = { 100 }
 vim.opt.diffopt:append('foldcolumn:0')
 vim.opt.foldlevelstart = 99
@@ -17,13 +16,11 @@ vim.opt.title = true
 vim.opt.wrap = false
 vim.opt.termguicolors = true
 
--- Indent
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 2
 vim.opt.softtabstop = 2
 vim.opt.tabstop = 2
 
--- Search
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
@@ -31,7 +28,6 @@ if vim.fn.executable('rg') == 1 then
     vim.opt.grepprg = 'rg --no-heading --vimgrep'
 end
 
--- Flash on yank
 vim.api.nvim_create_autocmd('TextYankPost', {
     callback = function()
         vim.hl.on_yank()
@@ -49,10 +45,8 @@ local function noremap(mode, lhs, rhs)
     vim.api.nvim_set_keymap(mode, lhs, rhs, { noremap = true })
 end
 
--- Stop highlighting current 'hlsearch' results until next search
 noremap('n', '<Leader>n', ':nohlsearch<CR>')
 
--- Switch ';' with ':'
 noremap('n', ';', ':')
 noremap('n', ':', ';')
 noremap('v', ';', ':')
@@ -64,7 +58,6 @@ noremap('n', 'con', ':set number!<CR>')
 noremap('n', 'cos', ':set spell!<CR>')
 noremap('n', 'cow', ':set wrap!<CR>')
 
--- Move between splits without the <C-w> prefix.
 noremap('n', '<C-h>', '<C-w>h')
 noremap('n', '<C-j>', '<C-w>j')
 noremap('n', '<C-k>', '<C-w>k')
@@ -74,7 +67,6 @@ noremap('n', '<C-l>', '<C-w>l')
 noremap('c', '<C-n>', '<Down>')
 noremap('c', '<C-p>', '<Up>')
 
--- Clipboard: cut/copy/paste
 noremap('v', '<Leader>x', '"+x')
 noremap('v', '<Leader>c', '"+y')
 noremap('n', '<Leader>v', '"+p')
@@ -82,7 +74,6 @@ noremap('v', '<Leader>v', '"+p')
 noremap('n', '<Leader><S-v>', '"+P')
 noremap('v', '<Leader><S-v>', '"+P')
 
--- Copy current file path to clipboard
 noremap('n', '<Leader>c', ':let @+=expand("%:p")<CR>')
 
 -- Machine-local settings that can't live in a public repo, supplied by the

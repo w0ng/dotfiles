@@ -77,7 +77,6 @@ local function focus_claude()
     end)
 end
 
--- Send current visual selection to the connected Claude session, then focus it
 vim.keymap.set('v', '<Leader>as', function()
     -- Leave visual mode synchronously ('x') so '< / '> reflect the selection
     -- before ClaudeCodeSend reads the range from those marks.
@@ -85,7 +84,6 @@ vim.keymap.set('v', '<Leader>as', function()
     vim.cmd("'<,'>ClaudeCodeSend")
     focus_claude()
 end, { desc = 'Claude: send selection + focus' })
--- Add current buffer to Claude's context, then focus it
 vim.keymap.set('n', '<Leader>ab', function()
     vim.cmd('ClaudeCodeAdd %')
     focus_claude()

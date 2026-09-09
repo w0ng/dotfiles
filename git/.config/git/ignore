@@ -20,7 +20,6 @@
 *.bz2
 *.gz
 *.dmg
-*.gz
 *.iso
 *.jar
 *.rar
@@ -38,9 +37,7 @@
 
 # OS generated files #
 ######################
-.DS_Store
 .DS_Store*
-.DS_Store?
 .Spotlight-V100
 .Trashes
 ._*

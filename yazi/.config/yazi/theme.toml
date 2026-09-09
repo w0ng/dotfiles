@@ -97,9 +97,9 @@ title_warn  = { fg = "#fabd2f" }
 title_error = { fg = "#fb4934" }
 
 [filetype]
-# Mime globs are matched against a VFS path, not a bare mime type, so the
-# `**/` prefix is load-bearing. Without it a rule parses cleanly and then
-# matches nothing.
+# yazi matches mime globs against a VFS path, not a bare mime type, so the
+# `**/` prefix is required. Without it a rule parses cleanly and then matches
+# nothing.
 rules = [
   { mime = "**/image/*", fg = "#fabd2f" },
   { mime = "**/{audio,video}/*", fg = "#d3869b" },

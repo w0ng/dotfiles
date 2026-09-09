@@ -19,10 +19,10 @@ if vim.g.neovide then
     vim.opt.background = 'dark'
 
     -- ghostty: cursor-color = #fe8019 / cursor-text = #282828. gruvbox leaves
-    -- Cursor as plain reverse, so redefine it - but 'guicursor' has to name
-    -- it too: Neovim's default guicursor gives no mode a highlight-group at
-    -- all (only 't', terminal mode, references TermCursor), so without this
-    -- the highlight below is defined but never actually used (:h guicursor).
+    -- Cursor as plain reverse, so redefine it. 'guicursor' has to name it too.
+    -- Neovim's default guicursor gives no mode a highlight-group at all (only
+    -- 't', terminal mode, references TermCursor), so without this the highlight
+    -- below is defined but never used (:h guicursor).
     vim.api.nvim_set_hl(0, 'Cursor', { fg = '#282828', bg = '#fe8019' })
 
     -- ghostty: cursor-style-blink = false. The 'a' pseudo-mode merges into

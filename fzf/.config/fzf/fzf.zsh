@@ -15,7 +15,7 @@ export FZF_DEFAULT_OPTS='
   --color info:#83a598,prompt:#bdae93,spinner:#fabd2f,pointer:#83a598,marker:#fe8019,header:#665c54
 '
 
-# -L follows symlinks, which is load-bearing here: ~/.config is almost entirely
-# stow symlinks into this repo, and without it fzf finds 3 files there, not 49.
+# -L follows symlinks. ~/.config is almost entirely stow symlinks into this
+# repo, so without it fzf finds 3 files there, not 49.
 export FZF_DEFAULT_COMMAND='fd --type file --hidden -L'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"

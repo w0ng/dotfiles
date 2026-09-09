@@ -42,7 +42,7 @@ set matchit           " extended `%`, which nvim ships by default
 " ----------------------------------------------------------------------------
 let mapleader = " "
 
-" Switch ';' with ':' -- init.lua
+" Switch ';' with ':'. From init.lua.
 noremap ; :
 noremap : ;
 
@@ -77,26 +77,26 @@ nmap [m <Action>(MethodUp)
 " ----------------------------------------------------------------------------
 nmap [d <Action>(GotoPreviousError)
 nmap ]d <Action>(GotoNextError)
-" <Leader>e -> vim.diagnostic.open_float
+" In nvim: vim.diagnostic.open_float
 nmap <Leader>e <Action>(ShowErrorDescription)
-" <Leader>q -> vim.diagnostic.setloclist
+" In nvim: vim.diagnostic.setloclist
 nmap <Leader>q <Action>(ActivateProblemsViewToolWindow)
-" <Leader>l -> :LspEslintFixAll
+" In nvim: :LspEslintFixAll
 nmap <Leader>l <Action>(Javascript.Linters.EsLint.Fix)
 
 " ----------------------------------------------------------------------------
 " Pickers. nvim uses fff and snacks; the IDE has its own.
 " ----------------------------------------------------------------------------
-" <Leader>p -> plugin/fff.lua find_files
+" In nvim: plugin/fff.lua find_files
 nmap <Leader>p <Action>(GotoFile)
-" <Leader>f -> plugin/fff.lua live_grep
+" In nvim: plugin/fff.lua live_grep
 nmap <Leader>f <Action>(FindInPath)
-" <Leader>s -> live_grep seeded with <cword>; Find in Path prefills the word at
+" In nvim: live_grep seeded with <cword>. Find in Path prefills the word at
 " the caret, so it lands in the same place.
 nmap <Leader>s <Action>(FindInPath)
-" <Leader>b -> plugin/snacks.lua picker.buffers
+" In nvim: plugin/snacks.lua picker.buffers
 nmap <Leader>b <Action>(RecentFiles)
-" <Leader>t -> plugin/nvim-tree.lua toggle
+" In nvim: plugin/nvim-tree.lua toggle
 nmap <Leader>t <Action>(ActivateProjectToolWindow)
 
 " ----------------------------------------------------------------------------

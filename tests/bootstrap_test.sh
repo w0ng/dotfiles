@@ -8,7 +8,7 @@
 #
 # bootstrap.sh is sourced rather than executed, so its functions can be called
 # in isolation. Every test points DOTFILES_DIR and STOW_TARGET at a scratch
-# directory and stubs BREW/NPM/GIT, so nothing here touches the real machine.
+# directory and stubs BREW/STOW/NPM, so nothing here touches the real machine.
 # No test framework: a dependency to run the tests would defeat the point.
 
 set -uo pipefail
@@ -99,11 +99,6 @@ printf 'npm %s\n' "$*" >> "${STUB_LOG}"
 [[ "$1 $2" == 'ls -g' ]] && printf '%s\n' "${STUB_NPM_PATHS:-}"
 exit 0
 STUB
-  cat >"${WORK_DIR}/stubs/git" <<'STUB'
-#!/bin/bash
-printf 'git %s\n' "$*" >> "${STUB_LOG}"
-exit 0
-STUB
   chmod +x "${WORK_DIR}/stubs/"*
   export STUB_LOG WORK_DIR
 
@@ -112,11 +107,10 @@ STUB
   BREW="${WORK_DIR}/stubs/brew"
   STOW="${WORK_DIR}/stubs/stow"
   NPM="${WORK_DIR}/stubs/npm"
-  GIT="${WORK_DIR}/stubs/git"
   # Points the Homebrew probe away from the real prefixes, so no test can eval
   # the machine's own `brew shellenv`.
   BREW_PREFIXES="${WORK_DIR}/no-brew"
-  export DOTFILES_DIR STOW_TARGET BREW STOW NPM GIT BREW_PREFIXES
+  export DOTFILES_DIR STOW_TARGET BREW STOW NPM BREW_PREFIXES
 
   # Cleared so a previous test's cache cannot leak in.
   unset HOMEBREW_PREFIX BACKUP_DIR
@@ -171,8 +165,6 @@ test_listed_matches_whole_lines_only() {
   assert_success $? 'listed finds first entry'
   listed "${list}" zsh
   assert_success $? 'listed finds last entry'
-  # A substring must not match: `node` should not satisfy a query for `nod`,
-  # nor should `ripgrep` satisfy `rip`.
   listed "${list}" nod
   assert_failure $? 'listed rejects a prefix'
   listed "${list}" rep
@@ -379,7 +371,7 @@ test_stow_package_leaves_existing_symlinks_alone() {
 
 # The hazard the backup directory exists to avoid: a file reached through a
 # folded parent symlink resolves back into the repo, and moving it would
-# destroy the very file being stowed.
+# destroy the file being stowed.
 test_stow_package_never_moves_a_file_that_resolves_into_the_repo() {
   mkdir -p "${DOTFILES_DIR}/nvim/.config/nvim"
   printf 'config\n' >"${DOTFILES_DIR}/nvim/.config/nvim/init.lua"
@@ -566,8 +558,6 @@ test_ensure_maintenance_section_creates_it_without_registering() {
     'the section is created'
   assert_not_contains "$(<"${HOME}/.config/git/config.local")" 'repo =' \
     'no repo is registered'
-  assert_not_contains "$(calls)" 'maintenance register' \
-    'git maintenance register is never run'
 }
 
 test_ensure_maintenance_section_is_idempotent() {

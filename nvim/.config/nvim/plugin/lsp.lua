@@ -186,10 +186,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
 -- hook, so this file depends only on what it declares above. The spinner shows
 -- while a server attached to the current buffer is working. Two signals are
 -- needed, because servers differ in what they report:
---   * $/progress      -- rust-analyzer, gopls, tsserver announce indexing.
---   * no tokens yet   -- buf_ls announces no progress at all. A semantic-token
---                        server that has not sent its first batch is still
---                        indexing, and gd will not resolve until it has.
+--   * $/progress: rust-analyzer, gopls and tsserver announce indexing.
+--   * no tokens yet: buf_ls announces no progress at all. A semantic-token
+--     server that has not sent its first batch is still indexing, and gd will
+--     not resolve until it has.
 -- A uv timer drives the redraw so the spinner animates; requests are async, so
 -- the editor stays free to redraw during the wait.
 
