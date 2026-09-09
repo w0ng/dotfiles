@@ -3,7 +3,10 @@
 ## What this is
 
 Personal macOS dotfiles (Apple Silicon; Homebrew at `/opt/homebrew`), managed
-with [GNU Stow](https://www.gnu.org/software/stow/). Default branch: `master`.
+with [GNU Stow](https://www.gnu.org/software/stow/).
+
+`README.md` documents the install flow and the update command for each package
+manager. Read it before updating a tool or setting up a new machine.
 
 ## Architecture: stow packages
 
@@ -19,37 +22,58 @@ Two consequences:
 - A new file does nothing until you restow its package. Run the module that
   owns it rather than `stow` directly, because `stow_package` passes
   `--no-folding` and ignores `.DS_Store`, and a bare `stow <package>` gets
-  neither.
+  neither. `awk '/^mod_/{m=$1} /stow_package <pkg>/{print m}' bootstrap.sh`
+  names the owner.
 
 ## Setup
 
 `bootstrap.sh` takes a fresh macOS install to a working machine and is the only
 sanctioned way to install anything here. To add a tool, declare it in the module
-that owns its area and run that module. Installing by hand produces drift. It
-works on this Mac and silently breaks on the next one.
+that owns its area and run that module. A tool installed by hand works on this
+Mac and is absent from the next one.
 
-A module is a `mod_<name>` function that declares tools with `brew_formula` /
-`brew_cask` / `npm_global` and links config with `stow_package`; `MODULES` at
-the top of the script lists the enabled ones. `bash bootstrap.sh --help`
+A module is a `mod_<name>` function that declares tools with `brew_formula`,
+`brew_cask` or `npm_global` and links config with `stow_package`. `MODULES` at
+the top of the script lists the enabled ones, and `bash bootstrap.sh --help`
 documents the flags. Every module is idempotent.
 
-A config stowed with no binary declared is this repo's most common bug. Six
-tools have shipped that way, each failing silently. Pair every `stow_package`
-line with an install line. `tests/bootstrap_test.sh` asserts exactly that, and
-carries the exception list for tools deliberately installed from elsewhere.
+A tool from a third-party tap needs `brew_tap` and `brew_trust` ahead of its
+declaration, because Homebrew 6 refuses to load a formula or cask from an
+untrusted tap. `mod_windowmanager` is the worked example.
 
-Verify by exercising the tool: run the module, then run the thing itself. A
-file existing proves nothing.
+A work machine's device management installs its own browsers, chat clients and
+CLI tools. Homebrew's copy sits earlier on `PATH`, where it shadows the managed
+one. Declare anything in that overlap with `personal_formula` or
+`personal_cask`, which install on a personal machine and skip on a work one.
+
+A config stowed with no binary declared is this repo's most common bug, and it
+fails silently at the point of use. Pair every `stow_package` line with an
+install line. Run `bash tests/bootstrap_test.sh` after editing `bootstrap.sh`.
+It asserts exactly that pairing, and lists the tools deliberately installed
+from elsewhere.
+
+Verify by exercising the tool: run the module, then run the binary it
+installed. A stowed file does not prove the binary is there.
+
+## Machine-local settings
+
+Nothing employer-specific is tracked here, and every stowed file is a symlink
+into this public repo, so appending a work setting to `~/.config/zsh/.zshrc`
+writes it into the repo. Four installers have already done exactly that.
+Machine-local settings go in the `.local` hook files instead, starting with
+`~/.config/zsh/.zshenv.local` for anything a language server or an agent has to
+inherit and `~/.config/zsh/.zshrc.local` for interactive shells. `README.md`
+lists each hook and what it reaches.
 
 ## Current toolchain
 
 These replaced earlier stacks that are not coming back. Do not propose reverting
 to one.
 
-- **zsh**: antidote (plugins in `zsh/.config/zsh/.zsh_plugins.txt`) + a prompt
-  written in zsh itself (`zsh/.config/zsh/prompt.zsh`, styled after the old
-  prezto "w0ng" theme, git segment queried asynchronously) + atuin history.
-  This replaced prezto-via-zinit, and then starship.
+- **zsh**: antidote for plugins (`zsh/.config/zsh/.zsh_plugins.txt`), atuin for
+  history, and a prompt written in zsh itself (`zsh/.config/zsh/prompt.zsh`).
+  The prompt copies the old prezto "w0ng" theme and queries its git segment
+  asynchronously. This replaced prezto-via-zinit, and then starship.
 - **neovim**: native `vim.pack` (Neovim 0.12+), config under
   `nvim/.config/nvim/`. This replaced packer.nvim, and plugins install
   themselves on first launch, so there is no manual plugin step.
@@ -72,16 +96,16 @@ config`.
 
 Comment the why: a constraint, a trade-off, a gotcha a human would otherwise
 hit. Skip what restates the code or narrates the change ("now uses X", "added
-to fix Y"). Both age into noise. `bootstrap.sh` and
+to fix Y"). Both go stale as the code changes. `bootstrap.sh` and
 `zsh/.config/zsh/prompt.zsh` are the two files to imitate.
 
 ### Prose
 
-This applies to comments, commit messages and the READMEs alike.
+This applies to comments, commit messages and the READMEs.
 
 No em dashes, and no `--` standing in for one. End the sentence, or use a
-comma. A colon is fine ahead of a list, a gloss or an example, but not as a
-mid-sentence "because": write the "because".
+comma. A colon is fine ahead of a list, a gloss or an example. Where you would
+use one as a mid-sentence "because", write the "because".
 
 Sentence case headings, no decorative emoji, straight quotes. Say what the code
 does rather than how it feels, and name the actor instead of writing in the
