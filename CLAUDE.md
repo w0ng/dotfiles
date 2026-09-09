@@ -51,6 +51,10 @@ install line. Run `bash tests/bootstrap_test.sh` after editing `bootstrap.sh`.
 It asserts exactly that pairing, and lists the tools deliberately installed
 from elsewhere.
 
+`tests/sketchybar_test.sh` does the same for the AeroSpace bar driver, so run
+it after editing `sketchybar/.config/sketchybar/`. Both suites take their
+assertions and runner from `tests/harness.sh`.
+
 Verify by exercising the tool: run the module, then run the binary it
 installed. A stowed file does not prove the binary is there.
 

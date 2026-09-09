@@ -155,11 +155,12 @@ Two things bootstrap cannot finish on its own:
 ## Tests
 
 ```sh
-bash tests/bootstrap_test.sh
+bash tests/bootstrap_test.sh   # module wiring, stow, and the package pairing
+bash tests/sketchybar_test.sh  # the AeroSpace bar driver
 ```
 
-Pure bash, no framework, and nothing it does touches the real machine. The
-header of `tests/bootstrap_test.sh` explains how it stays isolated.
+Pure bash, no framework, and nothing either does touches the real machine. Each
+file's header explains how it stays isolated.
 
 ## References
 

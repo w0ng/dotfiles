@@ -34,19 +34,22 @@ automatically-unhide-macos-hidden-apps = true
 persistent-workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
 
 #
-# sketchybar callbacks. The bar has no way to poll AeroSpace, so every piece of
-# state it shows has to be pushed to it from here.
+# sketchybar callbacks. The bar has no way to poll AeroSpace, so this file
+# pushes every piece of state it shows. All three fire the one event, because
+# a single script paints every AeroSpace-derived item.
 #
-on-mode-changed = ['exec-and-forget sketchybar --trigger aerospace_mode_change']
+on-mode-changed = ['exec-and-forget sketchybar --trigger aerospace_change']
 # Fires when focus moves between a floating and a tiled window, which changes
 # the layout indicator.
-on-focus-changed = ['exec-and-forget sketchybar --trigger aerospace_layout_change']
-# One script rather than a command per pill, because it makes the single
-# AeroSpace query the whole row needs and paints all ten itself. It has to be a
-# script, since inlining the command substitution here fails to parse as TOML.
+on-focus-changed = ['exec-and-forget sketchybar --trigger aerospace_change']
+# Overlaps on-focus-changed, so a workspace switch repaints twice. Kept because
+# a switch into an empty workspace has no window to focus, and a stale bar costs
+# more than the extra query.
+#
+# AeroSpace runs this array with no shell, so bash finds `sketchybar` on PATH.
 exec-on-workspace-change = [
   '/bin/bash', '-c',
-  '$HOME/.config/sketchybar/plugins/aerospace_workspace_change.sh',
+  'sketchybar --trigger aerospace_change',
 ]
 
 focus-follows-mouse.enabled = false
@@ -121,10 +124,10 @@ run = 'layout floating'
 [mode.main.binding]
 
     # Layout. Each also nudges sketchybar, which cannot see the change itself.
-    alt-t = ['layout tiles horizontal vertical', 'exec-and-forget sketchybar --trigger aerospace_layout_change']
-    alt-m = ['layout accordion horizontal vertical', 'exec-and-forget sketchybar --trigger aerospace_layout_change']
-    alt-f = ['fullscreen --no-outer-gaps', 'exec-and-forget sketchybar --trigger aerospace_layout_change']
-    alt-d = ['layout floating tiling', 'exec-and-forget sketchybar --trigger aerospace_layout_change']
+    alt-t = ['layout tiles horizontal vertical', 'exec-and-forget sketchybar --trigger aerospace_change']
+    alt-m = ['layout accordion horizontal vertical', 'exec-and-forget sketchybar --trigger aerospace_change']
+    alt-f = ['fullscreen --no-outer-gaps', 'exec-and-forget sketchybar --trigger aerospace_change']
+    alt-d = ['layout floating tiling', 'exec-and-forget sketchybar --trigger aerospace_change']
 
     # Focus and move, vim-style.
     alt-h = 'focus --boundaries-action wrap-around-the-workspace left'
