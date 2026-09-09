@@ -676,9 +676,9 @@ ensure_maintenance_section() {
 #
 # Each path is the one the reading config actually opens, not where the file is
 # conventionally kept. A copy anywhere else is silently ignored rather than
-# reported here. No zsh entry any more, because the shell's only machine-local
-# mechanism is $ZDOTDIR/functions, a directory the overlay stows into rather
-# than a single file worth checking for.
+# reported here. $ZDOTDIR/functions is the one machine-local mechanism left out,
+# because it is a directory the overlay stows into rather than a single file
+# worth checking for.
 report_overlay_files() {
   local entry path note missing=0
 
@@ -689,6 +689,8 @@ report_overlay_files() {
     "${HOME}/.claude/statusline.zsh|overlay: work statusline" \
     "${HOME}/.config/aerospace/browser.local|overlay: the app alt-shift-b opens, Brave without it" \
     "${HOME}/.config/nvim/lua/local.lua|overlay: nvim eager roots, vendored formatter paths" \
+    "${HOME}/.config/zsh/.zshenv.local|overlay: PATH entries and env every zsh inherits" \
+    "${HOME}/.config/zsh/.zshrc.local|overlay: aliases, exports and eval init, interactive only" \
     "${HOME}/.config/git/config.local|bootstrap writes: holds the git maintenance repo list" \
     "${HOME}/.config/git/config.work|bootstrap writes: git identity for repos under ~/work/"; do
     path="${entry%%|*}"
