@@ -687,7 +687,7 @@ report_overlay_files() {
     "${HOME}/.claude/CLAUDE.md|overlay: Canva coding guides and repo conventions" \
     "${HOME}/.claude/settings.json|overlay: work permissions, MCP allow/deny, plugins" \
     "${HOME}/.claude/statusline.zsh|overlay: work statusline" \
-    "${HOME}/.config/aerospace/browser.local|overlay: the app alt-b opens — Brave without it" \
+    "${HOME}/.config/aerospace/browser.local|overlay: the app alt-shift-b opens, Brave without it" \
     "${HOME}/.config/nvim/lua/local.lua|overlay: nvim eager roots, vendored formatter paths" \
     "${HOME}/.config/git/config.local|bootstrap writes: holds the git maintenance repo list" \
     "${HOME}/.config/git/config.work|bootstrap writes: git identity for repos under ~/work/"; do

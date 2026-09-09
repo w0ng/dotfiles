@@ -64,7 +64,7 @@ reads but never ships:
 | `~/.config/zsh/.zshenv.local` | every zsh, login or not | Anything a language server or an agent has to inherit. Sourced before `PATH` is assembled, so appending to `user_path_dirs` gets the same existence check and the same `.zprofile` re-assert as the rest |
 | `~/.config/zsh/.zshrc.local` | interactive zsh only | An alias, an export, a tool's `eval` init, the three things that cannot be autoloaded |
 | `~/.config/zsh/functions/` | interactive zsh, on first call | One file per function, autoloaded. The right home for anything that has to run in the calling shell, such as a picker that `cd`s. A script on `PATH` cannot, because it runs in a child process |
-| `~/.config/aerospace/browser.local` | aerospace, at keypress | One line: the app name `alt-b` opens, such as `Google Chrome`. Every other launcher binding is identical on both machines, so this is the only one needing a local answer |
+| `~/.config/aerospace/browser.local` | aerospace, at keypress | One line: the app name `alt-shift-b` opens, such as `Google Chrome`. Every other launcher binding is identical on both machines, so this is the only one needing a local answer |
 | `~/.config/nvim/lua/local.lua` | nvim | Extra project roots and vendored tool paths, read through `pcall(require, 'local')` |
 
 Every one is optional and skipped when absent, so this repo stands on its own,

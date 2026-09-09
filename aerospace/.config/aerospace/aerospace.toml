@@ -78,7 +78,7 @@ gaps.outer.right =      4
 
 #
 # Apps whose windows are dialog-shaped, fixed-size, or want their own aspect
-# ratio, where a tile is the wrong shape. Everything else tiles. `alt-shift-f`
+# ratio, where a tile is the wrong shape. Everything else tiles. `alt-d`
 # toggles a window by hand, so try an app that way before earning it a line
 # here.
 #
@@ -121,10 +121,10 @@ run = 'layout floating'
 [mode.main.binding]
 
     # Layout. Each also nudges sketchybar, which cannot see the change itself.
-    alt-slash = ['layout tiles horizontal vertical', 'exec-and-forget sketchybar --trigger aerospace_layout_change']
-    alt-comma = ['layout accordion horizontal vertical', 'exec-and-forget sketchybar --trigger aerospace_layout_change']
+    alt-t = ['layout tiles horizontal vertical', 'exec-and-forget sketchybar --trigger aerospace_layout_change']
+    alt-m = ['layout accordion horizontal vertical', 'exec-and-forget sketchybar --trigger aerospace_layout_change']
     alt-f = ['fullscreen --no-outer-gaps', 'exec-and-forget sketchybar --trigger aerospace_layout_change']
-    alt-shift-f = ['layout floating tiling', 'exec-and-forget sketchybar --trigger aerospace_layout_change']
+    alt-d = ['layout floating tiling', 'exec-and-forget sketchybar --trigger aerospace_layout_change']
 
     # Focus and move, vim-style.
     alt-h = 'focus --boundaries-action wrap-around-the-workspace left'
@@ -181,24 +181,27 @@ run = 'layout floating'
     alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
     alt-shift-semicolon = 'mode service'
 
-    # Launch-or-focus, alt-<letter>. `open -a` raises an app that is already
-    # running, so these double as an app switcher.
-    alt-a = 'exec-and-forget open -a Claude'
-    alt-b = 'exec-and-forget b="$(cat "$HOME/.config/aerospace/browser.local" 2>/dev/null)"; open -a "${b:-Brave Browser}"'
-    alt-c = 'exec-and-forget open -a Calendar'
-    alt-d = 'exec-and-forget open -a Discord'
-    alt-e = 'exec-and-forget open -a Finder'
-    alt-g = 'exec-and-forget open -a ChatGPT'
-    alt-i = 'exec-and-forget open -a Messages'
-    alt-m = 'exec-and-forget open -a Mail'
-    alt-o = 'exec-and-forget open -a Obsidian'
-    alt-p = 'exec-and-forget open -a 1Password'
-    alt-s = 'exec-and-forget open -a Slack'
-    alt-t = 'exec-and-forget open -a Ghostty'
-    alt-v = 'exec-and-forget open -a Neovide'
-    alt-w = 'exec-and-forget open -a WhatsApp'
-    alt-x = 'exec-and-forget open -a Spotify'
-    alt-z = 'exec-and-forget open -a zoom.us'
+    # Launch-or-focus, alt-shift-<letter>. `open -a` raises an app that is
+    # already running, so these double as an app switcher. Shift keeps them
+    # clear of the window commands above, which hold bare alt-d/f/m/t and
+    # alt-h/j/k/l. Leave bare alt-c alone whatever else lands here. fzf binds
+    # it to its cd widget, and AeroSpace grabs keys globally.
+    alt-shift-a = 'exec-and-forget open -a Claude'
+    alt-shift-b = 'exec-and-forget b="$(cat "$HOME/.config/aerospace/browser.local" 2>/dev/null)"; open -a "${b:-Brave Browser}"'
+    alt-shift-c = 'exec-and-forget open -a Calendar'
+    alt-shift-d = 'exec-and-forget open -a Discord'
+    alt-shift-e = 'exec-and-forget open -a Finder'
+    alt-shift-g = 'exec-and-forget open -a ChatGPT'
+    alt-shift-i = 'exec-and-forget open -a Messages'
+    alt-shift-m = 'exec-and-forget open -a Mail'
+    alt-shift-o = 'exec-and-forget open -a Obsidian'
+    alt-shift-p = 'exec-and-forget open -a 1Password'
+    alt-shift-s = 'exec-and-forget open -a Slack'
+    alt-shift-t = 'exec-and-forget open -a Ghostty'
+    alt-shift-v = 'exec-and-forget open -a Neovide'
+    alt-shift-w = 'exec-and-forget open -a WhatsApp'
+    alt-shift-x = 'exec-and-forget open -a Spotify'
+    alt-shift-z = 'exec-and-forget open -a zoom.us'
 
 # Escape hatch for layout surgery; alt-shift-semicolon enters it, esc leaves.
 [mode.service.binding]
