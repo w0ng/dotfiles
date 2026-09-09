@@ -91,6 +91,10 @@ gaps.outer.right =      4
 # Exact IDs never overlap, so nothing but reading depends on it.
 #
 [[on-window-detected]]
+if.app-id = 'com.1password.1password'
+run = 'layout floating'
+
+[[on-window-detected]]
 if.app-id = 'com.apple.ActivityMonitor'
 run = 'layout floating'
 
