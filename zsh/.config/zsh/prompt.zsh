@@ -173,14 +173,10 @@ _prompt_char() {
 # Indices rather than names because zsh has no `bright-white` colour name, and
 # an unrecognised name silently resolves to the default foreground rather than
 # raising an error.
-PS1='%K{black}%B%F{15} %n@%m %f%b%k%K{8}%B%F{15} %~ %f%b%k%K{black}%B%F{7}${_prompt_git}%f%b%k
-$(_prompt_char) '
-
-# When the prompt was drawn, so that scrollback from a session left open for
-# days still says which day each command belongs to.
 #
-# zsh places RPROMPT on the last line of a multi-line prompt and handles both
-# the right-alignment and the reflow on resize. transient_rprompt must stay
-# unset, because it clears the right prompt once a command runs, which is
-# precisely when the timestamp starts being useful.
-RPROMPT='%F{8}%D{%d %b %H:%M}%f'
+# The timestamp records when the prompt was drawn, so that scrollback from a
+# session left open for days still says which day each command belongs to.
+# RPROMPT would put it on the last line, because that is where zsh draws the
+# right prompt of a multi-line prompt.
+PS1='%K{black}%B%F{15} %n@%m %f%b%k%K{8}%B%F{15} %~ %f%b%k%K{black}%B%F{7}${_prompt_git}%f%b%k %F{8}%D{%d %b %H:%M}%f
+$(_prompt_char) '
