@@ -1,0 +1,22 @@
+{
+  "name": "pstack-skills",
+  "version": "1.0.0",
+  "description": "Slop removal in two halves: unslop cuts AI tells from prose, deslop cuts them from a code diff. Both vendored verbatim from cursor/plugins.",
+  "author": {
+    "name": "Lauren Tan and Cursor",
+    "url": "https://github.com/cursor/plugins"
+  },
+  "homepage": "https://github.com/cursor/plugins",
+  "repository": "https://github.com/cursor/plugins",
+  "license": "MIT",
+  "keywords": [
+    "writing",
+    "prose",
+    "code-review",
+    "slop"
+  ],
+  "skills": [
+    "./skills/unslop",
+    "./skills/deslop"
+  ]
+}
