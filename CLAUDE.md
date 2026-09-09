@@ -80,31 +80,22 @@ to one.
 
 ### Commits
 
-[Conventional Commits](https://www.conventionalcommits.org/), written
-`<type>(<scope>): <description>`, e.g. `fix(nvim): correct deprecated gruvbox
-config`.
+Conventional Commits, e.g. `fix(nvim): correct deprecated gruvbox config`.
+Types in use: `feat`, `fix`, `docs`, `style`, `refactor`, `chore`, `perf`.
+Scope is the stow package or area, and is optional. Description is lowercase
+with no trailing period.
 
-- **type**: `feat`, `fix`, `docs`, `refactor`, `chore`, `style`, `build`,
-  `perf`, `revert`.
-- **scope** (optional): the package or area, such as `zsh`, `nvim`, `ghostty`,
-  `bootstrap`.
-- **description**: imperative mood, lowercase, no trailing period.
+### Comments
 
-### Code
+Default to no comment. The code shows how. A comment carries why: a constraint,
+a trade-off, a gotcha.
 
-Comment the why: a constraint, a trade-off, a gotcha a human would otherwise
-hit. Skip what restates the code or narrates the change ("now uses X", "added
-to fix Y"). Both go stale as the code changes. `bootstrap.sh` and
-`zsh/.config/zsh/prompt.zsh` are the two files to imitate.
+```sh
+# Cached, because `brew --prefix` is another 0.35s of Ruby startup.
+```
 
-### Prose
+Never narrate the code ("loop over users") or a change ("now uses X"), which
+belongs in a commit message. Keep tool directives like `shellcheck disable` and
+`---@param`. When in doubt, keep a why and delete a how.
 
-This applies to comments, commit messages and the READMEs.
-
-Four rules apply everywhere: no em dashes, including `--` standing in for one.
-Sentence case headings. Straight quotes. Say what the code does rather than how
-it feels.
-
-Those four cover comments. Before a README or a commit body, read the rest in
-`claude/.claude/skills/pstack-skills/skills/unslop/SKILL.md` and apply every
-one. Nothing loads that file for you.
+Before finishing, delete the redundant comments you added.
