@@ -56,6 +56,7 @@ cd ~/dotfiles && git pull && bash bootstrap.sh
 | Rust | `rustup update` |
 | tmux plugins | In tmux: `C-a U` updates, `C-a I` installs, `C-a M-u` removes |
 | Neovim | In nvim: `:lua vim.pack.update()`, then `:TSUpdate` for the parsers |
+| sketchybar icon map | Manual, and rarely worth it. See [below](#the-sketchybar-app-font) |
 | Housekeeping | `brew autoremove`, `brew cleanup`, `brew doctor` |
 
 - tmux plugins do not install themselves. Bootstrap installs tpm, but tpm only
@@ -122,16 +123,6 @@ Put a setting in one of these rather than inline. `.zshrc` is a symlink into
 this repo, so an installer that appends to it writes employer settings straight
 into a public repo. Four separate tools have now done exactly that.
 
-### Vendored agent skills
-
-The `claude` package carries two skills under
-`claude/.claude/skills/pstack-skills/`, copied from Cursor's MIT-licensed
-marketplace: `unslop` strips AI tells from prose, `deslop` strips them from
-code. `mod_agents` stows them with the rest of the package, so they reach every
-repo on a personal machine and none on a work one. That package's own README
-covers provenance, why they are copies rather than an installed plugin, and how
-to diff one against upstream.
-
 ### Modules
 
 Each module is a `mod_*` function in `bootstrap.sh`, run in the order listed in
@@ -162,6 +153,31 @@ bash tests/sketchybar_test.sh  # the AeroSpace bar driver
 Pure bash, no framework, and nothing either does touches the real machine. Each
 file's header explains how it stays isolated.
 
-## References
+## Vendored agent skills
 
-- [Managing dotfiles with GNU Stow](https://venthur.de/2021-12-19-managing-dotfiles-with-stow.html)
+The `claude` package carries two skills under
+`claude/.claude/skills/pstack-skills/`, copied from Cursor's MIT-licensed
+marketplace: `unslop` strips AI tells from prose, `deslop` strips them from
+code. `mod_agents` stows them with the rest of the package, so they reach every
+repo on a personal machine and none on a work one. That package's own README
+covers provenance, why they are copies rather than an installed plugin, and how
+to diff one against upstream.
+
+## The sketchybar app font
+
+The glyph beside the focused app's name comes from
+[kvndrsslr/sketchybar-app-font](https://github.com/kvndrsslr/sketchybar-app-font)
+(CC0-1.0), which arrives in two halves. The font is the
+`font-sketchybar-app-font` cask, declared in `mod_windowmanager` and upgraded by
+`brew upgrade --cask --greedy` with everything else. Nothing packages the map
+from app name to ligature, so the sketchybar package vendors it under
+`sketchybar/.config/sketchybar/helpers/`, and `plugins/front_app.sh` sources it
+to turn `Ghostty` into `:ghostty: Ghostty`.
+
+The font half cannot be stowed. CoreText ignores a symlink in
+`~/Library/Fonts`, so a stowed `.ttf` registers as no font at all and every
+ligature renders as its literal `:name:` text. The cask moves a real file into
+place, which is the only form macOS reads.
+
+That directory's own README covers provenance, the pinned version, how to
+refresh the map, and where the per-app colours in `icon_colors.sh` came from.
