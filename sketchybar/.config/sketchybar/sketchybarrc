@@ -15,6 +15,9 @@ source "$CONFIG_DIR/colors.sh"
 # codepoints) for both text and icons, so glyphs and label text always match.
 LABEL_FONT="Maple Mono NL NF CN"
 ICON_FONT="Maple Mono NL NF CN"
+# The app-glyph font ships one weight, so it takes Regular rather than the
+# weights asked of the Nerd Font above.
+APP_FONT="sketchybar-app-font"
 # Single source for the text size, so the declarations below cannot drift apart.
 FONT_SIZE="16.0"
 
@@ -118,7 +121,8 @@ sketchybar --add item layout left \
 sketchybar --add item front_app left \
   --subscribe front_app front_app_switched \
   --set front_app \
-  icon.drawing=off \
+  icon.font="$APP_FONT:Regular:$FONT_SIZE" \
+  icon.color="$FG" \
   label.color="$YELLOW" \
   label.font="$LABEL_FONT:Bold:$FONT_SIZE" \
   padding_left=12 \

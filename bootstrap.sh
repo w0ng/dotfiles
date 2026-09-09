@@ -823,6 +823,10 @@ mod_windowmanager() {
   brew_formula felixkratz/formulae/sketchybar
   brew_formula felixkratz/formulae/borders
   brew_cask nikitabobko/tap/aerospace 'AeroSpace.app'
+  # The cask is the font alone. Nothing packages the map from app name to
+  # glyph, so the sketchybar package vendors it and that package's helpers
+  # README keeps the two in step.
+  brew_cask font-sketchybar-app-font
   stow_package aerospace
   stow_package sketchybar
 }

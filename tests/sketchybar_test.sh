@@ -6,11 +6,11 @@
 #
 #   bash tests/sketchybar_test.sh
 #
-# Each test builds a scratch $HOME holding the real colors.sh and puts stub
-# `aerospace` and `sketchybar` binaries first on PATH, so nothing here touches
-# the running bar. The aerospace stub replays a fixed listing and the sketchybar
-# stub logs its argv, which makes the assertions about what the bar would be
-# told to draw rather than about how the script got there.
+# Each test builds a scratch $HOME holding the real colors.sh and icon helpers,
+# and puts stub `aerospace` and `sketchybar` binaries first on PATH, so nothing
+# here touches the running bar. The aerospace stub replays a fixed listing and
+# the sketchybar stub logs its argv, which makes the assertions about what the
+# bar would be told to draw rather than about how the script got there.
 #
 # The fixtures stay separate from bootstrap_test.sh, which sources bootstrap.sh
 # and stubs a different set of tools. Only harness.sh is shared, and it holds
@@ -39,9 +39,13 @@ setup() {
   STUB_LOG="${WORK_DIR}/calls.log"
   : >"${STUB_LOG}"
 
-  mkdir -p "${WORK_DIR}/stubs" "${WORK_DIR}/home/.config/sketchybar"
+  mkdir -p "${WORK_DIR}/stubs" "${WORK_DIR}/home/.config/sketchybar/helpers"
   cp "${REPO_ROOT}/sketchybar/.config/sketchybar/colors.sh" \
     "${WORK_DIR}/home/.config/sketchybar/colors.sh"
+  cp "${REPO_ROOT}/sketchybar/.config/sketchybar/helpers/icon_map.sh" \
+    "${WORK_DIR}/home/.config/sketchybar/helpers/icon_map.sh"
+  cp "${REPO_ROOT}/sketchybar/.config/sketchybar/helpers/icon_colors.sh" \
+    "${WORK_DIR}/home/.config/sketchybar/helpers/icon_colors.sh"
 
   cat >"${WORK_DIR}/stubs/aerospace" <<'STUB'
 #!/bin/bash
@@ -67,6 +71,15 @@ teardown() {
 paint_with() {
   STUB_AEROSPACE="$1" PATH="${WORK_DIR}/stubs:${PATH}" HOME="${WORK_DIR}/home" \
     bash "${PLUGIN_DIR}/aerospace.sh"
+}
+
+# Runs front_app.sh the way sketchybar would, with $1 as the app name the
+# front_app_switched event carries. An empty $1 leaves $INFO unset, which is
+# what sends the plugin to its aerospace fallback.
+front_app_with() {
+  STUB_AEROSPACE="${2-}" INFO="$1" NAME=front_app \
+    PATH="${WORK_DIR}/stubs:${PATH}" HOME="${WORK_DIR}/home" \
+    bash "${PLUGIN_DIR}/front_app.sh"
 }
 
 # Workspace 1 focused, 2 has windows but is off-screen, 3 visible on the other
@@ -222,6 +235,110 @@ test_a_failed_query_paints_nothing() {
   paint_with ''
 
   assert_eq '' "$(calls)" 'no output means no repaint at all'
+}
+
+#######################################
+# front_app
+#######################################
+
+# The ligature the app font renders as the app's icon. It only becomes a glyph
+# once icon.font is the app font, which sketchybarrc sets on this item alone.
+test_front_app_shows_the_app_glyph_beside_its_name() {
+  front_app_with 'Ghostty'
+
+  assert_contains "$(calls)" '--set front_app icon=:ghostty:' \
+    'the icon ligature is painted alongside the app name'
+  assert_contains "$(calls)" 'label=Ghostty' 'the app name is the label'
+}
+
+# The glyph is a flat silhouette, so the app's own colour has to come from here.
+test_a_mapped_app_takes_its_own_colour() {
+  front_app_with 'Brave Browser'
+
+  assert_contains "$(calls)" 'icon=:brave_browser: icon.color=0xffec622c' \
+    "Brave's glyph is painted in Brave's orange"
+}
+
+# A black-and-white icon has no colour to borrow, so the table records $FG. An
+# unmapped app resolves to the same colour, so only the ligature separates them.
+test_an_achromatic_icon_takes_the_foreground() {
+  front_app_with 'ChatGPT'
+
+  assert_contains "$(calls)" "icon=:openai: icon.color=${FG}" \
+    'a monochrome icon is drawn in the bar foreground'
+}
+
+# Every app without a glyph shares :default:, so there is nothing to key a
+# colour on and it falls back to $FG.
+test_an_app_with_no_colour_of_its_own_takes_the_foreground() {
+  front_app_with 'No Such App'
+
+  assert_contains "$(calls)" "icon.color=${FG}" \
+    'an unmapped app is drawn in the foreground'
+  assert_not_contains "$(calls)" "icon.color=${YELLOW}" \
+    'the accent is not the fallback'
+}
+
+# The table is generated, so this guards the rule every value in it was picked
+# for rather than any one value. A colour that cannot be read on the bar is the
+# one way sampling an icon can go wrong: artwork is often darker than the bar.
+test_every_colour_in_the_table_can_be_read_on_the_bar() {
+  local table="${REPO_ROOT}/sketchybar/.config/sketchybar/helpers/icon_colors.sh"
+  local channels result ratio worst
+
+  # Hex is unpacked here because BSD awk has no strtonum, leaving awk the
+  # floating-point part: WCAG relative luminance against $BAR, alpha dropped.
+  channels="$(grep -oE 'color_result=0xff[0-9a-f]{6}' "${table}" \
+    | sed 's/.*0xff//' \
+    | while read -r hex; do
+        printf '%s %d %d %d\n' "${hex}" "0x${hex:0:2}" "0x${hex:2:2}" "0x${hex:4:2}"
+      done)"
+
+  [[ -n "${channels}" ]] || fail 'no colours found in the table'
+
+  result="$(printf '%s\n' "${channels}" | awk '
+    function srgb(c) {
+      c /= 255
+      return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ^ 2.4
+    }
+    function luminance(r, g, b) {
+      return 0.2126 * srgb(r) + 0.7152 * srgb(g) + 0.0722 * srgb(b)
+    }
+    BEGIN { bg = luminance(29, 32, 33); min = 1000 }
+    {
+      ratio = (luminance($2, $3, $4) + 0.05) / (bg + 0.05)
+      if (ratio < min) { min = ratio; worst = $1 }
+    }
+    END { printf "%d %s\n", min * 100, worst }')"
+
+  ratio="${result%% *}"
+  worst="${result##* }"
+  [[ "${ratio}" -ge 450 ]] \
+    || fail "#${worst} is ${ratio} hundredths of a contrast ratio against the bar, under 4.50"
+}
+
+# The vendored map covers ~600 apps, so anything else still needs an icon
+# rather than a blank.
+test_an_unmapped_app_falls_back_to_the_default_glyph() {
+  front_app_with 'No Such App'
+
+  assert_contains "$(calls)" '--set front_app icon=:default:' \
+    'an app with no icon of its own still gets one'
+}
+
+# sketchybar passes $INFO only for front_app_switched. On a reload or a manual
+# trigger there is none, and AeroSpace has to be asked instead.
+test_a_missing_info_falls_back_to_aerospace() {
+  front_app_with '' 'Ghostty'
+
+  assert_contains "$(calls)" '--set front_app icon=:ghostty:' \
+    'the fallback query paints the same pair'
+}
+
+test_no_focused_app_paints_nothing() {
+  front_app_with '' ''
+
+  assert_eq '' "$(calls)" 'an empty app name leaves the last paint alone'
 }
 
 # Defined in harness.sh, called here so compgen sees this suite's tests.
