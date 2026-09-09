@@ -123,7 +123,7 @@ run = 'layout floating'
     # Layout. Each also nudges sketchybar, which cannot see the change itself.
     alt-slash = ['layout tiles horizontal vertical', 'exec-and-forget sketchybar --trigger aerospace_layout_change']
     alt-comma = ['layout accordion horizontal vertical', 'exec-and-forget sketchybar --trigger aerospace_layout_change']
-    alt-f = ['fullscreen', 'exec-and-forget sketchybar --trigger aerospace_layout_change']
+    alt-f = ['fullscreen --no-outer-gaps', 'exec-and-forget sketchybar --trigger aerospace_layout_change']
     alt-shift-f = ['layout floating tiling', 'exec-and-forget sketchybar --trigger aerospace_layout_change']
 
     # Focus and move, vim-style.
