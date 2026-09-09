@@ -18,7 +18,7 @@ window-padding-x = 8
 window-padding-y = 4
 window-padding-balance = true
 
-keybind = global:alt+grave_accent=toggle_quick_terminal
+keybind = global:alt+s=toggle_quick_terminal
 quick-terminal-position = center
 quick-terminal-screen = mouse
 quick-terminal-autohide = false
