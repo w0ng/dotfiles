@@ -8,7 +8,7 @@ with [GNU Stow](https://www.gnu.org/software/stow/).
 `README.md` documents the install flow and the update command for each package
 manager. Read it before updating a tool or setting up a new machine.
 
-## Architecture: stow packages
+## Stow packages
 
 Almost every top-level directory is a stow package whose internal layout
 mirrors `$HOME`: stow links `bat/.config/bat/config` to `~/.config/bat/config`.
@@ -33,9 +33,8 @@ that owns its area and run that module. A tool installed by hand works on this
 Mac and is absent from the next one.
 
 A module is a `mod_<name>` function that declares tools with `brew_formula`,
-`brew_cask` or `npm_global` and links config with `stow_package`. `MODULES` at
-the top of the script lists the enabled ones, and `bash bootstrap.sh --help`
-documents the flags. Every module is idempotent.
+`brew_cask` or `npm_global` and links config with `stow_package`. Every module
+is idempotent.
 
 A tool from a third-party tap needs `brew_tap` and `brew_trust` ahead of its
 declaration, because Homebrew 6 refuses to load a formula or cask from an
@@ -72,11 +71,10 @@ to one.
 
 - **zsh**: antidote for plugins (`zsh/.config/zsh/.zsh_plugins.txt`), atuin for
   history, and a prompt written in zsh itself (`zsh/.config/zsh/prompt.zsh`).
-  The prompt copies the old prezto "w0ng" theme and queries its git segment
-  asynchronously. This replaced prezto-via-zinit, and then starship.
+  Not prezto, not starship.
 - **neovim**: native `vim.pack` (Neovim 0.12+), config under
-  `nvim/.config/nvim/`. This replaced packer.nvim, and plugins install
-  themselves on first launch, so there is no manual plugin step.
+  `nvim/.config/nvim/`. Not packer.nvim. Plugins install themselves on first
+  launch, so there is no manual plugin step.
 
 ## Conventions
 
@@ -103,11 +101,10 @@ to fix Y"). Both go stale as the code changes. `bootstrap.sh` and
 
 This applies to comments, commit messages and the READMEs.
 
-No em dashes, and no `--` standing in for one. End the sentence, or use a
-comma. A colon is fine ahead of a list, a gloss or an example. Where you would
-use one as a mid-sentence "because", write the "because".
+Four rules apply everywhere: no em dashes, including `--` standing in for one.
+Sentence case headings. Straight quotes. Say what the code does rather than how
+it feels.
 
-Sentence case headings, no decorative emoji, straight quotes. Say what the code
-does rather than how it feels, and name the actor instead of writing in the
-passive. Bold is for a label at the head of a list item, not for emphasis in
-the middle of a sentence.
+Those four cover comments. Before a README or a commit body, read the rest in
+`claude/.claude/skills/pstack-skills/skills/unslop/SKILL.md` and apply every
+one. Nothing loads that file for you.

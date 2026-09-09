@@ -23,8 +23,7 @@ ask at, it stops and tells you to pass `--profile`.
 
 Expect a few prompts on a fresh machine. Homebrew's installer wants confirmation
 and a password, adding Homebrew's zsh to `/etc/shells` needs sudo, and a couple
-of casks ship as `.pkg` installers. Everything after that is unattended, and
-re-runs are silent.
+of casks ship as `.pkg` installers. Everything after that is unattended.
 
 ```sh
 bash bootstrap.sh --profile=personal  # or work; skips the question
@@ -34,7 +33,7 @@ bash bootstrap.sh --no-update         # skip `brew update` (faster re-runs)
 bash bootstrap.sh <module>            # run just this module, ignoring MODULES
 ```
 
-Everything is idempotent. A second run does nothing but report.
+Every module is idempotent, so a second run does nothing but report.
 
 ## Updating
 
@@ -94,7 +93,7 @@ compete with the managed copy's update channel or sit earlier on `PATH` and
 shadow it with a different version, so `personal_cask` and `personal_formula`
 declare those instead. They install on a personal machine, skip on a work one,
 and remove a brew copy an earlier run left behind. `node`, `git` and `tmux` are
-deliberately exempt, each for a reason that sits beside it in the script.
+deliberately exempt, each for a reason the script gives beside its declaration.
 
 ### Machine-local settings
 
@@ -123,6 +122,16 @@ Put a setting in one of these rather than inline. `.zshrc` is a symlink into
 this repo, so an installer that appends to it writes employer settings straight
 into a public repo. Four separate tools have now done exactly that.
 
+### Vendored agent skills
+
+The `claude` package carries two skills under
+`claude/.claude/skills/pstack-skills/`, copied from Cursor's MIT-licensed
+marketplace: `unslop` strips AI tells from prose, `deslop` strips them from
+code. `mod_agents` stows them with the rest of the package, so they reach every
+repo on a personal machine and none on a work one. That package's own README
+covers provenance, why they are copies rather than an installed plugin, and how
+to diff one against upstream.
+
 ### Modules
 
 Each module is a `mod_*` function in `bootstrap.sh`, run in the order listed in
@@ -149,10 +158,8 @@ Two things bootstrap cannot finish on its own:
 bash tests/bootstrap_test.sh
 ```
 
-Pure bash, no framework. A dependency needed to run the tests would defeat the
-point. It sources `bootstrap.sh` rather than executing it, points `DOTFILES_DIR`
-and `STOW_TARGET` at a scratch directory and stubs brew, stow, npm and git, so
-nothing touches the real machine.
+Pure bash, no framework, and nothing it does touches the real machine. The
+header of `tests/bootstrap_test.sh` explains how it stays isolated.
 
 ## References
 
