@@ -104,7 +104,7 @@ defaults write -g InitialKeyRepeat -int 25
 # of repeating the letter. Off.
 defaults write -g ApplePressAndHoldEnabled -bool false
 
-# Caps Lock -> Control is set by hand in System Settings > Keyboard > Keyboard
+# Set Caps Lock to Control by hand in System Settings > Keyboard > Keyboard
 # Shortcuts > Modifier Keys. Writing the modifiermapping default the pane uses
 # did not take effect, and the pane is a one-time click.
 

@@ -22,8 +22,7 @@
 # Sourcing this file defines its functions without running anything, and the
 # tools it drives (BREW, STOW, NPM, GIT) and paths it reads or writes
 # (DOTFILES_DIR, STOW_TARGET, BREW_PREFIXES) are overridable, so tests can stub
-# them. See
-# tests/bootstrap_test.sh. Targets bash 3.2, the version macOS ships.
+# them. See tests/bootstrap_test.sh. Targets bash 3.2, the version macOS ships.
 
 set -euo pipefail
 
@@ -332,7 +331,7 @@ personal_formula() {
 
   load_package_index
   if listed "${INSTALLED_FORMULAE}" "${name}"; then
-    info "removing ${name} — provided by the work tooling bundle"
+    info "removing ${name}, which the work tooling bundle provides"
     run "${BREW}" uninstall "${spec}"
     success "removed ${name}"
     return 0
@@ -356,7 +355,7 @@ personal_cask() {
 
   load_package_index
   if listed "${INSTALLED_CASKS}" "${name}"; then
-    info "removing ${name} (cask) — managed on work machines"
+    info "removing ${name} (cask), managed on work machines"
     run "${BREW}" uninstall --cask "${spec}"
     success "removed ${name} (cask)"
     return 0
@@ -401,7 +400,7 @@ npm_global() {
   local pkg="$1"
 
   if ! command -v "${NPM}" >/dev/null 2>&1; then
-    warn "npm is not on PATH — skipping ${pkg}"
+    warn "npm is not on PATH, skipping ${pkg}"
     return 0
   fi
   load_package_index
@@ -415,8 +414,8 @@ npm_global() {
   success "${pkg} (npm)"
 }
 
-# Puts an already-installed Homebrew on PATH. Both prefixes are probed rather
-# than assuming Apple Silicon, and eval is how brew publishes its environment --
+# Puts an already-installed Homebrew on PATH. It probes both prefixes rather
+# than assuming Apple Silicon. eval is how brew publishes its environment, and
 # there is no non-eval form.
 # Returns:
 #   1 if no brew was found at either prefix.
@@ -495,7 +494,7 @@ displace_conflicts() {
     esac
 
     dest="$(backup_dir)/${target}"
-    warn "${target} exists — backing up to ${dest#"${STOW_TARGET}"/}"
+    warn "${target} exists, backing up to ${dest#"${STOW_TARGET}"/}"
     run mkdir -p "$(dirname "${dest}")"
     run mv "${live}" "${dest}"
   done < <(package_files "${pkg}")
@@ -615,7 +614,7 @@ require_work_gitconfig() {
     return 0
   fi
   if [[ ! -t 0 ]]; then
-    warn "~${target#"${HOME}"} is missing — work repos will commit as the personal identity"
+    warn "~${target#"${HOME}"} is missing. Work repos will commit as the personal identity"
     return 0
   fi
 
@@ -698,13 +697,13 @@ report_overlay_files() {
     if [[ -r "${path}" ]]; then
       success "~${path#"${HOME}"}  ${note}"
     else
-      warn "~${path#"${HOME}"}  ${note} — MISSING"
+      warn "~${path#"${HOME}"}  ${note}  MISSING"
       missing=$((missing + 1))
     fi
   done
 
   if ((missing)); then
-    skip "${missing} missing — see the note on each"
+    skip "${missing} missing. See the note on each"
   fi
 
   # ensure_maintenance_section leaves the section empty on purpose; say so out
@@ -889,7 +888,7 @@ set_login_shell() {
 
   shell_path="$(homebrew_prefix)/bin/zsh"
   if [[ ! -x "${shell_path}" ]]; then
-    warn "${shell_path} is missing — leaving the login shell alone"
+    warn "${shell_path} is missing, leaving the login shell alone"
     return 0
   fi
 
@@ -903,7 +902,7 @@ set_login_shell() {
   fi
 
   if ! grep -qxF "${shell_path}" /etc/shells; then
-    warn "adding ${shell_path} to /etc/shells — sudo will ask for a password"
+    warn "adding ${shell_path} to /etc/shells. sudo will ask for a password"
     if ! run sudo sh -c "printf '%s\n' '${shell_path}' >> /etc/shells"; then
       warn "could not write /etc/shells; login shell left as ${current}"
       return 0
@@ -912,10 +911,10 @@ set_login_shell() {
 
   # chsh rejects any shell absent from /etc/shells, so there is no point trying
   # when the step above failed.
-  warn "switching login shell — chsh will ask for your password"
+  warn "switching login shell. chsh will ask for your password"
   if run chsh -s "${shell_path}"; then
     if did_run; then
-      success "login shell set to ${shell_path} — open a new terminal for it"
+      success "login shell set to ${shell_path}. Open a new terminal for it"
     fi
   else
     warn "chsh failed; login shell left as ${current}"
@@ -943,7 +942,7 @@ install_homebrew() {
     printf '   →  install Homebrew from https://brew.sh (prompts for sudo)\n'
     return 0
   else
-    info "installing Homebrew — this asks for confirmation and your password"
+    info "installing Homebrew. This asks for confirmation and your password"
     # Not wrapped in run(), because the command substitution would download the
     # installer even when run() only prints the command.
     /bin/bash -c "$(curl -fsSL \
@@ -1063,7 +1062,7 @@ main() {
     return 1
   fi
   success "repo at ${DOTFILES_DIR}"
-  [[ "${DRY_RUN}" == true ]] && warn "dry run — nothing will be changed"
+  [[ "${DRY_RUN}" == true ]] && warn "dry run, changing nothing"
 
   step "profile"
   resolve_profile || return 1
@@ -1078,7 +1077,7 @@ main() {
   printf '\n%s%sDone.%s Ran: %s\n' \
     "${GREEN}" "${BOLD}" "${RESET}" "${to_run[*]}"
   if [[ " ${to_run[*]} " == *" zsh "* ]]; then
-    printf 'Restart your shell — antidote builds the plugin bundle first.\n'
+    printf 'Restart your shell, because antidote builds the plugin bundle first.\n'
   fi
 
   [[ "$(profile)" == work ]] && report_overlay_files
