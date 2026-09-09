@@ -25,8 +25,9 @@ quick-terminal-autohide = false
 quick-terminal-animation-duration = 0
 quick-terminal-size = 80%,80%
 
+window-decoration = none
 # macos-non-native-fullscreen = true
-macos-titlebar-style = hidden
+# macos-titlebar-style = hidden
 macos-window-shadow = false
 
 custom-shader = shaders/cursor_tail.glsl
