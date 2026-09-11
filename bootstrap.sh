@@ -274,6 +274,21 @@ brew_cask() {
   success "${name} (cask)"
 }
 
+# A formula that has to keep running, not just be installed. Homebrew's
+# LaunchAgent carries KeepAlive, so the service outlives a crash and a logout,
+# and `brew services stop` is the only thing that ends it.
+brew_service() {
+  local name="$1"
+
+  if "${BREW}" services list 2>/dev/null | grep -qE "^${name}[[:space:]]+started"; then
+    skip "${name} (service)"
+    return 0
+  fi
+  info "starting ${name} (service)"
+  run "${BREW}" services start "${name}"
+  success "${name} (service)"
+}
+
 # rustup installs the toolchain manager, not a toolchain. Without an explicit
 # default, cargo and rustc are shims that error on every call. That is the
 # state a work machine's own provisioning leaves it in.
@@ -822,6 +837,10 @@ mod_windowmanager() {
   brew_trust --cask nikitabobko/tap/aerospace
   brew_formula felixkratz/formulae/sketchybar
   brew_formula felixkratz/formulae/borders
+  # The bar has to outlive AeroSpace, which only triggers repaints, so nothing
+  # else here would ever start it. borders stays an after-startup-command
+  # instead, because it is only useful while AeroSpace is running.
+  brew_service sketchybar
   brew_cask nikitabobko/tap/aerospace 'AeroSpace.app'
   # The cask is the font alone. Nothing packages the map from app name to
   # glyph, so the sketchybar package vendors it and that package's helpers

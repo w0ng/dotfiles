@@ -32,6 +32,7 @@ case "$1 $2" in
 esac
 case "$1 $2" in
   'trust --json') printf '%s\n' "${STUB_TRUSTED:-}" ;;
+  'services list') printf '%s\n' "${STUB_SERVICES:-}" ;;
 esac
 case "$1" in
   tap) [[ $# -eq 1 ]] && printf '%s\n' "${STUB_TAPS:-}" ;;
@@ -77,7 +78,7 @@ STUB
 
 teardown() {
   [[ -n "${WORK_DIR}" && -d "${WORK_DIR}" ]] && rm -rf "${WORK_DIR}"
-  unset STUB_FORMULAE STUB_CASKS STUB_TAPS STUB_TRUSTED STUB_NPM_PATHS
+  unset STUB_FORMULAE STUB_CASKS STUB_TAPS STUB_TRUSTED STUB_NPM_PATHS STUB_SERVICES
 }
 
 #######################################
@@ -166,6 +167,44 @@ test_brew_cask_installs_when_the_bundle_is_absent() {
 
   assert_contains "$(calls)" 'brew install --cask someapp' \
     'a cask with no app on disk still installs'
+}
+
+# `brew services list` prints one line per service, "name state user plist".
+# Only "started" means the thing is up; every other state, error included, is a
+# service that is not running and has to be started.
+test_brew_service_skips_one_already_started() {
+  export STUB_SERVICES='sketchybar started andrew ~/Library/LaunchAgents/sh.brew.sketchybar.plist'
+  local output
+  output="$(brew_service sketchybar)"
+
+  assert_contains "${output}" 'sketchybar' 'reports the service'
+  assert_not_contains "$(calls)" 'brew services start' 'does not start it again'
+}
+
+test_brew_service_starts_a_stopped_one() {
+  export STUB_SERVICES='sketchybar none'
+  brew_service sketchybar >/dev/null
+
+  assert_contains "$(calls)" 'brew services start sketchybar' \
+    'a stopped service is started'
+}
+
+# A crashed service still has a line in the listing, so matching the name alone
+# would leave the bar down.
+test_brew_service_restarts_one_that_errored() {
+  export STUB_SERVICES='sketchybar error 256 andrew'
+  brew_service sketchybar >/dev/null
+
+  assert_contains "$(calls)" 'brew services start sketchybar' \
+    'an errored service is started rather than left down'
+}
+
+test_brew_service_matches_the_whole_name() {
+  export STUB_SERVICES='sketchybard started andrew'
+  brew_service sketchybar >/dev/null
+
+  assert_contains "$(calls)" 'brew services start sketchybar' \
+    'a longer service name does not satisfy a shorter one'
 }
 
 # Finder drops .DS_Store into package directories. It is gitignored, but stow
