@@ -3,15 +3,20 @@
 
 config-version = 2
 
-# Both of these only make sense while AeroSpace is running, and there is no hook
-# to stop them again. Every callback AeroSpace offers fires on startup, login,
-# or a state change (focus, monitor, mode, workspace, window), and none on exit.
-# So they outlive it, and quitting them is `killall borders sketchybar` by hand.
+# borders only makes sense while AeroSpace is running, and there is no hook to
+# stop it again. Every callback fires on startup, login or a state change, and
+# none fires on exit. So it outlives AeroSpace, and `killall borders` quits it
+# by hand.
+# Nothing launches sketchybar here, because mod_windowmanager runs it as a brew
+# service. That LaunchAgent carries KeepAlive, so `killall sketchybar` only
+# respawns it and stopping it needs `brew services stop sketchybar`.
 after-startup-command = [
-  # JankyBorders: highlight the focused window. Gruvbox dark, matching the
-  # terminal, with bright yellow (#fabd2f) active and dark1 (#3c3836) inactive.
+  # JankyBorders: gruvbox dark, matching the terminal.
   'exec-and-forget borders active_color=0xfffabd2f inactive_color=0xff3c3836 width=8.0 style=round',
-  'exec-and-forget sketchybar',
+  # brew services starts sketchybar before this app, so its own startup paint
+  # finds no server; without this the bar sits at its defaults until the first
+  # focus change.
+  'exec-and-forget sketchybar --trigger aerospace_change',
 ]
 
 start-at-login = false
@@ -21,8 +26,8 @@ enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true
 
 accordion-padding = 30
-default-root-container-layout = 'accordion'   # tiles|accordion
-default-root-container-orientation = 'auto'   # horizontal|vertical|auto
+default-root-container-layout = 'accordion'
+default-root-container-orientation = 'auto'
 
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
@@ -181,7 +186,7 @@ run = 'layout floating'
     alt-ctrl-shift-0 = 'move-node-to-workspace 0'
 
     alt-tab = 'workspace-back-and-forth'
-    alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+    alt-shift-tab = ['move-workspace-to-monitor --wrap-around next', 'exec-and-forget sketchybar --trigger aerospace_change']
     alt-shift-semicolon = 'mode service'
 
     # Launch-or-focus, alt-shift-<letter>. `open -a` raises an app that is
@@ -206,8 +211,7 @@ run = 'layout floating'
     alt-shift-x = 'exec-and-forget open -a Spotify'
     alt-shift-z = 'exec-and-forget open -a zoom.us'
 
-# Occasional layout repairs, kept out of the main mode. alt-shift-semicolon
-# enters, esc leaves.
+# Occasional layout repairs, kept out of the main mode.
 [mode.service.binding]
     esc = ['reload-config', 'mode main']
     r = ['flatten-workspace-tree', 'mode main']
