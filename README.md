@@ -64,6 +64,10 @@ cd ~/dotfiles && git pull && bash bootstrap.sh
   machine needs `C-a I` once.
 - Adding a plugin to `.zsh_plugins.txt` needs no separate step. antidote
   rebuilds the bundle when that file is newer, so the next shell picks it up.
+- `mod_windowmanager` runs sketchybar as a brew service, so a config change
+  needs `brew services restart sketchybar`. `killall sketchybar` will not do
+  it, because the LaunchAgent carries KeepAlive and respawns the bar it just
+  killed.
 
 ### What `--greedy` is for
 
@@ -153,15 +157,23 @@ bash tests/sketchybar_test.sh  # the AeroSpace bar driver
 Pure bash, no framework, and nothing either does touches the real machine. Each
 file's header explains how it stays isolated.
 
-## Vendored agent skills
+## Agent skills
 
-The `claude` package carries two skills under
-`claude/.claude/skills/pstack-skills/`, copied from Cursor's MIT-licensed
+The `claude` package carries three skills under `claude/.claude/skills/`.
+`mod_agents` stows them with the rest of the package, so they reach every repo
+on a personal machine and none on a work one.
+
+Two are vendored under `pstack-skills/`, copied from Cursor's MIT-licensed
 marketplace: `unslop` strips AI tells from prose, `deslop` strips them from
-code. `mod_agents` stows them with the rest of the package, so they reach every
-repo on a personal machine and none on a work one. That package's own README
-covers provenance, why they are copies rather than an installed plugin, and how
-to diff one against upstream.
+code. That package's own README covers provenance, why they are copies rather
+than an installed plugin, and how to diff one against upstream.
+
+`noslop/` is local rather than vendored, and runs both halves in order:
+`deslop` over the code, then the `unslop` rules over the prose. The order
+matters. The first pass decides which comments survive, and the second fixes
+how they read. Only `/noslop` reaches it, because the skill sets
+`disable-model-invocation: true`, so an agent never starts a rewrite of its own
+work unasked.
 
 ## The sketchybar app font
 
