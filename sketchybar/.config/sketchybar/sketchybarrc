@@ -11,14 +11,15 @@ PLUGIN_DIR="$CONFIG_DIR/plugins"
 
 source "$CONFIG_DIR/colors.sh"
 
-# One Nerd Font (Maple Mono NL NF CN, widest coverage installed here at 33k
-# codepoints) for both text and icons, so glyphs and label text always match.
-LABEL_FONT="Maple Mono NL NF CN"
-ICON_FONT="Maple Mono NL NF CN"
+# One Nerd Font for both text and icons, so glyphs and label text always match.
+# It has to name the cask mod_terminal declares, font-maple-mono-nf-cn. The NL
+# cut is a separate cask nothing here installs, and a missing family falls back
+# to a system font in silence rather than reporting the miss.
+LABEL_FONT="Maple Mono NF CN"
+ICON_FONT="Maple Mono NF CN"
 # The app-glyph font ships one weight, so it takes Regular rather than the
 # weights asked of the Nerd Font above.
 APP_FONT="sketchybar-app-font"
-# Single source for the text size, so the declarations below cannot drift apart.
 FONT_SIZE="16.0"
 
 # ── bar ──────────────────────────────────────────────────────────────────────
