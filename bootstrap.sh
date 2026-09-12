@@ -894,6 +894,11 @@ mod_windowmanager() {
   # glyph, so the sketchybar package vendors it and that package's helpers
   # README keeps the two in step.
   brew_cask font-sketchybar-app-font
+  # helpers/ai_watch.py holds the bar's herdr subscription. macOS ships no
+  # python3 of its own, and /usr/bin/python3 is a Command Line Tools shim that
+  # can prompt for an install from a LaunchAgent, where nobody would see it.
+  # Unversioned, like node above. python@3.N is the same formula under an alias.
+  brew_formula python
   stow_package aerospace
   stow_package sketchybar
 }

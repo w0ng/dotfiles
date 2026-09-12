@@ -19,6 +19,7 @@
 # shellcheck source-path=SCRIPTDIR source=./harness.sh
 source "$(dirname "${BASH_SOURCE[0]}")/harness.sh"
 readonly PLUGIN_DIR="${REPO_ROOT}/sketchybar/.config/sketchybar/plugins"
+readonly HELPER_DIR="${REPO_ROOT}/sketchybar/.config/sketchybar/helpers"
 
 # These repeat colors.sh rather than sourcing it, so a wrong edit there fails a
 # test instead of changing both sides of the comparison at once.
@@ -28,6 +29,7 @@ readonly FG=0xffebdbb2
 readonly GRAY=0xffa89984
 readonly GRAY_DARK=0xff7c6f64
 readonly YELLOW=0xfffabd2f
+readonly BLUE=0xff83a598
 readonly GREEN=0xffb8bb26
 readonly RED=0xfffb4934
 readonly ORANGE=0xfffe8019
@@ -57,12 +59,51 @@ STUB
 printf '%s\n' "$*" >>"${STUB_LOG}"
 exit 0
 STUB
+  # ai_watch.py refuses to start without herdr on PATH, so the suite needs one
+  # even though the watcher then speaks to the socket rather than the binary.
+  cat >"${WORK_DIR}/stubs/herdr" <<'STUB'
+#!/bin/bash
+exit 0
+STUB
   chmod +x "${WORK_DIR}/stubs/"*
+
+  # Past the guard above, the watcher speaks the API over a unix socket and
+  # never shells out, so the counts have to come from a real socket.
+  cat >"${WORK_DIR}/fake_herdr.py" <<'FAKE'
+import json, os, socket, sys
+path = sys.argv[1]
+agents = json.loads(os.environ["STUB_AGENTS"])
+server = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+server.bind(path)
+server.listen(16)
+while True:
+    conn, _ = server.accept()
+    try:
+        conn.recv(65536)
+        conn.sendall((json.dumps({"id": "x", "result": {"agents": agents}}) + "\n").encode())
+    except Exception:
+        pass
+    finally:
+        conn.close()
+FAKE
+
   export STUB_LOG
 }
 
 teardown() {
+  [[ -n "${FAKE_SERVER:-}" ]] && kill "${FAKE_SERVER}" 2>/dev/null
+  # ai_watch.py puts itself in its own session, so it has no parent to kill it
+  # through. Matching the script name alone would also match the watcher running
+  # the real bar, so each candidate is checked against this test's own socket,
+  # which `ps eww` exposes in its environment.
+  local pid
+  for pid in $(pgrep -f "ai_watch.py" 2>/dev/null); do
+    if ps eww -p "${pid}" 2>/dev/null | grep -q "HERDR_SOCKET_PATH=${WORK_DIR}/"; then
+      kill "${pid}" 2>/dev/null
+    fi
+  done
   [[ -n "${WORK_DIR}" && -d "${WORK_DIR}" ]] && rm -rf "${WORK_DIR}"
+  return 0
 }
 
 # Runs the plugin the way sketchybar would, with $1 as the listing the aerospace
@@ -339,6 +380,212 @@ test_no_focused_app_paints_nothing() {
   front_app_with '' ''
 
   assert_eq '' "$(calls)" 'an empty app name leaves the last paint alone'
+}
+
+#######################################
+# ai_agents
+#######################################
+
+# Runs the plugin with $1 as the contents of the file helpers/ai_watch.py
+# maintains. No argument means no file at all, which is what a machine with the
+# watcher not yet running looks like.
+ai_paint_with() {
+  local state_dir="${WORK_DIR}/home/.cache/sketchybar"
+  mkdir -p "${state_dir}"
+  if [[ $# -gt 0 ]]; then
+    printf '%s' "$1" >"${state_dir}/ai_agents"
+  else
+    rm -f "${state_dir}/ai_agents"
+  fi
+  PATH="${WORK_DIR}/stubs:${PATH}" HOME="${WORK_DIR}/home" \
+    XDG_CACHE_HOME="${WORK_DIR}/home/.cache" \
+    bash "${PLUGIN_DIR}/ai_agents.sh"
+}
+
+# Three working, one blocked, two finished-but-unseen, one idle.
+ai_fixture() {
+  printf 'total=7\nworking=3\nblocked=1\ndone=2\nidle=1\n'
+}
+
+test_ai_the_whole_group_is_one_sketchybar_process() {
+  ai_paint_with "$(ai_fixture)"
+
+  assert_eq '1' "$(calls | wc -l | tr -d ' ')" \
+    'five items are painted by a single sketchybar process'
+}
+
+test_ai_counts_are_drawn_per_state() {
+  ai_paint_with "$(ai_fixture)"
+
+  assert_contains "$(calls)" \
+    "--set ai.working drawing=on icon=󰭻 icon.color=${BLUE} label=3 label.color=${BLUE}" \
+    'working agents are counted in blue'
+  assert_contains "$(calls)" \
+    "--set ai.blocked drawing=on icon=󱜸 icon.color=${RED} label=1 label.color=${RED}" \
+    'an agent waiting on you is counted in red'
+  assert_contains "$(calls)" \
+    "--set ai.done drawing=on icon=󱐏 icon.color=${GREEN} label=2 label.color=${GREEN}" \
+    'a finished turn nobody has looked at is counted in green'
+}
+
+# Idle is a count like any other, not a fallback shown only when nothing else is.
+test_ai_idle_is_counted_alongside_the_rest() {
+  ai_paint_with "$(ai_fixture)"
+
+  assert_contains "$(calls)" \
+    "--set ai.idle drawing=on icon=󱋑 icon.color=${DIM} label=1 label.color=${DIM}" \
+    'idle agents are counted whether or not others are busy'
+}
+
+test_ai_the_robot_leads_the_group() {
+  ai_paint_with "$(ai_fixture)"
+
+  assert_contains "$(calls)" "--set ai.icon drawing=on icon= icon.color=${PURPLE}" \
+    'the robot is drawn once any agent exists'
+}
+
+test_ai_a_state_with_no_agents_is_hidden() {
+  ai_paint_with "$(printf 'total=2\nworking=2\nblocked=0\ndone=0\nidle=0\n')"
+
+  assert_contains "$(calls)" '--set ai.blocked drawing=off' \
+    'no blocked agents, so no blocked count'
+  assert_contains "$(calls)" '--set ai.done drawing=off' \
+    'no finished agents, so no done count'
+  assert_contains "$(calls)" '--set ai.idle drawing=off' \
+    'no idle agents, so no idle count'
+  assert_contains "$(calls)" 'label=2' 'the state that has agents is still drawn'
+}
+
+# The whole point of the total: with no agents the bar goes back to what it was.
+test_ai_no_agents_hides_every_item() {
+  ai_paint_with "$(printf 'total=0\nworking=0\nblocked=0\ndone=0\nidle=0\n')"
+
+  assert_contains "$(calls)" '--set ai.icon drawing=off' 'the robot is hidden too'
+  assert_not_contains "$(calls)" 'drawing=on' 'nothing at all is drawn'
+}
+
+# The watcher has not run yet, or its cache was cleared. Either way there is
+# nothing to report, and a robot with no counts beside it would be worse.
+test_ai_a_missing_state_file_hides_every_item() {
+  ai_paint_with
+
+  assert_contains "$(calls)" '--set ai.icon drawing=off' \
+    'no state file hides the group'
+  assert_not_contains "$(calls)" 'drawing=on' 'nothing at all is drawn'
+}
+
+# Cut before any `=`, so no case arm matches and every count keeps its zero.
+test_ai_a_truncated_state_file_hides_every_item() {
+  ai_paint_with "$(printf 'tot')"
+
+  assert_not_contains "$(calls)" 'drawing=on' \
+    'a file cut before any value is treated as no agents'
+}
+
+# The input that needs the numeric guard: `[ abc -le 0 ]` errors and returns
+# false, which without it would fall through and paint a robot on its own.
+test_ai_a_non_numeric_count_hides_every_item() {
+  ai_paint_with "$(printf 'total=abc\nworking=1\nblocked=0\ndone=0\nidle=0\n')"
+
+  assert_not_contains "$(calls)" 'drawing=on' \
+    'a corrupt total hides the group rather than drawing a robot on its own'
+}
+
+#######################################
+# ai_watch
+#######################################
+
+# Runs the watcher against a fake herdr socket replying with $1 as the
+# agent.list payload, and returns once it has written the state file.
+ai_watch_with() {
+  local agents="$1" state_dir="${WORK_DIR}/home/.cache/sketchybar"
+  local sock="${WORK_DIR}/herdr.sock"
+
+  STUB_AGENTS="${agents}" python3 "${WORK_DIR}/fake_herdr.py" "${sock}" >/dev/null 2>&1 &
+  FAKE_SERVER=$!
+  wait_for "${sock}" || fail 'the fake herdr socket never appeared'
+
+  # Both children must give up this function's stdout, or the command
+  # substitution that captures the state file waits forever on a pipe the
+  # watcher is still holding open.
+  HERDR_SOCKET_PATH="${sock}" XDG_CACHE_HOME="${WORK_DIR}/home/.cache" \
+    HOME="${WORK_DIR}/home" PATH="${WORK_DIR}/stubs:${PATH}" \
+    python3 "${HELPER_DIR}/ai_watch.py" >/dev/null 2>&1 &
+  wait_for "${state_dir}/ai_agents" \
+    || fail 'the watcher never wrote its state file'
+  cat "${state_dir}/ai_agents" 2>/dev/null
+}
+
+# Bounded wait so a failure reports rather than hanging the suite.
+wait_for() {
+  local path="$1" i=0
+  while [[ ! -e "${path}" ]] && ((i < 100)); do
+    sleep 0.05
+    i=$((i + 1))
+  done
+  [[ -e "${path}" ]]
+}
+
+test_ai_watch_tallies_each_status_reported_by_herdr() {
+  local out
+  out="$(ai_watch_with '[
+    {"agent_status":"working"},{"agent_status":"working"},
+    {"agent_status":"blocked"},
+    {"agent_status":"done"},
+    {"agent_status":"idle"}
+  ]')"
+
+  assert_contains "${out}" 'total=5' 'every agent herdr lists is counted'
+  assert_contains "${out}" 'working=2' 'working agents are tallied'
+  assert_contains "${out}" 'blocked=1' 'blocked agents are tallied'
+  assert_contains "${out}" 'done=1' 'done is its own count, not folded into idle'
+  assert_contains "${out}" 'idle=1' 'idle agents are tallied'
+}
+
+# unknown is what a pane reports for a second or two before herdr recognises the
+# agent, so it must not earn a colour of its own and flicker on the bar.
+test_ai_watch_reads_unknown_as_idle() {
+  local out
+  out="$(ai_watch_with '[{"agent_status":"unknown"},{"agent_status":"idle"}]')"
+
+  assert_contains "${out}" 'total=2' 'an unrecognised agent still counts toward the total'
+  assert_contains "${out}" 'idle=2' 'unknown is reported as idle'
+}
+
+# The design's headline claim: the bar is told only when the counts move.
+test_ai_watch_triggers_the_bar_once_for_a_reading() {
+  local i=0
+  ai_watch_with '[{"agent_status":"working"}]' >/dev/null
+  # The file is written before the trigger is sent, so its arrival is not proof
+  # the trigger has landed.
+  while [[ "$(calls | grep -c -- '--trigger ai_change')" -eq 0 ]] && ((i < 60)); do
+    sleep 0.05
+    i=$((i + 1))
+  done
+
+  assert_eq '1' "$(calls | grep -c -- '--trigger ai_change')" \
+    'a first reading fires ai_change exactly once, not once per poll'
+}
+
+test_ai_watch_reports_an_empty_herd_as_zero() {
+  local out
+  out="$(ai_watch_with '[]')"
+
+  assert_contains "${out}" 'total=0' 'no agents is a real reading, not a missing file'
+}
+
+# The state names live in both files and nothing else ties them together, so a
+# state added to one and not the other would be counted and never drawn.
+test_ai_the_states_the_plugin_paints_are_all_declared_on_the_bar() {
+  local plugin_states rc_states
+  plugin_states="$(sed -n "s/^states=(\(.*\))$/\1/p" "${PLUGIN_DIR}/ai_agents.sh" \
+    | tr -d "'" | tr ' ' '\n' | sort | tr '\n' ' ')"
+  rc_states="$(sed -n "s/^for state in \(.*\); do$/\1/p" \
+    "${REPO_ROOT}/sketchybar/.config/sketchybar/sketchybarrc" \
+    | tr -d "'" | tr ' ' '\n' | sort | tr '\n' ' ')"
+
+  assert_eq "${plugin_states}" "${rc_states}" \
+    'ai_agents.sh and sketchybarrc declare the same set of states'
 }
 
 # Defined in harness.sh, called here so compgen sees this suite's tests.

@@ -3,8 +3,8 @@
 # sketchybar: status bar for AeroSpace.
 #
 # Everything on the left is driven by AeroSpace callbacks declared in
-# aerospace/.config/aerospace/aerospace.toml; nothing polls but the clock and
-# the battery.
+# aerospace/.config/aerospace/aerospace.toml. The agent counters come from a
+# herdr subscription. Only the clock and the battery are on a timer.
 
 CONFIG_DIR="$HOME/.config/sketchybar"
 PLUGIN_DIR="$CONFIG_DIR/plugins"
@@ -153,6 +153,50 @@ sketchybar --add item volume right \
   --subscribe volume volume_change \
   --set volume \
   script="$PLUGIN_DIR/volume.sh"
+
+# ── AI agents (right, inner edge) ────────────────────────────────────────────
+
+# helpers/ai_watch.py subscribes to herdr's socket and fires this when the
+# counts it reads there change, so the bar repaints only when they move.
+sketchybar --add event ai_change
+
+# Right-side items stack right-to-left in declaration order, so everything here
+# comes after volume to sit at the inner edge and leave the clock in the corner.
+# The states are declared in reverse for the same reason: it makes them read
+# robot, working, blocked, done, idle from left to right.
+for state in 'idle' 'done' 'blocked' 'working'; do
+  sketchybar --add item "ai.$state" right \
+    --set "ai.$state" \
+    drawing=off \
+    icon.padding_left=2 \
+    icon.padding_right=1 \
+    label.padding_left=1 \
+    label.padding_right=2 \
+    label.font="$LABEL_FONT:Bold:11.0" \
+    label.y_offset=6
+done
+
+sketchybar --add item ai.icon right \
+  --set ai.icon \
+  drawing=off \
+  label.drawing=off \
+  icon.padding_left=8 \
+  icon.padding_right=2
+
+# Draws nothing; it only carries the script for the whole group, the same way
+# aerospace_driver does on the left. One event repaints five items in one pass.
+sketchybar --add item ai_driver right \
+  --subscribe ai_driver ai_change \
+  --set ai_driver \
+  drawing=off \
+  script="$PLUGIN_DIR/ai_agents.sh"
+
+# A reload re-runs this file, so the previous watcher has to go first. Two would
+# each trigger every repaint, and the older one would outlive its config.
+# Anchored on the interpreter, because a bare path also matches an editor with
+# the file open, and reloading the bar should not close somebody's buffer.
+pkill -f "[Pp]ython.* $CONFIG_DIR/helpers/ai_watch.py" >/dev/null 2>&1
+"$CONFIG_DIR/helpers/ai_watch.py" >/dev/null 2>&1 &
 
 # ── go ───────────────────────────────────────────────────────────────────────
 

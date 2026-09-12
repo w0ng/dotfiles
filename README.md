@@ -108,12 +108,11 @@ The commands behind each step, for when you want to run just one by hand:
   it, because the LaunchAgent carries KeepAlive and respawns the bar it just
   killed.
 - The bar's AI agent counters read herdr, which `mod_multiplexer` installs
-  rather than `mod_windowmanager`. `helpers/ai_watch.sh` reads the counts off
-  herdr's socket once a second — herdr emits no event when an agent's status
-  changes, so a subscription alone misses them — and is started by
+  rather than `mod_windowmanager`. `helpers/ai_watch.py` subscribes to herdr's
+  socket, with a 5s poll behind it in case a frame is missed, and is started by
   `sketchybarrc`, so restarting the bar restarts it too. With herdr absent the
-  watcher exits and the segment stays hidden, which is also what a machine with
-  no agents running looks like.
+  watcher clears the counts and exits, leaving the segment hidden, which is also
+  what a machine with no agents running looks like.
 
 ### What `--greedy` is for
 
