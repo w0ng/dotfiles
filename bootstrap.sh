@@ -29,7 +29,11 @@ set -euo pipefail
 # Ordered so that a module only runs once whatever it relies on is present:
 # system defaults first, then stow, then the standalone tools, then the modules
 # whose configs call those tools.
-readonly MODULES=(
+#
+# Not readonly. bash 3.2 scopes a readonly assignment in a sourced file to the
+# function that sourced it, and tests/bootstrap_test.sh sources this from
+# setup, where that would leave every test reading an empty list.
+MODULES=(
   macos
   apps
   core
