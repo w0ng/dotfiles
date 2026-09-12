@@ -626,6 +626,8 @@ mod_cli() {
   brew_formula bat
   brew_formula btop
   personal_formula direnv
+  brew_formula dua-cli
+  brew_formula dust
   brew_formula eza
   brew_formula fd
   brew_formula ffmpeg
