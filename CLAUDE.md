@@ -5,8 +5,8 @@
 Personal macOS dotfiles (Apple Silicon; Homebrew at `/opt/homebrew`), managed
 with [GNU Stow](https://www.gnu.org/software/stow/).
 
-`README.md` documents the install flow and the update command for each package
-manager. Read it before updating a tool or setting up a new machine.
+`README.md` documents the install flow and the update steps, with the command
+behind each. Read it before updating a tool or setting up a new machine.
 
 ## Stow packages
 
@@ -49,14 +49,26 @@ A config stowed with no binary declared is this repo's most common bug, and it
 fails silently at the point of use. Pair every `stow_package` line with an
 install line. Run `bash tests/bootstrap_test.sh` after editing `bootstrap.sh`.
 It asserts exactly that pairing, and lists the tools deliberately installed
-from elsewhere.
+from elsewhere. Renaming a helper here can break `update.sh` while that suite
+stays green, so run `bash tests/update_test.sh` as well.
 
 `tests/sketchybar_test.sh` does the same for the AeroSpace bar driver, so run
-it after editing `sketchybar/.config/sketchybar/`. Both suites take their
+it after editing `sketchybar/.config/sketchybar/`. Every suite takes its
 assertions and runner from `tests/harness.sh`.
 
 Verify by exercising the tool: run the module, then run the binary it
 installed. A stowed file does not prove the binary is there.
+
+## Updating
+
+`update.sh` is the other half of bootstrap. It upgrades what bootstrap
+installed and installs nothing, and it sources `bootstrap.sh` for the output
+helpers, the `run` wrapper and the tool probes rather than repeating them, so a
+change to those reaches both. Every step must stay unattended, because a
+scheduled job may be what runs it. A step runs with no terminal attached, a
+failure reports itself and lets the rest of the run finish, and the exit status
+says whether any step failed. Run `bash tests/update_test.sh` after editing
+it.
 
 ## Machine-local settings
 

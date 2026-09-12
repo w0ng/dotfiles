@@ -175,9 +175,42 @@ remember_profile() {
   success "profile: ${PROFILE} (remembered in ~${PROFILE_FILE#"${HOME}"})"
 }
 
-usage() {
-  sed -n '/^# Usage:/,/^# *bash bootstrap.sh --help$/p' "${BASH_SOURCE[0]}" \
-    | sed 's/^# \{0,1\}//'
+# The Usage block from the top of $1, comment markers stripped. It ends at the
+# --help line, which every script here documents last. Takes the file rather
+# than reading its own, because update.sh documents itself the same way.
+usage_from() {
+  local script="$1"
+  local last
+
+  last="/^# *bash $(basename "${script}") --help\$/"
+  sed -n "/^# Usage:/,${last}p" "${script}" | sed 's/^# \{0,1\}//'
+}
+
+usage() { usage_from "${BASH_SOURCE[0]}"; }
+
+# The functions defined with prefix $1, e.g. mod_ or step_, without the prefix.
+names_with_prefix() {
+  compgen -A function "$1" | sed "s/^$1//" | sort
+}
+
+# $1 is the function prefix, $2 the noun for the error, e.g. module or step.
+# Checked before anything is installed or upgraded, so a typo costs nothing.
+validate_names() {
+  local prefix="$1" noun="$2"
+  local name status=0
+  shift 2
+
+  for name in "$@"; do
+    if ! declare -F "${prefix}${name}" >/dev/null; then
+      error "no such ${noun}: ${name}"
+      status=1
+    fi
+  done
+  if ((status != 0)); then
+    printf 'known %ss: %s\n' "${noun}" \
+      "$(names_with_prefix "${prefix}" | tr '\n' ' ')" >&2
+  fi
+  return "${status}"
 }
 
 #######################################
@@ -297,20 +330,9 @@ brew_service() {
 # default, cargo and rustc are shims that error on every call. That is the
 # state a work machine's own provisioning leaves it in.
 rust_toolchain() {
-  local rustup candidate
+  local rustup
 
-  # Wanted on both machines, but rustup arrives differently on each: Homebrew's
-  # is keg-only and never on PATH, while a work machine has it provisioned into
-  # ~/.cargo/bin already. Take whichever exists.
-  for candidate in \
-    "$(homebrew_prefix)/opt/rustup/bin/rustup" \
-    "${HOME}/.cargo/bin/rustup"; do
-    if [[ -x "${candidate}" ]]; then
-      rustup="${candidate}"
-      break
-    fi
-  done
-  [[ -n "${rustup:-}" ]] || return 0
+  rustup="$(rustup_bin)" || return 0
 
   if "${rustup}" toolchain list 2>/dev/null | grep -q 'no installed toolchains'; then
     info "installing the default Rust toolchain (this downloads ~1GB)"
@@ -442,6 +464,28 @@ brew_shellenv() {
     fi
   done
   return 1
+}
+
+# Prints the first of $@ that is executable, and fails when none is.
+first_executable() {
+  local candidate
+  for candidate in "$@"; do
+    if [[ -x "${candidate}" ]]; then
+      printf '%s' "${candidate}"
+      return 0
+    fi
+  done
+  return 1
+}
+
+# Wanted on both machines, but rustup arrives differently on each: Homebrew's
+# is keg-only and never on PATH, while a work machine has it provisioned into
+# ~/.cargo/bin already. Named here rather than inside rust_toolchain, because
+# update.sh upgrades the toolchain this installs and has to find the same one.
+rustup_bin() {
+  first_executable \
+    "$(homebrew_prefix)/opt/rustup/bin/rustup" \
+    "${HOME}/.cargo/bin/rustup"
 }
 
 # Cached, because `brew --prefix` is another 0.35s of Ruby startup.
@@ -994,9 +1038,7 @@ $(homebrew_prefix)"
 # Entry point
 #######################################
 
-known_modules() {
-  compgen -A function mod_ | sed 's/^mod_//' | sort
-}
+known_modules() { names_with_prefix mod_; }
 
 # Returns 10 when a flag has already printed what was asked for, 1 on a bad one.
 parse_args() {
@@ -1039,22 +1081,7 @@ parse_args() {
   done
 }
 
-# Checked before anything is installed, so a typo costs nothing.
-validate_modules() {
-  local module
-  local status=0
-
-  for module in "$@"; do
-    if ! declare -F "mod_${module}" >/dev/null; then
-      error "no such module: ${module}"
-      status=1
-    fi
-  done
-  if ((status != 0)); then
-    printf 'known modules: %s\n' "$(known_modules | tr '\n' ' ')" >&2
-  fi
-  return "${status}"
-}
+validate_modules() { validate_names mod_ module "$@"; }
 
 main() {
   local parse_status=0

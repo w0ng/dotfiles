@@ -38,36 +38,82 @@ Every module is idempotent, so a second run does nothing but report.
 ## Updating
 
 `bootstrap.sh` installs what is missing; it never upgrades what is already
-there. Updating is deliberately a separate step, one command per manager.
-
-Start with the repo itself. Every stowed file is a symlink back into it, so a
-pull updates the live configs immediately. The re-run then picks up any package
-or stow target the pull introduced:
+there. `update.sh` is the other half: it upgrades and installs nothing.
 
 ```sh
-cd ~/dotfiles && git pull && bash bootstrap.sh
+bash update.sh              # every step
+bash update.sh brew neovim  # only these
+bash update.sh --list       # print the steps
+bash update.sh --dry-run    # print what would happen, change nothing
+bash update.sh --greedy     # also re-sync casks that update themselves
 ```
+
+It runs unattended, so a launchd job or a cron line can call it. Nothing
+prompts, one failing step does not stop the others, and the exit status is
+non-zero if any of them failed. Seven steps, in this order:
+
+| Step | What it does |
+| --- | --- |
+| `repo` | `git pull --ff-only` on this repo, skipped if the checkout has local edits |
+| `brew` | `brew update && brew upgrade`, then `autoremove`, `cleanup` and `doctor` |
+| `npm` | `npm update -g` over the packages `mod_neovim` declares, and only those |
+| `rust` | `rustup update --no-self-update` |
+| `tmux` | tpm's `update_plugins all` |
+| `neovim` | `vim.pack.update()` in a headless nvim, then the tree-sitter parsers |
+| `zsh` | `antidote update --bundles`, then touches `.zsh_plugins.txt` so the bundle rebuilds |
+
+`brew` comes before the five steps that run under it, because it is what
+brings the new tmux, neovim, node, rustup and antidote. `repo` comes first,
+because a pull can change the config every later step reads; it only reports
+what the pull brought, since installing a package the new commits added is
+`bootstrap.sh`'s job:
+
+```sh
+bash update.sh; bash bootstrap.sh
+```
+
+`;` rather than `&&`, because a step failing for its own reasons should not
+skip the install of packages a pull brought in.
+
+Two things `update.sh` deliberately leaves alone. Casks that update themselves
+need `--greedy`, which can ask for a password and so is not the default. And
+tpm updates the plugins already cloned under `~/.config/tmux/plugins` but
+installs none, so a fresh machine, or a plugin newly added to `tmux.conf`,
+still needs `C-a I` once.
+
+### One manager at a time
+
+The commands behind each step, for when you want to run just one by hand:
 
 | What | Command |
 | --- | --- |
 | Homebrew | `brew update && brew upgrade`, then `brew upgrade --cask --greedy` |
-| npm language servers | `npm update -g` |
-| zsh plugins | `antidote update` |
-| Rust | `rustup update` |
+| npm language servers | `npm update -g <the packages mod_neovim declares>` |
+| zsh plugins | `antidote update --bundles` |
+| Rust | `rustup update --no-self-update` |
 | tmux plugins | In tmux: `C-a U` updates, `C-a I` installs, `C-a M-u` removes |
 | Neovim | In nvim: `:lua vim.pack.update()`, then `:TSUpdate` for the parsers |
 | sketchybar icon map | Manual, and rarely worth it. See [below](#the-sketchybar-app-font) |
 | Housekeeping | `brew autoremove`, `brew cleanup`, `brew doctor` |
 
-- tmux plugins do not install themselves. Bootstrap installs tpm, but tpm only
-  sources the plugins already cloned under `~/.config/tmux/plugins`, so a fresh
-  machine needs `C-a I` once.
+- The flags are the point in three of those rows, and `update.sh` passes them
+  for the same reasons. A bare `npm update -g` upgrades every global on the
+  machine, including the npm inside Homebrew's `node` keg; `antidote update`
+  without `--bundles` tries to update antidote itself, which Homebrew owns;
+  `rustup update` without `--no-self-update` does the same to rustup.
 - Adding a plugin to `.zsh_plugins.txt` needs no separate step. antidote
   rebuilds the bundle when that file is newer, so the next shell picks it up.
 - `mod_windowmanager` runs sketchybar as a brew service, so a config change
   needs `brew services restart sketchybar`. `killall sketchybar` will not do
   it, because the LaunchAgent carries KeepAlive and respawns the bar it just
   killed.
+- The bar's AI agent counters read herdr, which `mod_multiplexer` installs
+  rather than `mod_windowmanager`. `helpers/ai_watch.sh` reads the counts off
+  herdr's socket once a second — herdr emits no event when an agent's status
+  changes, so a subscription alone misses them — and is started by
+  `sketchybarrc`, so restarting the bar restarts it too. With herdr absent the
+  watcher exits and the segment stays hidden, which is also what a machine with
+  no agents running looks like.
 
 ### What `--greedy` is for
 
@@ -151,11 +197,12 @@ Two things bootstrap cannot finish on its own:
 
 ```sh
 bash tests/bootstrap_test.sh   # module wiring, stow, and the package pairing
+bash tests/update_test.sh      # the update steps and their unattended contract
 bash tests/sketchybar_test.sh  # the AeroSpace bar driver
 ```
 
-Pure bash, no framework, and nothing either does touches the real machine. Each
-file's header explains how it stays isolated.
+Pure bash, no framework, and nothing any of them does touches the real machine.
+Each file's header explains how it stays isolated.
 
 ## Agent skills
 
