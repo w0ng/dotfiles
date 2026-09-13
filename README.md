@@ -26,9 +26,9 @@ their own, such as `ripgrep`, `eza`, `jq` and `zoxide`. The `mod_*` functions in
 them all.
 
 Not every top-level directory is a package. `macos/` holds a script
-`bootstrap.sh` runs and `tests/` holds the suites below. `alfred/` holds an
-Alfred workflow that searches System Settings behind the keyword `s`, and
-`mod_alfred` copies it into place rather than symlinking it.
+`bootstrap.sh` runs and `tests/` holds the suites below. `alfred/` holds Alfred
+workflow source, which `mod_alfred` copies into place rather than symlinking.
+Each workflow's `info.plist` names the keywords it answers to.
 
 ## Install
 
@@ -79,7 +79,7 @@ bash update.sh --greedy     # also re-sync casks that update themselves
 | Step | What it does |
 | --- | --- |
 | `repo` | `git pull --ff-only`, skipped if the checkout has local edits |
-| `alfred` | Copies the Alfred workflow again, which a pull cannot update |
+| `alfred` | Copies the Alfred workflows again, which a pull cannot update |
 | `brew` | `brew update && brew upgrade`, then `autoremove`, `cleanup` and `doctor` |
 | `npm` | `npm update -g` over the packages `mod_neovim` declares, and only those |
 | `rust` | `rustup update --no-self-update` |

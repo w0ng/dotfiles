@@ -145,6 +145,7 @@ step_repo() {
 step_alfred() {
   step "alfred"
   install_alfred_workflow system-settings
+  install_alfred_workflow processes
 }
 
 step_brew() {

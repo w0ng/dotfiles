@@ -293,7 +293,7 @@ test_discovery_counts_are_stable() {
   fi
 
   assert_eq 6 "$(zsh_files | wc -l | tr -d ' ')" 'zsh scripts discovered'
-  assert_eq 2 "$(python_files | wc -l | tr -d ' ')" 'python scripts discovered'
+  assert_eq 3 "$(python_files | wc -l | tr -d ' ')" 'python scripts discovered'
   assert_eq 25 "$(lua_files | wc -l | tr -d ' ')" 'lua files discovered'
 }
 

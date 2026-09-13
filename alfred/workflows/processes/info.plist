@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>com.w0ng.processes</string>
+	<key>category</key>
+	<string>Tools</string>
+	<key>connections</key>
+	<dict>
+		<key>A1C0F3E2-6B4D-4F1A-9E2C-7D5B8A3F1C60</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>B2D1E4F3-7C5E-4A2B-8F3D-6E4C9B2A0D71</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>A7C6D9E8-3B4C-4F7A-8D9E-1C5B2A6E4D07</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>B2D1E4F3-7C5E-4A2B-8F3D-6E4C9B2A0D71</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>B2D1E4F3-7C5E-4A2B-8F3D-6E4C9B2A0D71</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>C3E2F5A4-8D6F-4B3C-9A4E-5F3D8C1B2E82</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>w0ng</string>
+	<key>description</key>
+	<string>List running processes with live CPU and memory, sorted heaviest first, and signal them gracefully.</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Processes</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>top</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string></string>
+				<key>script</key>
+				<string># /usr/bin/python3 is a Command Line Tools shim that can prompt for an install.
+# Alfred spawns this from the GUI with a minimal PATH, where that prompt is
+# invisible and the filter just returns nothing, so prefer a real interpreter.
+# The query goes in as an argument, never through a shell.
+for py in /opt/homebrew/bin/python3 /usr/local/bin/python3 /usr/bin/python3; do
+  [[ -x "${py}" ]] &amp;&amp; exec "${py}" procs.py "$1"
+done
+echo '{"items":[{"title":"No python3 found","subtitle":"brew install python","valid":false}]}'
+</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>Busiest first  ·  -p pause, -m by memory</string>
+				<key>title</key>
+				<string>Top Processes</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>A1C0F3E2-6B4D-4F1A-9E2C-7D5B8A3F1C60</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string># $1 is one PID; the list has been one row per process since the multi-select
+# modifier was dropped. The exit status is what says whether the signal landed:
+# a process that exited between the list being drawn and the keystroke, or one
+# macOS protects, fails here, and the notification has to say so rather than
+# report a success that did not happen.
+if /bin/kill -s "${signal:-TERM}" "$1" 2&gt;/dev/null; then
+  printf 'SIG%s to %s' "${signal:-TERM}" "${name:-process}"
+else
+  printf 'Could not signal %s (PID %s)' "${name:-process}" "${1:-none}"
+fi
+</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>B2D1E4F3-7C5E-4A2B-8F3D-6E4C9B2A0D71</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<true/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>Kill Process</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>C3E2F5A4-8D6F-4B3C-9A4E-5F3D8C1B2E82</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>topm</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string></string>
+				<key>script</key>
+				<string># /usr/bin/python3 is a Command Line Tools shim that can prompt for an install.
+# Alfred spawns this from the GUI with a minimal PATH, where that prompt is
+# invisible and the filter just returns nothing, so prefer a real interpreter.
+# The query goes in as an argument, never through a shell.
+for py in /opt/homebrew/bin/python3 /usr/local/bin/python3 /usr/bin/python3; do
+  [[ -x "${py}" ]] &amp;&amp; exec "${py}" procs.py -m "$1"
+done
+echo '{"items":[{"title":"No python3 found","subtitle":"brew install python","valid":false}]}'
+</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>Largest first  ·  -p pause</string>
+				<key>title</key>
+				<string>Top Processes by Memory</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>A7C6D9E8-3B4C-4F7A-8D9E-1C5B2A6E4D07</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string>Keywords: top, topm
+
+`topm` is `top -m`, the same list sorted by resident memory.
+
+Lists this user's processes the way Activity Monitor does, one row per
+process, busiest first. A row is a single PID, and a selection signals
+exactly that process.
+
+  return      SIGTERM, which lets the process save and exit
+  cmd+return  SIGKILL, with no chance to save
+  cmd+c       copy the PID
+
+Flags go anywhere in the query and combine:
+
+  -m   sort by resident memory instead of CPU
+  -p   pause the refresh
+  -pm  both, as in `top -pm` or `top -pm brave`
+
+The list refreshes about once a second. Every refresh rebuilds it and
+Alfred resets the selection to the first row, so use -p when you need the
+arrow keys to reach a row further down.
+
+CPU is a measured rate rather than the decaying minute-long average that
+ps reports, taken by differencing two samples of cumulative CPU time. Row
+order is pinned when the list opens, so a refresh never moves the row
+under the cursor onto another process.
+
+The list holds only processes this user can signal, so a selection never
+fails silently against a root process. The notification reports whatever
+does fail, counting anything that could not be signalled.
+
+To set a hotkey, add a Hotkey object in Alfred's editor. Anything
+configured there survives a re-run of bootstrap.sh.</string>
+	<key>uidata</key>
+	<dict>
+		<key>A1C0F3E2-6B4D-4F1A-9E2C-7D5B8A3F1C60</key>
+		<dict>
+			<key>xpos</key>
+			<integer>40</integer>
+			<key>ypos</key>
+			<integer>40</integer>
+		</dict>
+		<key>A7C6D9E8-3B4C-4F7A-8D9E-1C5B2A6E4D07</key>
+		<dict>
+			<key>xpos</key>
+			<integer>40</integer>
+			<key>ypos</key>
+			<integer>190</integer>
+		</dict>
+		<key>B2D1E4F3-7C5E-4A2B-8F3D-6E4C9B2A0D71</key>
+		<dict>
+			<key>xpos</key>
+			<integer>240</integer>
+			<key>ypos</key>
+			<integer>40</integer>
+		</dict>
+		<key>C3E2F5A4-8D6F-4B3C-9A4E-5F3D8C1B2E82</key>
+		<dict>
+			<key>xpos</key>
+			<integer>440</integer>
+			<key>ypos</key>
+			<integer>40</integer>
+		</dict>
+	</dict>
+	<key>variables</key>
+	<dict/>
+	<key>variablesdontexport</key>
+	<array/>
+	<key>version</key>
+	<string>2.4</string>
+	<key>webaddress</key>
+	<string>https://github.com/w0ng/dotfiles</string>
+</dict>
+</plist>

@@ -163,6 +163,22 @@ test_brew_precedes_the_steps_it_upgrades() {
   done
 }
 
+# An Alfred workflow is copied, not stowed, so a pull leaves the installed copy
+# running the previous commit's script and step_alfred is the only thing that
+# refreshes it. A workflow added to bootstrap.sh and forgotten here goes stale
+# indefinitely, and every other suite stays green while it does.
+test_step_alfred_refreshes_every_workflow_bootstrap_installs() {
+  local declared refreshed
+  declared="$(grep -oE '^[[:space:]]*install_alfred_workflow[[:space:]]+[a-z0-9_-]+' \
+    "${REPO_ROOT}/bootstrap.sh" | awk '{print $2}' | sort -u | tr '\n' ' ')"
+  refreshed="$(awk '/^step_alfred\(\)/,/^}/' "${REPO_ROOT}/update.sh" \
+    | grep -oE '^[[:space:]]*install_alfred_workflow[[:space:]]+[a-z0-9_-]+' \
+    | awk '{print $2}' | sort -u | tr '\n' ' ')"
+
+  assert_eq "${declared}" "${refreshed}" \
+    'step_alfred refreshes every workflow bootstrap installs'
+}
+
 test_usage_documents_every_flag() {
   local output flag
   output="$(usage)"

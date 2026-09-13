@@ -18,9 +18,10 @@ mirrors `$HOME`: stow links `bat/.config/bat/config` to `~/.config/bat/config`.
 `mod_macos` runs, and stowing it would drop `~/defaults.bash` in your home
 directory. `alfred/` holds workflow source that `mod_alfred` copies, because
 Alfred rewrites an installed workflow's `info.plist` in place and would detach a
-symlink from this repo. `panes.py`'s module docstring holds the workflow's data
-design, and `install_alfred_workflow` holds what an installed copy keeps across
-a run. Read both before editing anything under `alfred/`.
+symlink from this repo. Before editing anything under `alfred/`, read the
+module docstring of the workflow you are touching, which holds its data design,
+and `install_alfred_workflow`, which holds what an installed copy keeps across
+a run.
 
 Two consequences:
 

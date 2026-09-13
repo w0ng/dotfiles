@@ -601,6 +601,10 @@ alfred_workflows_root() {
   printf '%s\n' "${HOME}/Library/Application Support/Alfred/Alfred.alfredpreferences/workflows"
 }
 
+plist_version() {
+  /usr/bin/plutil -extract version raw -- "$1" 2>/dev/null || true
+}
+
 # Alfred rewrites an installed workflow's info.plist in place when that workflow
 # is edited in its GUI, which would replace a symlink with a regular file and
 # detach the live copy. So the repo holds the source and this copies it in.
@@ -646,7 +650,10 @@ install_alfred_workflow() {
     done
   fi
 
-  opts=(-a --delete)
+  # A __pycache__ left in the source by importing a workflow script would be
+  # copied into the installed workflow, and would then make every later run
+  # report an install rather than a skip.
+  opts=(-a --delete --exclude=__pycache__)
   if [[ -f "${dest}/info.plist" ]]; then
     # Alfred owns three things in an installed workflow: the hotkey it records
     # goes into info.plist, workflow configuration into prefs.plist, and an icon
@@ -655,13 +662,19 @@ install_alfred_workflow() {
     # --delete too, and icon.png is the workflow's own, so it still syncs.
     opts+=(--exclude=info.plist --exclude=prefs.plist --include=icon.png --exclude='*.png')
 
-    if [[ "${src}/info.plist" -nt "${dest}/info.plist" ]]; then
+    # This reads the version the repo declares rather than comparing mtimes,
+    # because rsync stamps the destination and the next run would then go quiet
+    # about a plist that is still stale. A keyword lives only in info.plist, so
+    # a warning nobody sees is a keyword that never arrives.
+    if [[ "$(plist_version "${src}/info.plist")" != "$(plist_version "${dest}/info.plist")" ]]; then
       # Re-importing means building a bundle Alfred will accept, which is a
       # zip of the files themselves, never of the directory holding them:
       #   cd "alfred/workflows/${pkg}" && zip -X /tmp/wf.alfredworkflow *
       # Alfred rejects an archive whose info.plist is not at the root.
-      warn "${pkg}: this repo's info.plist is newer than the installed one," \
-        "which is left alone. Re-import the workflow to pick up its changes."
+      warn "${pkg}: this repo's info.plist is version" \
+        "$(plist_version "${src}/info.plist") and the installed one is" \
+        "$(plist_version "${dest}/info.plist"). Alfred records hotkeys there," \
+        "so it is left alone. Re-import the workflow to pick up its changes."
     fi
   fi
 
@@ -724,6 +737,7 @@ mod_alfred() {
   # test_no_package_is_declared_by_two_modules catches. The script filter picks
   # the first interpreter present, so this works before that module has run.
   install_alfred_workflow system-settings
+  install_alfred_workflow processes
 }
 
 mod_core() {
