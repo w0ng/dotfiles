@@ -62,6 +62,12 @@ conform.setup({
             -- style guide; -bn keeps `&&` and `||` at the start of a continued
             -- line, which is how these scripts already read. No -sr: redirects
             -- are written `2>/dev/null`, without the space.
+            --
+            -- The dotfiles repo also sets these in its .editorconfig, which
+            -- shfmt reads only when passed no flags. The duplication is
+            -- deliberate: these flags are what a buffer outside that repo gets,
+            -- and dropping them would silently format such a file with shfmt's
+            -- own defaults instead.
             prepend_args = { '-i', '2', '-ci', '-bn' },
         },
         stylua = {
@@ -79,6 +85,8 @@ conform.setup({
         lua = { 'stylua' },
         sh = { 'shfmt' },
         bash = { 'shfmt' },
+        -- Import order first, then formatting: ruff_format does not reorder.
+        python = { 'ruff_organize_imports', 'ruff_format' },
         rust = { 'rustfmt' },
     },
     -- CSS formatting stays with stylelint_lsp; see plugin/lsp.lua.

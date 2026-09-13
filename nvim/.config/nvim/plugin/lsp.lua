@@ -104,6 +104,36 @@ vim.lsp.config('lua_ls', {
 })
 vim.lsp.enable('lua_ls')
 
+-- The type checker ruff is not: ruff does no inference, so the two attach to
+-- the same buffer without overlapping diagnostics. Chosen over ty, still 0.0.x,
+-- and basedpyright, a Node-based pyright fork.
+--
+-- No documentFormattingProvider line, unlike its neighbours: pyrefly advertises
+-- no formatting capability, so there is nothing there to switch off.
+vim.lsp.config('pyrefly', {
+    -- Upstream's config notifies on every exit, including the clean one on
+    -- :qa, which puts a message on screen each time nvim closes a Python
+    -- buffer. Only a crash is worth saying anything about.
+    on_exit = function(code, _, _)
+        if code ~= 0 then
+            vim.schedule(function()
+                vim.notify('pyrefly exited with code ' .. code, vim.log.levels.WARN)
+            end)
+        end
+    end,
+})
+vim.lsp.enable('pyrefly')
+
+-- One binary for diagnostics and formatting, and the same one the dotfiles
+-- lint gate runs, so nvim and `bash tests/lint_test.sh` cannot disagree about a
+-- file. Type checking is pyrefly's, above.
+vim.lsp.config('ruff', {
+    on_attach = function(client)
+        client.server_capabilities.documentFormattingProvider = false
+    end,
+})
+vim.lsp.enable('ruff')
+
 -- Not part of rustup's default profile, unlike rustfmt and clippy, so
 -- mod_runtimes adds it explicitly.
 vim.lsp.config('rust_analyzer', {
@@ -159,8 +189,8 @@ vim.keymap.set('n', '<LocalLeader>l', '<Cmd>LspEslintFixAll<CR>', {
 
 -- Buffer-local LSP keymaps on every attach.
 -- A single LspAttach autocmd (rather than a per-server on_attach) guarantees
--- these apply to every server, including ones that set their own on_attach
--- (lua_ls, tsc) which would otherwise override a global on_attach.
+-- these apply to every server, including the several that set their own
+-- on_attach above, which would otherwise override a global one.
 -- Native defaults already provide grn/gra/grr/gri/grt/K/<C-S>, so we only add
 -- the maps with no native equivalent.
 vim.api.nvim_create_autocmd('LspAttach', {
