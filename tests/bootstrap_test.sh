@@ -600,6 +600,27 @@ test_every_stowed_package_declares_its_tool() {
 # Alfred workflow whose source is missing, or whose info.plist names a script
 # that is not beside it, installs a workflow that returns nothing, and Alfred
 # reports that as an empty result rather than as an error.
+
+# `plutil -p` prints a multi-line script across several output lines, so a grep
+# for the key reads only its first, which in both workflows is a comment and
+# names no script. Asking for each script whole is what reaches the body. The
+# loop tests uid rather than the script, because an object carrying no script,
+# such as a notification, would otherwise end the walk before the objects after
+# it.
+workflow_scripts() {
+  local plist="$1"
+  local index=0
+
+  while /usr/bin/plutil -extract "objects.${index}.uid" raw -- "${plist}" \
+    >/dev/null 2>&1; do
+    /usr/bin/plutil -extract "objects.${index}.config.script" raw -- "${plist}" \
+      2>/dev/null || true
+    /usr/bin/plutil -extract "objects.${index}.config.scriptfile" raw -- "${plist}" \
+      2>/dev/null || true
+    index=$((index + 1))
+  done
+}
+
 test_every_alfred_workflow_ships_the_script_it_runs() {
   local pkg src bundleid ref found=false
 
@@ -626,8 +647,7 @@ test_every_alfred_workflow_ships_the_script_it_runs() {
       [[ -n "${ref}" ]] || continue
       [[ -f "${src}/${ref}" ]] \
         || fail "alfred workflow ${pkg} runs ${ref}, which is not in its source"
-    done < <(/usr/bin/plutil -p "${src}/info.plist" 2>/dev/null \
-      | grep -oE '"(script|scriptfile)" => .*' \
+    done < <(workflow_scripts "${src}/info.plist" \
       | grep -oE '[A-Za-z0-9_.-]+\.(py|sh|rb|js|scpt|pl)' | sort -u)
   done < <(grep -oE '^[[:space:]]*install_alfred_workflow[[:space:]]+[a-z-]+' \
     "${REPO_ROOT}/bootstrap.sh" | awk '{print $2}')
