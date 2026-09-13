@@ -111,9 +111,11 @@ def catalog_path():
 
             found = {}
             for name in names:
-                if not (name.startswith(CATALOG_PREFIX) and name.endswith(CATALOG_SUFFIX)):
+                if not (
+                    name.startswith(CATALOG_PREFIX) and name.endswith(CATALOG_SUFFIX)
+                ):
                     continue
-                release = name[len(CATALOG_PREFIX):-len(CATALOG_SUFFIX)]
+                release = name[len(CATALOG_PREFIX) : -len(CATALOG_SUFFIX)]
                 if release.isdigit():
                     found[int(release)] = os.path.join(resources, name)
             if found:
@@ -196,8 +198,11 @@ def search_groups(path, keys):
                     if not title:
                         continue
                     # An index is a comma-separated list of alternate spellings.
-                    extra = [t.strip() for t in (item.get("index") or "").split(",")
-                             if t.strip()]
+                    extra = [
+                        t.strip()
+                        for t in (item.get("index") or "").split(",")
+                        if t.strip()
+                    ]
                     bucket = found.setdefault(anchor, {})
                     bucket.setdefault(title, set()).update(extra)
         if found:
@@ -226,15 +231,18 @@ def emit(pane, bundle_id, bundle, url, groups):
     """One row for the pane, then one per individual setting Apple indexes."""
     icon = {"type": "fileicon", "path": bundle or SETTINGS_APP}
 
-    yield True, {
-        "uid": url,
-        "title": pane,
-        "subtitle": SETTINGS_NAME,
-        "arg": url,
-        "match": match_terms(pane, ()),
-        "icon": icon,
-        "valid": True,
-    }
+    yield (
+        True,
+        {
+            "uid": url,
+            "title": pane,
+            "subtitle": SETTINGS_NAME,
+            "arg": url,
+            "match": match_terms(pane, ()),
+            "icon": icon,
+            "valid": True,
+        },
+    )
 
     # Deliberately keyed on the title alone rather than on (anchor, title). A
     # few settings are indexed under two anchors, and two rows reading exactly
@@ -246,15 +254,18 @@ def emit(pane, bundle_id, bundle, url, groups):
             if title == pane or title in seen:
                 continue
             seen.add(title)
-            yield False, {
-                "uid": bundle_id + "?" + anchor + "#" + title,
-                "title": title,
-                "subtitle": SETTINGS_NAME + " › " + pane,
-                "arg": SCHEME + bundle_id + "?" + anchor,
-                "match": match_terms(title, extra),
-                "icon": icon,
-                "valid": True,
-            }
+            yield (
+                False,
+                {
+                    "uid": bundle_id + "?" + anchor + "#" + title,
+                    "title": title,
+                    "subtitle": SETTINGS_NAME + " › " + pane,
+                    "arg": SCHEME + bundle_id + "?" + anchor,
+                    "match": match_terms(title, extra),
+                    "icon": icon,
+                    "valid": True,
+                },
+            )
 
 
 def from_catalog(path, keys):
@@ -269,7 +280,7 @@ def from_catalog(path, keys):
             continue
         # Alfred appends its own *anchor, and writes iCloud as a :suffix on the
         # Apple Account identifier. Neither belongs in a bundle identifier.
-        bundle_id = url[len(SCHEME):].split("*")[0].split(":")[0]
+        bundle_id = url[len(SCHEME) :].split("*")[0].split(":")[0]
         icon = entry.get("icon") or ""
         panes.append((pane, bundle_id, icon if os.path.isdir(icon) else "", url))
 
@@ -284,8 +295,7 @@ def from_catalog(path, keys):
                 break
 
         icon = icon or (candidates[0] if candidates else "")
-        for item in emit(pane, bundle_id, icon, url, groups):
-            yield item
+        yield from emit(pane, bundle_id, icon, url, groups)
 
 
 def from_extensionkit(keys):
@@ -302,8 +312,10 @@ def from_extensionkit(keys):
 
         attrs = info.get("EXAppExtensionAttributes") or {}
         extension = info.get("NSExtension") or {}
-        if (attrs.get("EXExtensionPointIdentifier")
-                or extension.get("NSExtensionPointIdentifier")) != POINT:
+        if (
+            attrs.get("EXExtensionPointIdentifier")
+            or extension.get("NSExtensionPointIdentifier")
+        ) != POINT:
             continue
 
         bundle_id = info.get("CFBundleIdentifier")
@@ -311,9 +323,9 @@ def from_extensionkit(keys):
             continue
 
         pane = info.get("CFBundleDisplayName") or info.get("CFBundleName") or entry[:-6]
-        for item in emit(pane, bundle_id, path, SCHEME + bundle_id,
-                         search_groups(path, keys)):
-            yield item
+        yield from emit(
+            pane, bundle_id, path, SCHEME + bundle_id, search_groups(path, keys)
+        )
 
 
 def cache_file():
@@ -360,8 +372,9 @@ def store(path, key, payload):
     # killed run nor two runs overlapping can leave a half-written cache whose
     # first line still reads as a valid key.
     try:
-        handle, tmp = tempfile.mkstemp(dir=os.path.dirname(path) or ".",
-                                       prefix=".settings-", suffix=".tmp")
+        handle, tmp = tempfile.mkstemp(
+            dir=os.path.dirname(path) or ".", prefix=".settings-", suffix=".tmp"
+        )
     except OSError:
         return
     try:
@@ -420,11 +433,15 @@ def main():
     items = [item for _, item in rows]
 
     if not items:
-        items = [{
-            "title": "No settings found",
-            "subtitle": "Neither Alfred's catalogue nor " + EXT_DIR + " could be read",
-            "valid": False,
-        }]
+        items = [
+            {
+                "title": "No settings found",
+                "subtitle": "Neither Alfred's catalogue nor "
+                + EXT_DIR
+                + " could be read",
+                "valid": False,
+            }
+        ]
         # Never cache a failure. Nothing in the key describes why this run found
         # nothing, so a stored failure would outlive whatever caused it and the
         # only way out would be editing this file.
