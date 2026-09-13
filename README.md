@@ -135,6 +135,13 @@ settings here. Four installers have now done exactly that.
 bash tests/bootstrap_test.sh   # module wiring, stow, and the package pairing
 bash tests/update_test.sh      # the update steps and their unattended contract
 bash tests/sketchybar_test.sh  # the AeroSpace bar driver
+bash tests/lint_test.sh        # shell, zsh, python and lua style
 ```
 
 Pure bash, no framework, and nothing any of them does touches the real machine.
+
+`lint_test.sh` is the one exception to "no framework": it shells out to
+shellcheck, shfmt, ruff, stylua and zsh, because asking what those tools say is
+the whole point of it. It reads repo files and writes nothing, because ruff
+runs with `--no-cache` and so leaves no `.ruff_cache/` behind. It skips with a
+notice rather than failing when a tool is not installed.
