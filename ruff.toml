@@ -1,0 +1,16 @@
+line-length = 88
+
+# The Python here is `#!/usr/bin/env python3` scripts that sketchybar and Alfred
+# exec, so nothing pins an interpreter. That usually resolves to the `python`
+# formula, but a PATH without /opt/homebrew/bin reaches /usr/bin/python3, still
+# 3.9. Pinned to the floor rather than the usual case, because the UP rules
+# rewrite to idioms that compile on 3.9 and then behave differently there.
+# `except TimeoutError` catches no socket timeout before 3.10.
+target-version = "py39"
+
+[lint]
+# E/W are pycodestyle, literally PEP 8. F is pyflakes, I is isort,
+# UP is pyupgrade. E501 is omitted on purpose: the formatter owns width.
+# This narrows ruff 0.16's default, which enables 415 rules including whole
+# families (BLE, S, PLW) this repo has not opted into.
+select = ["E4", "E7", "E9", "W", "F", "I", "UP"]

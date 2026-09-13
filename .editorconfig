@@ -1,0 +1,43 @@
+# Every comment sits on its own line. A trailing comment after a value is not in
+# the EditorConfig spec: shfmt tolerates one, but nvim's parser reads it as part
+# of the value and drops the key.
+root = true
+
+[*]
+indent_style = space
+indent_size = 2
+end_of_line = lf
+charset = utf-8
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# shfmt reads these natively, but only when it is passed no formatting flags.
+# Keep in sync with nvim/.config/nvim/plugin/conform.lua, which passes the same
+# settings as flags for buffers outside this repo; lint_test.sh gates the pair.
+#
+# sketchybarrc is named because it is a bash script with no extension: `file(1)`
+# agrees, the *.sh glob does not.
+[{*.sh,*.bash,sketchybarrc}]
+# Advisory only: no shell tool enforces width, and nvim's sh ftplugin drops `t`
+# from formatoptions, so this draws a guide rather than wrapping as you type.
+max_line_length = 80
+# shfmt -ci
+switch_case_indent = true
+# shfmt -bn
+binary_next_line = true
+
+# Editor hint only. shellcheck refuses zsh and shfmt's zsh dialect cannot parse
+# prompt.zsh's coproc, so nothing enforces this. See CLAUDE.md.
+[{*.zsh,.zshrc,.zprofile,.zshenv}]
+max_line_length = 80
+
+# Deliberately no max_line_length. nvim's python ftplugin, unlike the sh one,
+# leaves `t` in formatoptions, so the key becomes a live textwidth that inserts
+# newlines into code as you type past it. Inside a string that is a syntax
+# error. ruff.toml's line-length owns Python width, and it is what the gate
+# enforces.
+[*.py]
+indent_size = 4
+
+[*.lua]
+indent_size = 4

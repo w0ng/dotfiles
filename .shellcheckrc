@@ -1,0 +1,25 @@
+# ShellCheck finds bugs; it has no opinion on style. These optional checks are
+# what makes it enforce the Google shell style guide's idioms. See
+# `shellcheck --list-optional`.
+enable=require-variable-braces      # ${var}, not $var
+enable=require-double-brackets      # [[ ]], not [ ]
+enable=quote-safe-variables
+enable=deprecate-which              # command -v
+enable=avoid-nullary-conditions     # [[ -n "$x" ]], not [[ "$x" ]]
+
+# Measured against this repo after the brace-and-bracket sweep, and rejected.
+# Counts are what each adds on top of the checks above, so nobody re-enables one
+# expecting it to be quiet:
+#
+#   check-extra-masked-returns  +170  noise
+#   check-set-e-suppressed       +58  noise
+#   add-default-case              +6  a structural change to working code, and
+#                                     Google's guide does not ask for it
+#   check-unassigned-uppercase    +5  all false positives here: FG arrives by
+#                                     sourcing colors.sh, and sketchybar injects
+#                                     NAME into a plugin's environment at exec
+
+# Only reached when shellcheck is given a path inside this repo; see CLAUDE.md.
+
+# Honour the `# shellcheck source=` directives the sourcing scripts carry.
+external-sources=true
