@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Date and 12-hour time, e.g. "Mon 24 Aug  1:04 am".
 #
 # %-I drops the leading zero on the hour; %l would blank-pad it instead, which
@@ -7,4 +7,4 @@
 stamp=$(date '+%a %d %b  %-I:%M %p')
 stamp=${stamp/%AM/am}
 stamp=${stamp/%PM/pm}
-sketchybar --set "$NAME" label="$stamp"
+sketchybar --set "${NAME}" label="${stamp}"

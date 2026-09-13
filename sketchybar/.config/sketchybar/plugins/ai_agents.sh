@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # AI agent counters: a robot, then one count per state, each hidden at zero and
 # the whole group hidden when no agent is running.
 #
@@ -6,9 +6,10 @@
 # ever reads the file helpers/ai_watch.py writes. Nothing here is derived, and
 # the plugin holds no state between repaints.
 
-source "$HOME/.config/sketchybar/colors.sh"
+# shellcheck source-path=SCRIPTDIR source=../colors.sh
+source "${HOME}/.config/sketchybar/colors.sh"
 
-STATE_FILE="${XDG_CACHE_HOME:-$HOME/.cache}/sketchybar/ai_agents"
+STATE_FILE="${XDG_CACHE_HOME:-${HOME}/.cache}/sketchybar/ai_agents"
 
 # nf-fa-robot. Every glyph here was checked against MapleMono-NF-CN's character
 # map, because one the font lacks falls back to a system face in silence.
@@ -20,32 +21,37 @@ blocked=0
 finished=0
 idle=0
 
-if [ -r "$STATE_FILE" ]; then
-  # `|| [ -n "$key" ]` so a final line with no trailing newline is still read
-  # rather than silently dropping whichever count happens to be last.
-  while IFS='=' read -r key value || [ -n "$key" ]; do
-    case "$key" in
-      total) total="$value" ;;
-      working) working="$value" ;;
-      blocked) blocked="$value" ;;
-      done) finished="$value" ;;
-      idle) idle="$value" ;;
+if [[ -r "${STATE_FILE}" ]]; then
+  # `|| [[ -n "${key}" ]]` so a final line with no trailing newline is still
+  # read rather than silently dropping whichever count happens to be last.
+  while IFS='=' read -r key value || [[ -n "${key}" ]]; do
+    case "${key}" in
+      total) total="${value}" ;;
+      working) working="${value}" ;;
+      blocked) blocked="${value}" ;;
+      done) finished="${value}" ;;
+      idle) idle="${value}" ;;
     esac
-  done <"$STATE_FILE"
+  done <"${STATE_FILE}"
 fi
 
-# Anything non-numeric reads as zero, because `[ abc -le 0 ]` errors and returns
-# false, which would fall through to the drawing block below and paint a robot
-# with nothing beside it.
+# Anything non-numeric reads as zero. The callers compare with `[[ ]]`, which
+# evaluates its operands arithmetically: an unsanitised `abc` would silently
+# become 0 and hide the whole group, and an unsanitised `08` is an octal error
+# that hides one counter. Neither surfaces as a visible failure, which is why
+# the guard is here rather than at the comparison.
 numeric() {
   case "$1" in
     '' | *[!0-9]*) printf '0' ;;
-    *) printf '%s' "$1" ;;
+    # 10# forces base 10. The callers compare with `[[ ]]`, which reads a
+    # leading zero as octal and fails outright on a digit above 7, and the
+    # result is also drawn as the label, where "08" would be wrong anyway.
+    *) printf '%s' "$((10#$1))" ;;
   esac
 }
 
 # A missing or unreadable file leaves every count at zero, which hides the group.
-if [ "$(numeric "$total")" -le 0 ]; then
+if [[ "$(numeric "${total}")" -le 0 ]]; then
   sketchybar \
     --set ai.icon drawing=off \
     --set ai.working drawing=off \
@@ -63,22 +69,22 @@ fi
 # done is herdr's own state for a turn that finished and has not been looked at
 # yet. Green draws the eye to it, against a dim idle that does not need one.
 states=('working' 'blocked' 'done' 'idle')
-counts=("$working" "$blocked" "$finished" "$idle")
+counts=("${working}" "${blocked}" "${finished}" "${idle}")
 glyphs=(󰭻 󱜸 󱐏 󱋑)
-colors=("$BLUE" "$RED" "$GREEN" "$DIM")
+colors=("${BLUE}" "${RED}" "${GREEN}" "${DIM}")
 
-args=(--set ai.icon drawing=on icon="$AI_ICON" icon.color="$PURPLE")
+args=(--set ai.icon drawing=on icon="${AI_ICON}" icon.color="${PURPLE}")
 
 for i in "${!states[@]}"; do
-  count="$(numeric "${counts[$i]}")"
-  if [ "$count" -gt 0 ]; then
+  count="$(numeric "${counts[${i}]}")"
+  if [[ "${count}" -gt 0 ]]; then
     args+=(
-      --set "ai.${states[$i]}" drawing=on
-      icon="${glyphs[$i]}" icon.color="${colors[$i]}"
-      label="$count" label.color="${colors[$i]}"
+      --set "ai.${states[${i}]}" drawing=on
+      icon="${glyphs[${i}]}" icon.color="${colors[${i}]}"
+      label="${count}" label.color="${colors[${i}]}"
     )
   else
-    args+=(--set "ai.${states[$i]}" drawing=off)
+    args+=(--set "ai.${states[${i}]}" drawing=off)
   fi
 done
 

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # sketchybar: status bar for AeroSpace.
 #
@@ -11,10 +11,11 @@
 # KeepAlive, so `killall sketchybar` only makes launchd respawn the copy it just
 # killed, still on the old config.
 
-CONFIG_DIR="$HOME/.config/sketchybar"
-PLUGIN_DIR="$CONFIG_DIR/plugins"
+CONFIG_DIR="${HOME}/.config/sketchybar"
+PLUGIN_DIR="${CONFIG_DIR}/plugins"
 
-source "$CONFIG_DIR/colors.sh"
+# shellcheck source-path=SCRIPTDIR source=./colors.sh
+source "${CONFIG_DIR}/colors.sh"
 
 # One Nerd Font for both text and icons, so glyphs and label text always match.
 # It has to name the cask mod_terminal declares, font-maple-mono-nf-cn. The NL
@@ -33,17 +34,17 @@ sketchybar --bar \
   position=top \
   height=32 \
   blur_radius=20 \
-  color="$BLACK" \
+  color="${BLACK}" \
   padding_left=6 \
   padding_right=6
 
 # ── defaults applied to every item ───────────────────────────────────────────
 
 sketchybar --default \
-  icon.font="$ICON_FONT:ExtraBold:$FONT_SIZE" \
-  label.font="$LABEL_FONT:Medium:$FONT_SIZE" \
-  icon.color="$FG" \
-  label.color="$FG" \
+  icon.font="${ICON_FONT}:ExtraBold:${FONT_SIZE}" \
+  label.font="${LABEL_FONT}:Medium:${FONT_SIZE}" \
+  icon.color="${FG}" \
+  label.color="${FG}" \
   icon.padding_left=8 \
   icon.padding_right=4 \
   label.padding_left=4 \
@@ -76,7 +77,7 @@ sketchybar --add item aerospace_driver left \
   --subscribe aerospace_driver aerospace_change display_change \
   --set aerospace_driver \
   drawing=off \
-  script="$PLUGIN_DIR/aerospace.sh"
+  script="${PLUGIN_DIR}/aerospace.sh"
 
 # Binding-mode indicator, hidden unless a non-main mode is active.
 sketchybar --add item mode left \
@@ -96,13 +97,13 @@ SPACES=(1 2 3 4 5 6 7 8 9 0)
 # The pills carry no script of their own: aerospace.sh paints the whole row in
 # one pass, avoiding ten script spawns per workspace switch.
 for sid in "${SPACES[@]}"; do
-  sketchybar --add item "space.$sid" left \
-    --set "space.$sid" \
-    label="$sid" \
+  sketchybar --add item "space.${sid}" left \
+    --set "space.${sid}" \
+    label="${sid}" \
     icon.drawing=off \
     label.padding_left=10 \
     label.padding_right=10 \
-    click_script="aerospace workspace $sid"
+    click_script="aerospace workspace ${sid}"
 done
 
 # ── monitor + layout (left, after workspaces) ────────────────────────────────
@@ -111,14 +112,14 @@ done
 sketchybar --add item monitor left \
   --set monitor \
   padding_left=12 \
-  background.color="$BAR" \
+  background.color="${BAR}" \
   background.drawing=on \
   click_script="aerospace move-workspace-to-monitor --wrap-around next; sketchybar --trigger aerospace_change"
 
 sketchybar --add item layout left \
   --set layout \
   padding_left=6 \
-  background.color="$BAR" \
+  background.color="${BAR}" \
   background.drawing=on \
   click_script="aerospace fullscreen; sketchybar --trigger aerospace_change"
 
@@ -127,12 +128,12 @@ sketchybar --add item layout left \
 sketchybar --add item front_app left \
   --subscribe front_app front_app_switched \
   --set front_app \
-  icon.font="$APP_FONT:Regular:$FONT_SIZE" \
-  icon.color="$FG" \
-  label.color="$YELLOW" \
-  label.font="$LABEL_FONT:Bold:$FONT_SIZE" \
+  icon.font="${APP_FONT}:Regular:${FONT_SIZE}" \
+  icon.color="${FG}" \
+  label.color="${YELLOW}" \
+  label.font="${LABEL_FONT}:Bold:${FONT_SIZE}" \
   padding_left=12 \
-  script="$PLUGIN_DIR/front_app.sh"
+  script="${PLUGIN_DIR}/front_app.sh"
 
 # ── right side ───────────────────────────────────────────────────────────────
 
@@ -140,24 +141,24 @@ sketchybar --add item clock right \
   --set clock \
   update_freq=10 \
   icon="󰅐" \
-  icon.color="$BLUE" \
-  script="$PLUGIN_DIR/clock.sh"
+  icon.color="${BLUE}" \
+  script="${PLUGIN_DIR}/clock.sh"
 
 sketchybar --add item battery right \
   --subscribe battery power_source_change system_woke \
   --set battery \
   update_freq=120 \
-  script="$PLUGIN_DIR/battery.sh"
+  script="${PLUGIN_DIR}/battery.sh"
 
 sketchybar --add item wifi right \
   --subscribe wifi wifi_change system_woke \
   --set wifi \
-  script="$PLUGIN_DIR/wifi.sh"
+  script="${PLUGIN_DIR}/wifi.sh"
 
 sketchybar --add item volume right \
   --subscribe volume volume_change \
   --set volume \
-  script="$PLUGIN_DIR/volume.sh"
+  script="${PLUGIN_DIR}/volume.sh"
 
 # ── AI agents (right, inner edge) ────────────────────────────────────────────
 
@@ -170,14 +171,14 @@ sketchybar --add event ai_change
 # The states are declared in reverse for the same reason: it makes them read
 # robot, working, blocked, done, idle from left to right.
 for state in 'idle' 'done' 'blocked' 'working'; do
-  sketchybar --add item "ai.$state" right \
-    --set "ai.$state" \
+  sketchybar --add item "ai.${state}" right \
+    --set "ai.${state}" \
     drawing=off \
     icon.padding_left=2 \
     icon.padding_right=1 \
     label.padding_left=1 \
     label.padding_right=2 \
-    label.font="$LABEL_FONT:Bold:11.0" \
+    label.font="${LABEL_FONT}:Bold:11.0" \
     label.y_offset=6
 done
 
@@ -194,14 +195,14 @@ sketchybar --add item ai_driver right \
   --subscribe ai_driver ai_change \
   --set ai_driver \
   drawing=off \
-  script="$PLUGIN_DIR/ai_agents.sh"
+  script="${PLUGIN_DIR}/ai_agents.sh"
 
 # A reload re-runs this file, so the previous watcher has to go first. Two would
 # each trigger every repaint, and the older one would outlive its config.
 # Anchored on the interpreter, because a bare path also matches an editor with
 # the file open, and reloading the bar should not close somebody's buffer.
-pkill -f "[Pp]ython.* $CONFIG_DIR/helpers/ai_watch.py" >/dev/null 2>&1
-"$CONFIG_DIR/helpers/ai_watch.py" >/dev/null 2>&1 &
+pkill -f "[Pp]ython.* ${CONFIG_DIR}/helpers/ai_watch.py" >/dev/null 2>&1
+"${CONFIG_DIR}/helpers/ai_watch.py" >/dev/null 2>&1 &
 
 # ── go ───────────────────────────────────────────────────────────────────────
 

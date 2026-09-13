@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Every AeroSpace-derived bar item, painted from one query: layout, monitor,
 # mode and the ten workspace pills.
 #
@@ -12,7 +12,8 @@
 # reaches AeroSpace only when that is absent, so folding it in would put a query
 # and a full repaint on the most frequent event the bar sees.
 
-source "$HOME/.config/sketchybar/colors.sh"
+# shellcheck source-path=SCRIPTDIR source=../colors.sh
+source "${HOME}/.config/sketchybar/colors.sh"
 
 # The eval expression must stay on one line; embedded newlines fail to parse.
 #
@@ -25,7 +26,7 @@ state=$(aerospace eval -- 'list-monitors --focused --format M%{tab}%{monitor-is-
 
 # Nothing came back, so leave every item at its last paint rather than blanking
 # the whole bar. An AeroSpace restart is the common cause and it is brief.
-[ -z "$state" ] && exit 0
+[[ -z "${state}" ]] && exit 0
 
 is_main=""
 mon_id=""
@@ -45,66 +46,66 @@ while IFS=$'\t' read -r tag a b c; do
   # A tagged line always carries fields and the two untagged queries never do,
   # so the presence of $a is what tells them apart. Matching the tag first would
   # let a mode named M, W, A or N take a tag's arm and clobber a real line.
-  if [ -z "$a" ]; then
-    case "$tag" in
+  if [[ -z "${a}" ]]; then
+    case "${tag}" in
       '') ;;
-      *[!0-9]*) mode="$tag" ;;
-      *) monitor_count="$tag" ;;
+      *[!0-9]*) mode="${tag}" ;;
+      *) monitor_count="${tag}" ;;
     esac
     continue
   fi
-  case "$tag" in
+  case "${tag}" in
     M)
-      is_main="$a"
-      mon_id="$b"
+      is_main="${a}"
+      mon_id="${b}"
       ;;
     W)
-      layout="$a"
-      fullscreen="$b"
+      layout="${a}"
+      fullscreen="${b}"
       ;;
     A)
-      ws_ids+=("$a")
-      ws_visible+=("$b")
-      ws_focused+=("$c")
+      ws_ids+=("${a}")
+      ws_visible+=("${b}")
+      ws_focused+=("${c}")
       ;;
-    N) nonempty="$nonempty$a " ;;
+    N) nonempty="${nonempty}${a} " ;;
   esac
-done <<<"$state"
+done <<<"${state}"
 
 # ── layout ───────────────────────────────────────────────────────────────────
 
-if [ "$fullscreen" = "true" ]; then
+if [[ "${fullscreen}" = "true" ]]; then
   icon="󰊓"
   label="fullscreen"
-  color="$ORANGE"
+  color="${ORANGE}"
 else
   # AeroSpace's own layout name verbatim, h_/v_ direction prefix included, so
   # the bar matches what `aerospace` reports and a new layout needs no mapping.
   label="${layout:-—}"
-  case "$layout" in
+  case "${layout}" in
     floating)
       icon="󰀽"
-      color="$AQUA"
+      color="${AQUA}"
       ;;
     h_tiles)
       icon="󰯌"
-      color="$GREEN"
+      color="${GREEN}"
       ;;
     v_tiles)
       icon="󰯋"
-      color="$GREEN"
+      color="${GREEN}"
       ;;
     h_accordion)
       icon="󰹴"
-      color="$BLUE"
+      color="${BLUE}"
       ;;
     v_accordion)
       icon="󰹺"
-      color="$BLUE"
+      color="${BLUE}"
       ;;
     *)
       icon="󰋱"
-      color="$GRAY"
+      color="${GRAY}"
       ;;
   esac
 fi
@@ -114,19 +115,27 @@ fi
 # AeroSpace's own monitor id, so the indicator maps onto what its commands take
 # (`move-workspace-to-monitor 2`). 'main'/'secondary' could not tell two
 # non-main displays apart. Colour still marks the main display at a glance.
-mon_label="${mon_id:+monitor_$mon_id}"
+mon_label="${mon_id:+monitor_${mon_id}}"
 mon_label="${mon_label:-—}"
 
-if [ "$is_main" = "true" ] || [ -z "$mon_id" ]; then
-  mon_color="$GRAY"
+if [[ "${is_main}" = "true" ]] || [[ -z "${mon_id}" ]]; then
+  mon_color="${GRAY}"
 else
-  mon_color="$PURPLE"
+  mon_color="${PURPLE}"
 fi
 
 # Nothing to indicate on a single-display setup, so hide the item rather than
-# show a monitor pill that can never read anything but "monitor_1". A failed
-# or unparseable count defaults to "on" so a query hiccup cannot leave it stuck
-# hidden.
+# show a monitor pill that can never read anything but "monitor_1".
+#
+# The parse loop above is what keeps a bad count out: non-digit tokens go to
+# `mode`, so this only ever sees digits or the `:-2` default, and no fixture can
+# reach it with anything else.
+#
+# `[ ]` is deliberate second-line defence. `[[ ]]` evaluates a non-numeric
+# operand arithmetically, reading it as 0 and hiding the pill; `[ ]` errors and
+# falls through to "on". Converting it for consistency would invert that
+# silently, and no test would fail.
+# shellcheck disable=SC2292
 if [ "${monitor_count:-2}" -le 1 ]; then
   mon_drawing=off
 else
@@ -141,25 +150,25 @@ fi
 # Every item gets background.color on every run, so a stray write elsewhere
 # cannot leave one stuck.
 args=(
-  --set layout icon="$icon" icon.color="$color"
-  label="$label" label.color="$color"
-  background.color="$BAR"
-  --set monitor drawing="$mon_drawing"
-  icon="󰍹" icon.color="$mon_color"
-  label="$mon_label" label.color="$mon_color"
-  background.color="$BAR"
+  --set layout icon="${icon}" icon.color="${color}"
+  label="${label}" label.color="${color}"
+  background.color="${BAR}"
+  --set monitor drawing="${mon_drawing}"
+  icon="󰍹" icon.color="${mon_color}"
+  label="${mon_label}" label.color="${mon_color}"
+  background.color="${BAR}"
 )
 
 # Hidden entirely in 'main' so the bar stays uncluttered; only a non-default
 # binding mode is worth the space.
-if [ -z "$mode" ] || [ "$mode" = "main" ]; then
+if [[ -z "${mode}" ]] || [[ "${mode}" = "main" ]]; then
   args+=(--set mode drawing=off)
 else
   args+=(
     --set mode drawing=on
-    label="$(printf '%s' "$mode" | tr '[:lower:]' '[:upper:]')"
-    label.color="$BG0"
-    background.color="$RED"
+    label="$(printf '%s' "${mode}" | tr '[:lower:]' '[:upper:]')"
+    label.color="${BG0}"
+    background.color="${RED}"
     background.drawing=on
   )
 fi
@@ -167,21 +176,21 @@ fi
 # A pill is focused, visible on another monitor, holding windows, or empty. The
 # focused workspace is also visible, so that branch has to be tested first.
 for i in "${!ws_ids[@]}"; do
-  ws="${ws_ids[$i]}"
-  if [ "${ws_focused[$i]}" = "true" ]; then
-    bg="$YELLOW"
-    fg="$BG0"
-  elif [ "${ws_visible[$i]}" = "true" ]; then
-    bg="$GRAY_DARK"
-    fg="$FG"
-  elif [[ "$nonempty" == *" $ws "* ]]; then
-    bg="$BAR"
-    fg="$FG"
+  ws="${ws_ids[${i}]}"
+  if [[ "${ws_focused[${i}]}" = "true" ]]; then
+    bg="${YELLOW}"
+    fg="${BG0}"
+  elif [[ "${ws_visible[${i}]}" = "true" ]]; then
+    bg="${GRAY_DARK}"
+    fg="${FG}"
+  elif [[ "${nonempty}" == *" ${ws} "* ]]; then
+    bg="${BAR}"
+    fg="${FG}"
   else
-    bg="$BAR"
-    fg="$DIM"
+    bg="${BAR}"
+    fg="${DIM}"
   fi
-  args+=(--set "space.$ws" background.drawing=on background.color="$bg" label.color="$fg")
+  args+=(--set "space.${ws}" background.drawing=on background.color="${bg}" label.color="${fg}")
 done
 
 sketchybar "${args[@]}"
