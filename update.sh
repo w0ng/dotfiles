@@ -19,7 +19,7 @@
 # caller may be a scheduled job with no terminal to answer from. Every step
 # runs with no terminal attached, and the comment beside each one says what
 # that takes. main records a failing step and runs the rest anyway, so one
-# unreachable remote cannot cost you the other six, and it exits non-zero when
+# unreachable remote cannot cost you the other seven, and it exits non-zero when
 # any step failed, which is what a scheduled job reads.
 #
 # bootstrap.sh is sourced rather than copied from. Sourcing it runs nothing,

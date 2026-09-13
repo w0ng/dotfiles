@@ -5,6 +5,11 @@
 # Everything on the left is driven by AeroSpace callbacks declared in
 # aerospace/.config/aerospace/aerospace.toml. The agent counters come from a
 # herdr subscription. Only the clock and the battery are on a timer.
+#
+# After editing anything here, run `brew services restart sketchybar`.
+# mod_windowmanager runs the bar as a brew service whose LaunchAgent carries
+# KeepAlive, so `killall sketchybar` only makes launchd respawn the copy it just
+# killed, still on the old config.
 
 CONFIG_DIR="$HOME/.config/sketchybar"
 PLUGIN_DIR="$CONFIG_DIR/plugins"

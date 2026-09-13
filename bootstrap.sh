@@ -607,7 +607,7 @@ alfred_workflows_root() {
 install_alfred_workflow() {
   local pkg="$1"
   local src="${DOTFILES_DIR}/alfred/workflows/${pkg}"
-  local root bundleid dest candidate pending
+  local root bundleid dest candidate candidate_id pending
   local -a opts
 
   if [[ ! -f "${src}/info.plist" ]]; then
@@ -637,7 +637,9 @@ install_alfred_workflow() {
   if [[ ! -f "${dest}/info.plist" ]]; then
     for candidate in "${root}"/*/; do
       [[ -f "${candidate}info.plist" ]] || continue
-      if [[ "$(/usr/bin/plutil -extract bundleid raw "${candidate}info.plist" 2>/dev/null || true)" == "${bundleid}" ]]; then
+      candidate_id="$(/usr/bin/plutil -extract bundleid raw \
+        "${candidate}info.plist" 2>/dev/null || true)"
+      if [[ "${candidate_id}" == "${bundleid}" ]]; then
         dest="${candidate%/}"
         break
       fi
@@ -654,7 +656,12 @@ install_alfred_workflow() {
     opts+=(--exclude=info.plist --exclude=prefs.plist --include=icon.png --exclude='*.png')
 
     if [[ "${src}/info.plist" -nt "${dest}/info.plist" ]]; then
-      warn "${pkg}: this repo's info.plist is newer, and the installed one is left alone. Re-import the workflow to pick up keyword or wiring changes."
+      # Re-importing means building a bundle Alfred will accept, which is a
+      # zip of the files themselves, never of the directory holding them:
+      #   cd "alfred/workflows/${pkg}" && zip -X /tmp/wf.alfredworkflow *
+      # Alfred rejects an archive whose info.plist is not at the root.
+      warn "${pkg}: this repo's info.plist is newer than the installed one," \
+        "which is left alone. Re-import the workflow to pick up its changes."
     fi
   fi
 
@@ -738,6 +745,12 @@ mod_cli() {
   brew_formula jq
   brew_formula ripgrep
   brew_formula shellcheck
+  # uv and codex both ship self-updaters that install into ~/.local/bin, which
+  # .zshenv puts ahead of /opt/homebrew/bin. The shell would then run the
+  # self-installed copy while brew upgrades one nobody executes, so Homebrew
+  # owns both and their own updaters stay unused. On a personal machine
+  # `command -v uv` outside /opt/homebrew/bin means a self-installed copy won;
+  # on a work machine uv is not brew's to own, so it legitimately points away.
   personal_formula uv
   brew_formula vivid
   brew_formula zoxide
@@ -997,7 +1010,9 @@ mod_windowmanager() {
   brew_cask nikitabobko/tap/aerospace 'AeroSpace.app'
   # The cask is the font alone. Nothing packages the map from app name to
   # glyph, so the sketchybar package vendors it and that package's helpers
-  # README keeps the two in step.
+  # README keeps the two in step. The font cannot be stowed. CoreText ignores a
+  # symlink in ~/Library/Fonts, so a stowed .ttf registers as no font and every
+  # ligature renders as its literal :name: text.
   brew_cask font-sketchybar-app-font
   # helpers/ai_watch.py holds the bar's herdr subscription. macOS ships no
   # python3 of its own, and /usr/bin/python3 is a Command Line Tools shim that

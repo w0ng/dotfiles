@@ -5,8 +5,10 @@
 Personal macOS dotfiles (Apple Silicon; Homebrew at `/opt/homebrew`), managed
 with [GNU Stow](https://www.gnu.org/software/stow/).
 
-`README.md` documents the install flow and the update steps, with the command
-behind each. Read it before updating a tool or setting up a new machine.
+`README.md` is the overview: what this repo installs, how to run
+`bootstrap.sh` and `update.sh`, and which machine-local hooks exist. Read it
+before setting up a new machine. Why a thing is built the way it is lives in the
+code beside it, not there.
 
 ## Stow packages
 
@@ -16,8 +18,9 @@ mirrors `$HOME`: stow links `bat/.config/bat/config` to `~/.config/bat/config`.
 `mod_macos` runs, and stowing it would drop `~/defaults.bash` in your home
 directory. `alfred/` holds workflow source that `mod_alfred` copies, because
 Alfred rewrites an installed workflow's `info.plist` in place and would detach a
-symlink from this repo. Read README's "The Alfred workflow" before editing
-anything under `alfred/` or adding a workflow.
+symlink from this repo. `panes.py`'s module docstring holds the workflow's data
+design, and `install_alfred_workflow` holds what an installed copy keeps across
+a run. Read both before editing anything under `alfred/`.
 
 Two consequences:
 
