@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # Tests for the sketchybar plugins.
 #
@@ -218,8 +218,11 @@ test_two_displays_show_the_monitor_pill() {
     'the monitor pill is drawn once there is a choice of display'
 }
 
-# An unparseable count must not leave the pill stuck hidden.
-test_unreadable_monitor_count_still_draws() {
+# The count line absent entirely, which the `:-2` default catches. A count that
+# is present but not a number cannot be reached from here: the parse loop sends
+# any `*[!0-9]*` token to `mode`, so no fixture can put one in monitor_count.
+# See the comment on that comparison in aerospace.sh.
+test_missing_monitor_count_still_draws() {
   paint_with "$(printf 'M\ttrue\t1\nW\th_tiles\tfalse\nA\t1\ttrue\ttrue\nN\t1\nmain\n')"
 
   assert_contains "$(calls)" '--set monitor drawing=on' \
@@ -332,8 +335,8 @@ test_every_colour_in_the_table_can_be_read_on_the_bar() {
   channels="$(grep -oE 'color_result=0xff[0-9a-f]{6}' "${table}" \
     | sed 's/.*0xff//' \
     | while read -r hex; do
-        printf '%s %d %d %d\n' "${hex}" "0x${hex:0:2}" "0x${hex:2:2}" "0x${hex:4:2}"
-      done)"
+      printf '%s %d %d %d\n' "${hex}" "0x${hex:0:2}" "0x${hex:2:2}" "0x${hex:4:2}"
+    done)"
 
   [[ -n "${channels}" ]] || fail 'no colours found in the table'
 

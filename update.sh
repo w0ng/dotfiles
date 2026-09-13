@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # Update everything bootstrap.sh installed, in one unattended run.
 #

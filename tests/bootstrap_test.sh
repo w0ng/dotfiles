@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # Tests for bootstrap.sh.
 #
@@ -613,22 +613,22 @@ test_every_alfred_workflow_ships_the_script_it_runs() {
       continue
     fi
 
-    /usr/bin/plutil -lint "${src}/info.plist" >/dev/null 2>&1 ||
-      fail "alfred workflow ${pkg} has an unparseable info.plist"
+    /usr/bin/plutil -lint "${src}/info.plist" >/dev/null 2>&1 \
+      || fail "alfred workflow ${pkg} has an unparseable info.plist"
 
     bundleid="$(/usr/bin/plutil -extract bundleid raw "${src}/info.plist" 2>/dev/null || true)"
-    [[ -n "${bundleid}" ]] ||
-      fail "alfred workflow ${pkg} declares no bundleid, so it cannot be located once installed"
+    [[ -n "${bundleid}" ]] \
+      || fail "alfred workflow ${pkg} declares no bundleid, so it cannot be located once installed"
 
     # Only what the workflow runs. Scanning the whole plist would also read the
     # readme and description, where a filename can be mentioned but never run.
     while read -r ref; do
       [[ -n "${ref}" ]] || continue
-      [[ -f "${src}/${ref}" ]] ||
-        fail "alfred workflow ${pkg} runs ${ref}, which is not in its source"
-    done < <(/usr/bin/plutil -p "${src}/info.plist" 2>/dev/null |
-      grep -oE '"(script|scriptfile)" => .*' |
-      grep -oE '[A-Za-z0-9_.-]+\.(py|sh|rb|js|scpt|pl)' | sort -u)
+      [[ -f "${src}/${ref}" ]] \
+        || fail "alfred workflow ${pkg} runs ${ref}, which is not in its source"
+    done < <(/usr/bin/plutil -p "${src}/info.plist" 2>/dev/null \
+      | grep -oE '"(script|scriptfile)" => .*' \
+      | grep -oE '[A-Za-z0-9_.-]+\.(py|sh|rb|js|scpt|pl)' | sort -u)
   done < <(grep -oE '^[[:space:]]*install_alfred_workflow[[:space:]]+[a-z-]+' \
     "${REPO_ROOT}/bootstrap.sh" | awk '{print $2}')
 
