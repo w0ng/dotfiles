@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # Provision a macOS machine from this dotfiles repo.
 #
@@ -733,6 +733,9 @@ mod_core() {
 
 mod_cli() {
   step "command-line tools"
+  # 5.3, where macOS ships 3.2.57 from 2007. Scripts here are invoked as
+  # `bash foo.sh` or via `#!/usr/bin/env bash`, so both resolve to this one.
+  brew_formula bash
   brew_formula bat
   brew_formula btop
   personal_formula direnv
@@ -969,11 +972,16 @@ mod_neovim() {
   brew_cask neovide-app 'Neovide.app'
 
   # Language servers and formatters live here because nvim's config is the
-  # only thing that drives them: conform.nvim calls the formatters by name,
-  # and init.lua enables a server for each of the rest.
+  # main thing that drives them: conform.nvim calls the formatters by name,
+  # and init.lua enables a server for each of the rest. The three formatters
+  # have a second caller, `tests/lint_test.sh`, which gates this repo's own
+  # scripts with them.
   brew_formula lua-language-server
   brew_formula buf # drives buf_ls via `buf lsp serve`
   brew_formula dprint
+  # Type checking, which ruff does not do at all.
+  brew_formula pyrefly
+  brew_formula ruff # PEP 8 lint and black-compatible format, plus `ruff server`
   brew_formula shfmt
   brew_formula stylua
 
