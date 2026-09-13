@@ -12,8 +12,12 @@ behind each. Read it before updating a tool or setting up a new machine.
 
 Almost every top-level directory is a stow package whose internal layout
 mirrors `$HOME`: stow links `bat/.config/bat/config` to `~/.config/bat/config`.
-`macos/` is the exception. It holds `defaults.bash`, which `mod_macos` runs, and
-stowing it would drop `~/defaults.bash` in your home directory.
+`macos/` and `alfred/` are the exceptions. `macos/` holds `defaults.bash`, which
+`mod_macos` runs, and stowing it would drop `~/defaults.bash` in your home
+directory. `alfred/` holds workflow source that `mod_alfred` copies, because
+Alfred rewrites an installed workflow's `info.plist` in place and would detach a
+symlink from this repo. Read README's "The Alfred workflow" before editing
+anything under `alfred/` or adding a workflow.
 
 Two consequences:
 
@@ -33,8 +37,9 @@ that owns its area and run that module. A tool installed by hand works on this
 Mac and is absent from the next one.
 
 A module is a `mod_<name>` function that declares tools with `brew_formula`,
-`brew_cask` or `npm_global` and links config with `stow_package`. Every module
-is idempotent.
+`brew_cask` or `npm_global` and links config with `stow_package`, or copies it
+with `install_alfred_workflow` for the one package that cannot be linked. Every
+module is idempotent.
 
 A tool from a third-party tap needs `brew_tap` and `brew_trust` ahead of its
 declaration, because Homebrew 6 refuses to load a formula or cask from an
@@ -47,7 +52,9 @@ one. Declare anything in that overlap with `personal_formula` or
 
 A config stowed with no binary declared is this repo's most common bug, and it
 fails silently at the point of use. Pair every `stow_package` line with an
-install line. Run `bash tests/bootstrap_test.sh` after editing `bootstrap.sh`.
+install line, and every `install_alfred_workflow` line with the script that
+workflow runs. Run `bash tests/bootstrap_test.sh` after editing `bootstrap.sh`
+or `alfred/`.
 It asserts exactly that pairing, and lists the tools deliberately installed
 from elsewhere. Renaming a helper here can break `update.sh` while that suite
 stays green, so run `bash tests/update_test.sh` as well.
@@ -64,7 +71,8 @@ installed. A stowed file does not prove the binary is there.
 `update.sh` is the other half of bootstrap. It upgrades what bootstrap
 installed and installs nothing, and it sources `bootstrap.sh` for the output
 helpers, the `run` wrapper and the tool probes rather than repeating them, so a
-change to those reaches both. Every step must stay unattended, because a
+change to those reaches both. `step_alfred` refreshes the copied Alfred
+workflow, which a pull cannot reach. Every step must stay unattended, because a
 scheduled job may be what runs it. A step runs with no terminal attached, a
 failure reports itself and lets the rest of the run finish, and the exit status
 says whether any step failed. Run `bash tests/update_test.sh` after editing

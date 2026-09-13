@@ -42,6 +42,7 @@ source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/bootstrap.sh"
 # where that would leave every test reading an empty list.
 STEPS=(
   repo
+  alfred
   brew
   npm
   rust
@@ -97,8 +98,9 @@ declared_npm_globals() {
 #######################################
 
 # Every stowed file is a symlink into this repo, so a pull updates the live
-# configs immediately. It cannot install what the new commits added, because
-# installing is bootstrap's job, so this says so instead of running it.
+# configs immediately. alfred/ is the exception, being copied rather than
+# linked, which is what step_alfred exists for. This cannot install what the new
+# commits added, because installing is bootstrap's job, so it says so instead.
 step_repo() {
   step "repo"
   local before after count
@@ -134,6 +136,15 @@ step_repo() {
     "${before}..${after}")"
   success "pulled ${count} commit(s)"
   warn "run 'bash bootstrap.sh' to install anything they added"
+}
+
+# An Alfred workflow is copied into Alfred's own directory, not symlinked, so a
+# pull leaves the installed copy on the previous commit's script. Its cache is
+# keyed on that installed file's mtime, which does not move either, so Alfred
+# would go on serving stale results with nothing to indicate it.
+step_alfred() {
+  step "alfred"
+  install_alfred_workflow system-settings
 }
 
 step_brew() {

@@ -21,8 +21,9 @@
 #
 # Sourcing this file defines its functions without running anything, and the
 # tools it drives (BREW, STOW, NPM) and paths it reads or writes
-# (DOTFILES_DIR, STOW_TARGET, BREW_PREFIXES) are overridable, so tests can stub
-# them. See tests/bootstrap_test.sh. Targets bash 3.2, the version macOS ships.
+# (DOTFILES_DIR, STOW_TARGET, BREW_PREFIXES, ALFRED_WORKFLOWS) are overridable,
+# so tests can stub them. See tests/bootstrap_test.sh. Targets bash 3.2, the
+# version macOS ships.
 
 set -euo pipefail
 
@@ -36,6 +37,7 @@ set -euo pipefail
 MODULES=(
   macos
   apps
+  alfred
   core
   cli
   files
@@ -578,6 +580,99 @@ stow_package() {
   fi
 }
 
+# Where Alfred keeps its workflows. Alfred records a relocated preferences
+# bundle under syncfolder when it syncs through Dropbox or iCloud, and on such a
+# machine nothing exists at the default path.
+alfred_workflows_root() {
+  local sync
+
+  if [[ -n "${ALFRED_WORKFLOWS:-}" ]]; then
+    printf '%s\n' "${ALFRED_WORKFLOWS}"
+    return 0
+  fi
+
+  sync="$(defaults read com.runningwithcrayons.Alfred-Preferences syncfolder 2>/dev/null || true)"
+  sync="${sync/#\~/${HOME}}"
+  if [[ -n "${sync}" && -d "${sync}/Alfred.alfredpreferences/workflows" ]]; then
+    printf '%s\n' "${sync}/Alfred.alfredpreferences/workflows"
+    return 0
+  fi
+
+  printf '%s\n' "${HOME}/Library/Application Support/Alfred/Alfred.alfredpreferences/workflows"
+}
+
+# Alfred rewrites an installed workflow's info.plist in place when that workflow
+# is edited in its GUI, which would replace a symlink with a regular file and
+# detach the live copy. So the repo holds the source and this copies it in.
+install_alfred_workflow() {
+  local pkg="$1"
+  local src="${DOTFILES_DIR}/alfred/workflows/${pkg}"
+  local root bundleid dest candidate pending
+  local -a opts
+
+  if [[ ! -f "${src}/info.plist" ]]; then
+    warn "no such alfred workflow: ${pkg}"
+    return 0
+  fi
+
+  # `|| true` because plutil exits non-zero for a missing key, and a bare
+  # assignment under set -e takes that status: without it a workflow with no
+  # bundleid ends the entire run here, printing nothing, and every module after
+  # this one silently never runs.
+  bundleid="$(/usr/bin/plutil -extract bundleid raw "${src}/info.plist" 2>/dev/null || true)"
+  if [[ -z "${bundleid}" ]]; then
+    warn "alfred workflow ${pkg} declares no bundleid"
+    return 0
+  fi
+
+  root="$(alfred_workflows_root)"
+  if [[ ! -d "${root}" ]]; then
+    skip "${pkg} (launch Alfred once, then re-run: bash bootstrap.sh alfred)"
+    return 0
+  fi
+
+  # Alfred names an imported workflow's directory after a UUID it assigns, so an
+  # already-installed copy is found by bundleid rather than by path.
+  dest="${root}/${bundleid}"
+  if [[ ! -f "${dest}/info.plist" ]]; then
+    for candidate in "${root}"/*/; do
+      [[ -f "${candidate}info.plist" ]] || continue
+      if [[ "$(/usr/bin/plutil -extract bundleid raw "${candidate}info.plist" 2>/dev/null || true)" == "${bundleid}" ]]; then
+        dest="${candidate%/}"
+        break
+      fi
+    done
+  fi
+
+  opts=(-a --delete)
+  if [[ -f "${dest}/info.plist" ]]; then
+    # Alfred owns three things in an installed workflow: the hotkey it records
+    # goes into info.plist, workflow configuration into prefs.plist, and an icon
+    # set on an object into <object-uid>.png. Copying over those, or deleting
+    # them, undoes GUI work on every run. rsync protects an excluded file from
+    # --delete too, and icon.png is the workflow's own, so it still syncs.
+    opts+=(--exclude=info.plist --exclude=prefs.plist --include=icon.png --exclude='*.png')
+
+    if [[ "${src}/info.plist" -nt "${dest}/info.plist" ]]; then
+      warn "${pkg}: this repo's info.plist is newer, and the installed one is left alone. Re-import the workflow to pick up keyword or wiring changes."
+    fi
+  fi
+
+  # rsync creates the destination itself, and reports nothing when there is
+  # nothing to do, which is what distinguishes a real install from a no-op.
+  pending="$(rsync "${opts[@]}" -n --itemize-changes "${src}/" "${dest}/" 2>/dev/null || true)"
+  if [[ -z "${pending}" ]]; then
+    skip "alfred workflow ${pkg}"
+    return 0
+  fi
+
+  info "installing alfred workflow ${pkg}"
+  run rsync "${opts[@]}" "${src}/" "${dest}/"
+  if did_run; then
+    success "alfred workflow ${pkg}"
+  fi
+}
+
 #######################################
 # Modules, in MODULES order
 #######################################
@@ -594,7 +689,6 @@ mod_apps() {
   step "applications"
   personal_cask 1password '1Password.app'
   personal_cask affinity 'Affinity.app'
-  brew_cask alfred 'Alfred 5.app'
   personal_cask brave-browser 'Brave Browser.app'
   personal_cask chatgpt 'ChatGPT.app'
   personal_cask claude 'Claude.app'
@@ -614,6 +708,15 @@ mod_apps() {
   personal_cask telegram 'Telegram.app'
   personal_cask whatsapp 'WhatsApp.app'
   personal_cask zoom 'zoom.us.app'
+}
+
+mod_alfred() {
+  step "alfred"
+  brew_cask alfred 'Alfred 5.app'
+  # python comes from mod_windowmanager, because declaring it twice is what
+  # test_no_package_is_declared_by_two_modules catches. The script filter picks
+  # the first interpreter present, so this works before that module has run.
+  install_alfred_workflow system-settings
 }
 
 mod_core() {

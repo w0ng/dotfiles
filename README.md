@@ -180,11 +180,98 @@ installs stow before anything is stowed, `runtimes` installs node before
 `neovim` installs npm language servers, and `zsh` runs last because `.zshrc`
 initialises most of the tools above it. `bash bootstrap.sh --list` prints the
 enabled ones, and the `mod_*` functions themselves are the package list.
-`macos/` is the exception to the stow layout: it holds a script bootstrap runs,
-rather than config it links.
+`macos/` and `alfred/` are the exceptions to the stow layout. `macos/` holds a
+script bootstrap runs. `alfred/` holds workflow source that `mod_alfred` copies
+into Alfred. Stow links neither of them.
 
-Two things bootstrap cannot finish on its own:
+### The Alfred workflow
 
+`alfred/workflows/system-settings/` is the source for a workflow that searches
+macOS System Settings panes behind the keyword `s`, so System Settings can stay
+switched off in Alfred's Default Results and still be one keypress away.
+
+`panes.py` reads every list it emits at runtime, from files macOS and Alfred
+already ship. That is the design. A transcribed list goes stale the next time
+Apple renames something, and the renamed pane stops appearing with no error.
+
+The results are Alfred's own. Alfred ships a catalogue per macOS release at
+`Alfred 5.app/Contents/Frameworks/Alfred Framework.framework/Resources/systemsettings<release>.json`,
+and reading that is what makes these results identical to the ones Alfred shows
+with System Settings ticked, rather than merely similar. It is curated down to
+the panes the sidebar actually has, and localised. Scanning
+`/System/Library/ExtensionKit/Extensions` instead produces a worse list. It
+cannot see `General` or `iCloud`, which are not standalone extensions, and it
+turns up seven panes macOS installs but only ever shows conditionally. It also
+has no localised names to fall back on, so ten of its panes read as Apple's
+internal bundle names such as `AccessibilitySettingsExtension`, `MouseExtension`
+and `DateAndTime Extension`. That scan is the fallback for a catalogue that has
+moved or cannot be parsed, not a substitute for it.
+
+Individual settings are results as well as the 46 panes. They come from the
+`.searchTerms` files Apple ships beside each pane, in the locale `AppleLocale`
+reports, which is the index System Settings' own search box uses. Searching
+`night` returns Night Shift options, Illuminate keyboard and Schedule downtime,
+exactly as System Settings does. That is roughly 690 settings on top of the
+panes.
+
+Each one deep-links. A `.searchTerms` group key used as a `?anchor` navigates
+System Settings to the control itself rather than to the top of its pane, so
+`?nightShiftSection` opens the Night Shift sheet and `?path=downtime` opens the
+Downtime page. Alfred's catalogue writes its own anchors after `*` instead,
+which System Settings ignores, so the `?` form is the one used for settings.
+Pane rows are the exception. Their `arg` is the catalogue url verbatim, `*` and
+all, because passing Alfred's own url through unchanged is what makes those rows
+behave exactly like Alfred's, and `iCloud` needs its `:icloud` suffix to resolve
+at all. Seven panes therefore open at the top of the pane rather than at the
+sub-section their anchor names.
+
+`panes.py` caches its results, keyed on the things that can change them: the
+script's own mtime, the catalogue's path and mtime, the macOS build, and the
+locale. Alfred's own `cache` directive expires on a timer instead, so it cannot
+tell that the script producing its contents has been rewritten, and will serve
+results from a version that no longer exists until the timer runs out. A cold
+run takes about 110ms and a cached one about 50ms, most of which is the Python
+interpreter starting. Clear it by deleting `settings.json` under the workflow's
+cache directory, though editing `panes.py` already does.
+
+It is copied rather than stowed. Alfred rewrites a workflow's `info.plist` in
+place whenever that workflow is edited in its GUI, which would replace a symlink
+with a regular file and detach the live copy from this repo without saying so.
+For the same reason `mod_alfred` leaves three things alone once a copy exists:
+`info.plist`, which holds the hotkey Alfred records; `prefs.plist`, which holds
+workflow configuration; and `<object-uid>.png`, an icon set on an object in the
+GUI. All three are machine-local, and copying over them would undo that work on
+every run.
+
+The cost is that a repo-side change to `info.plist`, such as the keyword or the
+script command, never reaches a machine that already has the workflow. The
+module warns when the two diverge; picking the change up means re-importing.
+Everything else does stay in sync, so an edit to `panes.py` reaches the
+installed copy on the next `bash bootstrap.sh alfred`, and `update.sh` runs the
+same step after a pull, because a copied file is not a symlink and a pull alone
+would leave Alfred running the previous commit's script.
+
+To build an importable bundle by hand, zip the files themselves rather than the
+directory, because Alfred rejects an archive whose `info.plist` is not at the
+root:
+
+```sh
+cd alfred/workflows/system-settings
+zip -X ~/Desktop/system-settings.alfredworkflow *
+```
+
+Four things bootstrap cannot finish on its own:
+
+- **The Alfred workflow, on a fresh machine.** Alfred only creates its
+  preferences directory on first launch, so `mod_alfred` installs the cask and
+  then skips the workflow, saying so. Launch Alfred once, then re-run
+  `bash bootstrap.sh alfred`.
+- **The workflow's hotkey.** The shipped `info.plist` has none recorded, because
+  a key combination is machine-local. Set it on the Hotkey object in Alfred's
+  workflow editor; it should show Alfred with the text `s `.
+- **Unticking System Settings in Alfred's Default Results.** The whole premise
+  of the workflow is that those results stay out of the default search, and
+  nothing here automates an Alfred preference.
 - **Caps Lock to Control.** Writing the `modifiermapping` default does not take
   effect, so set it by hand in System Settings > Keyboard > Keyboard Shortcuts >
   Modifier Keys.

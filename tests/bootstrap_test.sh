@@ -79,6 +79,7 @@ STUB
 teardown() {
   [[ -n "${WORK_DIR}" && -d "${WORK_DIR}" ]] && rm -rf "${WORK_DIR}"
   unset STUB_FORMULAE STUB_CASKS STUB_TAPS STUB_TRUSTED STUB_NPM_PATHS STUB_SERVICES
+  unset ALFRED_WORKFLOWS
 }
 
 #######################################
@@ -593,6 +594,171 @@ test_every_stowed_package_declares_its_tool() {
       "stow_package ${pkg} has a matching install line"
   done < <(grep -oE '^[[:space:]]*stow_package[[:space:]]+[a-z]+' \
     "${REPO_ROOT}/bootstrap.sh" | awk '{print $2}')
+}
+
+# The same failure as the pairing test above, on the other install path. An
+# Alfred workflow whose source is missing, or whose info.plist names a script
+# that is not beside it, installs a workflow that returns nothing, and Alfred
+# reports that as an empty result rather than as an error.
+test_every_alfred_workflow_ships_the_script_it_runs() {
+  local pkg src bundleid ref found=false
+
+  while read -r pkg; do
+    [[ -n "${pkg}" ]] || continue
+    found=true
+    src="${REPO_ROOT}/alfred/workflows/${pkg}"
+
+    if [[ ! -f "${src}/info.plist" ]]; then
+      fail "install_alfred_workflow ${pkg} has no source info.plist"
+      continue
+    fi
+
+    /usr/bin/plutil -lint "${src}/info.plist" >/dev/null 2>&1 ||
+      fail "alfred workflow ${pkg} has an unparseable info.plist"
+
+    bundleid="$(/usr/bin/plutil -extract bundleid raw "${src}/info.plist" 2>/dev/null || true)"
+    [[ -n "${bundleid}" ]] ||
+      fail "alfred workflow ${pkg} declares no bundleid, so it cannot be located once installed"
+
+    # Only what the workflow runs. Scanning the whole plist would also read the
+    # readme and description, where a filename can be mentioned but never run.
+    while read -r ref; do
+      [[ -n "${ref}" ]] || continue
+      [[ -f "${src}/${ref}" ]] ||
+        fail "alfred workflow ${pkg} runs ${ref}, which is not in its source"
+    done < <(/usr/bin/plutil -p "${src}/info.plist" 2>/dev/null |
+      grep -oE '"(script|scriptfile)" => .*' |
+      grep -oE '[A-Za-z0-9_.-]+\.(py|sh|rb|js|scpt|pl)' | sort -u)
+  done < <(grep -oE '^[[:space:]]*install_alfred_workflow[[:space:]]+[a-z-]+' \
+    "${REPO_ROOT}/bootstrap.sh" | awk '{print $2}')
+
+  assert_eq true "${found}" 'bootstrap declares at least one alfred workflow'
+}
+
+seed_alfred_workflow() {
+  local bundleid="com.example.thing"
+  local src="${DOTFILES_DIR}/alfred/workflows/thing"
+
+  mkdir -p "${src}"
+  cat >"${src}/info.plist" <<PLIST
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict><key>bundleid</key><string>${bundleid}</string></dict></plist>
+PLIST
+  printf 'first\n' >"${src}/run.py"
+  printf 'workflow icon\n' >"${src}/icon.png"
+
+  ALFRED_WORKFLOWS="${WORK_DIR}/workflows"
+  export ALFRED_WORKFLOWS
+  mkdir -p "${ALFRED_WORKFLOWS}"
+}
+
+# The whole reason the package is copied rather than stowed: Alfred writes the
+# hotkey a human recorded into the installed info.plist, and workflow settings
+# into prefs.plist beside it.
+test_install_alfred_workflow_keeps_what_alfred_wrote() {
+  seed_alfred_workflow
+  install_alfred_workflow thing >/dev/null
+  local dest="${ALFRED_WORKFLOWS}/com.example.thing"
+
+  printf 'hotkey recorded by a human\n' >"${dest}/info.plist"
+  printf 'workflow configuration\n' >"${dest}/prefs.plist"
+  printf 'E3A1 object icon\n' >"${dest}/E3A1-object-icon.png"
+  printf 'second\n' >"${DOTFILES_DIR}/alfred/workflows/thing/run.py"
+
+  install_alfred_workflow thing >/dev/null
+
+  assert_eq 'hotkey recorded by a human' "$(cat "${dest}/info.plist")" \
+    'the recorded hotkey survives'
+  assert_eq 'workflow configuration' "$(cat "${dest}/prefs.plist")" \
+    'workflow configuration survives'
+  assert_eq 'E3A1 object icon' "$(cat "${dest}/E3A1-object-icon.png")" \
+    'an icon set on an object in the GUI survives'
+  assert_eq 'second' "$(cat "${dest}/run.py")" \
+    'the script is still brought up to date'
+  assert_eq 'workflow icon' "$(cat "${dest}/icon.png")" \
+    "the workflow's own icon is not mistaken for an object icon"
+}
+
+test_install_alfred_workflow_removes_a_file_dropped_from_the_source() {
+  seed_alfred_workflow
+  install_alfred_workflow thing >/dev/null
+  local dest="${ALFRED_WORKFLOWS}/com.example.thing"
+
+  printf 'stale\n' >"${dest}/gone.py"
+  install_alfred_workflow thing >/dev/null
+
+  [[ -e "${dest}/gone.py" ]] \
+    && fail 'a file no longer in the source should not linger'
+}
+
+# Alfred names a directory it imported after a UUID of its own, so the installed
+# copy has to be found by bundleid rather than by path.
+test_install_alfred_workflow_finds_a_directory_alfred_named() {
+  seed_alfred_workflow
+  local dest="${ALFRED_WORKFLOWS}/user.workflow.7F3A-DEAD-BEEF"
+  mkdir -p "${dest}"
+  cp "${DOTFILES_DIR}/alfred/workflows/thing/info.plist" "${dest}/info.plist"
+
+  install_alfred_workflow thing >/dev/null
+
+  [[ -f "${dest}/run.py" ]] \
+    || fail 'the existing directory should have been updated'
+  [[ -d "${ALFRED_WORKFLOWS}/com.example.thing" ]] \
+    && fail 'a second copy should not have been created'
+}
+
+# bootstrap.sh runs under the errexit this suite switches off, so the guard has
+# to be exercised in a fresh shell that sources the file whole. A bare
+# assignment takes the exit status of its command substitution, and plutil exits
+# non-zero for a key that is not there: without `|| true` the entire run ends
+# here, printing nothing, and every module after this one never executes.
+test_install_alfred_workflow_warns_rather_than_ending_the_run() {
+  seed_alfred_workflow
+  cat >"${DOTFILES_DIR}/alfred/workflows/thing/info.plist" <<'PLIST'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict><key>name</key><string>no bundleid</string></dict></plist>
+PLIST
+
+  cat >"${WORK_DIR}/drive.sh" <<DRIVER
+source "${REPO_ROOT}/bootstrap.sh"
+DOTFILES_DIR="${DOTFILES_DIR}"
+ALFRED_WORKFLOWS="${ALFRED_WORKFLOWS}"
+DRY_RUN=false
+install_alfred_workflow thing
+printf 'REACHED THE END\n'
+DRIVER
+
+  local output status
+  output="$(bash "${WORK_DIR}/drive.sh" 2>&1)"
+  status=$?
+
+  assert_success "${status}" 'a workflow with no bundleid does not end the run'
+  assert_contains "${output}" 'declares no bundleid' 'and it says why'
+  assert_contains "${output}" 'REACHED THE END' 'and the run carries on afterwards'
+}
+
+test_install_alfred_workflow_waits_for_alfred_to_have_run() {
+  seed_alfred_workflow
+  rm -rf "${ALFRED_WORKFLOWS}"
+
+  local output
+  output="$(install_alfred_workflow thing 2>&1)"
+
+  assert_contains "${output}" 'launch Alfred once' 'it says what to do next'
+  [[ -d "${ALFRED_WORKFLOWS}" ]] \
+    && fail 'it should not create Alfred preferences itself'
+}
+
+test_install_alfred_workflow_is_quiet_when_nothing_changed() {
+  seed_alfred_workflow
+  install_alfred_workflow thing >/dev/null
+
+  local output
+  output="$(install_alfred_workflow thing 2>&1)"
+
+  assert_not_contains "${output}" 'installing' 'a no-op does not claim to install'
 }
 
 # Two modules installing the same package is harmless at runtime but means one
