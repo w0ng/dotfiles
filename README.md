@@ -116,6 +116,7 @@ its hook when absent, so this repo works without any of them.
 | `~/.config/zsh/functions/` | Interactive zsh, autoloaded. Anything that has to run in the calling shell |
 | `~/.config/aerospace/browser.local` | The app `alt-shift-b` opens |
 | `~/.config/nvim/lua/local.lua` | Extra project roots and vendored formatter paths |
+| `~/.config/sketchybar/sketchybarrc.local` | Extra bar items, sourced before the bar's first paint |
 | `~/.claude/CLAUDE.md` | Coding guides and repo conventions |
 | `~/.claude/settings.json` | Permissions, MCP allow and deny lists, plugins |
 | `~/.claude/statusline.zsh` | The statusline |
@@ -124,6 +125,20 @@ A work-profile run ends by reporting which of these it found, along with
 `~/.config/git/config.local` and `~/.config/git/config.work`, which bootstrap
 writes itself. `functions/` is the one it leaves out, being a directory rather
 than a single file.
+
+The bar's agent counters take their data through a second hook, a drop
+directory rather than a config file. `helpers/ai_watch.py` counts the herdr
+running beside the bar. Anything watching a herdr this machine cannot reach
+writes what it sees to `~/.cache/sketchybar/ai_agents.d/<name>`, and
+`plugins/ai_agents.sh` adds those files to the local counts, so the bar shows
+one total.
+
+A contributor writes any of `working=`, `blocked=`, `done=` and `idle=`, one per
+line, digits only. A name it leaves out counts as zero, and the total is
+derived, so writing one does nothing. It rewrites the whole file every cycle,
+because the plugin reads the mtime as a heartbeat and stops counting a file last
+written over a minute ago. A temp file renamed over the top needs a leading dot,
+which the plugin's glob skips.
 
 Put a machine-local setting in one of these rather than inline. `.zshrc` is a
 symlink into this public repo, so an installer that appends to it commits your

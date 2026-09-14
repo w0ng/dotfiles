@@ -8,6 +8,10 @@ nvim/.config/nvim/nvim-pack-lock.json
 # paths that can't live in a public repo. Supplied by the private overlay.
 nvim/.config/nvim/lua/local.lua
 
+# Machine-local bar items: the agent counts from hosts this machine cannot
+# reach on its own. Supplied by the private overlay.
+sketchybar/.config/sketchybar/sketchybarrc.local
+
 # herdr runtime state. ~/.config/herdr is a folded stow symlink into this
 # package, so herdr writes its logs, session state and plugin lock straight
 # into the repo.

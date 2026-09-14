@@ -874,6 +874,7 @@ report_overlay_files() {
     "${HOME}/.claude/statusline.zsh|overlay: work statusline" \
     "${HOME}/.config/aerospace/browser.local|overlay: the app alt-shift-b opens, Brave without it" \
     "${HOME}/.config/nvim/lua/local.lua|overlay: nvim eager roots, vendored formatter paths" \
+    "${HOME}/.config/sketchybar/sketchybarrc.local|overlay: extra bar items, sourced before the first paint" \
     "${HOME}/.config/zsh/.zshenv.local|overlay: PATH entries and env every zsh inherits" \
     "${HOME}/.config/zsh/.zshrc.local|overlay: aliases, exports and eval init, interactive only" \
     "${HOME}/.config/git/config.local|bootstrap writes: holds the git maintenance repo list" \

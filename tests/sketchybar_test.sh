@@ -485,13 +485,143 @@ test_ai_a_truncated_state_file_hides_every_item() {
     'a file cut before any value is treated as no agents'
 }
 
-# The input that needs the numeric guard: `[ abc -le 0 ]` errors and returns
-# false, which without it would fall through and paint a robot on its own.
-test_ai_a_non_numeric_count_hides_every_item() {
-  ai_paint_with "$(printf 'total=abc\nworking=1\nblocked=0\ndone=0\nidle=0\n')"
+# What the digits-only guard is for. `$(( ))` dereferences a bare word, so an
+# unguarded `working=idle` would silently add this reading's idle count. The
+# guard costs the corrupt state its own count, and the rest still draw.
+test_ai_a_non_numeric_count_costs_only_its_own_state() {
+  ai_paint_with "$(printf 'working=idle\nblocked=0\ndone=0\nidle=1\n')"
 
-  assert_not_contains "$(calls)" 'drawing=on' \
-    'a corrupt total hides the group rather than drawing a robot on its own'
+  assert_contains "$(calls)" '--set ai.working drawing=off' \
+    'the corrupt count reads as none of that state'
+  assert_contains "$(calls)" \
+    "--set ai.idle drawing=on icon=󱋑 icon.color=${DIM} label=1 label.color=${DIM}" \
+    'the states that parsed are still drawn'
+}
+
+# The total is derived, so a contributor that names none of its own still gets
+# counted rather than hiding the group.
+test_ai_counts_without_a_total_still_draw() {
+  ai_paint_with "$(printf 'working=2\n')"
+
+  assert_contains "$(calls)" '--set ai.icon drawing=on' \
+    'a file naming no total still draws what it does name'
+}
+
+# Writes one contributor file, the way a watcher of a herd this machine cannot
+# reach does. A third argument backdates it, which is how a writer that has
+# stopped is told apart from one still reporting.
+ai_contributor() {
+  local dir="${WORK_DIR}/home/.cache/sketchybar/ai_agents.d"
+  mkdir -p "${dir}"
+  printf '%s' "$2" >"${dir}/$1"
+  if [[ $# -gt 2 ]]; then
+    touch -t "$(date -v-"$3"S '+%Y%m%d%H%M.%S')" "${dir}/$1"
+  fi
+}
+
+# Two working, one blocked and one idle, on a machine this bar cannot see.
+ai_contributor_fixture() {
+  printf 'total=4\nworking=2\nblocked=1\ndone=0\nidle=1\n'
+}
+
+test_ai_a_contributor_adds_to_the_local_counts() {
+  ai_contributor remotes "$(ai_contributor_fixture)"
+  ai_paint_with "$(ai_fixture)"
+
+  assert_contains "$(calls)" \
+    "--set ai.working drawing=on icon=󰭻 icon.color=${BLUE} label=5 label.color=${BLUE}" \
+    'three working here and two elsewhere are drawn as one count of five'
+  assert_contains "$(calls)" \
+    "--set ai.blocked drawing=on icon=󱜸 icon.color=${RED} label=2 label.color=${RED}" \
+    'one blocked on each side adds up rather than overwriting'
+}
+
+# Nothing running locally, so the group has to appear for a herd that is only
+# reachable through a contributor.
+test_ai_a_contributor_alone_draws_the_group() {
+  ai_contributor remotes "$(ai_contributor_fixture)"
+  ai_paint_with "$(printf 'total=0\nworking=0\nblocked=0\ndone=0\nidle=0\n')"
+
+  assert_contains "$(calls)" "--set ai.icon drawing=on icon= icon.color=${PURPLE}" \
+    'the robot is drawn for agents this machine cannot see itself'
+}
+
+# The mtime is a heartbeat, because a contributor rewrites its file every
+# cycle. One that has gone quiet is a writer that died, not a herd sitting
+# still, and counting it on would report agents that are already gone.
+test_ai_a_stale_contributor_is_left_out() {
+  ai_contributor remotes "$(ai_contributor_fixture)" 90
+  ai_paint_with "$(ai_fixture)"
+
+  assert_contains "$(calls)" \
+    "--set ai.working drawing=on icon=󰭻 icon.color=${BLUE} label=3 label.color=${BLUE}" \
+    'a contributor that stopped writing stops counting'
+}
+
+# The same guard on a contributor, which is the file it exists for, being
+# written by tooling this repo does not own.
+test_ai_a_corrupt_contributor_count_costs_only_its_own_state() {
+  # shellcheck disable=SC2016  # the payload has to reach the plugin unexpanded
+  ai_contributor remotes "$(printf 'working=x[$(exit 7)]\nidle=1\n')"
+  ai_paint_with "$(ai_fixture)"
+
+  assert_contains "$(calls)" \
+    "--set ai.working drawing=on icon=󰭻 icon.color=${BLUE} label=3 label.color=${BLUE}" \
+    'the corrupt remote count adds nothing'
+  assert_contains "$(calls)" \
+    "--set ai.idle drawing=on icon=󱋑 icon.color=${DIM} label=2 label.color=${DIM}" \
+    'the count beside it still adds'
+}
+
+# A contributor's half-written temp file. `*` does not match a leading dot,
+# which is what keeps the temp file from being summed with the finished one and
+# doubling every count.
+test_ai_a_dotfile_beside_a_contributor_is_not_counted() {
+  ai_contributor remotes "$(ai_contributor_fixture)"
+  ai_contributor .remotes.part "$(ai_contributor_fixture)"
+  ai_paint_with "$(printf 'working=0\nblocked=0\ndone=0\nidle=0\n')"
+
+  assert_contains "$(calls)" \
+    "--set ai.working drawing=on icon=󰭻 icon.color=${BLUE} label=2 label.color=${BLUE}" \
+    'the temp file is not counted alongside the file it will become'
+}
+
+# Why the mtime is read as a heartbeat at all. A herd nobody watches any more
+# has to leave the bar rather than stay on it.
+test_ai_a_stale_contributor_alone_hides_every_item() {
+  ai_contributor remotes "$(ai_contributor_fixture)" 90
+  ai_paint_with "$(printf 'working=0\nblocked=0\ndone=0\nidle=0\n')"
+
+  assert_contains "$(calls)" '--set ai.icon drawing=off' \
+    'a dead contributor leaves no robot behind'
+  assert_not_contains "$(calls)" 'drawing=on' 'nothing at all is drawn'
+}
+
+# Where the overlay adds its own items. The hook has to sit after the
+# declarations, so it can reconfigure an item this file already made, and
+# before --update, since an item declared after it is never painted until
+# something else triggers the group.
+test_ai_the_local_hook_is_sourced_last_but_before_the_first_paint() {
+  local rc hook update last_item
+  rc="${REPO_ROOT}/sketchybar/.config/sketchybar/sketchybarrc"
+  hook="$(grep -n 'sketchybarrc\.local' "${rc}" | tail -1 | cut -d: -f1)"
+  # Anchored on the command, because the file also discusses --update in
+  # comments, and the first of those sits above the hook.
+  update="$(grep -n '^sketchybar --update' "${rc}" | head -1 | cut -d: -f1)"
+  last_item="$(grep -n -- '--add item' "${rc}" | tail -1 | cut -d: -f1)"
+
+  # Each anchor is checked for itself, so a renamed line fails saying so rather
+  # than leaving an empty operand to read as line zero.
+  if [[ -z "${hook}" || -z "${update}" || -z "${last_item}" ]]; then
+    fail "an anchor moved: hook=[${hook}] update=[${update}] item=[${last_item}]"
+    return
+  fi
+  if [[ "${hook}" -lt "${last_item}" ]]; then
+    fail 'the hook is sourced before the items it is meant to be able to change'
+  fi
+  if [[ "${hook}" -gt "${update}" ]]; then
+    fail 'the hook is sourced after --update, so its items never paint'
+  fi
 }
 
 #######################################

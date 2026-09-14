@@ -2,56 +2,88 @@
 # AI agent counters: a robot, then one count per state, each hidden at zero and
 # the whole group hidden when no agent is running.
 #
-# working, blocked, done and idle are exactly what herdr reports, so this only
-# ever reads the file helpers/ai_watch.py writes. Nothing here is derived, and
-# the plugin holds no state between repaints.
+# working, blocked, done and idle are exactly what herdr reports, so nothing
+# here is derived beyond the total. They come from helpers/ai_watch.py, which
+# watches the herdr running beside this bar, plus every file in ai_agents.d,
+# where anything watching a herdr this machine cannot reach drops what it sees.
+# All of them are added together, so the bar shows one total rather than one
+# group per herd. README.md states what a contributor has to write.
 
 # shellcheck source-path=SCRIPTDIR source=../colors.sh
 source "${HOME}/.config/sketchybar/colors.sh"
 
-STATE_FILE="${XDG_CACHE_HOME:-${HOME}/.cache}/sketchybar/ai_agents"
+STATE_DIR="${XDG_CACHE_HOME:-${HOME}/.cache}/sketchybar"
+STATE_FILE="${STATE_DIR}/ai_agents"
+CONTRIB_DIR="${STATE_DIR}/ai_agents.d"
+
+# Past this, whatever was writing a contributor file has stopped and its agents
+# are gone with it. Only a repaint notices the expiry, so ai_driver carries an
+# update_freq tied to this number.
+CONTRIB_MAX_AGE=60
 
 # nf-fa-robot. Every glyph here was checked against MapleMono-NF-CN's character
 # map, because one the font lacks falls back to a system face in silence.
 AI_ICON=""
 
-total=0
 working=0
 blocked=0
 finished=0
 idle=0
 
-if [[ -r "${STATE_FILE}" ]]; then
+# Every file adds into the running counts, and none overwrites another.
+add_counts() {
+  local key value
+  [[ -r "$1" ]] || return 0
   # `|| [[ -n "${key}" ]]` so a final line with no trailing newline is still
   # read rather than silently dropping whichever count happens to be last.
   while IFS='=' read -r key value || [[ -n "${key}" ]]; do
-    case "${key}" in
-      total) total="${value}" ;;
-      working) working="${value}" ;;
-      blocked) blocked="${value}" ;;
-      done) finished="${value}" ;;
-      idle) idle="${value}" ;;
+    # A stray carriage return or a space around the `=` would otherwise land in
+    # the key, match no arm below, and drop that count in silence.
+    key="${key//[[:space:]]/}"
+    value="${value//[[:space:]]/}"
+    # Digits only, because `$(( ))` does more than arithmetic. It dereferences
+    # a bare word, so `working=idle` would add this reading's idle count
+    # instead, and it expands an array subscript, so `working=x[$(cmd)]` runs
+    # cmd. These files are written by tooling this repo does not own.
+    case "${value}" in
+      '' | *[!0-9]*) value=0 ;;
+      # 10# so a leading zero stays a digit rather than reading as octal, which
+      # fails outright on an 8 or a 9.
+      *) value=$((10#${value})) ;;
     esac
-  done <"${STATE_FILE}"
-fi
-
-# Anything non-numeric reads as zero. The callers compare with `[[ ]]`, which
-# evaluates its operands arithmetically: an unsanitised `abc` would silently
-# become 0 and hide the whole group, and an unsanitised `08` is an octal error
-# that hides one counter. Neither surfaces as a visible failure, which is why
-# the guard is here rather than at the comparison.
-numeric() {
-  case "$1" in
-    '' | *[!0-9]*) printf '0' ;;
-    # 10# forces base 10. The callers compare with `[[ ]]`, which reads a
-    # leading zero as octal and fails outright on a digit above 7, and the
-    # result is also drawn as the label, where "08" would be wrong anyway.
-    *) printf '%s' "$((10#$1))" ;;
-  esac
+    case "${key}" in
+      working) working=$((working + value)) ;;
+      blocked) blocked=$((blocked + value)) ;;
+      done) finished=$((finished + value)) ;;
+      idle) idle=$((idle + value)) ;;
+    esac
+  done <"$1"
 }
 
+add_counts "${STATE_FILE}"
+
+# This runs on every repaint, so the usual case of no contributors at all
+# forks nothing. The writer is on this machine, so the mtime and `date` below
+# read the same clock.
+if [[ -d "${CONTRIB_DIR}" ]]; then
+  now="$(date +%s)"
+  # `*` skips a leading dot, which is how a contributor's half-written temp
+  # file stays out of the counts.
+  for contributor in "${CONTRIB_DIR}"/*; do
+    [[ -f "${contributor}" ]] || continue
+    mtime="$(stat -f %m "${contributor}" 2>/dev/null)" || continue
+    [[ "$((now - mtime))" -le "${CONTRIB_MAX_AGE}" ]] || continue
+    add_counts "${contributor}"
+  done
+fi
+
+# Nothing draws the total. It only decides whether the group appears, and
+# deriving it means a contributor can neither hide a live herd by leaving its
+# own total out nor draw a bare robot by overstating one.
+total=$((working + blocked + finished + idle))
+
 # A missing or unreadable file leaves every count at zero, which hides the group.
-if [[ "$(numeric "${total}")" -le 0 ]]; then
+if [[ "${total}" -le 0 ]]; then
   sketchybar \
     --set ai.icon drawing=off \
     --set ai.working drawing=off \
@@ -76,7 +108,7 @@ colors=("${BLUE}" "${RED}" "${GREEN}" "${DIM}")
 args=(--set ai.icon drawing=on icon="${AI_ICON}" icon.color="${PURPLE}")
 
 for i in "${!states[@]}"; do
-  count="$(numeric "${counts[${i}]}")"
+  count="${counts[${i}]}"
   if [[ "${count}" -gt 0 ]]; then
     args+=(
       --set "ai.${states[${i}]}" drawing=on
