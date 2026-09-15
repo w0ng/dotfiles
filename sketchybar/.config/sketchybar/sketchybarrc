@@ -215,6 +215,10 @@ pkill -f "[Pp]ython.* ${CONFIG_DIR}/helpers/ai_watch.py" >/dev/null 2>&1
 # Read but never shipped, the same as .zshrc.local. Sourced before --update so
 # an item added here paints on the first pass, and after the declarations above
 # so it can change one of them too.
+#
+# A reload re-runs this file, so a long-lived writer started from here has to
+# kill its own previous copy first, the same way ai_watch.py is handled above.
+# Two of them would fight over one contributor file's mtime.
 if [[ -r "${CONFIG_DIR}/sketchybarrc.local" ]]; then
   # shellcheck source=/dev/null
   source "${CONFIG_DIR}/sketchybarrc.local"

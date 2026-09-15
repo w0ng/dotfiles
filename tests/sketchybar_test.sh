@@ -514,8 +514,15 @@ ai_contributor() {
   local dir="${WORK_DIR}/home/.cache/sketchybar/ai_agents.d"
   mkdir -p "${dir}"
   printf '%s' "$2" >"${dir}/$1"
+  # A negative offset dates the file forward instead, which is what a clock
+  # that stepped back or a copy from a host running ahead leaves behind.
   if [[ $# -gt 2 ]]; then
-    touch -t "$(date -v-"$3"S '+%Y%m%d%H%M.%S')" "${dir}/$1"
+    local sign='-' secs="$3"
+    if [[ "${secs}" == -* ]]; then
+      sign='+'
+      secs="${secs#-}"
+    fi
+    touch -t "$(date -v"${sign}${secs}"S '+%Y%m%d%H%M.%S')" "${dir}/$1"
   fi
 }
 
@@ -595,6 +602,41 @@ test_ai_a_stale_contributor_alone_hides_every_item() {
   assert_contains "$(calls)" '--set ai.icon drawing=off' \
     'a dead contributor leaves no robot behind'
   assert_not_contains "$(calls)" 'drawing=on' 'nothing at all is drawn'
+}
+
+# `-le` alone passes every negative age, so a file dated ahead of this machine
+# would never expire and would count on long after its writer had died.
+test_ai_a_contributor_dated_into_the_future_is_left_out() {
+  ai_contributor remotes "$(ai_contributor_fixture)" -3600
+  ai_paint_with "$(ai_fixture)"
+
+  assert_contains "$(calls)" \
+    "--set ai.working drawing=on icon=󰭻 icon.color=${BLUE} label=3 label.color=${BLUE}" \
+    'a contributor dated ahead of this machine counts for nothing'
+}
+
+# Counts add between files, never within one. A writer that appends rather than
+# truncating leaves its old reading above its new one, and adding the two would
+# report a herd bigger than any it ever saw.
+test_ai_a_repeated_key_in_one_file_takes_the_last_value() {
+  ai_paint_with "$(printf 'working=9\nworking=2\n')"
+
+  assert_contains "$(calls)" \
+    "--set ai.working drawing=on icon=󰭻 icon.color=${BLUE} label=2 label.color=${BLUE}" \
+    'the second reading replaces the first rather than adding to it'
+}
+
+# The digits-only guard passes any length, and 10# on twenty of them wraps
+# through signed 64-bit. Drawn, the wrap is a nonsense label; summed, a value
+# chosen to wrap negative hides the group while agents are still running.
+test_ai_an_oversized_count_reads_as_none() {
+  ai_paint_with "$(printf 'working=99999999999999999999\nidle=1\n')"
+
+  assert_contains "$(calls)" '--set ai.working drawing=off' \
+    'a count too large to be real is not drawn'
+  assert_contains "$(calls)" \
+    "--set ai.idle drawing=on icon=󱋑 icon.color=${DIM} label=1 label.color=${DIM}" \
+    'the count beside it still draws'
 }
 
 # Where the overlay adds its own items. The hook has to sit after the
@@ -719,6 +761,32 @@ test_ai_the_states_the_plugin_paints_are_all_declared_on_the_bar() {
 
   assert_eq "${plugin_states}" "${rc_states}" \
     'ai_agents.sh and sketchybarrc declare the same set of states'
+}
+
+# CONTRIB_MAX_AGE and update_freq live in different files and only a comment
+# ties them. Raise the age past twice the timer and a contributor that died
+# sits on the bar for a whole repaint after it should have gone, which is the
+# one thing the heartbeat exists to prevent.
+test_ai_the_driver_repaints_before_a_contributor_can_expire() {
+  local plugin rc max_age freq
+  plugin="${PLUGIN_DIR}/ai_agents.sh"
+  rc="${REPO_ROOT}/sketchybar/.config/sketchybar/sketchybarrc"
+  max_age="$(sed -n 's/^CONTRIB_MAX_AGE=\([0-9]*\)$/\1/p' "${plugin}")"
+  # Scoped to the ai_driver block, because three items carry an update_freq
+  # and the other two answer to nothing in ai_agents.sh.
+  freq="$(sed -n '/--add item ai_driver/,/script=/ {
+    s/^ *update_freq=\([0-9]*\).*$/\1/p
+  }' "${rc}")"
+
+  # Each anchor is checked for itself, so a renamed line fails saying so rather
+  # than leaving an empty operand to read as line zero.
+  if [[ -z "${max_age}" || -z "${freq}" ]]; then
+    fail "an anchor moved: CONTRIB_MAX_AGE=[${max_age}] update_freq=[${freq}]"
+    return
+  fi
+  if [[ "$((freq * 2))" -ne "${max_age}" ]]; then
+    fail "update_freq ${freq} is not half CONTRIB_MAX_AGE ${max_age}"
+  fi
 }
 
 # Defined in harness.sh, called here so compgen sees this suite's tests.

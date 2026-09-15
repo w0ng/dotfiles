@@ -30,10 +30,13 @@ blocked=0
 finished=0
 idle=0
 
-# Every file adds into the running counts, and none overwrites another.
 add_counts() {
+  [[ -f "$1" && -r "$1" ]] || return 0
   local key value
-  [[ -r "$1" ]] || return 0
+  # Last wins within a file, so a writer that appends rather than truncates
+  # does not report its old counts on top of its new ones. Only the totals
+  # across files add.
+  local w=0 b=0 f=0 i=0
   # `|| [[ -n "${key}" ]]` so a final line with no trailing newline is still
   # read rather than silently dropping whichever count happens to be last.
   while IFS='=' read -r key value || [[ -n "${key}" ]]; do
@@ -45,34 +48,48 @@ add_counts() {
     # a bare word, so `working=idle` would add this reading's idle count
     # instead, and it expands an array subscript, so `working=x[$(cmd)]` runs
     # cmd. These files are written by tooling this repo does not own.
+    #
+    # Six digits or more reads as zero for the same reason: 10# on twenty of
+    # them wraps through signed 64-bit and draws the wrap as the label, and a
+    # value chosen to wrap the sum negative hides the group while agents run.
     case "${value}" in
-      '' | *[!0-9]*) value=0 ;;
+      '' | *[!0-9]* | ??????*) value=0 ;;
       # 10# so a leading zero stays a digit rather than reading as octal, which
       # fails outright on an 8 or a 9.
       *) value=$((10#${value})) ;;
     esac
     case "${key}" in
-      working) working=$((working + value)) ;;
-      blocked) blocked=$((blocked + value)) ;;
-      done) finished=$((finished + value)) ;;
-      idle) idle=$((idle + value)) ;;
+      working) w="${value}" ;;
+      blocked) b="${value}" ;;
+      done) f="${value}" ;;
+      idle) i="${value}" ;;
     esac
   done <"$1"
+  working=$((working + w))
+  blocked=$((blocked + b))
+  finished=$((finished + f))
+  idle=$((idle + i))
 }
 
 add_counts "${STATE_FILE}"
 
-# This runs on every repaint, so the usual case of no contributors at all
-# forks nothing. The writer is on this machine, so the mtime and `date` below
-# read the same clock.
-if [[ -d "${CONTRIB_DIR}" ]]; then
+# Globbed before the guard, so the usual case of no contributors forks nothing
+# even once the directory itself exists. The writer is on this machine, so the
+# mtime and `date` below read the same clock.
+#
+# `*` skips a leading dot, which is how a contributor's half-written temp file
+# stays out of the counts.
+contributors=("${CONTRIB_DIR}"/*)
+if [[ -e "${contributors[0]}" ]]; then
   now="$(date +%s)"
-  # `*` skips a leading dot, which is how a contributor's half-written temp
-  # file stays out of the counts.
-  for contributor in "${CONTRIB_DIR}"/*; do
+  for contributor in "${contributors[@]}"; do
     [[ -f "${contributor}" ]] || continue
     mtime="$(stat -f %m "${contributor}" 2>/dev/null)" || continue
-    [[ "$((now - mtime))" -le "${CONTRIB_MAX_AGE}" ]] || continue
+    age=$((now - mtime))
+    # A negative age is a clock that stepped back, or a file copied from a host
+    # running ahead. Without the lower bound it never expires, so it counts on
+    # forever after the writer that left it has died.
+    ((age >= 0 && age <= CONTRIB_MAX_AGE)) || continue
     add_counts "${contributor}"
   done
 fi

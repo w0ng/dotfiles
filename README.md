@@ -134,11 +134,20 @@ writes what it sees to `~/.cache/sketchybar/ai_agents.d/<name>`, and
 one total.
 
 A contributor writes any of `working=`, `blocked=`, `done=` and `idle=`, one per
-line, digits only. A name it leaves out counts as zero, and the total is
-derived, so writing one does nothing. It rewrites the whole file every cycle,
-because the plugin reads the mtime as a heartbeat and stops counting a file last
-written over a minute ago. A temp file renamed over the top needs a leading dot,
-which the plugin's glob skips.
+line, digits only and under six of them, since a longer value wraps bash's
+arithmetic and is read as zero. A name it leaves out counts as zero, and the
+total is derived, so writing a `total=` line does nothing. It rewrites the
+whole file every cycle, because the plugin reads the mtime as a heartbeat and
+stops counting a file last written over a minute ago. A temp file renamed over
+the top needs a leading dot, which the plugin's glob skips.
+
+`helpers/ai_watch.py` is not a model for one. It writes the local file, which
+no heartbeat checks, so it skips the write while the counts have not moved. A
+contributor copying that would freeze its own mtime whenever its herd went
+quiet and drop off the bar a minute later, still running. A writer started from
+`sketchybarrc.local` also has to stop its previous copy the way this repo's own
+watcher does, because a reload re-runs that file and leaves the old one
+counting into the same name.
 
 Put a machine-local setting in one of these rather than inline. `.zshrc` is a
 symlink into this public repo, so an installer that appends to it commits your
