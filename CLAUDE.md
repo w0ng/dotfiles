@@ -190,4 +190,12 @@ Never narrate the code ("loop over users") or a change ("now uses X"), which
 belongs in a commit message. Keep tool directives like `shellcheck disable` and
 `---@param`. When in doubt, keep a why and delete a how.
 
+One standing exception: a Nerd Font glyph carries its name beside it, as
+`icon="󰂄" # nf-md-battery_charging`. A private-use character renders as an
+empty box anywhere the font is not loaded, GitHub included, so this is the one
+case where the code cannot show itself. Look each name up in Nerd Fonts'
+`glyphnames.json`, which nothing here vendors, and keep one naming generation
+per block: `fa-volume_high` and `fa-volume_up` are the same glyph from
+different Font Awesome releases.
+
 Before finishing, delete the redundant comments you added.

@@ -9,11 +9,11 @@
 source "${HOME}/.config/sketchybar/colors.sh"
 
 if [[ -n "$(ipconfig getifaddr en0 2>/dev/null)" ]]; then
-  icon="󰤨"
+  icon="󰤨" # nf-md-wifi_strength_4
   label="up"
   color="${GREEN}"
 else
-  icon="󰤭"
+  icon="󰤭" # nf-md-wifi_strength_off
   label="down"
   color="${RED}"
 fi

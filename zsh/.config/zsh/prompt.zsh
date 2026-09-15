@@ -81,17 +81,17 @@ _prompt_git_start() {
       case $ln in
         ('# branch.head '*) head=${ln#\# branch.head } ;;
         ('# branch.ab '*)   ab=${ln#\# branch.ab } ;;
-        ('# stash '*)       stashed='%F{6}󰌨%f' ;;
-        ('? '*)             untracked='%F{7}%f' ;;
-        ('u '*)             unmerged='%F{3}󰇼%f' ;;
+        ('# stash '*)       stashed='%F{6}󰌨%f' ;; # nf-md-layers
+        ('? '*)             untracked='%F{7}%f' ;; # nf-fa-question
+        ('u '*)             unmerged='%F{3}󰇼%f' ;; # nf-md-equal
         ('1 '*|'2 '*)
           # Field 2 is the two-letter <staged><unstaged> code, and a "2" line
           # is a rename or copy.
           xy=${ln[3,4]}
-          [[ $ln == '2 '* || $xy == *R* ]] && renamed='%F{5}󰁕%f'
-          [[ ${xy[1]} == A ]]              && added='%F{2}󱇬%f'
-          [[ $xy == *D* ]]                 && deleted='%F{1}󱎘%f'
-          [[ $xy == *[MT]* ]]              && modified='%F{4}%f'
+          [[ $ln == '2 '* || $xy == *R* ]] && renamed='%F{5}󰁕%f' # nf-md-arrow_right_thick
+          [[ ${xy[1]} == A ]]              && added='%F{2}󱇬%f' # nf-md-plus_thick
+          [[ $xy == *D* ]]                 && deleted='%F{1}󱎘%f' # nf-md-close_thick
+          [[ $xy == *[MT]* ]]              && modified='%F{4}%f' # nf-fa-asterisk
           ;;
       esac
     done < <(command git --no-optional-locks status \
@@ -99,19 +99,19 @@ _prompt_git_start() {
     [[ -n $head ]] || exit 0
 
     if [[ $head == '(detached)' ]]; then
-      head=" ${sha}"
+      head=" ${sha}" # nf-oct-git_commit
       # Worth asking only when detached, and only names an exact tag.
       pos=$(command git describe --tags --exact-match HEAD 2>/dev/null) \
-        && pos=" %F{3} ${pos}%f"
+        && pos=" %F{3} ${pos}%f" # nf-fa-tag
     else
-      head=" ${head}"
+      head=" ${head}" # nf-oct-git_branch
     fi
 
     # branch.ab is "+<ahead> -<behind>", and is absent when there is no
     # upstream to compare against.
     if [[ -n $ab ]]; then
-      [[ ${${ab%% *}#+} != 0 ]] && ahead='%F{3}󰁞%f'
-      [[ ${${ab##* }#-} != 0 ]] && behind='%F{3}󰁆%f'
+      [[ ${${ab%% *}#+} != 0 ]] && ahead='%F{3}󰁞%f' # nf-md-arrow_up_thick
+      [[ ${${ab##* }#-} != 0 ]] && behind='%F{3}󰁆%f' # nf-md-arrow_down_thick
     fi
 
     # In-progress operations, read directly from .git rather than by running
@@ -130,7 +130,7 @@ _prompt_git_start() {
     elif [[ -f $d/REVERT_HEAD ]];      then state=REVERT
     elif [[ -f $d/BISECT_LOG ]];       then state=BISECT
     fi
-    [[ -n $state ]] && state=" %F{3} ${state}%f"
+    [[ -n $state ]] && state=" %F{3} ${state}%f" # nf-fa-arrows_rotate
 
     # Working-tree state first, upstream last, so the two never interleave.
     # This is starship's ALL_STATUS_FORMAT order followed by ahead/behind.

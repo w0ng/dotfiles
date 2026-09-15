@@ -29,14 +29,14 @@ require('lualine').setup({
                 color = { gui = '' },
                 fmt = function(str)
                     if str == 'INSERT' or str == 'REPLACE' then
-                        return '󰙌'
+                        return '󰙌' -- nf-md-human_handsup
                     end
-                    return '󰙋'
+                    return '󰙋' -- nf-md-human_handsdown
                 end,
             },
         },
         lualine_b = {
-            { 'b:gitsigns_head', icon = '' },
+            { 'b:gitsigns_head', icon = '' }, -- nf-oct-git_branch
             { 'diff', source = diff_source },
             -- lualine ships no macro-recording component
             -- (https://github.com/nvim-lualine/lualine.nvim/issues/1355), so

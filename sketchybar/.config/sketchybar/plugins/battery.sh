@@ -15,32 +15,32 @@ charging=$(printf '%s' "${batt}" | grep '; charging')
 [[ -z "${percent}" ]] && exit 0
 
 if [[ -n "${charging}" ]]; then
-  icon="󰂄"
+  icon="󰂄" # nf-md-battery_charging
   color="${GREEN}"
 else
   case "${percent}" in
     100 | 9[0-9])
-      icon="󰁹"
+      icon="󰁹" # nf-md-battery
       color="${GREEN}"
       ;;
     8[0-9] | 7[0-9])
-      icon="󰂁"
+      icon="󰂁" # nf-md-battery_80
       color="${GREEN}"
       ;;
     6[0-9] | 5[0-9])
-      icon="󰁿"
+      icon="󰁿" # nf-md-battery_60
       color="${YELLOW}"
       ;;
     4[0-9] | 3[0-9])
-      icon="󰁽"
+      icon="󰁽" # nf-md-battery_40
       color="${ORANGE}"
       ;;
     2[0-9])
-      icon="󰁻"
+      icon="󰁻" # nf-md-battery_20
       color="${ORANGE}"
       ;;
     *)
-      icon="󰁺"
+      icon="󰁺" # nf-md-battery_10
       color="${RED}"
       ;;
   esac

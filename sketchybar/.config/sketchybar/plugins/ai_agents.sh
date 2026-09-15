@@ -21,9 +21,9 @@ CONTRIB_DIR="${STATE_DIR}/ai_agents.d"
 # update_freq tied to this number.
 CONTRIB_MAX_AGE=60
 
-# nf-fa-robot. Every glyph here was checked against MapleMono-NF-CN's character
-# map, because one the font lacks falls back to a system face in silence.
-AI_ICON=""
+# Every glyph here was checked against MapleMono-NF-CN's character map, because
+# one the font lacks falls back to a system face in silence.
+AI_ICON="" # nf-fa-robot
 
 working=0
 blocked=0
@@ -111,14 +111,15 @@ if [[ "${total}" -le 0 ]]; then
 fi
 
 # Glyph as well as colour, because four counts sitting side by side are told
-# apart faster by shape. All four come from one family, chat_processing,
-# chat_question, chat_plus and chat_sleep, so they read as a set rather than as
-# four unrelated symbols.
+# apart faster by shape. All four come from one chat family, so they read as a
+# set rather than as four unrelated symbols.
 #
 # done is herdr's own state for a turn that finished and has not been looked at
 # yet. Green draws the eye to it, against a dim idle that does not need one.
 states=('working' 'blocked' 'done' 'idle')
 counts=("${working}" "${blocked}" "${finished}" "${idle}")
+# working: nf-md-chat_processing   blocked: nf-md-chat_question
+# done: nf-md-chat_plus            idle: nf-md-chat_sleep
 glyphs=(󰭻 󱜸 󱐏 󱋑)
 colors=("${BLUE}" "${RED}" "${GREEN}" "${DIM}")
 

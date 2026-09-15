@@ -139,16 +139,16 @@ bar() {
   REPLY=''
   for (( i = 1; i <= width; i++ )); do
     if (( i == 1 )); then
-      if (( i <= filled )); then REPLY+=''
-      else                       REPLY+=''
+      if (( i <= filled )); then REPLY+='' # nf-extra-progress_full_left
+      else                       REPLY+='' # nf-extra-progress_empty_left
       fi
     elif (( i == width )); then
-      if (( i <= filled )); then REPLY+=''
-      else                       REPLY+=''
+      if (( i <= filled )); then REPLY+='' # nf-extra-progress_full_right
+      else                       REPLY+='' # nf-extra-progress_empty_right
       fi
     else
-      if (( i <= filled )); then REPLY+=''
-      else                       REPLY+=''
+      if (( i <= filled )); then REPLY+='' # nf-extra-progress_full_mid
+      else                       REPLY+='' # nf-extra-progress_empty_mid
       fi
     fi
   done
@@ -395,7 +395,7 @@ if (( on_ctx )); then
   # + output, while used_percentage counts input only, so it would be recolouring
   # a number it does not actually measure.
   heat $ctx_pct; local cc=$REPLY
-  t="${cc} "
+  t="${cc} " # nf-fa-brain
   (( on_ctxbar )) && { bar $ctx_pct $CTX_BAR; t+="${cc}${REPLY} " }
   t+="${cc}${ctxp}${FR}"
   if (( on_ctxtok )); then
@@ -414,34 +414,34 @@ if (( on_cache )); then
   local kc=$GRN
   (( cache_pct < 50 )) && kc=$YLW
   (( cache_pct < 20 )) && kc=$RED
-  groups+=("${kc}󰆼 ${cachev}${FR}")
+  groups+=("${kc}󰆼 ${cachev}${FR}") # nf-md-database
 fi
 
 if (( on_lim5 )); then
   heat $rl5; local c5=$REPLY
-  t="${c5}󱑃 "
+  t="${c5}󱑃 " # nf-md-clock_time_five
   (( on_barlim )) && { bar $rl5 $LIM_BAR; t+="${c5}${REPLY} " }
   t+="${c5}${p5}${FR}"
-  (( on_reset )) && [[ -n $span5 ]] && t+="${DIM} 󰑐 ${span5}${FR}"
+  (( on_reset )) && [[ -n $span5 ]] && t+="${DIM} 󰑐 ${span5}${FR}" # nf-md-refresh
   groups+=("$t")
 fi
 
 if (( on_lim7 )); then
   heat $rl7; local c7=$REPLY
-  t="${c7}󰨳 "
+  t="${c7}󰨳 " # nf-md-calendar_week
   (( on_barlim )) && { bar $rl7 $LIM_BAR; t+="${c7}${REPLY} " }
   t+="${c7}${p7}${FR}"
-  (( on_reset )) && [[ -n $span7 ]] && t+="${DIM} 󰑐 ${span7}${FR}"
+  (( on_reset )) && [[ -n $span7 ]] && t+="${DIM} 󰑐 ${span7}${FR}" # nf-md-refresh
   groups+=("$t")
 fi
 
-(( on_time )) && groups+=("${FG}󱎫 ${dspan}${FR}")
+(( on_time )) && groups+=("${FG}󱎫 ${dspan}${FR}") # nf-md-timer
 
 if (( on_cost )); then
-  t="${CYN}󰄔 ${scost}${FR}"
+  t="${CYN}󰄔 ${scost}${FR}" # nf-md-cash
   # The session total alone under-reports whenever the day ran across several
   # sessions, so this is the figure worth the space once there is space for it.
-  (( on_today )) && t+="  ${DIM}󰃭 ${tcost}${FR}"
+  (( on_today )) && t+="  ${DIM}󰃭 ${tcost}${FR}" # nf-md-calendar
   groups+=("$t")
 fi
 

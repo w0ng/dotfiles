@@ -168,10 +168,10 @@ vim.diagnostic.config({
     -- Nerd Font glyphs in the sign column instead of the default E/W/H/I.
     signs = {
         text = {
-            [vim.diagnostic.severity.ERROR] = '󰅙 ',
-            [vim.diagnostic.severity.WARN] = '󰀦 ',
-            [vim.diagnostic.severity.INFO] = '󰋼 ',
-            [vim.diagnostic.severity.HINT] = '󰌵 ',
+            [vim.diagnostic.severity.ERROR] = '󰅙 ', -- nf-md-close_circle
+            [vim.diagnostic.severity.WARN] = '󰀦 ', -- nf-md-alert
+            [vim.diagnostic.severity.INFO] = '󰋼 ', -- nf-md-information
+            [vim.diagnostic.severity.HINT] = '󰌵 ', -- nf-md-lightbulb
         },
     },
 })

@@ -137,6 +137,7 @@ sketchybar --add item front_app left \
 
 # ── right side ───────────────────────────────────────────────────────────────
 
+# icon: nf-md-clock_outline
 sketchybar --add item clock right \
   --set clock \
   update_freq=10 \

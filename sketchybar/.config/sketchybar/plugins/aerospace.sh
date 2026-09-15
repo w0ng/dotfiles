@@ -75,7 +75,7 @@ done <<<"${state}"
 # ── layout ───────────────────────────────────────────────────────────────────
 
 if [[ "${fullscreen}" = "true" ]]; then
-  icon="󰊓"
+  icon="󰊓" # nf-md-fullscreen
   label="fullscreen"
   color="${ORANGE}"
 else
@@ -84,27 +84,27 @@ else
   label="${layout:-—}"
   case "${layout}" in
     floating)
-      icon="󰀽"
+      icon="󰀽" # nf-md-arrange_bring_forward
       color="${AQUA}"
       ;;
     h_tiles)
-      icon="󰯌"
+      icon="󰯌" # nf-md-view_split_vertical
       color="${GREEN}"
       ;;
     v_tiles)
-      icon="󰯋"
+      icon="󰯋" # nf-md-view_split_horizontal
       color="${GREEN}"
       ;;
     h_accordion)
-      icon="󰹴"
+      icon="󰹴" # nf-md-arrow_left_right_bold
       color="${BLUE}"
       ;;
     v_accordion)
-      icon="󰹺"
+      icon="󰹺" # nf-md-arrow_up_down_bold
       color="${BLUE}"
       ;;
     *)
-      icon="󰋱"
+      icon="󰋱" # nf-md-image_filter_center_focus
       color="${GRAY}"
       ;;
   esac
@@ -154,7 +154,7 @@ args=(
   label="${label}" label.color="${color}"
   background.color="${BAR}"
   --set monitor drawing="${mon_drawing}"
-  icon="󰍹" icon.color="${mon_color}"
+  icon="󰍹" icon.color="${mon_color}" # nf-md-monitor
   label="${mon_label}" label.color="${mon_color}"
   background.color="${BAR}"
 )
