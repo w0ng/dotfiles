@@ -177,9 +177,7 @@ for state in 'idle' 'done' 'blocked' 'working'; do
     icon.padding_left=2 \
     icon.padding_right=1 \
     label.padding_left=1 \
-    label.padding_right=2 \
-    label.font="${LABEL_FONT}:Bold:11.0" \
-    label.y_offset=6
+    label.padding_right=2
 done
 
 sketchybar --add item ai.icon right \
