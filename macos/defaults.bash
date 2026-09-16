@@ -20,6 +20,10 @@
 #    both Mail animation keys, and NSToolbarFullScreenAnimationDuration.
 #    Re-check after a major macOS update (last checked on 26.6.2):
 #      strings -a /System/Library/CoreServices/Dock.app/Contents/MacOS/Dock | grep -x <key>
+#    AppKit has no on-disk binary and Xcode's `strings` refuses the cache, so
+#    its keys need a different probe:
+#      LC_ALL=C grep -ao <key> \
+#        /System/Volumes/Preboot/Cryptexes/OS/System/Library/dyld/dyld_shared_cache_arm64e*
 #
 # Not settable from here, because com.apple.universalaccess reduceMotion is
 # TCC-protected and does not write from a terminal without Full Disk Access;
@@ -79,6 +83,20 @@ defaults write com.apple.dock workspaces-edge-delay -float 0
 # the only way to set it. Reaches apps as they launch, so restart them or log
 # out.
 defaults write -g NSWindowShouldDragOnGesture -bool true
+
+# Window corner radius in points, squared off so JankyBorders' square style has
+# square windows to trace; aerospace.toml's `style=square` is the other half.
+# AppKit's NSThemeFrame reads it, next to _cornerRadiusForWindowType:.
+#
+# 0.1, not 0, for the same reason as NSWindowResizeTime above: 0 is treated as
+# unset, not as zero curve. Measured on 26.6.2 by screenshotting a window
+# corner: unset, 0 and 16 all give the same curve, while 0.1 gives none. The
+# widely posted "26 restores the Tahoe radius" does not reproduce; 26 is
+# rounder than stock.
+#
+# The sibling NSConvolutionOverride2 in the same AppKit block does nothing
+# here: 40 on its own measures identical to unset, so it is left alone.
+defaults write -g NSConvolutionOverride1 -float 0.1
 
 # System Settings > Desktop & Dock > "Displays have separate Spaces", off. One
 # Space stretches across every display, so a window can straddle two screens and
