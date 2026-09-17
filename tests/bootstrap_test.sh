@@ -671,25 +671,51 @@ PLIST
   ALFRED_WORKFLOWS="${WORK_DIR}/workflows"
   export ALFRED_WORKFLOWS
   mkdir -p "${ALFRED_WORKFLOWS}"
+
+  # Unstubbed, alfred_reload sends a real Apple Event to whatever Alfred is
+  # running on the machine under test, naming a workflow that exists only here.
+  PGREP="${WORK_DIR}/bin/pgrep"
+  OSASCRIPT="${WORK_DIR}/bin/osascript"
+  mkdir -p "${WORK_DIR}/bin"
+  printf '#!/bin/sh\nexit 1\n' >"${PGREP}"
+  printf '#!/bin/sh\nexit 0\n' >"${OSASCRIPT}"
+  chmod +x "${PGREP}" "${OSASCRIPT}"
 }
 
-# The whole reason the package is copied rather than stowed: Alfred writes the
-# hotkey a human recorded into the installed info.plist, and workflow settings
-# into prefs.plist beside it.
+# The same workflow, plus the hotkey object a human records a binding onto.
+seed_alfred_workflow_with_hotkey() {
+  seed_alfred_workflow
+  cat >"${DOTFILES_DIR}/alfred/workflows/thing/info.plist" <<'PLIST'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+<key>bundleid</key><string>com.example.thing</string>
+<key>keyword</key><string>thing</string>
+<key>objects</key><array><dict>
+<key>uid</key><string>HOTKEY-OBJECT</string>
+<key>type</key><string>alfred.workflow.trigger.hotkey</string>
+<key>config</key><dict>
+<key>hotkey</key><integer>0</integer>
+<key>hotmod</key><integer>0</integer>
+<key>hotstring</key><string></string>
+</dict></dict></array>
+</dict></plist>
+PLIST
+}
+
+# Alfred writes workflow settings into prefs.plist and an icon set on an object
+# into <object-uid>.png, neither of which this repo declares.
 test_install_alfred_workflow_keeps_what_alfred_wrote() {
   seed_alfred_workflow
   install_alfred_workflow thing >/dev/null
   local dest="${ALFRED_WORKFLOWS}/com.example.thing"
 
-  printf 'hotkey recorded by a human\n' >"${dest}/info.plist"
   printf 'workflow configuration\n' >"${dest}/prefs.plist"
   printf 'E3A1 object icon\n' >"${dest}/E3A1-object-icon.png"
   printf 'second\n' >"${DOTFILES_DIR}/alfred/workflows/thing/run.py"
 
   install_alfred_workflow thing >/dev/null
 
-  assert_eq 'hotkey recorded by a human' "$(cat "${dest}/info.plist")" \
-    'the recorded hotkey survives'
   assert_eq 'workflow configuration' "$(cat "${dest}/prefs.plist")" \
     'workflow configuration survives'
   assert_eq 'E3A1 object icon' "$(cat "${dest}/E3A1-object-icon.png")" \
@@ -698,6 +724,119 @@ test_install_alfred_workflow_keeps_what_alfred_wrote() {
     'the script is still brought up to date'
   assert_eq 'workflow icon' "$(cat "${dest}/icon.png")" \
     "the workflow's own icon is not mistaken for an object icon"
+}
+
+# A keyword lives only in info.plist, so this repo owns that file: nothing else
+# carries a new keyword to an installed workflow.
+test_install_alfred_workflow_syncs_the_plist_this_repo_owns() {
+  seed_alfred_workflow
+  install_alfred_workflow thing >/dev/null
+  local dest="${ALFRED_WORKFLOWS}/com.example.thing"
+  local src="${DOTFILES_DIR}/alfred/workflows/thing"
+
+  /usr/bin/plutil -replace keyword -string 'newkeyword' -- "${src}/info.plist"
+  install_alfred_workflow thing >/dev/null
+
+  assert_eq 'newkeyword' \
+    "$(/usr/bin/plutil -extract keyword raw -- "${dest}/info.plist")" \
+    'a keyword added in this repo reaches the installed workflow'
+}
+
+# The counterpart to owning the file: a hotkey is recorded in Alfred's GUI, and
+# it is written into the config of an object this repo declares, so it is copied
+# onto the incoming copy by uid rather than lost to it.
+test_install_alfred_workflow_carries_a_recorded_hotkey() {
+  seed_alfred_workflow_with_hotkey
+  install_alfred_workflow thing >/dev/null
+  local dest="${ALFRED_WORKFLOWS}/com.example.thing"
+  local src="${DOTFILES_DIR}/alfred/workflows/thing"
+
+  # What Alfred writes when a human records ctrl-space on the object.
+  /usr/bin/plutil -replace objects.0.config.hotkey -integer 49 -- "${dest}/info.plist"
+  /usr/bin/plutil -replace objects.0.config.hotmod -integer 262144 -- "${dest}/info.plist"
+  /usr/bin/plutil -replace objects.0.config.hotstring -string ' ' -- "${dest}/info.plist"
+  /usr/bin/plutil -replace keyword -string 'newkeyword' -- "${src}/info.plist"
+
+  install_alfred_workflow thing >/dev/null
+
+  assert_eq '49' \
+    "$(/usr/bin/plutil -extract objects.0.config.hotkey raw -- "${dest}/info.plist")" \
+    'the recorded hotkey survives'
+  assert_eq '262144' \
+    "$(/usr/bin/plutil -extract objects.0.config.hotmod raw -- "${dest}/info.plist")" \
+    'its modifiers survive with it'
+  assert_eq 'newkeyword' \
+    "$(/usr/bin/plutil -extract keyword raw -- "${dest}/info.plist")" \
+    'and the rest of the plist still comes from this repo'
+
+  local output
+  output="$(install_alfred_workflow thing 2>&1)"
+  assert_not_contains "${output}" 'installing' \
+    'and the run after a carry settles, rather than reinstalling forever'
+}
+
+# An unrecorded hotkey is 0/0, which is what this repo ships. Rewriting it would
+# make every run report an install.
+test_install_alfred_workflow_leaves_an_unrecorded_hotkey_alone() {
+  seed_alfred_workflow_with_hotkey
+  install_alfred_workflow thing >/dev/null
+
+  local output
+  output="$(install_alfred_workflow thing 2>&1)"
+
+  assert_not_contains "${output}" 'installing' \
+    'a hotkey that was never recorded is not rewritten into an install'
+}
+
+# A hotkey recorded on an object added in Alfred's editor has no uid here to
+# copy onto. Overwriting would destroy it in the same run that warned, and since
+# the warning reads the installed copy, nothing would warn on any run after that.
+test_install_alfred_workflow_keeps_a_hotkey_it_cannot_carry() {
+  seed_alfred_workflow_with_hotkey
+  install_alfred_workflow thing >/dev/null
+  local dest="${ALFRED_WORKFLOWS}/com.example.thing"
+  local src="${DOTFILES_DIR}/alfred/workflows/thing"
+
+  /usr/bin/plutil -replace objects.0.uid -string 'ADDED-IN-THE-GUI' -- "${dest}/info.plist"
+  /usr/bin/plutil -replace objects.0.config.hotkey -integer 49 -- "${dest}/info.plist"
+  /usr/bin/plutil -replace keyword -string 'newkeyword' -- "${src}/info.plist"
+
+  local output first second
+  first="$(install_alfred_workflow thing 2>&1)"
+  second="$(install_alfred_workflow thing 2>&1)"
+  output="${first}"
+
+  assert_contains "${output}" 'ADDED-IN-THE-GUI' \
+    'a hotkey that cannot be carried is reported'
+  assert_eq 'ADDED-IN-THE-GUI' \
+    "$(/usr/bin/plutil -extract objects.0.uid raw -- "${dest}/info.plist")" \
+    'and the object carrying it is still there afterwards'
+  assert_eq '49' \
+    "$(/usr/bin/plutil -extract objects.0.config.hotkey raw -- "${dest}/info.plist")" \
+    'with its binding intact'
+  assert_contains "${second}" 'ADDED-IN-THE-GUI' \
+    'and the warning repeats rather than firing once and going quiet'
+}
+
+# Alfred keeps a workflow's enabled state in info.plist rather than prefs.plist,
+# so owning that file means re-enabling a workflow the user switched off.
+test_install_alfred_workflow_carries_the_disabled_flag() {
+  seed_alfred_workflow_with_hotkey
+  install_alfred_workflow thing >/dev/null
+  local dest="${ALFRED_WORKFLOWS}/com.example.thing"
+  local src="${DOTFILES_DIR}/alfred/workflows/thing"
+
+  /usr/bin/plutil -replace disabled -bool true -- "${dest}/info.plist"
+  /usr/bin/plutil -replace keyword -string 'newkeyword' -- "${src}/info.plist"
+
+  install_alfred_workflow thing >/dev/null
+
+  assert_eq 'true' \
+    "$(/usr/bin/plutil -extract disabled raw -- "${dest}/info.plist")" \
+    'a workflow disabled in the GUI stays disabled'
+  assert_eq 'newkeyword' \
+    "$(/usr/bin/plutil -extract keyword raw -- "${dest}/info.plist")" \
+    'and the rest of the plist still comes from this repo'
 }
 
 test_install_alfred_workflow_removes_a_file_dropped_from_the_source() {

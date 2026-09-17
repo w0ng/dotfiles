@@ -20,7 +20,7 @@
 # whose binary is missing fails silently at the point of use.
 #
 # Sourcing this file defines its functions without running anything, and the
-# tools it drives (BREW, STOW, NPM) and paths it reads or writes
+# tools it drives (BREW, STOW, NPM, PGREP, OSASCRIPT) and paths it reads or writes
 # (DOTFILES_DIR, STOW_TARGET, BREW_PREFIXES, ALFRED_WORKFLOWS) are overridable,
 # so tests can stub them. See tests/bootstrap_test.sh. Targets bash 3.2, the
 # version macOS ships.
@@ -67,6 +67,10 @@ NPM="${NPM:-npm}"
 # runs from both scripts' main, and update.sh's main is driven by four
 # tests, which must not reach a real sudo.
 XCODE_SELECT="${XCODE_SELECT:-xcode-select}"
+# And these two, which alfred_reload drives. Unstubbed, the suite sends real
+# Apple Events to whatever Alfred is running on the machine under test.
+PGREP="${PGREP:-/usr/bin/pgrep}"
+OSASCRIPT="${OSASCRIPT:-/usr/bin/osascript}"
 # Space-separated so a test can point the probe at a scratch prefix instead of
 # running the real /opt/homebrew/bin/brew.
 BREW_PREFIXES="${BREW_PREFIXES:-/opt/homebrew /usr/local}"
@@ -605,8 +609,96 @@ alfred_workflows_root() {
   printf '%s\n' "${HOME}/Library/Application Support/Alfred/Alfred.alfredpreferences/workflows"
 }
 
-plist_version() {
-  /usr/bin/plutil -extract version raw -- "$1" 2>/dev/null || true
+# Every object in a workflow plist, one "index uid" a line. Keyed on uid rather
+# than on type, because an object carrying no type would end the walk before the
+# ones after it.
+alfred_object_uids() {
+  local plist="$1"
+  local index=0 uid
+
+  while uid="$(/usr/bin/plutil -extract "objects.${index}.uid" raw -- "${plist}" 2>/dev/null)"; do
+    printf '%s %s\n' "${index}" "${uid}"
+    index=$((index + 1))
+  done
+}
+
+alfred_object_index() {
+  local plist="$1" want="$2"
+  local index uid
+
+  while read -r index uid; do
+    if [[ "${uid}" == "${want}" ]]; then
+      printf '%s' "${index}"
+      return 0
+    fi
+  done < <(alfred_object_uids "${plist}")
+  return 1
+}
+
+# What Alfred writes into an installed info.plist, copied onto the incoming copy:
+# the workflow's disabled flag, which Alfred keeps here rather than in
+# prefs.plist, and the hotkey a human recorded against an object this repo
+# declares.
+#
+# Non-zero means some of it could not be carried, and the caller then leaves the
+# installed file alone. Overwriting instead would delete the binding in the same
+# run that warned about it, and because the warning reads the installed copy,
+# nothing would ever warn again.
+alfred_carry_alfred_state() {
+  local pkg="$1" installed="$2" merged="$3"
+  local index uid kind hotkey hotmod hotstring target
+
+  [[ -f "${installed}" ]] || return 0
+
+  if [[ "$(/usr/bin/plutil -extract disabled raw -- "${installed}" 2>/dev/null || true)" == "true" ]]; then
+    /usr/bin/plutil -replace disabled -bool true -- "${merged}" >/dev/null 2>&1 || return 1
+  fi
+
+  while read -r index uid; do
+    kind="$(/usr/bin/plutil -extract "objects.${index}.type" raw -- "${installed}" 2>/dev/null || true)"
+    [[ "${kind}" == "alfred.workflow.trigger.hotkey" ]] || continue
+
+    hotkey="$(/usr/bin/plutil -extract "objects.${index}.config.hotkey" raw -- "${installed}" 2>/dev/null || true)"
+    hotmod="$(/usr/bin/plutil -extract "objects.${index}.config.hotmod" raw -- "${installed}" 2>/dev/null || true)"
+    # An unrecorded hotkey is 0/0, which is what this repo ships, so there is
+    # nothing to carry and no reason to rewrite the incoming copy.
+    [[ "${hotkey:-0}" != "0" || "${hotmod:-0}" != "0" ]] || continue
+
+    if ! target="$(alfred_object_index "${merged}" "${uid}")"; then
+      warn "${pkg}: a hotkey is recorded on ${uid}, which this repo does not" \
+        "declare, so info.plist is left alone. Declare that object here to let" \
+        "this repo own the file again."
+      return 1
+    fi
+
+    hotstring="$(/usr/bin/plutil -extract "objects.${index}.config.hotstring" raw -- "${installed}" 2>/dev/null || true)"
+    # Checked rather than swallowed: half a binding written onto the merged copy
+    # is a hotkey the user no longer has and was never told about.
+    /usr/bin/plutil -replace "objects.${target}.config.hotkey" \
+      -integer "${hotkey:-0}" -- "${merged}" >/dev/null 2>&1 || return 1
+    /usr/bin/plutil -replace "objects.${target}.config.hotmod" \
+      -integer "${hotmod:-0}" -- "${merged}" >/dev/null 2>&1 || return 1
+    /usr/bin/plutil -replace "objects.${target}.config.hotstring" \
+      -string "${hotstring}" -- "${merged}" >/dev/null 2>&1 || return 1
+  done < <(alfred_object_uids "${installed}")
+
+  return 0
+}
+
+# Alfred caches a workflow once read, so a synced keyword is not live until it is
+# told. Only from a terminal, and only when Alfred is already running: the first
+# Apple Event a machine sends Alfred raises a consent dialog that blocks until
+# somebody answers it, and `tell application` launches Alfred outright, neither
+# of which a scheduled update.sh may do. Unattended, the file on disk is still
+# current and Alfred reads it when it next starts.
+alfred_reload() {
+  local bundleid="$1"
+
+  [[ -t 1 ]] || return 0
+  "${PGREP}" -x Alfred >/dev/null 2>&1 || return 0
+  run "${OSASCRIPT}" -e \
+    "tell application id \"com.runningwithcrayons.Alfred\" to reload workflow \"${bundleid}\"" \
+    2>/dev/null || true
 }
 
 # Alfred rewrites an installed workflow's info.plist in place when that workflow
@@ -615,7 +707,7 @@ plist_version() {
 install_alfred_workflow() {
   local pkg="$1"
   local src="${DOTFILES_DIR}/alfred/workflows/${pkg}"
-  local root bundleid dest candidate candidate_id pending
+  local root bundleid dest candidate candidate_id pending merged
   local -a opts
 
   if [[ ! -f "${src}/info.plist" ]]; then
@@ -657,41 +749,59 @@ install_alfred_workflow() {
   # A __pycache__ left in the source by importing a workflow script would be
   # copied into the installed workflow, and would then make every later run
   # report an install rather than a skip.
-  opts=(-a --delete --exclude=__pycache__)
-  if [[ -f "${dest}/info.plist" ]]; then
-    # Alfred owns three things in an installed workflow: the hotkey it records
-    # goes into info.plist, workflow configuration into prefs.plist, and an icon
-    # set on an object into <object-uid>.png. Copying over those, or deleting
-    # them, undoes GUI work on every run. rsync protects an excluded file from
-    # --delete too, and icon.png is the workflow's own, so it still syncs.
-    opts+=(--exclude=info.plist --exclude=prefs.plist --include=icon.png --exclude='*.png')
+  #
+  # info.plist is installed below instead, from a copy carrying what Alfred
+  # wrote into it; excluding it here also protects it from --delete in the
+  # window between the two. Installing it afterwards bumps the destination
+  # directory's mtime, which --omit-dir-times is what stops rsync from noticing:
+  # without it `.d..t.... ./` is pending on every later run and the workflow
+  # reports an install forever.
+  opts=(-a --omit-dir-times --delete --exclude=__pycache__ --exclude=info.plist)
+  if [[ -d "${dest}" ]]; then
+    # Alfred writes configuration into prefs.plist and an icon set on an object
+    # into <object-uid>.png, and this repo declares neither. rsync protects an
+    # excluded file from --delete too, and icon.png is the workflow's own, so it
+    # still syncs. Keyed on the directory rather than on info.plist, because a
+    # destination that has lost its info.plist would otherwise have both deleted.
+    opts+=(--exclude=prefs.plist --include=icon.png --exclude='*.png')
+  fi
 
-    # This reads the version the repo declares rather than comparing mtimes,
-    # because rsync stamps the destination and the next run would then go quiet
-    # about a plist that is still stale. A keyword lives only in info.plist, so
-    # a warning nobody sees is a keyword that never arrives.
-    if [[ "$(plist_version "${src}/info.plist")" != "$(plist_version "${dest}/info.plist")" ]]; then
-      # Re-importing means building a bundle Alfred will accept, which is a
-      # zip of the files themselves, never of the directory holding them:
-      #   cd "alfred/workflows/${pkg}" && zip -X /tmp/wf.alfredworkflow *
-      # Alfred rejects an archive whose info.plist is not at the root.
-      warn "${pkg}: this repo's info.plist is version" \
-        "$(plist_version "${src}/info.plist") and the installed one is" \
-        "$(plist_version "${dest}/info.plist"). Alfred records hotkeys there," \
-        "so it is left alone. Re-import the workflow to pick up its changes."
+  # A keyword lives only in info.plist, so this repo owns that file. Two
+  # identical copies mean there is nothing to carry and nothing to write, which
+  # is the common run and worth one cmp: the merge below costs a plutil per
+  # object.
+  merged=""
+  if ! cmp -s "${src}/info.plist" "${dest}/info.plist"; then
+    if ! merged="$(mktemp -t dotfiles-alfred)"; then
+      warn "${pkg}: no writable temporary directory, so nothing is installed"
+      return 0
+    fi
+    cp "${src}/info.plist" "${merged}"
+    if ! alfred_carry_alfred_state "${pkg}" "${dest}/info.plist" "${merged}" \
+      || cmp -s "${merged}" "${dest}/info.plist"; then
+      # Either something Alfred wrote could not be carried, or carrying it
+      # reproduced the installed file exactly, which is the steady state once a
+      # hotkey has been recorded. Neither is a reason to write.
+      rm -f "${merged}"
+      merged=""
     fi
   fi
 
   # rsync creates the destination itself, and reports nothing when there is
   # nothing to do, which is what distinguishes a real install from a no-op.
   pending="$(rsync "${opts[@]}" -n --itemize-changes "${src}/" "${dest}/" 2>/dev/null || true)"
-  if [[ -z "${pending}" ]]; then
+  if [[ -z "${pending}" && -z "${merged}" ]]; then
     skip "alfred workflow ${pkg}"
     return 0
   fi
 
   info "installing alfred workflow ${pkg}"
   run rsync "${opts[@]}" "${src}/" "${dest}/"
+  if [[ -n "${merged}" ]]; then
+    run /usr/bin/install -m 644 "${merged}" "${dest}/info.plist"
+    rm -f "${merged}"
+  fi
+  alfred_reload "${bundleid}"
   if did_run; then
     success "alfred workflow ${pkg}"
   fi
