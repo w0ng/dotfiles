@@ -11,13 +11,15 @@ config-version = 2
 # service. That LaunchAgent carries KeepAlive, so `killall sketchybar` only
 # respawns it and stopping it needs `brew services stop sketchybar`.
 after-startup-command = [
-  # JankyBorders: gruvbox bright orange, not the bar's YELLOW focus accent,
-  # because a window border lands on white browser pages as well as dark
-  # terminals: yellow holds 1.7:1 contrast against white where this holds
-  # 2.5:1. It does collide with sketchybar's ORANGE, which already means
-  # fullscreen and battery warning. inactive_color is meant to vanish into the
-  # terminal background (1.3:1), so the contrast rule above is for the focused
-  # border only.
+  # JankyBorders: gruvbox neutral orange, the palette's best balance across the
+  # two backdrops a border lands on. It holds 3.9:1 against a white browser
+  # page and 3.8:1 against the terminal, where bright orange manages 2.5:1 on
+  # white and the bar's YELLOW focus accent 1.7:1; 4.6:1 is the ceiling for any
+  # colour across both. The trade is hue: at 24 degrees it reads red-leaning.
+  # It is absent from sketchybar/colors.sh, so unlike ORANGE it carries no
+  # second meaning in the bar. inactive_color is meant to vanish into the
+  # terminal background (1.3:1), so the contrast rule is for the focused border
+  # only.
   #
   # `style=square` assumes square windows, which macos/defaults.bash squares off
   # with NSConvolutionOverride1. Round corners there and the border's corners
@@ -25,7 +27,7 @@ after-startup-command = [
   #
   # AeroSpace runs this only at startup, so editing the line leaves a running
   # borders untouched; re-running the command updates that instance in place.
-  'exec-and-forget borders active_color=0xfffe8019 inactive_color=0xff3c3836 width=6.0 style=square',
+  'exec-and-forget borders active_color=0xffd65d0e inactive_color=0xff3c3836 width=6.0 style=square',
   # brew services starts sketchybar before this app, so its own startup paint
   # finds no server; without this the bar sits at its defaults until the first
   # focus change.
@@ -76,16 +78,16 @@ key-mapping.preset = 'qwerty'
 #
 # Gaps, derived from the JankyBorders `width=` above: the border draws roughly
 # half its width outside the window frame, so an inner gap holds two meeting
-# borders (one width) and an outer gap holds one (half). At width=6 that is
-# inner 6, outer 3. Smaller and adjacent borders overlap; at zero outer gap the
-# outward half is clipped off-screen. Changing `width=` invalidates every number
-# below.
+# borders (one width) and an outer gap holds one (half). Smaller and adjacent
+# borders overlap; at zero outer gap the outward half is clipped off-screen.
+# Changing `width=` means changing every number below, which
+# tests/sketchybar_test.sh asserts.
 #
 # The top gap also clears sketchybar, so on an external monitor it is the bar's
-# height plus that same half-width: 32 + 3. Keep it in step with `height=` in
+# height plus that same half-width. Keep it in step with `height=` in
 # sketchybar/.config/sketchybar/sketchybarrc; nothing derives one from the
-# other, so a change there leaves either a strip of desktop above the windows or
-# windows tucked underneath the bar.
+# other, so the same test asserts the sum. A drift leaves either a strip of
+# desktop above the windows or windows tucked underneath the bar.
 #
 # The built-in panel gets the plain half-width instead, because macOS already
 # reserves the menu bar area there and sketchybar draws inside it, so a second
