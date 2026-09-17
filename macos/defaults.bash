@@ -18,7 +18,7 @@
 #    circulate in older gist-style configs are already gone:
 #    expose-animation-duration,
 #    both Mail animation keys, and NSToolbarFullScreenAnimationDuration.
-#    Re-check after a major macOS update (last checked on 26.6.2):
+#    Re-check after a major macOS update (last checked on 27.0):
 #      strings -a /System/Library/CoreServices/Dock.app/Contents/MacOS/Dock | grep -x <key>
 #    AppKit has no on-disk binary and Xcode's `strings` refuses the cache, so
 #    its keys need a different probe:
@@ -89,10 +89,10 @@ defaults write -g NSWindowShouldDragOnGesture -bool true
 # AppKit's NSThemeFrame reads it, next to _cornerRadiusForWindowType:.
 #
 # 0.1, not 0, for the same reason as NSWindowResizeTime above: 0 is treated as
-# unset, not as zero curve. Measured on 26.6.2 by screenshotting a window
-# corner: unset, 0 and 16 all give the same curve, while 0.1 gives none. The
-# widely posted "26 restores the Tahoe radius" does not reproduce; 26 is
-# rounder than stock.
+# unset, not as zero curve. Measured on 26.6.2 and again on 27.0 by
+# screenshotting a window corner: unset, 0 and 16 all give the same curve,
+# while 0.1 gives none. The widely posted "26 restores the Tahoe radius" does
+# not reproduce; 26 is rounder than stock.
 #
 # The sibling NSConvolutionOverride2 in the same AppKit block does nothing
 # here: 40 on its own measures identical to unset, so it is left alone.
