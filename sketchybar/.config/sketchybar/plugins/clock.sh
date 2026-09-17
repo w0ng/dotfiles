@@ -4,7 +4,7 @@
 # %-I drops the leading zero on the hour; %l would blank-pad it instead, which
 # leaves a visible gap after the date. BSD date has no lowercase am/pm specifier
 # (%P is a GNU extension).
-stamp=$(date '+%a %d %b  %-I:%M %p')
+stamp=$(date '+%a %d %b %-I:%M %p')
 stamp=${stamp/%AM/am}
 stamp=${stamp/%PM/pm}
 sketchybar --set "${NAME}" label="${stamp}"
