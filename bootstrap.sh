@@ -63,6 +63,10 @@ STOW_TARGET="${STOW_TARGET:-${HOME}}"
 BREW="${BREW:-brew}"
 STOW="${STOW:-stow}"
 NPM="${NPM:-npm}"
+# Overridable for the same reason as the three above: accept_xcode_license
+# runs from both scripts' main, and update.sh's main is driven by four
+# tests, which must not reach a real sudo.
+XCODE_SELECT="${XCODE_SELECT:-xcode-select}"
 # Space-separated so a test can point the probe at a scratch prefix instead of
 # running the real /opt/homebrew/bin/brew.
 BREW_PREFIXES="${BREW_PREFIXES:-/opt/homebrew /usr/local}"
@@ -1131,6 +1135,58 @@ set_login_shell() {
 # Homebrew
 #######################################
 
+# A major macOS upgrade resets the Xcode license, and Homebrew refuses to run
+# until it is accepted again, which is why both scripts call this ahead of
+# their first brew command: bootstrap from main's preflight, update.sh from
+# main beside brew_shellenv. Neither calls it from a function the suites drive,
+# because tests/update_test.sh calls step_brew directly and bootstrap_test.sh
+# calls install_homebrew directly, and neither stubs sudo.
+#
+# Probed the way Homebrew gates itself, on the complaint in xcrun's output.
+# `xcodebuild -license check` reads like the purpose-built probe but answers 69
+# with that same "you have not agreed" text for any argument it does not
+# recognise, so a renamed subcommand would report an unaccepted license for
+# ever. Silent when there is nothing to do, because update.sh calls it on every
+# scheduled run.
+#
+# Accepting needs root, and a refusal only warns: a managed machine may
+# restrict sudo, and everything outside brew keeps working through the Command
+# Line Tools.
+accept_xcode_license() {
+  local developer_dir probe
+
+  developer_dir="$("${XCODE_SELECT}" -p 2>/dev/null)" || return 0
+  # The Command Line Tools carry their own license and xcodebuild cannot accept
+  # anything against them: it exits saying the active directory is a command
+  # line tools instance. Nothing to do, and nothing that would work if so.
+  if [[ "${developer_dir}" == *CommandLineTools* ]]; then
+    return 0
+  fi
+
+  probe="$(/usr/bin/xcrun clang --version 2>&1 || true)"
+  case "${probe}" in
+    *license*) ;;
+    *) return 0 ;;
+  esac
+
+  warn "Xcode license unaccepted, which blocks brew"
+  if [[ -t 0 ]]; then
+    warn "sudo will ask for a password"
+    if run sudo xcodebuild -license accept; then
+      return 0
+    fi
+  else
+    # No terminal means nobody can type a password, so -n turns the prompt into
+    # a failure this run can report rather than a wait that never ends. sudo's
+    # own error stays on stderr, where a scheduled job's log wants it.
+    if run sudo -n xcodebuild -license accept; then
+      return 0
+    fi
+  fi
+  warn "could not accept it. Run: sudo xcodebuild -license accept"
+  return 0
+}
+
 # A managed machine already has Homebrew and this is a no-op. A personal Mac
 # does not, and the official installer pulls in the Xcode command-line tools
 # first and prompts once for sudo.
@@ -1250,6 +1306,7 @@ main() {
   fi
   success "repo at ${DOTFILES_DIR}"
   [[ "${DRY_RUN}" == true ]] && warn "dry run, changing nothing"
+  accept_xcode_license
 
   step "profile"
   resolve_profile || return 1

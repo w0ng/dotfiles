@@ -41,6 +41,16 @@ STUB
   done
   chmod +x "${WORK_DIR}/stubs/"*
 
+  # accept_xcode_license runs from update.sh's main, which four tests below
+  # drive. Answering as a Command Line Tools machine returns it before it can
+  # reach sudo, which no stub could answer. Not in the loop above, because the
+  # hyphen cannot appear in a STUB_STATUS_<x> name.
+  cat >"${WORK_DIR}/stubs/xcode-select" <<'STUB'
+#!/bin/bash
+echo /Library/Developer/CommandLineTools
+STUB
+  chmod +x "${WORK_DIR}/stubs/xcode-select"
+
   # The Homebrew prefix update.sh probes for the tools that are not on PATH.
   # Real files, so the -x test they are found by means something.
   fake_prefix_tool 'opt/rustup/bin/rustup'
@@ -51,6 +61,7 @@ STUB
   : >"${WORK_DIR}/brew/opt/antidote/share/antidote/antidote.zsh"
 
   BREW="${WORK_DIR}/stubs/brew"
+  XCODE_SELECT="${WORK_DIR}/stubs/xcode-select"
   NPM="${WORK_DIR}/stubs/npm"
   GIT_BIN="${WORK_DIR}/stubs/git"
   NVIM_BIN="${WORK_DIR}/stubs/nvim"

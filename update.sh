@@ -419,6 +419,10 @@ main() {
   # no Homebrew on it, and every step below looks for its tool by name or under
   # the Homebrew prefix. Without this, six of the seven skip and the run still
   # exits 0, so the job log reads exactly like a machine that is up to date.
+  #
+  # brew refuses to run at all while the selected Xcode's license is
+  # unaccepted, which a major macOS upgrade resets, so that comes first.
+  accept_xcode_license
   brew_shellenv || warn "no Homebrew found; most steps will skip"
 
   # A prompt nobody is there to answer is a hung job rather than a failed one,
