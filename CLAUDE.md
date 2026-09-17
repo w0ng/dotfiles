@@ -64,7 +64,9 @@ from elsewhere. Renaming a helper here can break `update.sh` while that suite
 stays green, so run `bash tests/update_test.sh` as well.
 
 `tests/sketchybar_test.sh` does the same for the AeroSpace bar driver, so run
-it after editing `sketchybar/.config/sketchybar/`. `tests/lint_test.sh` is the
+it after editing `sketchybar/.config/sketchybar/`. It also gates the border
+width and the gaps in `aerospace/.config/aerospace/aerospace.toml` against the
+bar's `height=`, so run it after changing those. `tests/lint_test.sh` is the
 style gate for every bash, zsh, Python and Lua file here, so run it after
 editing any of them. Every suite takes its assertions and runner from
 `tests/harness.sh`.
