@@ -789,6 +789,12 @@ test_ai_the_driver_repaints_before_a_contributor_can_expire() {
   fi
 }
 
+# Reads one `gaps.<key>` integer out of aerospace.toml. Shared by the geometry
+# test below so that six near-identical sed patterns cannot drift apart.
+aerospace_gap() {
+  sed -n "s/^gaps\.$2[[:space:]]*=[[:space:]]*\([0-9]*\).*/\1/p" "$1"
+}
+
 # The gap geometry spans two packages: JankyBorders' `width=` and the six gap
 # values in aerospace.toml, against `height=` here. aerospace.toml states the
 # rule in prose and concedes nothing derives one from the other, so this is the
@@ -798,12 +804,16 @@ test_ai_the_driver_repaints_before_a_contributor_can_expire() {
 test_aerospace_gaps_match_the_border_width_and_bar_height() {
   local toml="${REPO_ROOT}/aerospace/.config/aerospace/aerospace.toml"
   local rc="${REPO_ROOT}/sketchybar/.config/sketchybar/sketchybarrc"
-  local width height inner outer top_builtin top_external drift
+  local width height top_builtin top_external drift
+  local inner_h inner_v outer_l outer_b outer_r
 
   width="$(sed -n "s/^[[:space:]]*'exec-and-forget borders .*width=\([0-9.]*\).*/\1/p" "${toml}")"
   height="$(sed -n 's/^[[:space:]]*height=\([0-9]*\).*/\1/p' "${rc}" | head -1)"
-  inner="$(sed -n 's/^gaps\.inner\.horizontal[[:space:]]*=[[:space:]]*\([0-9]*\).*/\1/p' "${toml}")"
-  outer="$(sed -n 's/^gaps\.outer\.left[[:space:]]*=[[:space:]]*\([0-9]*\).*/\1/p' "${toml}")"
+  inner_h="$(aerospace_gap "${toml}" 'inner\.horizontal')"
+  inner_v="$(aerospace_gap "${toml}" 'inner\.vertical')"
+  outer_l="$(aerospace_gap "${toml}" 'outer\.left')"
+  outer_b="$(aerospace_gap "${toml}" 'outer\.bottom')"
+  outer_r="$(aerospace_gap "${toml}" 'outer\.right')"
   top_builtin="$(sed -n 's/^gaps\.outer\.top.*built-in"[[:space:]]*=[[:space:]]*\([0-9]*\).*/\1/p' "${toml}")"
   top_external="$(sed -n 's/^gaps\.outer\.top.*},[[:space:]]*\([0-9]*\).*/\1/p' "${toml}")"
 
@@ -811,18 +821,23 @@ test_aerospace_gaps_match_the_border_width_and_bar_height() {
   # a pattern that matched prose as well as the setting yields two lines, which
   # awk truncates to the first. Both have to fail loudly instead.
   local anchor
-  for anchor in width height inner outer top_builtin top_external; do
+  for anchor in width height inner_h inner_v outer_l outer_b outer_r \
+    top_builtin top_external; do
     if [[ ! "${!anchor}" =~ ^[0-9]+(\.[0-9]+)?$ ]]; then
       fail "anchor ${anchor} did not parse to one number: [${!anchor}]"
       return
     fi
   done
 
-  drift="$(awk -v w="${width}" -v h="${height}" -v i="${inner}" -v o="${outer}" \
-    -v tb="${top_builtin}" -v te="${top_external}" 'BEGIN {
+  drift="$(awk -v w="${width}" -v h="${height}" -v ih="${inner_h}" \
+    -v iv="${inner_v}" -v ol="${outer_l}" -v ob="${outer_b}" \
+    -v orr="${outer_r}" -v tb="${top_builtin}" -v te="${top_external}" 'BEGIN {
       half = w / 2
-      if (i != w) printf "inner %s is not width %s; ", i, w
-      if (o != half) printf "outer %s is not half-width %s; ", o, half
+      if (ih != w) printf "inner.horizontal %s is not width %s; ", ih, w
+      if (iv != w) printf "inner.vertical %s is not width %s; ", iv, w
+      if (ol != half) printf "outer.left %s is not half-width %s; ", ol, half
+      if (ob != half) printf "outer.bottom %s is not half-width %s; ", ob, half
+      if (orr != half) printf "outer.right %s is not half-width %s; ", orr, half
       if (tb != half) printf "built-in top %s is not half-width %s; ", tb, half
       if (te != h + half) printf "external top %s is not bar %s plus half-width %s; ", te, h, half
     }')"
