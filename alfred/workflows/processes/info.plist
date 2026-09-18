@@ -47,6 +47,32 @@
 				<false/>
 			</dict>
 		</array>
+		<key>D4F3A6B5-9E7A-4C4D-8B5F-2A4E9D3C5F93</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>B2D1E4F3-7C5E-4A2B-8F3D-6E4C9B2A0D71</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>E5A4B7C6-AF8B-4D5E-9C6A-3B5F1E4D6A04</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>B2D1E4F3-7C5E-4A2B-8F3D-6E4C9B2A0D71</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 	</dict>
 	<key>createdby</key>
 	<string>w0ng</string>
@@ -222,11 +248,156 @@ echo '{"items":[{"title":"No python3 found","subtitle":"brew install python","va
 			<key>version</key>
 			<integer>3</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>topp</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string></string>
+				<key>script</key>
+				<string># /usr/bin/python3 is a Command Line Tools shim that can prompt for an install.
+# Alfred spawns this from the GUI with a minimal PATH, where that prompt is
+# invisible and the filter just returns nothing, so prefer a real interpreter.
+# The query goes in as an argument, never through a shell.
+for py in /opt/homebrew/bin/python3 /usr/local/bin/python3 /usr/bin/python3; do
+  [[ -x "${py}" ]] &amp;&amp; exec "${py}" procs.py -p "$1"
+done
+echo '{"items":[{"title":"No python3 found","subtitle":"brew install python","valid":false}]}'
+</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>Busiest first, frozen  ·  -m by memory</string>
+				<key>title</key>
+				<string>Top Processes (Paused)</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>D4F3A6B5-9E7A-4C4D-8B5F-2A4E9D3C5F93</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>topmp</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string></string>
+				<key>script</key>
+				<string># /usr/bin/python3 is a Command Line Tools shim that can prompt for an install.
+# Alfred spawns this from the GUI with a minimal PATH, where that prompt is
+# invisible and the filter just returns nothing, so prefer a real interpreter.
+# The query goes in as an argument, never through a shell.
+for py in /opt/homebrew/bin/python3 /usr/local/bin/python3 /usr/bin/python3; do
+  [[ -x "${py}" ]] &amp;&amp; exec "${py}" procs.py -m -p "$1"
+done
+echo '{"items":[{"title":"No python3 found","subtitle":"brew install python","valid":false}]}'
+</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>Largest first, frozen</string>
+				<key>title</key>
+				<string>Top Processes by Memory (Paused)</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>E5A4B7C6-AF8B-4D5E-9C6A-3B5F1E4D6A04</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>action</key>
+				<integer>1</integer>
+				<key>argument</key>
+				<integer>3</integer>
+				<key>focusedappvariable</key>
+				<false/>
+				<key>focusedappvariablename</key>
+				<string></string>
+				<key>hotkey</key>
+				<integer>0</integer>
+				<key>hotmod</key>
+				<integer>0</integer>
+				<key>hotstring</key>
+				<string></string>
+				<key>leftcursor</key>
+				<false/>
+				<key>modsmode</key>
+				<integer>0</integer>
+				<key>relatedAppsMode</key>
+				<integer>0</integer>
+				<key>text</key>
+				<string>top </string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.trigger.hotkey</string>
+			<key>uid</key>
+			<string>F6B5C8D7-BA9C-4E6F-AD7B-4C6A2F5E7B15</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
 	</array>
 	<key>readme</key>
-	<string>Keywords: top, topm
+	<string>Keywords: top, topm, topp, topmp
 
-`topm` is `top -m`, the same list sorted by resident memory.
+`topm` is `top -m`, the same list sorted by resident memory. `topp` and
+`topmp` are those two with the refresh already paused, so the arrow keys
+reach a row without typing -p first.
 
 Lists this user's processes the way Activity Monitor does, one row per
 process, busiest first. A row is a single PID, and a selection signals
@@ -243,22 +414,38 @@ Flags go anywhere in the query and combine:
   -pm  both, as in `top -pm` or `top -pm brave`
 
 The list refreshes about once a second. Every refresh rebuilds it and
-Alfred resets the selection to the first row, so use -p when you need the
-arrow keys to reach a row further down.
+Alfred resets the selection to the first row, so use -p, or the topp and
+topmp keywords, when you need the arrow keys to reach a row further down.
+
+Matching is fzf's. A term matches as a substring anywhere in the row, or
+letter by letter in order against the process name, so `bravhelp` finds
+Brave Browser Helper. Order never changes to suit the match: these lists
+sort by load, and fzf's ranking is what a fuzzy match usually pays with.
+Prefix a term with ' to match it exactly, which is worth it for a short
+term like ssh that a loose match finds everywhere.
 
 CPU is a measured rate rather than the decaying minute-long average that
-ps reports, taken by differencing two samples of cumulative CPU time. Row
-order is pinned when the list opens, so a refresh never moves the row
-under the cursor onto another process.
+ps reports, taken by differencing two samples of cumulative CPU time. Rows
+re-sort on every refresh, so a busy row rises as it turns busy; pausing is
+what holds them still.
 
 The list holds only processes this user can signal, so a selection never
 fails silently against a root process. The notification reports whatever
 does fail, counting anything that could not be signalled.
 
-To set a hotkey, add a Hotkey object in Alfred's editor. Anything
-configured there survives a re-run of bootstrap.sh.</string>
+Set the hotkey on the Hotkey object; it shows Alfred pre-filled with
+'top '. A binding recorded there survives a re-run of bootstrap.sh.</string>
 	<key>uidata</key>
 	<dict>
+		<key>F6B5C8D7-BA9C-4E6F-AD7B-4C6A2F5E7B15</key>
+		<dict>
+			<key>colorindex</key>
+			<integer>3</integer>
+			<key>xpos</key>
+			<integer>40</integer>
+			<key>ypos</key>
+			<integer>640</integer>
+		</dict>
 		<key>A1C0F3E2-6B4D-4F1A-9E2C-7D5B8A3F1C60</key>
 		<dict>
 			<key>xpos</key>
@@ -287,13 +474,27 @@ configured there survives a re-run of bootstrap.sh.</string>
 			<key>ypos</key>
 			<integer>40</integer>
 		</dict>
+		<key>D4F3A6B5-9E7A-4C4D-8B5F-2A4E9D3C5F93</key>
+		<dict>
+			<key>xpos</key>
+			<integer>40</integer>
+			<key>ypos</key>
+			<integer>340</integer>
+		</dict>
+		<key>E5A4B7C6-AF8B-4D5E-9C6A-3B5F1E4D6A04</key>
+		<dict>
+			<key>xpos</key>
+			<integer>40</integer>
+			<key>ypos</key>
+			<integer>490</integer>
+		</dict>
 	</dict>
 	<key>variables</key>
 	<dict/>
 	<key>variablesdontexport</key>
 	<array/>
 	<key>version</key>
-	<string>2.4</string>
+	<string>2.6</string>
 	<key>webaddress</key>
 	<string>https://github.com/w0ng/dotfiles</string>
 </dict>
