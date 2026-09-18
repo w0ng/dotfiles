@@ -1,8 +1,5 @@
 {
   "permissions": {
-    "deny": [
-      "Skill(mattpocock-skills:*)"
-    ],
     "defaultMode": "auto"
   },
   "model": "opus",
