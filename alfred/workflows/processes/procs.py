@@ -14,6 +14,13 @@ refresh rebuilds the list, and Alfred resets the selection to the first row
 when it does, so arrow keys cannot reach anything further down while a refresh
 is pending. -p pauses it for long enough to walk down the rows.
 
+A paused list still asks for one refresh when it has no baseline to measure CPU
+against. Rates come from differencing two samples, so a first run has nothing to
+difference and falls back to the decaying average this design exists to avoid;
+pausing outright would make that fallback permanent, and the topp and topmp
+keywords open paused every time. The one rerun buys the second sample and then
+stops, because by then there is a baseline.
+
 -p rather than -s or -f. -s would read as sort next to -m, and -f reads as
 force beside an action that kills. btop calls the same control pause.
 
@@ -39,6 +46,26 @@ Two things that column cannot tell you are kept anyway:
     in the subtitle, and a query matches against it, so typing it finds those
     rows. A .framework path before the .app marks an interpreter's stub bundle,
     which is why Python.app is never mistaken for an app.
+
+Matching is fzf's, used to filter and never to sort. A term matches as a
+substring anywhere in the row, or as a subsequence of the process and script
+names, so `bravhelp` reaches `Brave Browser Helper`. A subsequence is confined
+to those two names because fzf pays for a loose match by ranking, and the order
+here belongs to the load. Measured against the whole row, which carries the
+path, `ssh` matches 289 of 806 rows rather than 1, and `brave` 501. Against the
+names alone `ssh` is 33, and a leading ' makes a term exact, as it does in fzf.
+
+Substring matches come before subsequence-only ones, which is the whole of the
+ordering this matching imposes. Within each group the rows stay in load order,
+so nothing that matched before a fuzzy term could reach it has moved relative to
+anything else, and a loose match adds rows below rather than shuffling the list.
+That is as far as it goes: `ssh` still returns 33 rows, and the exact operator
+is what cuts them to 1.
+
+Spawning fzf itself would buy its operators and cost the rest. `fzf -f` ranks
+what it emits, which is the half of fzf this list cannot use, and every rerun
+would wait on another binary resolved from the minimal PATH Alfred hands a GUI
+process.
 
 CPU is measured, not read. The %cpu that ps reports is a decaying average over
 up to a minute, so a process that finished a burst 30 seconds ago still reads
@@ -269,7 +296,11 @@ def collect():
 
 
 def measure(rows, sort):
-    """Replace the decaying average with a true rate where two samples exist."""
+    """Replace the decaying average with a true rate where two samples exist.
+
+    Returns the rows and whether the cache could supply a rate at all, which is
+    what a paused list waits for before it stops asking to be refreshed.
+    """
     cached = load_cache() or {}
     previous = cached.get("cputime") or {}
     rates = cached.get("rate") or {}
@@ -279,6 +310,12 @@ def measure(rows, sort):
     # something. Between those, the last rate carries forward, which is what
     # stops the numbers flickering while the user types.
     fresh = elapsed >= MIN_SAMPLE
+    # Whether anything at all can be measured this run, rather than whether every
+    # row was: a process that started since the last sample has no baseline of
+    # its own and falls back to the average, and on a machine running several
+    # hundred of them there is nearly always one. Waiting for all of them would
+    # keep a paused list refreshing forever.
+    baseline = bool(previous) or bool(rates)
 
     for row in rows:
         was = previous.get(row["pid"])
@@ -304,21 +341,56 @@ def measure(rows, sort):
         keep["at"] = cached.get("at")
         keep["cputime"] = previous
     save_cache(keep)
-    return rows
+    return rows, baseline
+
+
+def subsequence(term, hay):
+    """fzf's default match: every letter of the term, in order, gaps allowed."""
+    at = 0
+    for letter in term:
+        at = hay.find(letter, at)
+        if at < 0:
+            return False
+        at += 1
+    return True
 
 
 def matches(row, terms):
-    """Every term must appear somewhere in the row, in any order."""
-    hay = " ".join(
+    """How well every term matches: 0 substring, 1 subsequence, None not at all.
+
+    The rank is what keeps a fuzzy term additive. A row every term hits as a
+    substring is one this list would have returned before subsequence matching
+    existed, and it stays ahead of rows that only a subsequence reaches.
+    """
+    wide = " ".join(
         part for part in (row["name"], row["path"], row["pid"], row["script"]) if part
     ).lower()
-    return all(term in hay for term in terms)
+    narrow = " ".join(part for part in (row["name"], row["script"]) if part).lower()
+
+    rank = 0
+    for term in terms:
+        if term.startswith("'"):
+            if term[1:] not in wide:
+                return None
+        elif term in wide:
+            continue
+        elif subsequence(term, narrow):
+            rank = 1
+        else:
+            return None
+    return rank
 
 
 def items(query, sort):
-    rows = measure(collect(), sort)
+    """The rows to show, and whether a paused list still owes itself a sample."""
+    rows, baseline = measure(collect(), sort)
     terms = query.lower().split()
-    rows = [row for row in rows if matches(row, terms)]
+    if terms:
+        # Two passes rather than a sort, so the load order inside each group is
+        # the one measure() produced.
+        ranked = [(matches(row, terms), row) for row in rows]
+        rows = [row for rank, row in ranked if rank == 0]
+        rows += [row for rank, row in ranked if rank == 1]
 
     out = []
     for row in rows:
@@ -345,7 +417,7 @@ def items(query, sort):
                 },
             }
         )
-    return out
+    return out, not baseline
 
 
 def parse_args(argv):
@@ -376,7 +448,7 @@ def parse_args(argv):
 
 def main():
     sort, query, live = parse_args(sys.argv[1:])
-    found = items(query, sort)
+    found, pending = items(query, sort)
     if not found:
         found = [
             {
@@ -388,6 +460,10 @@ def main():
     response = {"items": found}
     if live:
         response["rerun"] = RERUN
+    elif pending:
+        # Paused with no baseline, so one more sample as soon as one is worth
+        # taking. The run after it has a rate and asks for nothing.
+        response["rerun"] = MIN_SAMPLE
     json.dump(response, sys.stdout)
 
 

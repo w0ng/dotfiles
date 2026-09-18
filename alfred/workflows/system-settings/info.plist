@@ -36,7 +36,7 @@
 			<key>config</key>
 			<dict>
 				<key>alfredfiltersresults</key>
-				<true/>
+				<false/>
 				<key>alfredfiltersresultsmatchmode</key>
 				<integer>0</integer>
 				<key>argumenttrimmode</key>
@@ -61,8 +61,9 @@
 				<string># /usr/bin/python3 is a Command Line Tools shim that can prompt for an install.
 # Alfred spawns this from the GUI with a minimal PATH, where that prompt is
 # invisible and the filter just returns nothing, so prefer a real interpreter.
+# The query goes in as an argument, never through a shell.
 for py in /opt/homebrew/bin/python3 /usr/local/bin/python3 /usr/bin/python3; do
-  [ -x "$py" ] &amp;&amp; exec "$py" panes.py
+  [[ -x "${py}" ]] &amp;&amp; exec "${py}" panes.py "$1"
 done
 echo '{"items":[{"title":"No python3 found","subtitle":"brew install python","valid":false}]}'
 </string>
@@ -149,6 +150,13 @@ echo '{"items":[{"title":"No python3 found","subtitle":"brew install python","va
 Searches macOS System Settings: every pane, and every individual setting
 Apple indexes, each opening the control directly.
 
+Matching is fzf's. A term matches as a substring of the row, including the
+alternate spellings Apple indexes, or letter by letter in order against the
+title, so `nightshift` finds Night Shift and `blth` finds Bluetooth. Prefix
+a term with ' to match it exactly, which is worth it for a short term like
+ssh that a loose match finds everywhere. Ordering is unchanged: panes
+before settings, and Alfred still floats whatever you action most.
+
 Set the hotkey on the Hotkey object; it shows Alfred pre-filled with 's '.
 For System Settings to stay out of Alfred's normal results, leave it
 unticked under Features &gt; Default Results &gt; Essentials.
@@ -186,7 +194,7 @@ github.com/w0ng/dotfiles - alfred/workflows/system-settings</string>
 	<key>variablesdontexport</key>
 	<array/>
 	<key>version</key>
-	<string>1.0</string>
+	<string>1.1</string>
 	<key>webaddress</key>
 	<string>https://github.com/w0ng/dotfiles</string>
 </dict>

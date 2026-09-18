@@ -19,6 +19,25 @@ after * instead, which System Settings ignores, so settings use the ? form. Pane
 rows keep the catalogue url exactly as Alfred wrote it, because behaving like
 Alfred's own row is the point of them and iCloud needs its :icloud suffix.
 
+Matching is this script's rather than Alfred's, and fzf's rather than word
+matching. A term matches as a substring of the row's match field, which is where
+Apple's alternate spellings land, or as a subsequence of the title, so
+`nightshift` reaches Night Shift and `blth` reaches Bluetooth. Subsequence
+matching stops at the title because fzf earns a loose match back by ranking and
+nothing here ranks: run over the match field, whose alternate spellings are
+exactly the long tail a subsequence walks through, `ssh` matches 204 of 634 rows
+rather than 2. Against titles it is 63, and a leading ' makes a term exact, as
+in fzf.
+
+Substring matches come before subsequence-only ones, so a loose term adds rows
+below the ones a plain search would have found rather than shuffling them
+together. `ssh` still returns 65 rows; Remote login is the first of them.
+
+Alfred does no filtering here, so the order below is the order it shows and its
+match-quality ranking does not apply. Every row still carries a uid, which is
+what Alfred learns against. Whether it reorders on that knowledge while the
+script filters is undocumented, so nothing here is built on it.
+
 Scanning ExtensionKit directly is the fallback for a catalogue that has moved or
 cannot be parsed. It costs the curation and the localised names, turning up panes
 macOS installs but only ever shows conditionally, under Apple's internal ones.
@@ -388,16 +407,94 @@ def store(path, key, payload):
             pass
 
 
+def subsequence(term, hay):
+    """fzf's default match: every letter of the term, in order, gaps allowed."""
+    at = 0
+    for letter in term:
+        at = hay.find(letter, at)
+        if at < 0:
+            return False
+        at += 1
+    return True
+
+
+def matches(item, terms):
+    """How well every term matches: 0 substring, 1 subsequence, None not at all.
+
+    The rank keeps a fuzzy term additive. A row every term hits as a substring is
+    one this list would have returned before subsequence matching existed, and it
+    stays ahead of the rows only a subsequence reaches.
+    """
+    wide = (item.get("match") or item["title"]).lower()
+    narrow = item["title"].lower()
+
+    rank = 0
+    for term in terms:
+        if term.startswith("'"):
+            if term[1:] not in wide:
+                return None
+        elif term in wide:
+            continue
+        elif subsequence(term, narrow):
+            rank = 1
+        else:
+            return None
+    return rank
+
+
+def filter_payload(payload, query):
+    """Keep the rows a query matches, in the order the payload already holds.
+
+    An empty query is handed back untouched, so opening the list streams the
+    bytes the cache holds without parsing them. Filtering one parses and
+    re-serialises 634 rows, measured at 1.1ms. Alfred re-runs this script on each
+    keystroke now that it does not filter, so that 1.1ms rides on top of the
+    ~45ms of Python startup every keystroke already costs.
+    """
+    terms = query.lower().split()
+    if not terms:
+        return payload
+
+    try:
+        items = json.loads(payload)["items"]
+    except (ValueError, KeyError):
+        # A cache corrupted by anything outside store() would otherwise raise
+        # through Alfred as a traceback, on every keystroke, and the same bytes
+        # are read again next run. Handing it back costs no more than the
+        # unfiltered path already does with the same file.
+        return payload
+
+    # One row that cannot be actioned is a diagnostic, not a result: it carries
+    # why this run found nothing, and filtering it out would replace the reason
+    # with "nothing matches".
+    if len(items) == 1 and not items[0].get("valid", True):
+        return payload
+
+    ranked = [(matches(item, terms), item) for item in items]
+    kept = [item for rank, item in ranked if rank == 0]
+    kept += [item for rank, item in ranked if rank == 1]
+    if not kept:
+        kept = [
+            {
+                "title": "No matching setting",
+                "subtitle": "Nothing in System Settings matches that",
+                "valid": False,
+            }
+        ]
+    return json.dumps({"items": kept}).encode()
+
+
 def main():
     keys = locale_keys()
     catalog = catalog_path()
+    query = " ".join(sys.argv[1:])
 
     path = cache_file()
     key = cache_key(catalog, keys) if path else ""
     if path:
         payload = cached(path, key)
         if payload:
-            sys.stdout.buffer.write(payload)
+            sys.stdout.buffer.write(filter_payload(payload, query))
             return
 
     rows = []
@@ -427,8 +524,8 @@ def main():
     rows = unique
 
     # Panes first, then settings, each alphabetical: searching for a pane should
-    # not have to scroll past its own settings. Alfred reorders by match quality
-    # on top of this, so it decides ties rather than the final order.
+    # not have to scroll past its own settings. Alfred does not filter these, so
+    # this is the order it shows.
     rows.sort(key=lambda row: (not row[0], row[1]["title"].lower()))
     items = [item for _, item in rows]
 
@@ -450,7 +547,7 @@ def main():
     payload = json.dumps({"items": items}).encode()
     if path:
         store(path, key, payload)
-    sys.stdout.buffer.write(payload)
+    sys.stdout.buffer.write(filter_payload(payload, query))
 
 
 main()
