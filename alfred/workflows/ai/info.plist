@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>com.w0ng.ai</string>
+	<key>category</key>
+	<string>Productivity</string>
+	<key>connections</key>
+	<dict>
+		<key>C1A9E3F0-5B71-4D2A-9E44-1F6B2C8D0A11</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>C1A9E3F0-5B71-4D2A-9E44-1F6B2C8D0A12</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>C1A9E3F0-5B71-4D2A-9E44-1F6B2C8D0A21</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>C1A9E3F0-5B71-4D2A-9E44-1F6B2C8D0A22</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>w0ng</string>
+	<key>description</key>
+	<string>Ask Claude and ChatGPT the same thing at once, in a new chat or in the chat each app already has open.</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Ask AI</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>keyword</key>
+				<string>nai</string>
+				<key>subtext</key>
+				<string>Opens a new chat in both and sends the question</string>
+				<key>text</key>
+				<string>New AI chat</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>C1A9E3F0-5B71-4D2A-9E44-1F6B2C8D0A11</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>script</key>
+				<string># /usr/bin/python3 is a Command Line Tools shim that can prompt for an install.
+# Alfred spawns this from the GUI with a minimal PATH, where that prompt is
+# invisible and nothing happens at all, so prefer a real interpreter.
+# The query goes in as an argument, never through a shell.
+for py in /opt/homebrew/bin/python3 /usr/local/bin/python3 /usr/bin/python3; do
+  [[ -x "${py}" ]] &amp;&amp; exec "${py}" ai.py new "$1"
+done
+/usr/bin/osascript -e 'display notification "No python3 found" with title "Ask AI" subtitle "brew install python"'
+</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>C1A9E3F0-5B71-4D2A-9E44-1F6B2C8D0A12</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>keyword</key>
+				<string>ai</string>
+				<key>subtext</key>
+				<string>Sends the text to the chat both apps already have open</string>
+				<key>text</key>
+				<string>Ask the open AI chats</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>C1A9E3F0-5B71-4D2A-9E44-1F6B2C8D0A21</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>script</key>
+				<string># /usr/bin/python3 is a Command Line Tools shim that can prompt for an install.
+# Alfred spawns this from the GUI with a minimal PATH, where that prompt is
+# invisible and nothing happens at all, so prefer a real interpreter.
+# The query goes in as an argument, never through a shell.
+for py in /opt/homebrew/bin/python3 /usr/local/bin/python3 /usr/bin/python3; do
+  [[ -x "${py}" ]] &amp;&amp; exec "${py}" ai.py existing "$1"
+done
+/usr/bin/osascript -e 'display notification "No python3 found" with title "Ask AI" subtitle "brew install python"'
+</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>C1A9E3F0-5B71-4D2A-9E44-1F6B2C8D0A22</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string>Keywords: nai, ai
+
+`nai &lt;question&gt;` opens a new chat in both Claude and ChatGPT and sends
+the question. With no question it opens an empty new chat in each.
+
+`ai &lt;text&gt;` sends the text to the chat each app already has open,
+rather than starting a new one.
+
+An app that is not running is skipped and named in a notification. `nai`
+still opens its empty new chat there, but nothing is typed into an app that
+may still be showing a sign-in or update screen.
+
+Neither app submits text handed to it on a URL, so both keywords press
+Escape, clear the composer, type the text and press Return. `nai` opens its
+empty new chat by URL first. Each app comes briefly to the front, because a
+keystroke goes to whatever is frontmost. The clipboard is left alone.
+
+The Run Script objects set escaping to 0 rather than Alfred's 102, which
+the sibling workflows use. Both take the text as argv via scriptargtype 1
+and never interpolate it into the script, so escaping cannot help here and
+would corrupt prose. Anything switching them to {query} must restore 102.
+
+ai.py explains the rest.</string>
+	<key>uidata</key>
+	<dict>
+		<key>C1A9E3F0-5B71-4D2A-9E44-1F6B2C8D0A11</key>
+		<dict>
+			<key>xpos</key>
+			<integer>60</integer>
+			<key>ypos</key>
+			<integer>60</integer>
+		</dict>
+		<key>C1A9E3F0-5B71-4D2A-9E44-1F6B2C8D0A12</key>
+		<dict>
+			<key>xpos</key>
+			<integer>300</integer>
+			<key>ypos</key>
+			<integer>60</integer>
+		</dict>
+		<key>C1A9E3F0-5B71-4D2A-9E44-1F6B2C8D0A21</key>
+		<dict>
+			<key>xpos</key>
+			<integer>60</integer>
+			<key>ypos</key>
+			<integer>200</integer>
+		</dict>
+		<key>C1A9E3F0-5B71-4D2A-9E44-1F6B2C8D0A22</key>
+		<dict>
+			<key>xpos</key>
+			<integer>300</integer>
+			<key>ypos</key>
+			<integer>200</integer>
+		</dict>
+	</dict>
+	<key>version</key>
+	<string>1.0</string>
+	<key>webaddress</key>
+	<string></string>
+</dict>
+</plist>

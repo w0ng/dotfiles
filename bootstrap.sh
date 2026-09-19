@@ -852,6 +852,9 @@ mod_alfred() {
   # the first interpreter present, so this works before that module has run.
   install_alfred_workflow system-settings
   install_alfred_workflow processes
+  # Installed on work machines too, even though personal_cask skips Claude and
+  # ChatGPT there. Device management installs both apps instead of Homebrew.
+  install_alfred_workflow ai
 }
 
 mod_core() {

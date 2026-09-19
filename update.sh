@@ -146,6 +146,7 @@ step_alfred() {
   step "alfred"
   install_alfred_workflow system-settings
   install_alfred_workflow processes
+  install_alfred_workflow ai
 }
 
 step_brew() {
