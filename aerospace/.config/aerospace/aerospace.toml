@@ -34,7 +34,7 @@ after-startup-command = [
   'exec-and-forget sketchybar --trigger aerospace_change',
 ]
 
-start-at-login = false
+start-at-login = true
 auto-reload-config = true
 
 enable-normalization-flatten-containers = true
